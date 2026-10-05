@@ -37,6 +37,8 @@ The catalog contains **229 stories**, **72 reusable components/patterns/sections
 
 ## Reuse and extend
 
+Agents must follow [AGENTS.md](AGENTS.md): UI/UX changes in a consuming application also update this design system's implementation, stories and contracts. When onboarding a successor repository, merge the [consumer agent instruction](docs/CONSUMER-AGENTS.md) into its root `AGENTS.md` so agents discover this requirement from either repository.
+
 The successor implementation lives in `src/components`, `src/patterns`, `src/sections` and `src/pages`. The public source barrel is `src/index.ts`; shared styling is `src/styles/tokens.css` and `src/styles/system.css`. There is no dependency on the original Arbol checkout.
 
 Read [implementation decisions and boundaries](docs/IMPLEMENTATION.md) before adapting these components to production. See [design coverage](docs/COVERAGE.md) for the chapter-to-catalog map. The original code in `heritage/` is reference evidence, not the successor API.
