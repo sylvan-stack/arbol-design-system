@@ -1,0 +1,1067 @@
+[
+  {
+    "source": "renderer/apps/artifact/src/App.svelte",
+    "story": "pages-artifact-detached-document--default",
+    "disposition": "Workspace composition"
+  },
+  {
+    "source": "renderer/apps/elma/e2e/ActivityGraphFixture.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/apps/elma/e2e/EntityComposerFixture.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/apps/elma/e2e/LargePasteComposerFixture.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/apps/elma/e2e/ResponseAutoscrollFixture.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/apps/elma/src/App.svelte",
+    "story": "pages-elma-conversation--default",
+    "disposition": "Workspace composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/ElmaChatGlyph.svelte",
+    "story": "components-workspaceglyph--default",
+    "disposition": "Consolidated identity or action glyph"
+  },
+  {
+    "source": "renderer/apps/elma/src/ElmaHeaderAnimationPreview.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/apps/elma/src/ElmaHeaderTitle.svelte",
+    "story": "sections-turnnavigator--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/ElmaLeafGlyph.svelte",
+    "story": "components-workspaceglyph--default",
+    "disposition": "Consolidated identity or action glyph"
+  },
+  {
+    "source": "renderer/apps/elma/src/ElmaStatusBar.svelte",
+    "story": "sections-agentstatus--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/ErrorBoundary.svelte",
+    "story": "components-asyncfeedback--error",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/FontSizeControl.svelte",
+    "story": "patterns-preferences--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/RenderErrorCard.svelte",
+    "story": "components-asyncfeedback--error",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/RepoGlyph.svelte",
+    "story": "components-workspaceglyph--default",
+    "disposition": "Consolidated identity or action glyph"
+  },
+  {
+    "source": "renderer/apps/elma/src/WorktreeDiffMode.svelte",
+    "story": "sections-reviewworkspace--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/WorktreePicker.svelte",
+    "story": "patterns-entitypicker--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/change-walkthrough/ChangeFileRail.svelte",
+    "story": "sections-reviewworkspace--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/change-walkthrough/ChangeWalkthroughPage.svelte",
+    "story": "sections-reviewworkspace--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/change-walkthrough/CodeVersionView.svelte",
+    "story": "sections-reviewworkspace--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/change-walkthrough/UnifiedDiff.svelte",
+    "story": "sections-reviewworkspace--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/change-walkthrough/WalkthroughTargetPicker.svelte",
+    "story": "patterns-entitypicker--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/ActionButton.svelte",
+    "story": "components-button--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/ActivityGraphPanel.svelte",
+    "story": "sections-activitygraph--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/AgentStatusBar.svelte",
+    "story": "sections-agentstatus--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/AnswerBeacon.svelte",
+    "story": "sections-agentstatus--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/AnswerThreshold.svelte",
+    "story": "sections-response--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/ApprovalDock.svelte",
+    "story": "patterns-permissionrequest--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/ArbolSheen.svelte",
+    "story": "foundations-motion-and-layers--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/AskUserQuestionCard.svelte",
+    "story": "sections-askuserquestion--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/AttachedContext.svelte",
+    "story": "sections-attachmentstrip--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/ChatTagStrip.svelte",
+    "story": "sections-stationsummary--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/Composer.svelte",
+    "story": "sections-composer--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/ContextStrip.svelte",
+    "story": "sections-attachmentstrip--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/CopyButton.svelte",
+    "story": "components-iconbutton--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/EntityCardChatNoteStoryPreview.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/EntityComposerInput.svelte",
+    "story": "sections-composer--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/EntityComposerStoryPreview.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/FinalAnswerArtwork.svelte",
+    "story": "sections-finalanswerartwork--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/FinalAnswerMark.svelte",
+    "story": "sections-response--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/FinalAnswerProposalIcon.svelte",
+    "story": "sections-finalanswerartwork--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/FinalAnswerProposalsPreview.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/HistoryOverlay.svelte",
+    "story": "sections-historytree--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/LifecycleLog.svelte",
+    "story": "sections-threadinspector--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/MessageImages.svelte",
+    "story": "sections-attachmentstrip--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/NativeToolCallRow.svelte",
+    "story": "sections-toolcall--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/NativeToolRuntimeTimer.svelte",
+    "story": "sections-toolcall--running",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/PinnedMessage.svelte",
+    "story": "sections-pinnedmessage--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/ResponseView.svelte",
+    "story": "sections-response--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/SidePanel.svelte",
+    "story": "patterns-documentview--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/SplitColumns.svelte",
+    "story": "patterns-workspaceshell--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/TagChatDialog.svelte",
+    "story": "patterns-entityeditor--edit",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/ThinkingBlock.svelte",
+    "story": "sections-response--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/ThreadInspector.svelte",
+    "story": "sections-threadinspector--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/ToolApprovalCard.svelte",
+    "story": "patterns-permissionrequest--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/TurnStepper.svelte",
+    "story": "sections-turnnavigator--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/branching/BranchComposeBanner.svelte",
+    "story": "sections-turnnavigator--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/branching/BranchIcon.svelte",
+    "story": "components-iconbutton--default",
+    "disposition": "Consolidated identity or action glyph"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/branching/BranchStepArrow.svelte",
+    "story": "sections-turnnavigator--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/branching/BranchSwitcher.svelte",
+    "story": "sections-turnnavigator--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/branching/ConfirmDialog.svelte",
+    "story": "patterns-confirmaction--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/branching/PencilIcon.svelte",
+    "story": "components-iconbutton--default",
+    "disposition": "Consolidated identity or action glyph"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/branching/PinIconBtn.svelte",
+    "story": "components-iconbutton--default",
+    "disposition": "Consolidated identity or action glyph"
+  },
+  {
+    "source": "renderer/apps/elma/src/chat/branching/TrashIcon.svelte",
+    "story": "components-iconbutton--default",
+    "disposition": "Consolidated identity or action glyph"
+  },
+  {
+    "source": "renderer/apps/elma/src/nav/FolderGlyph.svelte",
+    "story": "components-workspaceglyph--default",
+    "disposition": "Consolidated identity or action glyph"
+  },
+  {
+    "source": "renderer/apps/elma/src/nav/HotkeyRow.svelte",
+    "story": "components-kbdhint--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/nav/MetaCockpit.svelte",
+    "story": "sections-threadinspector--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/nav/NavKeys.svelte",
+    "story": "components-kbdhint--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/nav/NavSep.svelte",
+    "story": "components-divider--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/nav/NavigationPanel.svelte",
+    "story": "patterns-workspaceshell--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/pages/ElmaPage.svelte",
+    "story": "pages-elma-conversation--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/quick/CheckCircleIcon.svelte",
+    "story": "components-iconbutton--default",
+    "disposition": "Consolidated identity or action glyph"
+  },
+  {
+    "source": "renderer/apps/elma/src/quick/CopyIcon.svelte",
+    "story": "components-iconbutton--default",
+    "disposition": "Consolidated identity or action glyph"
+  },
+  {
+    "source": "renderer/apps/elma/src/quick/QuickActionRow.svelte",
+    "story": "patterns-actionpopover--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/quick/QuickActions.svelte",
+    "story": "patterns-actionpopover--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/elma/src/quick/Toast.svelte",
+    "story": "components-toast--default",
+    "disposition": "Dedicated successor component"
+  },
+  {
+    "source": "renderer/apps/elma/src/quick/WhatsWrongIcon.svelte",
+    "story": "components-iconbutton--default",
+    "disposition": "Consolidated identity or action glyph"
+  },
+  {
+    "source": "renderer/apps/oaken/src/App.svelte",
+    "story": "pages-oaken-swimlanes--default",
+    "disposition": "Workspace composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/CompactApp.svelte",
+    "story": "pages-oaken-compact-panel--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/CompactSwimlanesPanel.svelte",
+    "story": "sections-timelineboard--compact",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/NewSwimlaneModal.svelte",
+    "story": "sections-timelineboard--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/RenameSwimlaneModal.svelte",
+    "story": "patterns-entityeditor--edit",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/SetWallModal.svelte",
+    "story": "components-deadlinefield--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/SwimlanePickerModal.svelte",
+    "story": "patterns-entitypicker--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/TimePicker.svelte",
+    "story": "components-datetimeinput--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/WallPicker.svelte",
+    "story": "components-deadlinefield--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/components/FontSizeControl.svelte",
+    "story": "patterns-preferences--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/components/HeaderBtn.svelte",
+    "story": "components-iconbutton--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/components/Seg.svelte",
+    "story": "components-tabs--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/pages/SwimlaneDetails.svelte",
+    "story": "sections-swimlanedetails--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/pages/Swimlanes.svelte",
+    "story": "heritage-interactive-oaken-board--all-elements",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/pages/SwimlanesStoryPreview.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/apps/oaken/src/pages/Tasks.svelte",
+    "story": "pages-oaken-grafts--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/tasks/GraftModal.svelte",
+    "story": "patterns-entityeditor--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/tasks/GraftsPage.svelte",
+    "story": "pages-oaken-grafts--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/tasks/JiraFetchLogs.svelte",
+    "story": "sections-monitoring--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/tasks/JiraPage.svelte",
+    "story": "pages-oaken-jira--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/tasks/JiraTicketDetails.svelte",
+    "story": "patterns-detailpane--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/tasks/JiraTicketEditModal.svelte",
+    "story": "pages-oaken-jira--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/tasks/MergeRequestReview.svelte",
+    "story": "sections-reviewworkspace--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/tasks/MergeRequestsPage.svelte",
+    "story": "pages-oaken-merge-requests--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/oaken/src/tasks/TaskNavigation.svelte",
+    "story": "patterns-workspaceshell--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/App.svelte",
+    "story": "pages-seqoya-dashboard--default",
+    "disposition": "Workspace composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/CommandPalette.svelte",
+    "story": "patterns-commandpalette--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/SeqoyaGlyph.svelte",
+    "story": "components-workspaceglyph--default",
+    "disposition": "Consolidated identity or action glyph"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/components/ActivityDetails.svelte",
+    "story": "sections-monitoring--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/components/RepoSection.svelte",
+    "story": "patterns-collection--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/nav/NavigationPanel.svelte",
+    "story": "patterns-workspaceshell--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/nav/RepoPicker.svelte",
+    "story": "components-combobox--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/Artifacts.svelte",
+    "story": "pages-seqoya-artifacts--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/Blueprints.svelte",
+    "story": "pages-seqoya-blueprints--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/BrainRecipes.svelte",
+    "story": "pages-seqoya-brain-recipes--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/ChunksViewer.svelte",
+    "story": "pages-seqoya-chunks-viewer--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/Dashboard.svelte",
+    "story": "sections-dashboard--default",
+    "disposition": "Dedicated successor component"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/EventMonitor.svelte",
+    "story": "sections-monitoring--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/FeatureToggles.svelte",
+    "story": "pages-seqoya-feature-toggles--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/IntelligenceProviders.svelte",
+    "story": "pages-seqoya-intelligence-providers--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/IpCard.svelte",
+    "story": "sections-providersettings--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/LivingTopics.svelte",
+    "story": "pages-seqoya-living-topics--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/LogJournal.svelte",
+    "story": "sections-monitoring--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/Monitoring.svelte",
+    "story": "sections-monitoring--default",
+    "disposition": "Dedicated successor component"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/Organizations.svelte",
+    "story": "pages-seqoya-organizations--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/ProviderGlyph.svelte",
+    "story": "components-workspaceglyph--default",
+    "disposition": "Consolidated identity or action glyph"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/QuickText.svelte",
+    "story": "pages-seqoya-quick-text--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/Reactions.svelte",
+    "story": "pages-seqoya-reactions--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/Refresher.svelte",
+    "story": "pages-seqoya-refresher--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/Repos.svelte",
+    "story": "pages-seqoya-repos--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/Retrieval.svelte",
+    "story": "pages-seqoya-retrieval--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/Secrets.svelte",
+    "story": "pages-seqoya-secrets--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/Stewardship.svelte",
+    "story": "pages-seqoya-stewardship--default",
+    "disposition": "Workspace page composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/SubscriptionRow.svelte",
+    "story": "sections-providersettings--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/seqoya/src/pages/ip-edit/IntelligenceProviderEditModal.svelte",
+    "story": "sections-providersettings--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/App.svelte",
+    "story": "pages-willo-stations--default",
+    "disposition": "Workspace composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/AttentionColumn.svelte",
+    "story": "sections-attentioncolumn--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/BlueprintRuns.svelte",
+    "story": "pages-willo-blueprint-runs--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/CompactStationCard.svelte",
+    "story": "sections-stationsummary--compact",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/ComunicadosPage.svelte",
+    "story": "pages-willo-comunicados--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/EmailContextMenu.svelte",
+    "story": "patterns-actionpopover--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/EmailParserTestModal.svelte",
+    "story": "sections-emailruleeditor--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/EmailSignalRuleModal.svelte",
+    "story": "sections-emailruleeditor--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/EmailsPage.svelte",
+    "story": "pages-willo-emails--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/IgnoreEmailConfirmModal.svelte",
+    "story": "patterns-confirmaction--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/IgnoreEmailStringModal.svelte",
+    "story": "patterns-entityeditor--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/IgnoredEmailSourcesModal.svelte",
+    "story": "sections-sourceinbox--email",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/OpenChatSessionPreview.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/apps/willo/src/OpenInElmaBadge.svelte",
+    "story": "sections-stationsummary--open-in-elma",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/PaginationControls.svelte",
+    "story": "components-pagination--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/RunDetails.svelte",
+    "story": "pages-willo-run-details--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/RunningChatBackground.svelte",
+    "story": "sections-stationsummary--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/RunningChatBackgroundPreview.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/apps/willo/src/SessionFailureCue.svelte",
+    "story": "sections-stationsummary--failure",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/SessionImageIndicator.svelte",
+    "story": "sections-attachmentstrip--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/SessionTitleEditor.svelte",
+    "story": "sections-stationsummary--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/SignalRulesManagerModal.svelte",
+    "story": "pages-willo-email-signal-rules--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/SlackMessageView.svelte",
+    "story": "sections-sourceinbox--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/SlackPage.svelte",
+    "story": "pages-willo-slack--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/StationCard.svelte",
+    "story": "sections-stationsummary--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/StationTags.svelte",
+    "story": "sections-stationsummary--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/TelegramPage.svelte",
+    "story": "pages-willo-telegram--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/apps/willo/src/WilloGlyph.svelte",
+    "story": "components-workspaceglyph--default",
+    "disposition": "Consolidated identity or action glyph"
+  },
+  {
+    "source": "renderer/packages/design-system/gallery/Gallery.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/packages/design-system/src/ComingSoon.svelte",
+    "story": "components-emptystate--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/chrome/BriefPane.svelte",
+    "story": "patterns-workspaceshell--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/chrome/CompletionSoundToggle.svelte",
+    "story": "sections-notificationsettings--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/chrome/Header.svelte",
+    "story": "patterns-workspaceshell--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/chrome/RebuildProgress.svelte",
+    "story": "components-asyncfeedback--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/chrome/RebuildTrafficLight.svelte",
+    "story": "components-asyncfeedback--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/chrome/ShellInsignia.svelte",
+    "story": "components-workspaceglyph--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/chrome/ThemeSwitcher.svelte",
+    "story": "patterns-preferences--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/chrome/UIShell.svelte",
+    "story": "patterns-workspaceshell--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/chrome/Viewport.svelte",
+    "story": "patterns-workspaceshell--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/Badge.svelte",
+    "story": "components-badge--default",
+    "disposition": "Dedicated successor component"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/Button.svelte",
+    "story": "components-button--default",
+    "disposition": "Dedicated successor component"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/Card.svelte",
+    "story": "components-card--default",
+    "disposition": "Dedicated successor component"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/ChatWidthControl.svelte",
+    "story": "patterns-preferences--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/DateTimePicker.svelte",
+    "story": "components-datetimeinput--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/Dot.svelte",
+    "story": "components-badge--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/Dropdown.svelte",
+    "story": "components-select--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/Field.svelte",
+    "story": "components-textfield--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/FontSizeControl.svelte",
+    "story": "patterns-preferences--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/KbdHint.svelte",
+    "story": "components-kbdhint--default",
+    "disposition": "Dedicated successor component"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/Meter.svelte",
+    "story": "components-meter--default",
+    "disposition": "Dedicated successor component"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/MultiSelect.svelte",
+    "story": "components-multiselect--default",
+    "disposition": "Dedicated successor component"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/PermissionDecisionActions.svelte",
+    "story": "patterns-permissionrequest--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/RingsMark.svelte",
+    "story": "components-ringsmark--default",
+    "disposition": "Dedicated successor component"
+  },
+  {
+    "source": "renderer/packages/design-system/src/components/Tabs.svelte",
+    "story": "components-tabs--default",
+    "disposition": "Dedicated successor component"
+  },
+  {
+    "source": "renderer/packages/design-system/src/comunicado/NotificationComunicadoStoryPreview.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/packages/design-system/src/diffs/DiffViewSwitcher.svelte",
+    "story": "sections-reviewworkspace--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/entities/EntityCard.svelte",
+    "story": "patterns-entitycard--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/entities/EntityChip.svelte",
+    "story": "patterns-entityreference--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/entities/EntityChipGlyph.svelte",
+    "story": "foundations-entity-registry--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/entities/EntityComponentsStoryPreview.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/packages/design-system/src/entities/EntityRichText.svelte",
+    "story": "patterns-entityreference--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/grafts/GraftModal.svelte",
+    "story": "patterns-entityeditor--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/grafts/TimePicker.svelte",
+    "story": "components-datetimeinput--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/grafts/WallPicker.svelte",
+    "story": "components-deadlinefield--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/hunks/HunkReview.svelte",
+    "story": "heritage-interactive-hunk-review--definitions",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/hunks/HunkReviewStoryPreview.svelte",
+    "story": "start-here--default",
+    "disposition": "Historical test/gallery harness; original source retained"
+  },
+  {
+    "source": "renderer/packages/design-system/src/markdown/ArbolSeparator.svelte",
+    "story": "heritage-interactive-markdown-arbolseparator--default",
+    "disposition": "Interactive original rendering"
+  },
+  {
+    "source": "renderer/packages/design-system/src/markdown/BlueprintDoc.svelte",
+    "story": "sections-blueprinteditor--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/markdown/ChainDoc.svelte",
+    "story": "sections-rundetails--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/markdown/CodeBlock.svelte",
+    "story": "heritage-interactive-markdown-codeblock--default",
+    "disposition": "Interactive original rendering"
+  },
+  {
+    "source": "renderer/packages/design-system/src/markdown/CopyBlockButton.svelte",
+    "story": "heritage-interactive-markdown-codeblock--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/markdown/Frontmatter.svelte",
+    "story": "heritage-interactive-markdown-frontmatter--default",
+    "disposition": "Interactive original rendering"
+  },
+  {
+    "source": "renderer/packages/design-system/src/markdown/HighlightedText.svelte",
+    "story": "heritage-interactive-markdown-highlightedtext--default",
+    "disposition": "Interactive original rendering"
+  },
+  {
+    "source": "renderer/packages/design-system/src/markdown/InlineMarkdown.svelte",
+    "story": "heritage-interactive-markdown-inlinemarkdown--default",
+    "disposition": "Interactive original rendering"
+  },
+  {
+    "source": "renderer/packages/design-system/src/markdown/JsonCodeBlock.svelte",
+    "story": "heritage-interactive-markdown-codeblock--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/markdown/MarkdownBlocks.svelte",
+    "story": "heritage-interactive-markdown-markdowndoc--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/markdown/MarkdownDoc.svelte",
+    "story": "heritage-interactive-markdown-markdowndoc--default",
+    "disposition": "Interactive original rendering"
+  },
+  {
+    "source": "renderer/packages/design-system/src/markdown/MarkdownTable.svelte",
+    "story": "heritage-interactive-markdown-markdowntable--default",
+    "disposition": "Interactive original rendering"
+  },
+  {
+    "source": "renderer/packages/design-system/src/markdown/QuoteBlock.svelte",
+    "story": "heritage-interactive-markdown-quoteblock--default",
+    "disposition": "Interactive original rendering"
+  },
+  {
+    "source": "renderer/packages/design-system/src/markdown/WrapBlockButton.svelte",
+    "story": "heritage-interactive-markdown-codeblock--default",
+    "disposition": "Consolidated behavior or related composition"
+  },
+  {
+    "source": "renderer/packages/design-system/src/overlay/Modal.svelte",
+    "story": "patterns-modal--default",
+    "disposition": "Dedicated successor component"
+  }
+]

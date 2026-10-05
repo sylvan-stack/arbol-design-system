@@ -1,0 +1,211 @@
+{
+  "date": "2026-10-05",
+  "browser": "installed Chrome via Playwright; headless; fixture only",
+  "checks": [
+    {
+      "name": "initial collection",
+      "passed": true
+    },
+    {
+      "name": "text filter",
+      "passed": true
+    },
+    {
+      "name": "no matches state",
+      "passed": true
+    },
+    {
+      "name": "presentation cards",
+      "passed": true
+    },
+    {
+      "name": "presentation table",
+      "passed": true
+    },
+    {
+      "name": "presentation list",
+      "passed": true
+    },
+    {
+      "name": "title opens detail",
+      "passed": true
+    },
+    {
+      "name": "dialog initial focus",
+      "passed": true
+    },
+    {
+      "name": "required validation",
+      "passed": true
+    },
+    {
+      "name": "dirty close guard",
+      "passed": true
+    },
+    {
+      "name": "create acknowledged",
+      "passed": true
+    },
+    {
+      "name": "edit persisted in specimen",
+      "passed": true
+    },
+    {
+      "name": "pristine close and focus return",
+      "passed": true
+    },
+    {
+      "name": "theme ironbark",
+      "passed": true
+    },
+    {
+      "name": "theme bloodwood",
+      "passed": true
+    },
+    {
+      "name": "theme redwood",
+      "passed": true
+    },
+    {
+      "name": "theme mahogany",
+      "passed": true
+    },
+    {
+      "name": "theme cedar",
+      "passed": true
+    },
+    {
+      "name": "theme evergreen",
+      "passed": true
+    },
+    {
+      "name": "theme driftwood",
+      "passed": true
+    },
+    {
+      "name": "theme amber",
+      "passed": true
+    },
+    {
+      "name": "theme sandstone",
+      "passed": true
+    },
+    {
+      "name": "theme oat",
+      "passed": true
+    },
+    {
+      "name": "theme birch",
+      "passed": true
+    },
+    {
+      "name": "theme paper",
+      "passed": true
+    },
+    {
+      "name": "workspace seqoya",
+      "passed": true
+    },
+    {
+      "name": "workspace elma",
+      "passed": true
+    },
+    {
+      "name": "workspace willo",
+      "passed": true
+    },
+    {
+      "name": "workspace oaken",
+      "passed": true
+    },
+    {
+      "name": "no page overflow 390 list",
+      "passed": true
+    },
+    {
+      "name": "no page overflow 390 cards",
+      "passed": true
+    },
+    {
+      "name": "no page overflow 390 table",
+      "passed": true
+    },
+    {
+      "name": "workspace no overflow 390 seqoya",
+      "passed": true
+    },
+    {
+      "name": "workspace no overflow 390 elma",
+      "passed": true
+    },
+    {
+      "name": "workspace no overflow 390 willo",
+      "passed": true
+    },
+    {
+      "name": "workspace no overflow 390 oaken",
+      "passed": true
+    },
+    {
+      "name": "no page overflow 800 list",
+      "passed": true
+    },
+    {
+      "name": "no page overflow 800 cards",
+      "passed": true
+    },
+    {
+      "name": "no page overflow 800 table",
+      "passed": true
+    },
+    {
+      "name": "workspace no overflow 800 seqoya",
+      "passed": true
+    },
+    {
+      "name": "workspace no overflow 800 elma",
+      "passed": true
+    },
+    {
+      "name": "workspace no overflow 800 willo",
+      "passed": true
+    },
+    {
+      "name": "workspace no overflow 800 oaken",
+      "passed": true
+    },
+    {
+      "name": "no page overflow 1440 list",
+      "passed": true
+    },
+    {
+      "name": "no page overflow 1440 cards",
+      "passed": true
+    },
+    {
+      "name": "no page overflow 1440 table",
+      "passed": true
+    },
+    {
+      "name": "workspace no overflow 1440 seqoya",
+      "passed": true
+    },
+    {
+      "name": "workspace no overflow 1440 elma",
+      "passed": true
+    },
+    {
+      "name": "workspace no overflow 1440 willo",
+      "passed": true
+    },
+    {
+      "name": "workspace no overflow 1440 oaken",
+      "passed": true
+    },
+    {
+      "name": "no JavaScript errors",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

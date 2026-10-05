@@ -1,0 +1,886 @@
+[
+  {
+    "id": "seqoya-dashboard",
+    "workspace": "Seqoya",
+    "title": "Dashboard",
+    "recipe": "dashboard",
+    "description": "Knowledge health, connected repositories and recent activity.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "seqoya-intelligence-providers",
+    "workspace": "Seqoya",
+    "title": "Intelligence Providers",
+    "recipe": "providers",
+    "description": "Accounts own usage. Providers define how you work.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "seqoya-brain-recipes",
+    "workspace": "Seqoya",
+    "title": "Brain Recipes",
+    "recipe": "collection",
+    "description": "Ordered routes and a global fallback.",
+    "entity": "recipe",
+    "items": [
+      {
+        "id": "1",
+        "title": "Thoughtful implementation",
+        "subtitle": "Deep reasoning \u2192 Balanced fallback",
+        "status": "Enabled",
+        "kind": "artifact"
+      },
+      {
+        "id": "2",
+        "title": "Fast exploration",
+        "subtitle": "Fast model \u2192 Balanced fallback",
+        "status": "Enabled",
+        "kind": "artifact"
+      }
+    ],
+    "fields": [
+      {
+        "key": "title",
+        "label": "Recipe name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "description",
+        "label": "Purpose",
+        "type": "textarea",
+        "required": false
+      }
+    ],
+    "detailRecipe": "recipe-editor"
+  },
+  {
+    "id": "seqoya-quick-text",
+    "workspace": "Seqoya",
+    "title": "Quick Text",
+    "recipe": "collection",
+    "description": "Reusable text, available through explicit activation keys.",
+    "entity": "Quick Text",
+    "items": [
+      {
+        "id": "1",
+        "title": "Design review",
+        "subtitle": "!@review \u00b7 Compare with the design contracts",
+        "status": "Enabled",
+        "kind": "artifact"
+      },
+      {
+        "id": "2",
+        "title": "Explain the change",
+        "subtitle": "!@explain \u00b7 Problem, behavior, verification",
+        "status": "Enabled",
+        "kind": "artifact"
+      },
+      {
+        "id": "3",
+        "title": "Wrap up",
+        "subtitle": "!@wrap \u00b7 Evidence, decisions and next steps",
+        "status": "Disabled",
+        "kind": "artifact"
+      }
+    ],
+    "fields": [
+      {
+        "key": "title",
+        "label": "Name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "shortcut",
+        "label": "Activation key",
+        "type": "text",
+        "required": true,
+        "hint": "Start with !@, for example !@review."
+      },
+      {
+        "key": "description",
+        "label": "Content",
+        "type": "textarea",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "seqoya-feature-toggles",
+    "workspace": "Seqoya",
+    "title": "Feature Toggles",
+    "recipe": "features",
+    "description": "Global feature availability and cue detection.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "seqoya-living-topics",
+    "workspace": "Seqoya",
+    "title": "Living Topics",
+    "recipe": "collection",
+    "description": "Long-running context with findings, linked entities and next steps.",
+    "entity": "Living Topic",
+    "items": [
+      {
+        "id": "1",
+        "title": "Design reconstruction",
+        "subtitle": "Preserve identity; share reliable mechanics",
+        "status": "Active",
+        "kind": "living_topic"
+      },
+      {
+        "id": "2",
+        "title": "Chat continuity",
+        "subtitle": "Drafts, branching and reading position",
+        "status": "Active",
+        "kind": "living_topic"
+      }
+    ],
+    "fields": [
+      {
+        "key": "title",
+        "label": "Topic name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "description",
+        "label": "Purpose and next steps",
+        "type": "textarea",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "seqoya-stewardship",
+    "workspace": "Seqoya",
+    "title": "Stewardship",
+    "recipe": "stewardship",
+    "description": "Activation rules, stewards and mandates with explicit authority.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "seqoya-blueprints",
+    "workspace": "Seqoya",
+    "title": "Blueprints",
+    "recipe": "collection",
+    "description": "Typed inputs, outputs and repeatable instructions.",
+    "entity": "Blueprint",
+    "items": [
+      {
+        "id": "1",
+        "title": "Design review",
+        "subtitle": "Repository \u2192 Review artifact \u00b7 Thoughtful implementation",
+        "status": "Ready",
+        "kind": "artifact"
+      },
+      {
+        "id": "2",
+        "title": "Daily work summary",
+        "subtitle": "Stations \u2192 Summary \u00b7 Balanced",
+        "status": "Ready",
+        "kind": "artifact"
+      }
+    ],
+    "fields": [
+      {
+        "key": "title",
+        "label": "Blueprint name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "description",
+        "label": "Purpose",
+        "type": "textarea",
+        "required": false
+      }
+    ],
+    "detailRecipe": "blueprint-editor"
+  },
+  {
+    "id": "seqoya-reactions",
+    "workspace": "Seqoya",
+    "title": "Reactions",
+    "recipe": "collection",
+    "description": "Read-only automation summaries and their source signals.",
+    "entity": "reaction",
+    "items": [
+      {
+        "id": "1",
+        "title": "Review requested",
+        "subtitle": "Email signal \u2192 Review Blueprint",
+        "status": "Enabled",
+        "kind": "artifact"
+      },
+      {
+        "id": "2",
+        "title": "Build failed",
+        "subtitle": "Build signal \u2192 Notify owner",
+        "status": "Enabled",
+        "kind": "artifact"
+      }
+    ],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "seqoya-organizations",
+    "workspace": "Seqoya",
+    "title": "Organizations",
+    "recipe": "collection",
+    "description": "Repository groups, roots and remote identity.",
+    "entity": "organization",
+    "items": [
+      {
+        "id": "1",
+        "title": "Sylvan Stack",
+        "subtitle": "github.com/sylvan-stack \u00b7 6 repositories",
+        "status": "Connected",
+        "kind": "artifact"
+      },
+      {
+        "id": "2",
+        "title": "Personal",
+        "subtitle": "Local work \u00b7 2 repositories",
+        "status": "Connected",
+        "kind": "artifact"
+      }
+    ],
+    "fields": [
+      {
+        "key": "title",
+        "label": "Organization name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "root",
+        "label": "Local root",
+        "type": "text",
+        "required": true,
+        "hint": "Example: ~/repos/sylvan-stack"
+      },
+      {
+        "key": "url",
+        "label": "Remote URL",
+        "type": "url",
+        "required": false
+      },
+      {
+        "key": "description",
+        "label": "Fork and grouping notes",
+        "type": "textarea",
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "seqoya-repos",
+    "workspace": "Seqoya",
+    "title": "Repos",
+    "recipe": "collection",
+    "description": "Source, corpora, embedding profiles and Git health.",
+    "entity": "repository",
+    "items": [
+      {
+        "id": "1",
+        "title": "arbol-design-system",
+        "subtitle": "Sylvan Stack \u00b7 main \u00b7 Current index",
+        "status": "Ready",
+        "kind": "branch"
+      },
+      {
+        "id": "2",
+        "title": "arbol",
+        "subtitle": "Sylvan Stack \u00b7 Archived working tree",
+        "status": "Archived",
+        "kind": "branch"
+      },
+      {
+        "id": "3",
+        "title": "mycel",
+        "subtitle": "Sylvan Stack \u00b7 main \u00b7 4,210 pending chunks",
+        "status": "Indexing",
+        "kind": "branch"
+      },
+      {
+        "id": "4",
+        "title": "universe",
+        "subtitle": "Sylvan Stack \u00b7 main \u00b7 Local changes",
+        "status": "Drift",
+        "kind": "branch"
+      }
+    ],
+    "fields": [
+      {
+        "key": "title",
+        "label": "Repository name",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "url",
+        "label": "Clone URL",
+        "type": "url",
+        "required": true
+      },
+      {
+        "key": "root",
+        "label": "Local directory",
+        "type": "text",
+        "required": true
+      }
+    ],
+    "view": "Table"
+  },
+  {
+    "id": "seqoya-secrets",
+    "workspace": "Seqoya",
+    "title": "Secrets",
+    "recipe": "secrets",
+    "description": "Credentials stay concealed; connection state stays visible.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "seqoya-chunks-viewer",
+    "workspace": "Seqoya",
+    "title": "Chunks Viewer",
+    "recipe": "collection",
+    "description": "Captured repository chunks. Search covers this entire small fixture only.",
+    "entity": "chunk",
+    "items": [
+      {
+        "id": "1",
+        "title": "EntityEditor lifecycle",
+        "subtitle": "src/patterns/EntityEditor.svelte \u00b7 Lines 1\u201342",
+        "status": "Indexed",
+        "kind": "artifact"
+      },
+      {
+        "id": "2",
+        "title": "Collection state",
+        "subtitle": "src/patterns/Collection.svelte \u00b7 Lines 1\u201361",
+        "status": "Indexed",
+        "kind": "artifact"
+      },
+      {
+        "id": "3",
+        "title": "Theme palette",
+        "subtitle": "src/styles/tokens.css \u00b7 Lines 1\u201348",
+        "status": "Pending",
+        "kind": "artifact"
+      }
+    ],
+    "fields": [],
+    "view": "Table",
+    "canCreate": false
+  },
+  {
+    "id": "seqoya-refresher",
+    "workspace": "Seqoya",
+    "title": "Refresher",
+    "recipe": "collection",
+    "description": "Resolve source drift and stale knowledge without losing context.",
+    "entity": "drift",
+    "items": [
+      {
+        "id": "1",
+        "title": "arbol / Design System",
+        "subtitle": "Artifact changed after last index",
+        "status": "Needs refresh",
+        "kind": "artifact"
+      },
+      {
+        "id": "2",
+        "title": "mycel / Retrieval guide",
+        "subtitle": "2 source references changed",
+        "status": "Needs review",
+        "kind": "artifact"
+      }
+    ],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "seqoya-artifacts",
+    "workspace": "Seqoya",
+    "title": "Artifacts",
+    "recipe": "artifacts",
+    "description": "Browse, read and edit connected documents in one workspace.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "seqoya-retrieval",
+    "workspace": "Seqoya",
+    "title": "Retrieval",
+    "recipe": "retrieval",
+    "description": "Plan indexing and search the captured repository knowledge.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "seqoya-monitoring",
+    "workspace": "Seqoya",
+    "title": "Monitoring",
+    "recipe": "monitoring",
+    "description": "Event Stream and Journal Log, with scoped filters and payload detail.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "elma-new-chat",
+    "workspace": "Elma",
+    "title": "New Chat",
+    "recipe": "chat-empty",
+    "description": "Start a conversation with a task, question or entity.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "elma-conversation",
+    "workspace": "Elma",
+    "title": "Conversation",
+    "recipe": "chat",
+    "description": "Readable responses, connected context and a reliable composer.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "elma-permission-request",
+    "workspace": "Elma",
+    "title": "Permission Request",
+    "recipe": "chat-approval",
+    "description": "Explicit scope and a single decision lifecycle.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "elma-history",
+    "workspace": "Elma",
+    "title": "History",
+    "recipe": "history",
+    "description": "Explore turns and alternative branches.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "elma-session-details",
+    "workspace": "Elma",
+    "title": "Session Details",
+    "recipe": "inspector",
+    "description": "Session relationships, usage and lifecycle.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "elma-change-walkthrough",
+    "workspace": "Elma",
+    "title": "Change Walkthrough",
+    "recipe": "review",
+    "description": "File-by-file review with before, diff and after views.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "elma-worktree-diff",
+    "workspace": "Elma",
+    "title": "Worktree Diff",
+    "recipe": "review",
+    "description": "Inspect the active worktree and ask about changes.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "elma-document-panel",
+    "workspace": "Elma",
+    "title": "Document Panel",
+    "recipe": "document",
+    "description": "Read and edit an artifact beside the conversation.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "willo-stations",
+    "workspace": "Willo",
+    "title": "Stations",
+    "recipe": "stations",
+    "description": "Human chats and saved drafts, organized by attention.",
+    "entity": "run",
+    "items": [],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "willo-agentic-stations",
+    "workspace": "Willo",
+    "title": "Agentic Stations",
+    "recipe": "agentic-stations",
+    "description": "Agent-origin work with the same execution and attention states.",
+    "entity": "run",
+    "items": [],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "willo-stewards",
+    "workspace": "Willo",
+    "title": "Stewards",
+    "recipe": "stewards",
+    "description": "Ongoing stewardship and its related chats.",
+    "entity": "run",
+    "items": [],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "willo-action-items",
+    "workspace": "Willo",
+    "title": "Action Items",
+    "recipe": "attention",
+    "description": "Requests that need a response.",
+    "entity": "run",
+    "items": [],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "willo-spotlight",
+    "workspace": "Willo",
+    "title": "Spotlight",
+    "recipe": "spotlight",
+    "description": "Entities deliberately retained for attention.",
+    "entity": "run",
+    "items": [],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "willo-comunicados",
+    "workspace": "Willo",
+    "title": "Comunicados",
+    "recipe": "notifications",
+    "description": "Notification species, sounds and delivery tests.",
+    "entity": "run",
+    "items": [],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "willo-slack",
+    "workspace": "Willo",
+    "title": "Slack",
+    "recipe": "slack",
+    "description": "Contacts, channels and source conversation details.",
+    "entity": "run",
+    "items": [],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "willo-telegram",
+    "workspace": "Willo",
+    "title": "Telegram",
+    "recipe": "telegram",
+    "description": "Contacts, chats, source ranges and sync state.",
+    "entity": "run",
+    "items": [],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "willo-emails",
+    "workspace": "Willo",
+    "title": "Emails",
+    "recipe": "email",
+    "description": "Accounts, cached threads and future email rules.",
+    "entity": "run",
+    "items": [],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "willo-blueprint-runs",
+    "workspace": "Willo",
+    "title": "Blueprint Runs",
+    "recipe": "collection",
+    "description": "Invocations of reusable work.",
+    "entity": "run",
+    "items": [
+      {
+        "id": "1",
+        "title": "Design review \u00b7 042",
+        "subtitle": "5 Oct \u00b7 12 minutes \u00b7 Review artifact",
+        "status": "Complete",
+        "kind": "artifact"
+      },
+      {
+        "id": "2",
+        "title": "Daily summary \u00b7 043",
+        "subtitle": "5 Oct \u00b7 2 minutes \u00b7 Preparing output",
+        "status": "Running",
+        "kind": "artifact"
+      }
+    ],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "willo-run-details",
+    "workspace": "Willo",
+    "title": "Run Details",
+    "recipe": "run",
+    "description": "Run identity, progress, results and related chat.",
+    "entity": "run",
+    "items": [],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "willo-email-signal-rules",
+    "workspace": "Willo",
+    "title": "Email Signal Rules",
+    "recipe": "email-rules",
+    "description": "Test on retained email; activate only for future mail.",
+    "entity": "run",
+    "items": [],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "willo-compact-stations",
+    "workspace": "Willo",
+    "title": "Compact Stations",
+    "recipe": "compact-stations",
+    "description": "Ambient work monitoring with explicit expansion.",
+    "entity": "run",
+    "items": [],
+    "fields": [],
+    "canCreate": false
+  },
+  {
+    "id": "oaken-swimlanes",
+    "workspace": "Oaken",
+    "title": "Swimlanes",
+    "recipe": "timeline",
+    "description": "Time moves upward. Plan work around estimates, targets and firm deadlines.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "oaken-swimlane-details",
+    "workspace": "Oaken",
+    "title": "Swimlane Details",
+    "recipe": "swimlane-details",
+    "description": "Timeline and linked work share one selected lane.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "oaken-agenda",
+    "workspace": "Oaken",
+    "title": "Agenda",
+    "recipe": "agenda",
+    "description": "A keyboard-friendly alternative to the spatial timeline.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "oaken-jira",
+    "workspace": "Oaken",
+    "title": "Jira",
+    "recipe": "collection",
+    "description": "Tickets with source identity, status and linked work.",
+    "entity": "ticket",
+    "items": [
+      {
+        "id": "1",
+        "title": "ARB-142 \u00b7 Preserve drafts",
+        "subtitle": "Platform \u00b7 Maya Chen \u00b7 Due today",
+        "status": "In progress",
+        "kind": "ticket"
+      },
+      {
+        "id": "2",
+        "title": "ARB-151 \u00b7 Shared editors",
+        "subtitle": "Interface \u00b7 Alex Morgan",
+        "status": "Open",
+        "kind": "ticket"
+      }
+    ],
+    "fields": [
+      {
+        "key": "title",
+        "label": "Summary",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "description",
+        "label": "Description",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "status",
+        "label": "Status",
+        "type": "select",
+        "required": false,
+        "options": ["Open", "In progress", "Done"]
+      }
+    ]
+  },
+  {
+    "id": "oaken-grafts",
+    "workspace": "Oaken",
+    "title": "Grafts",
+    "recipe": "collection",
+    "description": "Small, connected work items using the shared editor.",
+    "entity": "Graft",
+    "items": [
+      {
+        "id": "1",
+        "title": "Unify entity editing",
+        "subtitle": "Design system \u00b7 Estimated 16:00",
+        "status": "Running",
+        "kind": "graft"
+      },
+      {
+        "id": "2",
+        "title": "Check keyboard navigation",
+        "subtitle": "Design system \u00b7 Due tomorrow",
+        "status": "Planned",
+        "kind": "graft"
+      },
+      {
+        "id": "3",
+        "title": "Capture themes",
+        "subtitle": "Design archive",
+        "status": "Done",
+        "kind": "graft"
+      }
+    ],
+    "fields": [
+      {
+        "key": "title",
+        "label": "Title",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "description",
+        "label": "Description",
+        "type": "textarea",
+        "required": false
+      },
+      {
+        "key": "status",
+        "label": "Status",
+        "type": "select",
+        "required": false,
+        "options": ["Planned", "Running", "Done"]
+      },
+      {
+        "key": "deadline",
+        "label": "Due at",
+        "type": "datetime-local",
+        "required": false,
+        "hint": "Europe/Madrid \u00b7 Exact time"
+      }
+    ]
+  },
+  {
+    "id": "oaken-merge-requests",
+    "workspace": "Oaken",
+    "title": "Merge Requests",
+    "recipe": "collection",
+    "description": "Review source changes, comments, commits and hunks.",
+    "entity": "merge request",
+    "items": [
+      {
+        "id": "1",
+        "title": "Shared collection and editor",
+        "subtitle": "!42 \u00b7 codex/shared-editor \u2192 main",
+        "status": "In review",
+        "kind": "mr"
+      },
+      {
+        "id": "2",
+        "title": "Preserve chat state",
+        "subtitle": "!43 \u00b7 codex/chat-state \u2192 main",
+        "status": "Draft",
+        "kind": "mr"
+      }
+    ],
+    "fields": [
+      {
+        "key": "title",
+        "label": "Title",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "url",
+        "label": "Merge request URL",
+        "type": "url",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "oaken-merge-request-review",
+    "workspace": "Oaken",
+    "title": "Merge Request Review",
+    "recipe": "review",
+    "description": "Changes and review discussion, organized by file.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "oaken-compact-panel",
+    "workspace": "Oaken",
+    "title": "Compact Panel",
+    "recipe": "compact-timeline",
+    "description": "A compact planning companion for active work.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
+    "id": "artifact-detached-document",
+    "workspace": "Artifact",
+    "title": "Detached Document",
+    "recipe": "document",
+    "description": "The same document behavior in a dedicated window.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  }
+]

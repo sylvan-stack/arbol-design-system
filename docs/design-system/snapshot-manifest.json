@@ -1,0 +1,3247 @@
+{
+  "captured_date": "2026-10-05",
+  "timezone": "Europe/Madrid",
+  "code_root": "/Users/example/repos/sylvan-stack/arbol",
+  "head": "a91b8d09a0fd7cfbccf6bc280aaa8bdff03d95ff",
+  "basis": "working tree including pre-existing uncommitted changes; not HEAD-only",
+  "scope": "UI source, renderer configuration/tests/stories, native shell/tests, bundled sounds, historical prototype and UX guide; not a runnable system backup",
+  "excluded": "node_modules, generated renderer output, storybook-static, build caches, backend runtime/data and external dashboard UI",
+  "file_count": 538,
+  "archive_sha256": "ba916aae2330ed0a63cd309aa7c9e67cca0c397eb3c0c8c07ca1963171eaa4c1",
+  "files": [
+    {
+      "path": "app/Arbol/AppDelegate.swift",
+      "archive_path": "source/app/Arbol/AppDelegate.swift",
+      "bytes": 174993,
+      "sha256": "b062eddbfb5489dcd98a4e65e0aa492867133354446f2704cb831c3a986c01a3"
+    },
+    {
+      "path": "app/Arbol/ArbolApp.swift",
+      "archive_path": "source/app/Arbol/ArbolApp.swift",
+      "bytes": 405,
+      "sha256": "9b4831d17fe527a629050b3a40f67dd24650b9dd0ab77e8583b04ad33dda08d3"
+    },
+    {
+      "path": "app/Arbol/Comunicado.swift",
+      "archive_path": "source/app/Arbol/Comunicado.swift",
+      "bytes": 8537,
+      "sha256": "0c6ee38b296528ffdb040dd12867c7e70627fe53e0a4535837ab599e1ebb2ae8"
+    },
+    {
+      "path": "app/Arbol/ComunicadoFeedController.swift",
+      "archive_path": "source/app/Arbol/ComunicadoFeedController.swift",
+      "bytes": 31071,
+      "sha256": "f4a338dc1e0f2fb4c191e90e1beca14c40428e81a3be5955d527f965c0509374"
+    },
+    {
+      "path": "app/Arbol/ContentView.swift",
+      "archive_path": "source/app/Arbol/ContentView.swift",
+      "bytes": 131214,
+      "sha256": "745fa937b6abdd9ced41b27383a935ddce1279f71c91ddee1ac520321d51acec"
+    },
+    {
+      "path": "app/Arbol/CoreClient.swift",
+      "archive_path": "source/app/Arbol/CoreClient.swift",
+      "bytes": 12734,
+      "sha256": "daa2c2f53ed024ae7a8f743623a98e69ebd0c7ca971a13dcc9bc173d51346583"
+    },
+    {
+      "path": "app/Arbol/DashboardTimelineBridge.swift",
+      "archive_path": "source/app/Arbol/DashboardTimelineBridge.swift",
+      "bytes": 14373,
+      "sha256": "5c58080b9e28e35f6d115d73f295d8309858c5c3d1b1213c94080a85e8994482"
+    },
+    {
+      "path": "app/Arbol/DebugComunicadoController.swift",
+      "archive_path": "source/app/Arbol/DebugComunicadoController.swift",
+      "bytes": 14672,
+      "sha256": "1b83874e1f6a937e07bbc55ee2ca41ff778151db98bb8749cbfa18d4084056a2"
+    },
+    {
+      "path": "app/Arbol/EntitySearch.swift",
+      "archive_path": "source/app/Arbol/EntitySearch.swift",
+      "bytes": 56780,
+      "sha256": "f3094b72d9deba7f68cc46ab06e18ddc680c4cf19fca96f10fb2fe38b952fe9d"
+    },
+    {
+      "path": "app/Arbol/GoToPage.swift",
+      "archive_path": "source/app/Arbol/GoToPage.swift",
+      "bytes": 17326,
+      "sha256": "1b841b0b9d989287d98cf7d39f7fce3162309730b65d4bc86bb62b6ce127a10a"
+    },
+    {
+      "path": "app/Arbol/LinkedEntities.swift",
+      "archive_path": "source/app/Arbol/LinkedEntities.swift",
+      "bytes": 13006,
+      "sha256": "329d491a0c49cdea21657fb7c60248afbe96c2e8ed0c2e911fc2dfb7bb026af2"
+    },
+    {
+      "path": "app/Arbol/PermissionComunicadoController.swift",
+      "archive_path": "source/app/Arbol/PermissionComunicadoController.swift",
+      "bytes": 11910,
+      "sha256": "7845b6928ea380e8ac901b4d3452b6cf1f013faf4c5a4688430cb33183e2cec0"
+    },
+    {
+      "path": "app/Arbol/RepoArtifacts.swift",
+      "archive_path": "source/app/Arbol/RepoArtifacts.swift",
+      "bytes": 40064,
+      "sha256": "5ea77ef7daf7f1391941925eb8ab955daf412262bb99be4ecdd424b0cb9d6101"
+    },
+    {
+      "path": "app/Arbol/StewardOutputController.swift",
+      "archive_path": "source/app/Arbol/StewardOutputController.swift",
+      "bytes": 2756,
+      "sha256": "fecc41caa3f58916aaf78cc2a5d85b0001bae74acfa83be227a2ec22f4f9465b"
+    },
+    {
+      "path": "app/Arbol/UISwitcherHotkeys.swift",
+      "archive_path": "source/app/Arbol/UISwitcherHotkeys.swift",
+      "bytes": 6780,
+      "sha256": "310f0851a0629f021bf43393c044b039e2eee3235762f0cfbf36b69c5ba6c415"
+    },
+    {
+      "path": "app/Arbol/WebMail.swift",
+      "archive_path": "source/app/Arbol/WebMail.swift",
+      "bytes": 382398,
+      "sha256": "2d9f1bf00fae091cf2fa3aa69047023756d0979eb2815c903c85af25de530280"
+    },
+    {
+      "path": "app/ArbolTests/ComunicadoTests.swift",
+      "archive_path": "source/app/ArbolTests/ComunicadoTests.swift",
+      "bytes": 20080,
+      "sha256": "a6327b293b8381f46981ff6eef0822b5b579a99f4166345e3d4d396b3a8305f3"
+    },
+    {
+      "path": "app/ArbolTests/DashboardTimelineBridgeTests.swift",
+      "archive_path": "source/app/ArbolTests/DashboardTimelineBridgeTests.swift",
+      "bytes": 1942,
+      "sha256": "31106f7bd6b5ee974a42e83a7e5e19810e51e9df47e7995bb04fcfdc3158f5a2"
+    },
+    {
+      "path": "app/ArbolTests/LatestChatSessionsTests.swift",
+      "archive_path": "source/app/ArbolTests/LatestChatSessionsTests.swift",
+      "bytes": 129853,
+      "sha256": "19af3c36852111bc27180e9823a03efa129b8c3141249df4f51257bccacb6594"
+    },
+    {
+      "path": "app/resources/index.html",
+      "archive_path": "source/app/resources/index.html",
+      "bytes": 987,
+      "sha256": "d495e995f646af3f338e44ad63240bdfb64a01cae9ddb73a33deaf5854706d41"
+    },
+    {
+      "path": "app/resources/sounds/CREDITS.md",
+      "archive_path": "source/app/resources/sounds/CREDITS.md",
+      "bytes": 1911,
+      "sha256": "4a85f93176390a2cef92efa36cdd59290945df3d2ac11f77a7050e82bd6ed66e"
+    },
+    {
+      "path": "app/resources/sounds/bell-notification.mp3",
+      "archive_path": "source/app/resources/sounds/bell-notification.mp3",
+      "bytes": 105280,
+      "sha256": "7300912e0a685b9fefefa275ac2669c92bf1e0db0ea9ef75c98bc73a2fecb4f6"
+    },
+    {
+      "path": "app/resources/sounds/bubble-pop.mp3",
+      "archive_path": "source/app/resources/sounds/bubble-pop.mp3",
+      "bytes": 12316,
+      "sha256": "d87b208f391d35df3c51e36d988f1c24a8017c7a24afeed44849a3aeeacdf91b"
+    },
+    {
+      "path": "app/resources/sounds/classic-chime.mp3",
+      "archive_path": "source/app/resources/sounds/classic-chime.mp3",
+      "bytes": 36864,
+      "sha256": "d6a99e9d0721b7404b351ab5faff4ab3b79a061e3c383983640e007a81ae264f"
+    },
+    {
+      "path": "app/resources/sounds/clear-announce.mp3",
+      "archive_path": "source/app/resources/sounds/clear-announce.mp3",
+      "bytes": 126313,
+      "sha256": "e4f2c5975c391a7a86e5bfeb3771203e012eaf9ceed94220b627b5c791289e70"
+    },
+    {
+      "path": "app/resources/sounds/correct-answer-tone.mp3",
+      "archive_path": "source/app/resources/sounds/correct-answer-tone.mp3",
+      "bytes": 63471,
+      "sha256": "354bd203b56867522e8138fc9664fc766f7f933af3452a2faadfcebb812f1f83"
+    },
+    {
+      "path": "app/resources/sounds/doorbell-tone.mp3",
+      "archive_path": "source/app/resources/sounds/doorbell-tone.mp3",
+      "bytes": 136962,
+      "sha256": "861088700cbc98030c7011aa73302b6d85040cdd6e9cbfedfb5a381487a8868d"
+    },
+    {
+      "path": "app/resources/sounds/guitar-alert.mp3",
+      "archive_path": "source/app/resources/sounds/guitar-alert.mp3",
+      "bytes": 52615,
+      "sha256": "b509a791d991425e58377f68ed5e1e6e259991c3bd2e0b6c6912cdd8d6d643e4"
+    },
+    {
+      "path": "app/resources/sounds/happy-bells.mp3",
+      "archive_path": "source/app/resources/sounds/happy-bells.mp3",
+      "bytes": 96931,
+      "sha256": "d765705ab2455c90a3d39511288f33d917e4b9daa5c383dcbf20b7c289718d55"
+    },
+    {
+      "path": "app/resources/sounds/interface-hint.mp3",
+      "archive_path": "source/app/resources/sounds/interface-hint.mp3",
+      "bytes": 49848,
+      "sha256": "80a9cfe1c672ef7164f28b207807003e8babc8b2741c5556d399b9322ba53b9b"
+    },
+    {
+      "path": "app/resources/sounds/magic-marimba.mp3",
+      "archive_path": "source/app/resources/sounds/magic-marimba.mp3",
+      "bytes": 106269,
+      "sha256": "0746a43b936cde0a5cd2cfe1383b89cf073d4064586e085347f400900c800c9c"
+    },
+    {
+      "path": "app/resources/sounds/magic-ring.mp3",
+      "archive_path": "source/app/resources/sounds/magic-ring.mp3",
+      "bytes": 91447,
+      "sha256": "d50cab5faf2bdb98c9e09c7c4b1278c3fbc464a76f3ec252c1d6e17043afb57c"
+    },
+    {
+      "path": "app/resources/sounds/message-pop.mp3",
+      "archive_path": "source/app/resources/sounds/message-pop.mp3",
+      "bytes": 13059,
+      "sha256": "58ecb2df40864551fd8aa7f770c13646187854df7fe4ca74497997b24f7669cd"
+    },
+    {
+      "path": "app/resources/sounds/positive-notification.mp3",
+      "archive_path": "source/app/resources/sounds/positive-notification.mp3",
+      "bytes": 87485,
+      "sha256": "f8ceb17da71129457582aaf169de637f84a63491678d9abaff629f3dc2981608"
+    },
+    {
+      "path": "app/resources/sounds/uplifting-flute.mp3",
+      "archive_path": "source/app/resources/sounds/uplifting-flute.mp3",
+      "bytes": 124440,
+      "sha256": "aa619d40a5a81eb7e703b47953cc2609c8b3225d96f6f54273c276d5aef4df35"
+    },
+    {
+      "path": "design_handoff_oaken/README.md",
+      "archive_path": "source/design_handoff_oaken/README.md",
+      "bytes": 18647,
+      "sha256": "bd44e6e64b43c368130ce7cade8d64620fd8bedec8b4a62441ad9398a8cfa1fe"
+    },
+    {
+      "path": "design_handoff_oaken/prototype/Oaken.html",
+      "archive_path": "source/design_handoff_oaken/prototype/Oaken.html",
+      "bytes": 20642,
+      "sha256": "10bd909b119fb50fcacc5776be2790f93376f03f8b8a3b9e03d08d56c40087d9"
+    },
+    {
+      "path": "design_handoff_oaken/prototype/shared/chrome.jsx",
+      "archive_path": "source/design_handoff_oaken/prototype/shared/chrome.jsx",
+      "bytes": 10707,
+      "sha256": "70b1c863e17320a978f1bcb5d4481fa3ad9f35f0fdf1150ff2db37afe4b01484"
+    },
+    {
+      "path": "design_handoff_oaken/prototype/shared/components.jsx",
+      "archive_path": "source/design_handoff_oaken/prototype/shared/components.jsx",
+      "bytes": 14139,
+      "sha256": "b1e0fa1bd25b8ee13f5bd82aacb62ee6f75c5086503e8701f40fc9e935bcb252"
+    },
+    {
+      "path": "design_handoff_oaken/prototype/shared/grains.jsx",
+      "archive_path": "source/design_handoff_oaken/prototype/shared/grains.jsx",
+      "bytes": 6812,
+      "sha256": "3ea200ade309da6ee7ac2b376f238f5509ce336bd3880929d17e1ab3ba412d7e"
+    },
+    {
+      "path": "design_handoff_oaken/prototype/shared/themes.jsx",
+      "archive_path": "source/design_handoff_oaken/prototype/shared/themes.jsx",
+      "bytes": 1836,
+      "sha256": "10791c7a261eeee513dd8875629e847bddb4edaecb0bbff3b4e14cb65afdc67e"
+    },
+    {
+      "path": "design_handoff_oaken/prototype/shared/tokens.css",
+      "archive_path": "source/design_handoff_oaken/prototype/shared/tokens.css",
+      "bytes": 14889,
+      "sha256": "e2c87a83d65a7b22e328cad3a03848cbd9da6f6b61f068dba86c7831753e2a17"
+    },
+    {
+      "path": "design_handoff_oaken/prototype/src/app.jsx",
+      "archive_path": "source/design_handoff_oaken/prototype/src/app.jsx",
+      "bytes": 8626,
+      "sha256": "b7ff71d1bf2ec65c8fe0e0b8f06f38634bcd0a91b9b5e376c2e127270cb3df84"
+    },
+    {
+      "path": "design_handoff_oaken/prototype/src/data.jsx",
+      "archive_path": "source/design_handoff_oaken/prototype/src/data.jsx",
+      "bytes": 8170,
+      "sha256": "c278643989e216b114fbcd28d83ae292d0a00dbbc3c61b963c04d45495e4cc9c"
+    },
+    {
+      "path": "design_handoff_oaken/prototype/src/details.jsx",
+      "archive_path": "source/design_handoff_oaken/prototype/src/details.jsx",
+      "bytes": 15509,
+      "sha256": "89c4017fd4829806aadf65b51ab2b96257a83f65a7132a3d4257dfad9d10349c"
+    },
+    {
+      "path": "design_handoff_oaken/prototype/src/pool.jsx",
+      "archive_path": "source/design_handoff_oaken/prototype/src/pool.jsx",
+      "bytes": 14111,
+      "sha256": "694b2c4d71eee5f1461927a5ef8ff96148e6f7fbcfd86921059e919a6e31219e"
+    },
+    {
+      "path": "renderer/.storybook/main.ts",
+      "archive_path": "source/renderer/.storybook/main.ts",
+      "bytes": 1050,
+      "sha256": "e117d8a41bc1797f18366542285cbc36010e91473b3d6f62c4a7056aa692b246"
+    },
+    {
+      "path": "renderer/.storybook/preview.ts",
+      "archive_path": "source/renderer/.storybook/preview.ts",
+      "bytes": 577,
+      "sha256": "ffc99aaec42929c6898719a0c8e96c37023af2280b07e2f5f42085701732db4f"
+    },
+    {
+      "path": "renderer/DESIGN-LOOP.md",
+      "archive_path": "source/renderer/DESIGN-LOOP.md",
+      "bytes": 8545,
+      "sha256": "becbb7eef99886b022c05bfef626a80743b81e4e61241bfefd32d43606c4af36"
+    },
+    {
+      "path": "renderer/apps/artifact/index.html",
+      "archive_path": "source/renderer/apps/artifact/index.html",
+      "bytes": 269,
+      "sha256": "21abd1f8a29e1817d3ba24e8cccba2ab0b98dda47a7e44db0a9ff35f10d78a6d"
+    },
+    {
+      "path": "renderer/apps/artifact/src/App.svelte",
+      "archive_path": "source/renderer/apps/artifact/src/App.svelte",
+      "bytes": 21014,
+      "sha256": "31cceb7001a9090c264ed3daad876ed433339fc2860e5852e16519461a369f10"
+    },
+    {
+      "path": "renderer/apps/artifact/src/main.ts",
+      "archive_path": "source/renderer/apps/artifact/src/main.ts",
+      "bytes": 250,
+      "sha256": "4143a7ab0ac7aa4e38e92c7e61a0f5b4682d079a15595c3834e636f14b557597"
+    },
+    {
+      "path": "renderer/apps/artifact/tsconfig.json",
+      "archive_path": "source/renderer/apps/artifact/tsconfig.json",
+      "bytes": 460,
+      "sha256": "2dd6f62453592452f97f34b8f2c570eed1cabe5629672d2614b5ebcf4869ebc7"
+    },
+    {
+      "path": "renderer/apps/artifact/vite.config.ts",
+      "archive_path": "source/renderer/apps/artifact/vite.config.ts",
+      "bytes": 145,
+      "sha256": "2737b903f9a71b8343ef604166703c08cb3e27c294b54e389b176f99c3b94c65"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/ActivityGraphFixture.svelte",
+      "archive_path": "source/renderer/apps/elma/e2e/ActivityGraphFixture.svelte",
+      "bytes": 569,
+      "sha256": "b691929bf8f9b0c59a35fbab13e142b9643652db1f75fd192b4d4626c4525be3"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/EntityComposerFixture.svelte",
+      "archive_path": "source/renderer/apps/elma/e2e/EntityComposerFixture.svelte",
+      "bytes": 444,
+      "sha256": "8affadd460d65329029e009925d1b80ec276e921cab261eedce7f2970e62c9db"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/LargePasteComposerFixture.svelte",
+      "archive_path": "source/renderer/apps/elma/e2e/LargePasteComposerFixture.svelte",
+      "bytes": 1282,
+      "sha256": "b03520eb7866c792059ea1dd02cd31578ae06e6ab1380480581da16d4f2fc0a5"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/ResponseAutoscrollFixture.svelte",
+      "archive_path": "source/renderer/apps/elma/e2e/ResponseAutoscrollFixture.svelte",
+      "bytes": 2560,
+      "sha256": "f93365173d546890b00b73be194c02d18bc318f6fd17b81282d90587c7179d00"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/activity-graph-fixture.html",
+      "archive_path": "source/renderer/apps/elma/e2e/activity-graph-fixture.html",
+      "bytes": 197,
+      "sha256": "7b72b967434be4829583f2f47c9198463143cd49ef409dfed8a18471461aa0d5"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/activity-graph-fixture.ts",
+      "archive_path": "source/renderer/apps/elma/e2e/activity-graph-fixture.ts",
+      "bytes": 3289,
+      "sha256": "4df60ea030ec06019dd5f0de944d1e48489e899ea87e681aadb52b78094c1a4e"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/activity-graph.e2e.mjs",
+      "archive_path": "source/renderer/apps/elma/e2e/activity-graph.e2e.mjs",
+      "bytes": 6826,
+      "sha256": "c557436e816b2359276a50fba4bec824410c04d2ea27e6e7b2980fd69bf569b1"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/change-walkthrough-toggle.e2e.mjs",
+      "archive_path": "source/renderer/apps/elma/e2e/change-walkthrough-toggle.e2e.mjs",
+      "bytes": 2964,
+      "sha256": "ae4406076eab05a6b9af9514e647657111986a454da5e5a9e878242471c5ddb2"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/draft-session-switch.e2e.mjs",
+      "archive_path": "source/renderer/apps/elma/e2e/draft-session-switch.e2e.mjs",
+      "bytes": 16681,
+      "sha256": "a1189233eae1ed6ceac43bf7fff57099c8737a16e70232577ac6571fb7e20e60"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/entity-composer-fixture.html",
+      "archive_path": "source/renderer/apps/elma/e2e/entity-composer-fixture.html",
+      "bytes": 266,
+      "sha256": "1dfcd143b541cfbc35af886a5fe4f795e1380fe2ff451e58bba3a806c1489ff5"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/entity-composer-fixture.ts",
+      "archive_path": "source/renderer/apps/elma/e2e/entity-composer-fixture.ts",
+      "bytes": 174,
+      "sha256": "379dbefe127508657a139c239bf7cbaed3db8be9d4e488dbabbbf7aacc5ab735"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/entity-composer.e2e.mjs",
+      "archive_path": "source/renderer/apps/elma/e2e/entity-composer.e2e.mjs",
+      "bytes": 4615,
+      "sha256": "df6987042350ac8246d655cedeb7cac6d8708720449b75e0ea640742155dfc32"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/large-paste-composer-fixture.html",
+      "archive_path": "source/renderer/apps/elma/e2e/large-paste-composer-fixture.html",
+      "bytes": 276,
+      "sha256": "6b5d89a82e4febe70841d32c1a308f04d6e69bff2c16c703cf13ccba802ed12b"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/large-paste-composer-fixture.ts",
+      "archive_path": "source/renderer/apps/elma/e2e/large-paste-composer-fixture.ts",
+      "bytes": 186,
+      "sha256": "57a412148ac785f9f7354dbf613a8c4dfc9ddde662e9d434081555cdc78b4082"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/large-paste-composer.e2e.mjs",
+      "archive_path": "source/renderer/apps/elma/e2e/large-paste-composer.e2e.mjs",
+      "bytes": 5028,
+      "sha256": "3c5a7e0d723f78a352e24e987d20ad7e684bd79e2bef92c1c79181144ebac1a8"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/message-images-fixture.html",
+      "archive_path": "source/renderer/apps/elma/e2e/message-images-fixture.html",
+      "bytes": 215,
+      "sha256": "0ec9d761bccf6da9ba7377f3b2c35192aac8db8da6da99707c790658edd55f05"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/message-images-fixture.ts",
+      "archive_path": "source/renderer/apps/elma/e2e/message-images-fixture.ts",
+      "bytes": 727,
+      "sha256": "32482eef9988b0d6293eb3aa229ff262905782b0e43908386c558eed901f4372"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/message-images.e2e.mjs",
+      "archive_path": "source/renderer/apps/elma/e2e/message-images.e2e.mjs",
+      "bytes": 2145,
+      "sha256": "4befd5bae7802b93d209dd8eb9d149b06bcd9ac6d237fe377dbbee2085704c6a"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/native-tool-timer-fixture.html",
+      "archive_path": "source/renderer/apps/elma/e2e/native-tool-timer-fixture.html",
+      "bytes": 257,
+      "sha256": "77bdb818ee7131457e1c2bbd5cb9978b0f6a7e904b9940e1fc6d5ea7228bc5c1"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/native-tool-timer-fixture.ts",
+      "archive_path": "source/renderer/apps/elma/e2e/native-tool-timer-fixture.ts",
+      "bytes": 1854,
+      "sha256": "d83d03ba023e9c51cc612596c83e1c8b6f79c9e17aeb889047dc950a872b5b8f"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/native-tool-timer.e2e.mjs",
+      "archive_path": "source/renderer/apps/elma/e2e/native-tool-timer.e2e.mjs",
+      "bytes": 5304,
+      "sha256": "b932c258aebad4313050b9ad44aa4d9f3ce3f3a16e47d46324a42a19e61b4fdf"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/response-autoscroll-fixture.html",
+      "archive_path": "source/renderer/apps/elma/e2e/response-autoscroll-fixture.html",
+      "bytes": 469,
+      "sha256": "d467d7765c0222c93c17dc4ee8946fa18b57fed5438803b1e9c527653a340a1b"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/response-autoscroll-fixture.ts",
+      "archive_path": "source/renderer/apps/elma/e2e/response-autoscroll-fixture.ts",
+      "bytes": 269,
+      "sha256": "d35b337bfbaa54df8813ff85fa10318fa695f661051ee48ee24b765e369478c1"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/response-autoscroll.e2e.mjs",
+      "archive_path": "source/renderer/apps/elma/e2e/response-autoscroll.e2e.mjs",
+      "bytes": 5347,
+      "sha256": "d66d90396e085683485af4cde90e152f3f374b112e4469b9de9db38ec058d810"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/retry-image.e2e.mjs",
+      "archive_path": "source/renderer/apps/elma/e2e/retry-image.e2e.mjs",
+      "bytes": 5711,
+      "sha256": "9c35fa4ce822e58fcbaa41b69c4e85fa1f8b0b80491fc52e730c663f4f73224d"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/side-panel-autosave-fixture.html",
+      "archive_path": "source/renderer/apps/elma/e2e/side-panel-autosave-fixture.html",
+      "bytes": 324,
+      "sha256": "ff127b75edcfe0975a8bd00a07a19678fc490cbc82c5677fb6c13db5bf16a19a"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/side-panel-autosave-fixture.ts",
+      "archive_path": "source/renderer/apps/elma/e2e/side-panel-autosave-fixture.ts",
+      "bytes": 1333,
+      "sha256": "b1e6a89fa272df287e0f161d2d657d3ce94978baef04455aa8674511b3a8824c"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/side-panel-autosave.e2e.mjs",
+      "archive_path": "source/renderer/apps/elma/e2e/side-panel-autosave.e2e.mjs",
+      "bytes": 1962,
+      "sha256": "4e5abde6c0fca95ace4f2f69ea0928638688572319d062ef95d1df4056bf2e93"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/tool-animation-fixture.html",
+      "archive_path": "source/renderer/apps/elma/e2e/tool-animation-fixture.html",
+      "bytes": 229,
+      "sha256": "2d6fb13842ecb1c0127f9c5f5e46f16bd092a9ae785862b6e563cd23c89ba21f"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/tool-animation.e2e.mjs",
+      "archive_path": "source/renderer/apps/elma/e2e/tool-animation.e2e.mjs",
+      "bytes": 4616,
+      "sha256": "cf528864c07f287051ebdc60e3d2ec4509f274c651c4fe90d305e356d342d9ee"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/turn-inspector-fixture.html",
+      "archive_path": "source/renderer/apps/elma/e2e/turn-inspector-fixture.html",
+      "bytes": 401,
+      "sha256": "cb22c4ec732920b44ccc0bc302919df96137980ac16eaba944a1f6c85639f13c"
+    },
+    {
+      "path": "renderer/apps/elma/e2e/turn-inspector-fixture.ts",
+      "archive_path": "source/renderer/apps/elma/e2e/turn-inspector-fixture.ts",
+      "bytes": 170,
+      "sha256": "a8b545b13b4bf234f6b744459aec5ec7be7254946d986e65a08075254a4f1ab8"
+    },
+    {
+      "path": "renderer/apps/elma/index.html",
+      "archive_path": "source/renderer/apps/elma/index.html",
+      "bytes": 295,
+      "sha256": "fd64f666c99abd2b2a5008dd60d694f93231923545099e10ca3ade08f8359fa4"
+    },
+    {
+      "path": "renderer/apps/elma/src/App.svelte",
+      "archive_path": "source/renderer/apps/elma/src/App.svelte",
+      "bytes": 183504,
+      "sha256": "557f6c45f1352b1d1bd20a5189290898266c5c1da5bf9eb1f02ed7a6020c90d3"
+    },
+    {
+      "path": "renderer/apps/elma/src/ElmaChatGlyph.svelte",
+      "archive_path": "source/renderer/apps/elma/src/ElmaChatGlyph.svelte",
+      "bytes": 992,
+      "sha256": "c0daa0a29258eb02a05128260be036b1da4df3cc969ffec01eb246873cd93d53"
+    },
+    {
+      "path": "renderer/apps/elma/src/ElmaHeaderAnimation.stories.tsx",
+      "archive_path": "source/renderer/apps/elma/src/ElmaHeaderAnimation.stories.tsx",
+      "bytes": 1364,
+      "sha256": "1d761bc1ec2abab72432ed9a79dcb30723dacc202385aba06e4c833dfd073218"
+    },
+    {
+      "path": "renderer/apps/elma/src/ElmaHeaderAnimationPreview.svelte",
+      "archive_path": "source/renderer/apps/elma/src/ElmaHeaderAnimationPreview.svelte",
+      "bytes": 1639,
+      "sha256": "f6873b98708f172f1de951dd010540d6499c574a25fc45680bf133dd81985d1f"
+    },
+    {
+      "path": "renderer/apps/elma/src/ElmaHeaderTitle.svelte",
+      "archive_path": "source/renderer/apps/elma/src/ElmaHeaderTitle.svelte",
+      "bytes": 3587,
+      "sha256": "425217752ccbc376504f301c6c8eafe6b193e2be58f7a1b94ac2c6f17f8f108c"
+    },
+    {
+      "path": "renderer/apps/elma/src/ElmaLeafGlyph.svelte",
+      "archive_path": "source/renderer/apps/elma/src/ElmaLeafGlyph.svelte",
+      "bytes": 757,
+      "sha256": "39a57960402d1ba24b3c8d3674ae550a421298d5d938f2b8d191167b4a566511"
+    },
+    {
+      "path": "renderer/apps/elma/src/ElmaStatusBar.svelte",
+      "archive_path": "source/renderer/apps/elma/src/ElmaStatusBar.svelte",
+      "bytes": 8950,
+      "sha256": "ef4977a52c253209b4e5c8773884e03e8f3984dfb8d6992e5b5afd239d96433a"
+    },
+    {
+      "path": "renderer/apps/elma/src/ErrorBoundary.svelte",
+      "archive_path": "source/renderer/apps/elma/src/ErrorBoundary.svelte",
+      "bytes": 2535,
+      "sha256": "5907700cb3711dcbf306b2778faff2dddcb0877ba8c33f119b9a6b3365e9201f"
+    },
+    {
+      "path": "renderer/apps/elma/src/ErrorBoundary.types.ts",
+      "archive_path": "source/renderer/apps/elma/src/ErrorBoundary.types.ts",
+      "bytes": 1127,
+      "sha256": "79611bff632c2ab62f21dd9d798fa4b11ba8643827958d54378f11eaf6879e81"
+    },
+    {
+      "path": "renderer/apps/elma/src/FontSizeControl.svelte",
+      "archive_path": "source/renderer/apps/elma/src/FontSizeControl.svelte",
+      "bytes": 1279,
+      "sha256": "41f6bb1e9c0cc334505941ef34f6e0a44cb2e1e2773a1fed286991f50d89a5c1"
+    },
+    {
+      "path": "renderer/apps/elma/src/RenderErrorCard.svelte",
+      "archive_path": "source/renderer/apps/elma/src/RenderErrorCard.svelte",
+      "bytes": 3176,
+      "sha256": "2222464666a481121c7704670e022a13ed4f843743c7c771423bbdb8d4c9e000"
+    },
+    {
+      "path": "renderer/apps/elma/src/RepoGlyph.svelte",
+      "archive_path": "source/renderer/apps/elma/src/RepoGlyph.svelte",
+      "bytes": 776,
+      "sha256": "5484a78604f8ad03950cde23efe0da8a614efde22f9757b81443430d199eb7cf"
+    },
+    {
+      "path": "renderer/apps/elma/src/WorktreeDiffMode.svelte",
+      "archive_path": "source/renderer/apps/elma/src/WorktreeDiffMode.svelte",
+      "bytes": 764,
+      "sha256": "6cdc6d851ede8f8292f7a884c15e7714eb3a7d0f7c90c14649e111e5ab81246c"
+    },
+    {
+      "path": "renderer/apps/elma/src/WorktreePicker.svelte",
+      "archive_path": "source/renderer/apps/elma/src/WorktreePicker.svelte",
+      "bytes": 6865,
+      "sha256": "dc343f07ce4397d8449e614dd763ccdcb7e5e4f80aa16143a89c06c3e8faf1c8"
+    },
+    {
+      "path": "renderer/apps/elma/src/api.ts",
+      "archive_path": "source/renderer/apps/elma/src/api.ts",
+      "bytes": 33671,
+      "sha256": "7ad75c2c753a98e0f682087610262d20c70a5c14f0a678f125a96967a7668c61"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/active-turn-state.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/active-turn-state.ts",
+      "bytes": 1055,
+      "sha256": "a295e96e2af7965fa3c79de90b7cf18ebc06734bb247a3ad3c54c337ffb10866"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/branch-reconciliation.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/branch-reconciliation.ts",
+      "bytes": 663,
+      "sha256": "f808db4376a9fd5c4f6b9b76996c01813ab1b1a32a01a715cef3bbdd8df8ad5e"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/chat-width.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/chat-width.ts",
+      "bytes": 475,
+      "sha256": "5b61dd40d5df55db749d64ec9507598f7852f50b2f67a8c7d63e76116578f6d9"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/draft-bindings.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/draft-bindings.ts",
+      "bytes": 7054,
+      "sha256": "c5b877a65d7c38bb6585157d062402c6def3cfd3cf08f5293068405efa758def"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/draft-cache.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/draft-cache.ts",
+      "bytes": 4914,
+      "sha256": "b0d538ed2580a190b27fb267b5dacb42533332e9c1a6b2cc2d0f483883a0ec75"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/drafts.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/drafts.ts",
+      "bytes": 1662,
+      "sha256": "4be3995572f47ffa977294148156cfa06fc91859829a7882394784462a4668e3"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/edit-replacement.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/edit-replacement.ts",
+      "bytes": 1205,
+      "sha256": "ef551f0bebce23e641e80181fa98540e7af8ef0a573ded141d0b5c8c89b94dfc"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/helpers.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/helpers.ts",
+      "bytes": 5027,
+      "sha256": "ba1ee1ce57dd0d5cf26b8b5ab78d74fe507a391eab0aa56d4be648f64d6f5e4a"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/hotkeys.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/hotkeys.ts",
+      "bytes": 284,
+      "sha256": "f0a5ed2efaf394822b965fb1ea03867cd75b5bc3a26ac44231e9d09d70525ac4"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/message-attachments.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/message-attachments.ts",
+      "bytes": 1676,
+      "sha256": "944b3381340db63b71285da4bd2f797cb5b9164188fc880402cc76f5ea6a4114"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/model-selection.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/model-selection.ts",
+      "bytes": 1944,
+      "sha256": "4422c0516670ada1bba1d6940d6dd6fe5eb6a5c7e99dead39dca96ed80560ce3"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/open-handoff-guard.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/open-handoff-guard.ts",
+      "bytes": 2562,
+      "sha256": "63ae46ee5fd5a9d7abcfa0e7fccca3fe623cae43d3b10f11d7df7e9875e9972b"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/post-paint-scheduler.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/post-paint-scheduler.ts",
+      "bytes": 1520,
+      "sha256": "66dfa80b5df0060a3679351dba7b41207f0431e0938d70e1d837f2e524addf9c"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/read-receipt.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/read-receipt.ts",
+      "bytes": 792,
+      "sha256": "9c79be3c77b73006df42c214bd1d244ead7e433f034cf920fa5a24e1f57376b0"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/scroll-cache.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/scroll-cache.ts",
+      "bytes": 1260,
+      "sha256": "9a774bd9ef2995fb278cf9147ad9b573ad68c67471b1cf500b1907c8b6ba69d4"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/send-state.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/send-state.ts",
+      "bytes": 1869,
+      "sha256": "bcceb0a04ee3788d9b75a1dccb00390dbd8cccfdf40b71febfe853cd787edc6d"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/submissions.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/submissions.ts",
+      "bytes": 4623,
+      "sha256": "609ac1548bce546bc8715272397ac602e120c88a468a12f25fbdb7473aeb8046"
+    },
+    {
+      "path": "renderer/apps/elma/src/app/tool-preview.ts",
+      "archive_path": "source/renderer/apps/elma/src/app/tool-preview.ts",
+      "bytes": 4894,
+      "sha256": "eebb2fe0e3eb8769f31a5799e3a140fd208906cf94d46bab8eb5f9df975bb47a"
+    },
+    {
+      "path": "renderer/apps/elma/src/change-walkthrough/ChangeFileRail.svelte",
+      "archive_path": "source/renderer/apps/elma/src/change-walkthrough/ChangeFileRail.svelte",
+      "bytes": 3617,
+      "sha256": "488ef1960346a9e1ac5acb29dcce650c2db0099e37cfc5473286c975c9efbe97"
+    },
+    {
+      "path": "renderer/apps/elma/src/change-walkthrough/ChangeWalkthroughPage.svelte",
+      "archive_path": "source/renderer/apps/elma/src/change-walkthrough/ChangeWalkthroughPage.svelte",
+      "bytes": 21887,
+      "sha256": "4a36e7adde90ebad9923e825a6b8d843e7f7467f71ffc06209467b348768e7b3"
+    },
+    {
+      "path": "renderer/apps/elma/src/change-walkthrough/CodeVersionView.svelte",
+      "archive_path": "source/renderer/apps/elma/src/change-walkthrough/CodeVersionView.svelte",
+      "bytes": 6449,
+      "sha256": "ca50dc5dd4d020f5f4fe220deb794d55ae99f989cfdd9baf4e58bf94c3f9c17a"
+    },
+    {
+      "path": "renderer/apps/elma/src/change-walkthrough/UnifiedDiff.svelte",
+      "archive_path": "source/renderer/apps/elma/src/change-walkthrough/UnifiedDiff.svelte",
+      "bytes": 4705,
+      "sha256": "f38381b9a2d3e6dfa2cfdd764c7830d752d1cc02d665109e02a40cb1ca337208"
+    },
+    {
+      "path": "renderer/apps/elma/src/change-walkthrough/WalkthroughTargetPicker.svelte",
+      "archive_path": "source/renderer/apps/elma/src/change-walkthrough/WalkthroughTargetPicker.svelte",
+      "bytes": 6123,
+      "sha256": "626ed61ddd26bed3d736baf3eca3177a47187481babd4bf101ea14614fa0af17"
+    },
+    {
+      "path": "renderer/apps/elma/src/change-walkthrough/branchWalkthrough.ts",
+      "archive_path": "source/renderer/apps/elma/src/change-walkthrough/branchWalkthrough.ts",
+      "bytes": 456,
+      "sha256": "343213963fab625ecf91d8d6484ae04b65dcdbc9d1bb9bc41df17cda0b7bbe1b"
+    },
+    {
+      "path": "renderer/apps/elma/src/change-walkthrough/state.ts",
+      "archive_path": "source/renderer/apps/elma/src/change-walkthrough/state.ts",
+      "bytes": 9741,
+      "sha256": "11595fbbf09db20ff04f459a3b9e8889ccd0e7d70c486fb3c86682bb9ca8eac1"
+    },
+    {
+      "path": "renderer/apps/elma/src/change-walkthrough/types.ts",
+      "archive_path": "source/renderer/apps/elma/src/change-walkthrough/types.ts",
+      "bytes": 3284,
+      "sha256": "6a0988a8ece1fef171a73b8a05d44d3ae584f212bdf049fdedefac5e8b874731"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/ActionButton.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/ActionButton.svelte",
+      "bytes": 1272,
+      "sha256": "1883a0175c9dec74e08988465f38538b3749ce8244ee2bbf0931559ed6fdaf89"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/ActivityGraphPanel.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/ActivityGraphPanel.svelte",
+      "bytes": 7935,
+      "sha256": "f4c20dcca4c58dc5bcc99df2ded12a521037071b9a0553d6aa861c95f5ac56fc"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/AgentStatusBar.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/AgentStatusBar.svelte",
+      "bytes": 5081,
+      "sha256": "bb9dbb95dc4ff195dfe95adb60063209362efbda885b213412ad8641892aea29"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/AgentStatusBar.types.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/AgentStatusBar.types.ts",
+      "bytes": 620,
+      "sha256": "c7cff704eb56d4d98d78530c298299ae4d5c2b4bf0ce8cc368410c50c75cb2ce"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/AnswerBeacon.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/AnswerBeacon.svelte",
+      "bytes": 4294,
+      "sha256": "8ebf96fec85236e54fae6ebd8878db12ad794a8485cbdf1d244d6da037dae17c"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/AnswerThreshold.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/AnswerThreshold.svelte",
+      "bytes": 586,
+      "sha256": "59bab1bab347c22c01760522b2a6cca0865970c7d22ef5fc5efc361c5fbd2aeb"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/ApprovalDock.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/ApprovalDock.svelte",
+      "bytes": 1976,
+      "sha256": "165835090cf88b8fa9e5c985f867036285ba17c71a80e75506d76d6b1645e6e0"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/ArbolSheen.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/ArbolSheen.svelte",
+      "bytes": 852,
+      "sha256": "dd1f0eac90d8942a68cbd77ee6b72b384673729c2ec3a158e489f3694c537c01"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/AskUserQuestionCard.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/AskUserQuestionCard.svelte",
+      "bytes": 7145,
+      "sha256": "00ececa67f78f27352ff153cce29c8dac56f8cffd125e301c9052020fc81d017"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/AttachedContext.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/AttachedContext.svelte",
+      "bytes": 5044,
+      "sha256": "a5baeb0cf34534f143112ad26b2ba542667686c6cb309f409552ba7f2a5db1ae"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/ChatTagStrip.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/ChatTagStrip.svelte",
+      "bytes": 1131,
+      "sha256": "2a7218249749b5fef7fa532ac7ee97e834a6c556408a559eb618bda7ae33a0e2"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/Composer.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/Composer.svelte",
+      "bytes": 9218,
+      "sha256": "3093427fc64d64526dd9ba66518342f1b8309e2d4f28db3881df184579ea7456"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/ContextStrip.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/ContextStrip.svelte",
+      "bytes": 1451,
+      "sha256": "9b28e0100a1d3b14f7cadf8b116486db08fdc1bfdc7599bccf50f52090f03f5e"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/CopyButton.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/CopyButton.svelte",
+      "bytes": 3050,
+      "sha256": "6d86a168d6a184e69ef94a41481356b178a87da650ab97fea5c797850d5867d1"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/EntityCardChatNote.stories.tsx",
+      "archive_path": "source/renderer/apps/elma/src/chat/EntityCardChatNote.stories.tsx",
+      "bytes": 1754,
+      "sha256": "45daa39368d345190c93574ecaec72f4b2f431d1a80c69d1955b08c0eb889074"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/EntityCardChatNoteStoryPreview.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/EntityCardChatNoteStoryPreview.svelte",
+      "bytes": 13618,
+      "sha256": "9c77fc7f27523ae32414e58c4ec75847f4151ed2d4fe0ec4085b9719643f3440"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/EntityComposer.stories.tsx",
+      "archive_path": "source/renderer/apps/elma/src/chat/EntityComposer.stories.tsx",
+      "bytes": 750,
+      "sha256": "e065273f899f25f3153f4e31b729233b1da2df7865733f35505a5edbf3f055e0"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/EntityComposerInput.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/EntityComposerInput.svelte",
+      "bytes": 22225,
+      "sha256": "14bdd95d42c594e22c5d9a3d0cb2c4973023ba0d619188daf75ead3fb5534ed8"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/EntityComposerStoryPreview.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/EntityComposerStoryPreview.svelte",
+      "bytes": 2356,
+      "sha256": "2a2f8776d44f22351865c8d6e222c5701325f2ba4de43d6af223584a6a40ba7d"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/FinalAnswerArtwork.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/FinalAnswerArtwork.svelte",
+      "bytes": 5855,
+      "sha256": "f41f11dbe22d74b997b8f549de1a70a355994d296a133409948e21c050a197d1"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/FinalAnswerMark.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/FinalAnswerMark.svelte",
+      "bytes": 1644,
+      "sha256": "bd695fd6e1b2b8d48000500cc9969790b3e4a21d58eeae2eb4363304423fe3c8"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/FinalAnswerProposalIcon.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/FinalAnswerProposalIcon.svelte",
+      "bytes": 3325,
+      "sha256": "a4738c6ce51822f8bfe7892b56586a35e23ac16161c3eb3c29ab0a8a9f2018ba"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/FinalAnswerProposals.stories.tsx",
+      "archive_path": "source/renderer/apps/elma/src/chat/FinalAnswerProposals.stories.tsx",
+      "bytes": 1316,
+      "sha256": "79edbbaa8ada86bc95def7e34c6512f9d16ffa70db5d10f73ad774286b3e41de"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/FinalAnswerProposalsPreview.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/FinalAnswerProposalsPreview.svelte",
+      "bytes": 6175,
+      "sha256": "e63296bc7d0709c13350062f390b7aa1a0ad36b9bbabc7ec479959f92c492a14"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/HistoryOverlay.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/HistoryOverlay.svelte",
+      "bytes": 12039,
+      "sha256": "8f3ae502d9948128d7f2bcb545b91ee82181faf2fd73679203bf8c6c84de81e8"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/LifecycleLog.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/LifecycleLog.svelte",
+      "bytes": 1250,
+      "sha256": "484584a37c780fc1d3757b68c21c9335a90fdfa42d6adb7390a17279722ad3cc"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/MessageImages.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/MessageImages.svelte",
+      "bytes": 3256,
+      "sha256": "a115df35db179b208228878e9292fb912970889a16e3dc4c667cd5edb3f551e3"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/NativeToolCallRow.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/NativeToolCallRow.svelte",
+      "bytes": 14655,
+      "sha256": "ba69102ab97bb5fd937480f46fdf23bb7e880213828d945f3f0a4d9c66071dc6"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/NativeToolRuntimeTimer.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/NativeToolRuntimeTimer.svelte",
+      "bytes": 1046,
+      "sha256": "151753ae2864c3df41830af9f5004d0ca976509174d9747bbc48e0f34490bf19"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/PinnedMessage.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/PinnedMessage.svelte",
+      "bytes": 7126,
+      "sha256": "d3f072f0a71d548d5479e35d240552910fafd40441cdd5e177877ddb1af594a9"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/ResponseView.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/ResponseView.svelte",
+      "bytes": 20421,
+      "sha256": "972d3c876c2714e1b643ae4da14b4905a2d1394ccff5e6e591947906981e471c"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/ResponseView.types.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/ResponseView.types.ts",
+      "bytes": 629,
+      "sha256": "f11b9479a186da44742080d3b26341e78bf84f9ff94fa7f74472c4e8a739c930"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/SidePanel.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/SidePanel.svelte",
+      "bytes": 23721,
+      "sha256": "fddb7661068028ac0a974acdefb1b1d4c0dce729c7502586519bb50cb7aa0df3"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/SplitColumns.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/SplitColumns.svelte",
+      "bytes": 2816,
+      "sha256": "16d1d9b2160f931c726c91d8b4e0b6a1105ee3b1c3ad5bc804c4a18791b45a40"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/TagChatDialog.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/TagChatDialog.svelte",
+      "bytes": 10205,
+      "sha256": "f8a6b7caf5c629df34fb7b32fd61766600937549f5dbe7b7d8f299658c566c2e"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/ThinkingBlock.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/ThinkingBlock.svelte",
+      "bytes": 3263,
+      "sha256": "fb23505620b9161dcedb3d4f1657d54824afe6f016a7b4c741ae8e015e483b5b"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/ThreadInspector.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/ThreadInspector.svelte",
+      "bytes": 3368,
+      "sha256": "358983d6d22d08b85914f2eb917f692ca6b9ac92e438c50d709af096e179b79e"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/ToolApprovalCard.helpers.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/ToolApprovalCard.helpers.ts",
+      "bytes": 7791,
+      "sha256": "bb7d3ea5fdc64f6143496fb253b71a91b27bb8bbe8fd0608e0e45b7dfd21ead8"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/ToolApprovalCard.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/ToolApprovalCard.svelte",
+      "bytes": 5363,
+      "sha256": "b3e847cc324c54697250fc71e19a733e335ecc6f043b20918139e1cc34c33c2a"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/TurnStepper.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/TurnStepper.svelte",
+      "bytes": 2762,
+      "sha256": "ed2315423b8cd0f62099a9cea30176e6c4d8de9dff2d78a0152f4a98cb17fbe9"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/activityGraphRefresh.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/activityGraphRefresh.ts",
+      "bytes": 4716,
+      "sha256": "3ea468f80b77a136693ad109464b357ff81a29306044a0c3e6f62537b06e4795"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/autoscroll.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/autoscroll.ts",
+      "bytes": 1820,
+      "sha256": "8534f414e65b6df60fcdffd74ced973fcfba676a44af6e0e2e55c9cfeba2b2d9"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/branching/BranchComposeBanner.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/branching/BranchComposeBanner.svelte",
+      "bytes": 2375,
+      "sha256": "122f74619f2114a0fbca221c1560dd0439323d53f81741f5e3e7b33973309d32"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/branching/BranchIcon.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/branching/BranchIcon.svelte",
+      "bytes": 591,
+      "sha256": "382cea7c1c2e0a1791d2ad0ac963c95e636a27371cb27a867859df304e1a2a02"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/branching/BranchStepArrow.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/branching/BranchStepArrow.svelte",
+      "bytes": 1124,
+      "sha256": "3999550acf1919c900f4af4b1ea3ab2b0febd709acf580f52a103e45bc700665"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/branching/BranchSwitcher.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/branching/BranchSwitcher.svelte",
+      "bytes": 1402,
+      "sha256": "9113214513aa77054ba3cd4e9c3bb085f20ca27b569f670e4f18e051e956652a"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/branching/ConfirmDialog.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/branching/ConfirmDialog.svelte",
+      "bytes": 3952,
+      "sha256": "4d1df760b898ef0575273a6f3943277ef1c9de3a751a0d711984e892919c7dfd"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/branching/PencilIcon.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/branching/PencilIcon.svelte",
+      "bytes": 565,
+      "sha256": "f9fcbd3dce78c8fbc8b0e799c856a759c8d06a1f438be143cbc6313bed5757d5"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/branching/PinIconBtn.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/branching/PinIconBtn.svelte",
+      "bytes": 1315,
+      "sha256": "f982e85de43cb011ba732cf3ca802f50f82855bc5e58906d6cbe786e167a0313"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/branching/TrashIcon.svelte",
+      "archive_path": "source/renderer/apps/elma/src/chat/branching/TrashIcon.svelte",
+      "bytes": 586,
+      "sha256": "5cf695647ffba479f5c0aaaf1dc1d6bedf9e100235fadc0abcb3008cb80b6dce"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/branching/fromFold.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/branching/fromFold.ts",
+      "bytes": 6250,
+      "sha256": "89a5ac28470b502513840dbd531eaff0614c22db18ad955543325dd9ee55bf4f"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/branching/index.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/branching/index.ts",
+      "bytes": 761,
+      "sha256": "babf19c333779fb3233113a67d9f1136b179a5fde0996b2f8e24aaedb04883fe"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/branching/tree.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/branching/tree.ts",
+      "bytes": 2964,
+      "sha256": "14c0337ced6c6a130c714c45e823c7b471cf8b37922b6e793d139cff913146cd"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/chatNoteClipboard.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/chatNoteClipboard.ts",
+      "bytes": 764,
+      "sha256": "1d123c2c83d7e4358811c692358554203ffc3fbbfeee56b5efd370678aa509cc"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/finalAnswerNavigation.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/finalAnswerNavigation.ts",
+      "bytes": 2698,
+      "sha256": "582f3aa8a7e52f70e2659f11a1be7e9afb37064ed398e3467ce41dab0297167a"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/largeTextPaste.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/largeTextPaste.ts",
+      "bytes": 455,
+      "sha256": "302def027d054aad8079073e9393c98a128252f1ad5a28b0e4179c87231b6f8a"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/quickText.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/quickText.ts",
+      "bytes": 638,
+      "sha256": "2765925388a9969fcb9ae1532e9167e03b55c43d1d05595011e80f4b61444509"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/responseView.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/responseView.ts",
+      "bytes": 16849,
+      "sha256": "98b0d8373cb9b47f2341ce3aefe2db42bb4c6169fc17a6fa7250e93c6a4f8ad6"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/sessionTags.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/sessionTags.ts",
+      "bytes": 4079,
+      "sha256": "38142dea793895be2abc1d7e7f58945dfe948e4ef72c93b749c450525bafa952"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/usePendingApprovals.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/usePendingApprovals.ts",
+      "bytes": 1691,
+      "sha256": "4a4cbee5e5d72a911c9e1acce2f07181235a1359ff96210df8a6c331fe1e160e"
+    },
+    {
+      "path": "renderer/apps/elma/src/chat/util.ts",
+      "archive_path": "source/renderer/apps/elma/src/chat/util.ts",
+      "bytes": 866,
+      "sha256": "086d3be32d3300129191329683f21b14850e886de2bb19f53216b269ce9b43a1"
+    },
+    {
+      "path": "renderer/apps/elma/src/constants.ts",
+      "archive_path": "source/renderer/apps/elma/src/constants.ts",
+      "bytes": 23047,
+      "sha256": "10a22b235e63a76e491709064be783bc5daf3b447c1faf2af258fd6b09f211e1"
+    },
+    {
+      "path": "renderer/apps/elma/src/main.ts",
+      "archive_path": "source/renderer/apps/elma/src/main.ts",
+      "bytes": 926,
+      "sha256": "ee468c90b9f78ecb75624e50aea143eb55e2b717ac4019eb5d607d0b52730032"
+    },
+    {
+      "path": "renderer/apps/elma/src/nav/FolderGlyph.svelte",
+      "archive_path": "source/renderer/apps/elma/src/nav/FolderGlyph.svelte",
+      "bytes": 409,
+      "sha256": "c1cc84eb540c54cc298f6c81aeec3aaa530cda84953a7a4a2fb60a1741c85ef2"
+    },
+    {
+      "path": "renderer/apps/elma/src/nav/HotkeyRow.svelte",
+      "archive_path": "source/renderer/apps/elma/src/nav/HotkeyRow.svelte",
+      "bytes": 2141,
+      "sha256": "81f19440fe2591cfe8589c84462c1f384f330e0928d05c286ea22ae100ce0700"
+    },
+    {
+      "path": "renderer/apps/elma/src/nav/MetaCockpit.svelte",
+      "archive_path": "source/renderer/apps/elma/src/nav/MetaCockpit.svelte",
+      "bytes": 17201,
+      "sha256": "cc64e97e0d792fa17a3ab0b586f8d047554a6c55cf18ec2132bd040a9e9f8771"
+    },
+    {
+      "path": "renderer/apps/elma/src/nav/NavKeys.svelte",
+      "archive_path": "source/renderer/apps/elma/src/nav/NavKeys.svelte",
+      "bytes": 326,
+      "sha256": "1d31a0ac81b30915a09d1e1ab295718c795d1474a959ff193da3654d13db27e6"
+    },
+    {
+      "path": "renderer/apps/elma/src/nav/NavSep.svelte",
+      "archive_path": "source/renderer/apps/elma/src/nav/NavSep.svelte",
+      "bytes": 237,
+      "sha256": "037112defb1210d67d248d82d5d4a235b621207fdc2c0a8f37c111ea31e8394d"
+    },
+    {
+      "path": "renderer/apps/elma/src/nav/NavigationPanel.svelte",
+      "archive_path": "source/renderer/apps/elma/src/nav/NavigationPanel.svelte",
+      "bytes": 8696,
+      "sha256": "e4edfe5632d97d27b64e211ba61cfe6eb6d9569004480d149a4c9d4d6f7e0565"
+    },
+    {
+      "path": "renderer/apps/elma/src/nav/NavigationPanel.types.ts",
+      "archive_path": "source/renderer/apps/elma/src/nav/NavigationPanel.types.ts",
+      "bytes": 236,
+      "sha256": "082a7812c14e620e6f982fba40337b1e031dd3392e9142c7247b1b78d91ddf9c"
+    },
+    {
+      "path": "renderer/apps/elma/src/nav/repoNavigation.ts",
+      "archive_path": "source/renderer/apps/elma/src/nav/repoNavigation.ts",
+      "bytes": 4148,
+      "sha256": "3b10fa357464d2d2eb2aa1656681a05fbc611583462b401fa6686bf29156a64f"
+    },
+    {
+      "path": "renderer/apps/elma/src/nav/sessionTokenUsage.ts",
+      "archive_path": "source/renderer/apps/elma/src/nav/sessionTokenUsage.ts",
+      "bytes": 1607,
+      "sha256": "ce6ad8e9c2538b41661abaab37e1e5bb40c47f3312335c663dbe134400c25631"
+    },
+    {
+      "path": "renderer/apps/elma/src/nav/tokenActivity.ts",
+      "archive_path": "source/renderer/apps/elma/src/nav/tokenActivity.ts",
+      "bytes": 4093,
+      "sha256": "37287d29e2f26d1ca53b699450d7a14672b48065fb68bf1674ec6c468a4c4e6d"
+    },
+    {
+      "path": "renderer/apps/elma/src/pages/ElmaPage.svelte",
+      "archive_path": "source/renderer/apps/elma/src/pages/ElmaPage.svelte",
+      "bytes": 17307,
+      "sha256": "aa97c551726a88e028f8aa115aeba62458ea82acd06dda875eece6491d55fcd9"
+    },
+    {
+      "path": "renderer/apps/elma/src/pages/ElmaPage.types.ts",
+      "archive_path": "source/renderer/apps/elma/src/pages/ElmaPage.types.ts",
+      "bytes": 175,
+      "sha256": "27fac9a64e9cdeda2ac3653ce7a7410a16665690a57ad49927cd2a8165d19f6c"
+    },
+    {
+      "path": "renderer/apps/elma/src/policy.ts",
+      "archive_path": "source/renderer/apps/elma/src/policy.ts",
+      "bytes": 5441,
+      "sha256": "e23baa2b1e8ce1af1eae86375f2eb0e1512de8cd1d304deacfec4339e9997593"
+    },
+    {
+      "path": "renderer/apps/elma/src/quick/CheckCircleIcon.svelte",
+      "archive_path": "source/renderer/apps/elma/src/quick/CheckCircleIcon.svelte",
+      "bytes": 512,
+      "sha256": "f9919cb871b7a226800f2c937bd2ff79a5f2a8bb3118837d9ee6a572379051df"
+    },
+    {
+      "path": "renderer/apps/elma/src/quick/CopyIcon.svelte",
+      "archive_path": "source/renderer/apps/elma/src/quick/CopyIcon.svelte",
+      "bytes": 583,
+      "sha256": "83bb7a1243497cb696da8c8f956efa3be10a415a0962871b1abaf6b7bf3c3844"
+    },
+    {
+      "path": "renderer/apps/elma/src/quick/QuickActionRow.svelte",
+      "archive_path": "source/renderer/apps/elma/src/quick/QuickActionRow.svelte",
+      "bytes": 2346,
+      "sha256": "08f2a74bafde9f70de9069d4923e5670d4d4c89eef1aa2e65e3b24861b776c12"
+    },
+    {
+      "path": "renderer/apps/elma/src/quick/QuickActions.svelte",
+      "archive_path": "source/renderer/apps/elma/src/quick/QuickActions.svelte",
+      "bytes": 4554,
+      "sha256": "36771760ff4f0174848271d368e2f95c0be50039a50e5a23c9386b1e68a1126e"
+    },
+    {
+      "path": "renderer/apps/elma/src/quick/QuickActions.types.ts",
+      "archive_path": "source/renderer/apps/elma/src/quick/QuickActions.types.ts",
+      "bytes": 648,
+      "sha256": "3f587881aece87defc640c11d442a74e510e66cd4489a24d133073f07623e12b"
+    },
+    {
+      "path": "renderer/apps/elma/src/quick/Toast.svelte",
+      "archive_path": "source/renderer/apps/elma/src/quick/Toast.svelte",
+      "bytes": 1023,
+      "sha256": "8c9a34d332ed84cb457598d78eede166da6dcf350dd4e40d5f21cabacb157af0"
+    },
+    {
+      "path": "renderer/apps/elma/src/quick/WhatsWrongIcon.svelte",
+      "archive_path": "source/renderer/apps/elma/src/quick/WhatsWrongIcon.svelte",
+      "bytes": 575,
+      "sha256": "52b6d0859090bf80e6d5cbb79007254c90a9fec7526411f0d1abd4d7125633d5"
+    },
+    {
+      "path": "renderer/apps/elma/src/quick/index.ts",
+      "archive_path": "source/renderer/apps/elma/src/quick/index.ts",
+      "bytes": 434,
+      "sha256": "c09ad823410d9a443a55da67a27270acb19461b0b04f985794e970eed0b6c741"
+    },
+    {
+      "path": "renderer/apps/elma/test/active-turn-state.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/active-turn-state.test.ts",
+      "bytes": 1144,
+      "sha256": "c4d29075dba4b438a56e1032622ddcca019982f8942e55fca074286ed9fea64b"
+    },
+    {
+      "path": "renderer/apps/elma/test/activityGraphRefresh.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/activityGraphRefresh.test.ts",
+      "bytes": 8781,
+      "sha256": "16fa7695509e42e3b8e91b180a3bd003eaa5c8e419a80183745e48cb7ca965ad"
+    },
+    {
+      "path": "renderer/apps/elma/test/autoscroll.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/autoscroll.test.ts",
+      "bytes": 1724,
+      "sha256": "37edfc29f6c1dccb4e0834e9249611c02d6f05d116a55ad9f27baf3f73f1b582"
+    },
+    {
+      "path": "renderer/apps/elma/test/branch-reconciliation.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/branch-reconciliation.test.ts",
+      "bytes": 1140,
+      "sha256": "727e50b191539e71b3fc92b767d6f7c8edf51aabe3a9366e43c24319ea90501a"
+    },
+    {
+      "path": "renderer/apps/elma/test/changeWalkthrough.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/changeWalkthrough.test.ts",
+      "bytes": 6498,
+      "sha256": "fed44255af3826c41e58a8cd9d298c7976f380ecace0c837eb4ff03ba5f546d7"
+    },
+    {
+      "path": "renderer/apps/elma/test/chat-width.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/chat-width.test.ts",
+      "bytes": 577,
+      "sha256": "9072e8579ed2d0f2d5745b1e4d68e8c6cf2402241139e43dd08f5c04a1f280f2"
+    },
+    {
+      "path": "renderer/apps/elma/test/chatNoteClipboard.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/chatNoteClipboard.test.ts",
+      "bytes": 971,
+      "sha256": "7f437cab486f73c8e46ce33dbf04a0cde3e961c646fd97210072d60c61d3e8d2"
+    },
+    {
+      "path": "renderer/apps/elma/test/draft-bindings.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/draft-bindings.test.ts",
+      "bytes": 3422,
+      "sha256": "b7e10bfdae0f68e5f2abce19643d960ca3274763d9a1f725f58cac2cf0fd22d7"
+    },
+    {
+      "path": "renderer/apps/elma/test/draft-cache.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/draft-cache.test.ts",
+      "bytes": 4181,
+      "sha256": "72ee86e179e300b0b664d5962401558b85fb4e58b0efd8d538fba25f79735174"
+    },
+    {
+      "path": "renderer/apps/elma/test/edit-replacement.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/edit-replacement.test.ts",
+      "bytes": 1345,
+      "sha256": "21a271fdf2ffd74eccd52ffd24caf6441bf99cd29b36b47f5bf162b5779498d5"
+    },
+    {
+      "path": "renderer/apps/elma/test/finalAnswerNavigation.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/finalAnswerNavigation.test.ts",
+      "bytes": 2732,
+      "sha256": "042855709d3e1404059eefab228b3c3e7a8941fe6d51fe8ad7dcba80151bff34"
+    },
+    {
+      "path": "renderer/apps/elma/test/fromFold.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/fromFold.test.ts",
+      "bytes": 13050,
+      "sha256": "0a53f10297aa294dc97907594a01c22e08407f787faff6e68787635d984676b3"
+    },
+    {
+      "path": "renderer/apps/elma/test/hotkeys.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/hotkeys.test.ts",
+      "bytes": 962,
+      "sha256": "05e4e25f6d78f7b2854041a62cc3d1c6428a58205ec5a468a497120383a20cac"
+    },
+    {
+      "path": "renderer/apps/elma/test/largeTextPaste.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/largeTextPaste.test.ts",
+      "bytes": 661,
+      "sha256": "75eeb465fd2e209108022fea7d49fc8b40c5b6cfd47d07dbd004a777b2699aa9"
+    },
+    {
+      "path": "renderer/apps/elma/test/markdown.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/markdown.test.ts",
+      "bytes": 2727,
+      "sha256": "5a36856ce605d59a638ef8d38602ffaf8a862717681c43b1d5c441e007e92a6f"
+    },
+    {
+      "path": "renderer/apps/elma/test/message-attachments.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/message-attachments.test.ts",
+      "bytes": 2178,
+      "sha256": "deaec62e4312a8d254973660ee34760e45ac0780830b6b8d52a64378cea2670f"
+    },
+    {
+      "path": "renderer/apps/elma/test/model-selection.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/model-selection.test.ts",
+      "bytes": 2115,
+      "sha256": "89f530a2ea767c785bbaad7edbfa69a869052c7a3b9f2307fc9ef8d2368b5477"
+    },
+    {
+      "path": "renderer/apps/elma/test/open-handoff-guard.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/open-handoff-guard.test.ts",
+      "bytes": 3190,
+      "sha256": "684b28ac324a38dc90ab23aa00d654b8d6349f1d4b1ec6baf62be153655533a6"
+    },
+    {
+      "path": "renderer/apps/elma/test/pending-approvals.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/pending-approvals.test.ts",
+      "bytes": 2778,
+      "sha256": "b6f36d6c9d0c1639fb9ecf2059ff9d350acdb013651669708cc4cfda16db31a6"
+    },
+    {
+      "path": "renderer/apps/elma/test/policy.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/policy.test.ts",
+      "bytes": 4628,
+      "sha256": "ae3dbd87bdff882dc85726de0975a181ab5d8f046d34301ea32a642e26e35dc0"
+    },
+    {
+      "path": "renderer/apps/elma/test/post-paint-scheduler.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/post-paint-scheduler.test.ts",
+      "bytes": 2143,
+      "sha256": "4e4f774c71b00a94b25fa826ed604b7fa01ce3cee70a02b751bb3a363ad45f89"
+    },
+    {
+      "path": "renderer/apps/elma/test/quickText.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/quickText.test.ts",
+      "bytes": 845,
+      "sha256": "2d6a271d7c97c5524173614e58488ce9193a03e1e757b9b6a140b1f86b6dde1b"
+    },
+    {
+      "path": "renderer/apps/elma/test/read-receipt.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/read-receipt.test.ts",
+      "bytes": 1500,
+      "sha256": "2498cee7a839d9b93ef0c537f5c7fae29e0985267442838c47ddf22d2411c278"
+    },
+    {
+      "path": "renderer/apps/elma/test/repoNavigation.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/repoNavigation.test.ts",
+      "bytes": 5081,
+      "sha256": "ae4f7d2af27ea15c49ea0388ee9a3395f7c759bfdb9890ae5364c9fa20b5f536"
+    },
+    {
+      "path": "renderer/apps/elma/test/responseView.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/responseView.test.ts",
+      "bytes": 13044,
+      "sha256": "2ec1d1f185ac5d1583061aa8bed5f4ce2e65c8e262eefdcf2db56c2c9e74ae01"
+    },
+    {
+      "path": "renderer/apps/elma/test/run-selected.mjs",
+      "archive_path": "source/renderer/apps/elma/test/run-selected.mjs",
+      "bytes": 1180,
+      "sha256": "daa1f9a663c5e20572e77faf5a71baeee52faedc2c029443d40275121c9ced8b"
+    },
+    {
+      "path": "renderer/apps/elma/test/run.mjs",
+      "archive_path": "source/renderer/apps/elma/test/run.mjs",
+      "bytes": 2009,
+      "sha256": "82c1a29ff414a3713f75461b586fa56586f3e70e37c29fb32a18133c4bcff1aa"
+    },
+    {
+      "path": "renderer/apps/elma/test/scroll-cache.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/scroll-cache.test.ts",
+      "bytes": 1472,
+      "sha256": "b9782282530fa5ba5b23c757c6ebfce771895f3c1d719aa837e63d6b78ed7df9"
+    },
+    {
+      "path": "renderer/apps/elma/test/send-state.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/send-state.test.ts",
+      "bytes": 2173,
+      "sha256": "e8dc69dc190b233bb6821e235736655195a9f1d67086fc22962c6feee2046c5c"
+    },
+    {
+      "path": "renderer/apps/elma/test/session-projection-load.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/session-projection-load.test.ts",
+      "bytes": 19375,
+      "sha256": "837aa3222951a3de6213b5c5a0162029385e1a7f4303a4a58146b757bf8e3b27"
+    },
+    {
+      "path": "renderer/apps/elma/test/sessionTags.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/sessionTags.test.ts",
+      "bytes": 3794,
+      "sha256": "644f8fc01f7f4ecc0c0206c54b7e3ed6595804bb91ce9a1408e6b468293c0c75"
+    },
+    {
+      "path": "renderer/apps/elma/test/sessionTokenUsage.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/sessionTokenUsage.test.ts",
+      "bytes": 1615,
+      "sha256": "4592bd0095b70a9cac71f59d3c74272eced0147b283ea1cb2056f3cac620b321"
+    },
+    {
+      "path": "renderer/apps/elma/test/submissions.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/submissions.test.ts",
+      "bytes": 3337,
+      "sha256": "9ddcb0784c76735c7b0b1da91d86e5722e2b84d8e72e48393880805617378579"
+    },
+    {
+      "path": "renderer/apps/elma/test/tokenActivity.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/tokenActivity.test.ts",
+      "bytes": 2778,
+      "sha256": "1fbbcc66704f2c9740042836994302a80b0b3b04fc68ad864abb02c278fcafd9"
+    },
+    {
+      "path": "renderer/apps/elma/test/turn-assistant.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/turn-assistant.test.ts",
+      "bytes": 1342,
+      "sha256": "a540b53dfa9fe8d3237eb5ecf00292e542b5ea7e68350f1a676cfb08e75bcc77"
+    },
+    {
+      "path": "renderer/apps/elma/test/worktree-coalescing.test.ts",
+      "archive_path": "source/renderer/apps/elma/test/worktree-coalescing.test.ts",
+      "bytes": 584,
+      "sha256": "eb532383b87112036bbd50ec8ce7cf799ac3afad3d842f40b499a58739322924"
+    },
+    {
+      "path": "renderer/apps/elma/tsconfig.json",
+      "archive_path": "source/renderer/apps/elma/tsconfig.json",
+      "bytes": 826,
+      "sha256": "ac3f00b0d8a442cb161022c8f6e50debf47773b07492c960efb90275eb4e17c7"
+    },
+    {
+      "path": "renderer/apps/elma/vite.config.ts",
+      "archive_path": "source/renderer/apps/elma/vite.config.ts",
+      "bytes": 141,
+      "sha256": "4501441866019f01b1931bcb1d94f12baebb752c075414198e2526413b8bb4f7"
+    },
+    {
+      "path": "renderer/apps/oaken/index.html",
+      "archive_path": "source/renderer/apps/oaken/index.html",
+      "bytes": 291,
+      "sha256": "11864c65c14b23b12b256c45a64158a81597ccfe8a195d9f0be3bc1aaa7ce880"
+    },
+    {
+      "path": "renderer/apps/oaken/src/App.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/App.svelte",
+      "bytes": 21667,
+      "sha256": "d19986ca8d51c14fdd89cb9ff33a3121d1cb9aa0f0653b309749a5f8644d47a7"
+    },
+    {
+      "path": "renderer/apps/oaken/src/CompactApp.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/CompactApp.svelte",
+      "bytes": 3141,
+      "sha256": "f4043d95d0aaabc7840e4c085344973d1fff123d955349cf765d411c06c624b0"
+    },
+    {
+      "path": "renderer/apps/oaken/src/CompactSwimlanesPanel.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/CompactSwimlanesPanel.svelte",
+      "bytes": 5563,
+      "sha256": "d55b3d4428dcaf9999393a102ededb47276d3f262572cf132c4f054bf567bdac"
+    },
+    {
+      "path": "renderer/apps/oaken/src/NewSwimlaneModal.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/NewSwimlaneModal.svelte",
+      "bytes": 7661,
+      "sha256": "22d8f2feff0d633cc0448da50e64c642f11b78ec97a0a2e7cf50b6b37a19e9ec"
+    },
+    {
+      "path": "renderer/apps/oaken/src/RenameSwimlaneModal.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/RenameSwimlaneModal.svelte",
+      "bytes": 1686,
+      "sha256": "2d5a12605001c7ce041a510d0ec8b7d0db1d1eba59d78ced00817ba5144535bf"
+    },
+    {
+      "path": "renderer/apps/oaken/src/SetWallModal.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/SetWallModal.svelte",
+      "bytes": 1510,
+      "sha256": "913dcb18dc4c45f4f630aad8deec93dc82887d4c180da54d363a54d7dc955af2"
+    },
+    {
+      "path": "renderer/apps/oaken/src/SwimlanePickerModal.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/SwimlanePickerModal.svelte",
+      "bytes": 6328,
+      "sha256": "dbe678026739080901b5f193163b5255d8c9e5f653c0609d28c97a9c258b1b33"
+    },
+    {
+      "path": "renderer/apps/oaken/src/TimePicker.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/TimePicker.svelte",
+      "bytes": 4741,
+      "sha256": "8dfbe23e57a58733b6d9408f247018279995676840d24ec040a17a78f3e8fafc"
+    },
+    {
+      "path": "renderer/apps/oaken/src/WallPicker.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/WallPicker.svelte",
+      "bytes": 10545,
+      "sha256": "0608761ed96124fd6169816af902249ca2cb6a102cdbc36073f82942c1dfaf11"
+    },
+    {
+      "path": "renderer/apps/oaken/src/boardView.ts",
+      "archive_path": "source/renderer/apps/oaken/src/boardView.ts",
+      "bytes": 2673,
+      "sha256": "df50259beece1aa8cb8c9d53f980d5ae5b4b60e8cf8e2861d2a43c2bb0144de0"
+    },
+    {
+      "path": "renderer/apps/oaken/src/compact-panel.css",
+      "archive_path": "source/renderer/apps/oaken/src/compact-panel.css",
+      "bytes": 6723,
+      "sha256": "a680e683271875faa0dc7c1397d2f4cf57fb7703a0c0d32b01a8bd12dfc0c831"
+    },
+    {
+      "path": "renderer/apps/oaken/src/compactTime.ts",
+      "archive_path": "source/renderer/apps/oaken/src/compactTime.ts",
+      "bytes": 2260,
+      "sha256": "d2b8ddbbfdaf407564f49656a48e641828872c371c1e1e2eba9412d33e3d3a64"
+    },
+    {
+      "path": "renderer/apps/oaken/src/components/FontSizeControl.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/components/FontSizeControl.svelte",
+      "bytes": 1099,
+      "sha256": "f06d2124ce1823fefe84622bcbe87061bde00409724e2b18091c25eb69527001"
+    },
+    {
+      "path": "renderer/apps/oaken/src/components/HeaderBtn.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/components/HeaderBtn.svelte",
+      "bytes": 760,
+      "sha256": "52911b9923f0e36fb6e646d30164b4a21631da5370243992385508d59acc70f7"
+    },
+    {
+      "path": "renderer/apps/oaken/src/components/Seg.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/components/Seg.svelte",
+      "bytes": 984,
+      "sha256": "f4dffe17428c7e41e1695d1d49bd9d0675141faa8b1199ea5f04a3cbee2abbce"
+    },
+    {
+      "path": "renderer/apps/oaken/src/dashboardSync.ts",
+      "archive_path": "source/renderer/apps/oaken/src/dashboardSync.ts",
+      "bytes": 2562,
+      "sha256": "3ab02e6532e153adff5a73cafdef05793e5f9e468c59a93439541346273af9be"
+    },
+    {
+      "path": "renderer/apps/oaken/src/dashboardTimeline.ts",
+      "archive_path": "source/renderer/apps/oaken/src/dashboardTimeline.ts",
+      "bytes": 8668,
+      "sha256": "fd5393757dfcb39f0e722c682f8e0db0d0b9129675100994e6b8541ff73bd73c"
+    },
+    {
+      "path": "renderer/apps/oaken/src/data.ts",
+      "archive_path": "source/renderer/apps/oaken/src/data.ts",
+      "bytes": 10541,
+      "sha256": "f5333f08095d03ff3d81032697367f1d8dfcce571a83e54f35088037a6288aad"
+    },
+    {
+      "path": "renderer/apps/oaken/src/main.ts",
+      "archive_path": "source/renderer/apps/oaken/src/main.ts",
+      "bytes": 530,
+      "sha256": "60d459d24c9fc062a3666e675a96d6732f21910f64093b22b10a844912fbc81d"
+    },
+    {
+      "path": "renderer/apps/oaken/src/newSwimlane.ts",
+      "archive_path": "source/renderer/apps/oaken/src/newSwimlane.ts",
+      "bytes": 2000,
+      "sha256": "919f8d7ead89e1eee8fd305d9b07ba221484b7f3c460beda85e1200b9bceed93"
+    },
+    {
+      "path": "renderer/apps/oaken/src/oaken.css",
+      "archive_path": "source/renderer/apps/oaken/src/oaken.css",
+      "bytes": 25814,
+      "sha256": "dc3b45bec6857205e62931f34d90f390e3ef54cc8816ee812b7757cb46d24499"
+    },
+    {
+      "path": "renderer/apps/oaken/src/pages/SwimlaneDetails.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/pages/SwimlaneDetails.svelte",
+      "bytes": 2387,
+      "sha256": "640ffa7c488690ffcab01779591f480be935c1a7a6c9efbe55d883700bf255c4"
+    },
+    {
+      "path": "renderer/apps/oaken/src/pages/Swimlanes.stories.tsx",
+      "archive_path": "source/renderer/apps/oaken/src/pages/Swimlanes.stories.tsx",
+      "bytes": 2545,
+      "sha256": "727c0d3862921dbc47606f283cb480a85d72c4db670d5618d9aaf064ec542ea8"
+    },
+    {
+      "path": "renderer/apps/oaken/src/pages/Swimlanes.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/pages/Swimlanes.svelte",
+      "bytes": 47257,
+      "sha256": "fc179e4c81bb55f68ba78295ab897687c372f7e1f0044353b668c74799d1c8fc"
+    },
+    {
+      "path": "renderer/apps/oaken/src/pages/SwimlanesStoryPreview.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/pages/SwimlanesStoryPreview.svelte",
+      "bytes": 4481,
+      "sha256": "705d13116bd0f981dcc4fa01b5ec0222291a32f1eeeff68b75773f10b2a6d659"
+    },
+    {
+      "path": "renderer/apps/oaken/src/pages/Tasks.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/pages/Tasks.svelte",
+      "bytes": 3160,
+      "sha256": "b1beef10533b6a924dd6326a0ac62b2aab3e368e81f202dfca25f4f0b459524d"
+    },
+    {
+      "path": "renderer/apps/oaken/src/pages/types.ts",
+      "archive_path": "source/renderer/apps/oaken/src/pages/types.ts",
+      "bytes": 301,
+      "sha256": "4cb3a305b207b780d8c4944d351aca0db27659d2a1f6743a3ee38fb12d11cb7b"
+    },
+    {
+      "path": "renderer/apps/oaken/src/stories.fixtures.ts",
+      "archive_path": "source/renderer/apps/oaken/src/stories.fixtures.ts",
+      "bytes": 6206,
+      "sha256": "1c546b71aa9269c31ee1e48c0d6ebf8a58fae1ac523562e0d5d5cdb00a5b5019"
+    },
+    {
+      "path": "renderer/apps/oaken/src/swimlaneChat.ts",
+      "archive_path": "source/renderer/apps/oaken/src/swimlaneChat.ts",
+      "bytes": 4468,
+      "sha256": "cedc2bf02bd39b97b6120f23148a12a5f200e6fb5ce83f271af5aa97bd6baeca"
+    },
+    {
+      "path": "renderer/apps/oaken/src/tasks/GraftModal.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/tasks/GraftModal.svelte",
+      "bytes": 7980,
+      "sha256": "ec3cf3c28f8b54d3930c23b3e4eca2b3a86999b81816a8ddd566f3aa29ae783e"
+    },
+    {
+      "path": "renderer/apps/oaken/src/tasks/GraftsPage.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/tasks/GraftsPage.svelte",
+      "bytes": 18526,
+      "sha256": "09bb0b6601a82cec63c39291f0e30cfefaaf2892a2d86524c0a10f05184d61a4"
+    },
+    {
+      "path": "renderer/apps/oaken/src/tasks/JiraFetchLogs.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/tasks/JiraFetchLogs.svelte",
+      "bytes": 2365,
+      "sha256": "f1670ce4f675b2cc5d03b3799222ba60d3021481c9773179b414ebdb83a9af44"
+    },
+    {
+      "path": "renderer/apps/oaken/src/tasks/JiraPage.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/tasks/JiraPage.svelte",
+      "bytes": 21855,
+      "sha256": "188d2e3a5cf412585e6c7895eb133fee9b14a16a8f850092245efc205fc2b70d"
+    },
+    {
+      "path": "renderer/apps/oaken/src/tasks/JiraTicketDetails.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/tasks/JiraTicketDetails.svelte",
+      "bytes": 7753,
+      "sha256": "0bf88b96e7226c610f13f4d9dd8dd2774599a18c6311320e7f7f3b0b7ee2dfe9"
+    },
+    {
+      "path": "renderer/apps/oaken/src/tasks/JiraTicketEditModal.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/tasks/JiraTicketEditModal.svelte",
+      "bytes": 5015,
+      "sha256": "09fc9f73b24addd004229ea021038f21fedd4b4c71ff2ea3f3bb176c15e04dfb"
+    },
+    {
+      "path": "renderer/apps/oaken/src/tasks/MergeRequestReview.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/tasks/MergeRequestReview.svelte",
+      "bytes": 11806,
+      "sha256": "7225b772cae9999dc3fab9d4dc3c1c264439c03c3c82ab76e784e31ca1e33c3a"
+    },
+    {
+      "path": "renderer/apps/oaken/src/tasks/MergeRequestsPage.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/tasks/MergeRequestsPage.svelte",
+      "bytes": 14086,
+      "sha256": "1f94cdda84d65cbe65d498fc6fc33531da4489cf83b7b6833a54b78f657e9d64"
+    },
+    {
+      "path": "renderer/apps/oaken/src/tasks/TaskNavigation.svelte",
+      "archive_path": "source/renderer/apps/oaken/src/tasks/TaskNavigation.svelte",
+      "bytes": 1784,
+      "sha256": "2e93a98db21b5a977adbcd7f739225519f7ae7d969239b5133dc955cb1b33208"
+    },
+    {
+      "path": "renderer/apps/oaken/src/tasks/grafts.ts",
+      "archive_path": "source/renderer/apps/oaken/src/tasks/grafts.ts",
+      "bytes": 3766,
+      "sha256": "f5882e658aeb1f3fd6fdae5bd962fc7e1df4d5433e7813d30718a623187574d0"
+    },
+    {
+      "path": "renderer/apps/oaken/src/tasks/jira.ts",
+      "archive_path": "source/renderer/apps/oaken/src/tasks/jira.ts",
+      "bytes": 38111,
+      "sha256": "f9d50c1e388a31ee45d9ae9824ea379afb040f0e9abd93844a6d4c538efdf094"
+    },
+    {
+      "path": "renderer/apps/oaken/src/tasks/mergeRequests.ts",
+      "archive_path": "source/renderer/apps/oaken/src/tasks/mergeRequests.ts",
+      "bytes": 3783,
+      "sha256": "fa38ad1fb15d6cc0c67703f79eeb88bdca2b553a2ce6bfee69112a6b62f87e0c"
+    },
+    {
+      "path": "renderer/apps/oaken/src/tasks/types.ts",
+      "archive_path": "source/renderer/apps/oaken/src/tasks/types.ts",
+      "bytes": 60,
+      "sha256": "d1d1756ac745e9a1880a5ac7354ae6a3476deb081385c2571985ba80d0215442"
+    },
+    {
+      "path": "renderer/apps/oaken/src/tasks.css",
+      "archive_path": "source/renderer/apps/oaken/src/tasks.css",
+      "bytes": 34096,
+      "sha256": "fb699765db826feb9e54d4ef7202b7f2316da5cd735ac724f12d8bc89559ed1c"
+    },
+    {
+      "path": "renderer/apps/oaken/src/time.ts",
+      "archive_path": "source/renderer/apps/oaken/src/time.ts",
+      "bytes": 9594,
+      "sha256": "36401b711dbde76db26f8d669b4b59bdce96647ded0e0f0b1c67b30a314b1bc6"
+    },
+    {
+      "path": "renderer/apps/oaken/src/windowApi.ts",
+      "archive_path": "source/renderer/apps/oaken/src/windowApi.ts",
+      "bytes": 1020,
+      "sha256": "8ef995a64bf434fc100f390e8cdec615d8d1b71c44091f6aa74675bd961f629e"
+    },
+    {
+      "path": "renderer/apps/oaken/test/boardView.test.ts",
+      "archive_path": "source/renderer/apps/oaken/test/boardView.test.ts",
+      "bytes": 2679,
+      "sha256": "8003d2ec77b4d95b71531504899dd9785b07dc6efc84ab0a96d93070fc0ead10"
+    },
+    {
+      "path": "renderer/apps/oaken/test/compactTime.test.ts",
+      "archive_path": "source/renderer/apps/oaken/test/compactTime.test.ts",
+      "bytes": 1824,
+      "sha256": "398f1c0941c7be5dfafe79ff7b7a98965dc261e12a31610e1b6438cfedb58fa2"
+    },
+    {
+      "path": "renderer/apps/oaken/test/dashboardTimeline.test.ts",
+      "archive_path": "source/renderer/apps/oaken/test/dashboardTimeline.test.ts",
+      "bytes": 7190,
+      "sha256": "8c119ad7a4b7be3262687182d373a8fe594e596b293b96782c91973fcfae29f5"
+    },
+    {
+      "path": "renderer/apps/oaken/test/entitySwimlane.test.ts",
+      "archive_path": "source/renderer/apps/oaken/test/entitySwimlane.test.ts",
+      "bytes": 5963,
+      "sha256": "48961b9547dfabbf3bfd485978ee3a9e8a521746cce62596ed142b412625f86d"
+    },
+    {
+      "path": "renderer/apps/oaken/test/entityUri.test.ts",
+      "archive_path": "source/renderer/apps/oaken/test/entityUri.test.ts",
+      "bytes": 5004,
+      "sha256": "7590ef85c2a664bf67f92616632a14e957e9885f6a2f4ce824a534ea85277423"
+    },
+    {
+      "path": "renderer/apps/oaken/test/grafts.test.ts",
+      "archive_path": "source/renderer/apps/oaken/test/grafts.test.ts",
+      "bytes": 2019,
+      "sha256": "1e917c7572d5817fb4f4097a905f0b7a7c6649feb263767ab9d2c5c6d5bb22c6"
+    },
+    {
+      "path": "renderer/apps/oaken/test/jiraFetch.test.ts",
+      "archive_path": "source/renderer/apps/oaken/test/jiraFetch.test.ts",
+      "bytes": 1464,
+      "sha256": "70c6cf650128e758a74e18cf037d64664d7ccfad5538c3fbb84b14da693b45aa"
+    },
+    {
+      "path": "renderer/apps/oaken/test/jiraLoad.test.ts",
+      "archive_path": "source/renderer/apps/oaken/test/jiraLoad.test.ts",
+      "bytes": 2137,
+      "sha256": "112bcf7ac7f2074e96040b94d3f2dd08ef8559d8c750f77e322106789d17ae73"
+    },
+    {
+      "path": "renderer/apps/oaken/test/jiraOverrides.test.ts",
+      "archive_path": "source/renderer/apps/oaken/test/jiraOverrides.test.ts",
+      "bytes": 7323,
+      "sha256": "ec26f9129f86a0ea7bbaabfa9efab829f3c44b2c04f4558448a97ab9b84d2212"
+    },
+    {
+      "path": "renderer/apps/oaken/test/loadSwimlanes.test.ts",
+      "archive_path": "source/renderer/apps/oaken/test/loadSwimlanes.test.ts",
+      "bytes": 1585,
+      "sha256": "adeb0339ffb891919623268a129d2fa3dcbf1ee15007cdeec6aa43b03919414f"
+    },
+    {
+      "path": "renderer/apps/oaken/test/mergeRequests.test.ts",
+      "archive_path": "source/renderer/apps/oaken/test/mergeRequests.test.ts",
+      "bytes": 736,
+      "sha256": "54737fe86a49ebde932f156e295f250ef8e1795be9952483cf65b0c858569376"
+    },
+    {
+      "path": "renderer/apps/oaken/test/newSwimlane.test.ts",
+      "archive_path": "source/renderer/apps/oaken/test/newSwimlane.test.ts",
+      "bytes": 2370,
+      "sha256": "5c67e98aabe82e3bb759ccb10eafc42fe507af6d47fd60a24bdf78eca56875e6"
+    },
+    {
+      "path": "renderer/apps/oaken/test/swimlaneChat.test.ts",
+      "archive_path": "source/renderer/apps/oaken/test/swimlaneChat.test.ts",
+      "bytes": 3552,
+      "sha256": "7677cb3ed19b0440bd5ce6969664b77924f8cdecebc5f984189ed5016240d2db"
+    },
+    {
+      "path": "renderer/apps/oaken/test/time.test.ts",
+      "archive_path": "source/renderer/apps/oaken/test/time.test.ts",
+      "bytes": 2728,
+      "sha256": "fc05df6adf5e219f6b0a459156ea56323d4b5299c901d0416af3ec6a7e465d80"
+    },
+    {
+      "path": "renderer/apps/oaken/tsconfig.json",
+      "archive_path": "source/renderer/apps/oaken/tsconfig.json",
+      "bytes": 734,
+      "sha256": "48cd2400179f5c6b668eaf48fb321553f64eb05ba60536d2cf53bb7a340ffb6e"
+    },
+    {
+      "path": "renderer/apps/oaken/vite.config.ts",
+      "archive_path": "source/renderer/apps/oaken/vite.config.ts",
+      "bytes": 142,
+      "sha256": "90be884479fd37738a3497b61df299aca540bdb9541165fd864447acab80c228"
+    },
+    {
+      "path": "renderer/apps/oaken/vitest.config.ts",
+      "archive_path": "source/renderer/apps/oaken/vitest.config.ts",
+      "bytes": 232,
+      "sha256": "a5307d7d8ddb146ec9f9c662bf35ff5f1d0b08055a654ec823bbbc1f5037cfdf"
+    },
+    {
+      "path": "renderer/apps/seqoya/e2e/repos-fixture.html",
+      "archive_path": "source/renderer/apps/seqoya/e2e/repos-fixture.html",
+      "bytes": 153,
+      "sha256": "1e23e4b49017ba6138a919201262c7dfb5b4c998510a87bdb591ce6cc579c268"
+    },
+    {
+      "path": "renderer/apps/seqoya/e2e/repos-fixture.ts",
+      "archive_path": "source/renderer/apps/seqoya/e2e/repos-fixture.ts",
+      "bytes": 135,
+      "sha256": "5e9a773fd101e78fb85702c976e2fc90668f66e5f5b16c1754692eadf686bfbc"
+    },
+    {
+      "path": "renderer/apps/seqoya/e2e/repos.e2e.mjs",
+      "archive_path": "source/renderer/apps/seqoya/e2e/repos.e2e.mjs",
+      "bytes": 7656,
+      "sha256": "d7c0406ec39022b273437b89b50c6ece618893853744735a573a482ebb0f2740"
+    },
+    {
+      "path": "renderer/apps/seqoya/index.html",
+      "archive_path": "source/renderer/apps/seqoya/index.html",
+      "bytes": 296,
+      "sha256": "4fd222909d2670f94453cb92ce27444f2335a38b2bacbfcf51fd4906366e1d88"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/App.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/App.svelte",
+      "bytes": 8556,
+      "sha256": "5a56ff10dc01fbc3eec3776e688423aae8e4512cbf0c032ba1579c8032fa0560"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/CommandPalette.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/CommandPalette.svelte",
+      "bytes": 3207,
+      "sha256": "c24267148ba47c8f1d78f8c6820c56b2fa72c4eba1fa28ff8c15a7dfcf8e7efb"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/SeqoyaGlyph.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/SeqoyaGlyph.svelte",
+      "bytes": 684,
+      "sha256": "b2ee0a021311facaeb175d4b1c95679e2b3d3d6d31a9beed7c5dfca962b87385"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/api.ts",
+      "archive_path": "source/renderer/apps/seqoya/src/api.ts",
+      "bytes": 34791,
+      "sha256": "c888318f96023af55e5631d0f3fbe9175b4f5620394aaf32fef484135c06a377"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/components/ActivityDetails.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/components/ActivityDetails.svelte",
+      "bytes": 3803,
+      "sha256": "14ebbade9903e3f2d07e280b6ee668afa2ededc5687313fc39fb3f9872474bb3"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/components/RepoSection.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/components/RepoSection.svelte",
+      "bytes": 2278,
+      "sha256": "d3ac2fcf700ccb2407df187e1f4a5e5aa01eebfd1099e7a69fe3563ab9ac5475"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/constants.ts",
+      "archive_path": "source/renderer/apps/seqoya/src/constants.ts",
+      "bytes": 5837,
+      "sha256": "32a59497c797ae296753912eb6ea55f95f88ac62726fe0b112bca9491d3e7e7a"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/gitJob.ts",
+      "archive_path": "source/renderer/apps/seqoya/src/gitJob.ts",
+      "bytes": 742,
+      "sha256": "7477c0f4de965ce4779bfcf753943ec89b1b309ef44e40920867c8c67e7219b6"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/main.ts",
+      "archive_path": "source/renderer/apps/seqoya/src/main.ts",
+      "bytes": 314,
+      "sha256": "8be2c9516c1a29d9926aace6c0492e2e5d9ac68069dc75f77f6e25c0fe7f500f"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/nav/NavigationPanel.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/nav/NavigationPanel.svelte",
+      "bytes": 10200,
+      "sha256": "1fe47bfda2cab8dac429e746eecc73519c6b74bb645972f8c7e2e6473b38ad5a"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/nav/RepoPicker.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/nav/RepoPicker.svelte",
+      "bytes": 1686,
+      "sha256": "5d917625e687e74289c7202d99cc69e42e6d88bf11cc862b48a4a49a740bec66"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/Artifacts.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/Artifacts.svelte",
+      "bytes": 18721,
+      "sha256": "f5271184957340a5673a9cfe119ad015717d2d9cc9cd561855699cfaa363cf7b"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/Blueprints.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/Blueprints.svelte",
+      "bytes": 8545,
+      "sha256": "67a59a93b00e70396585cdb3f6bef74ad6c9ea3f67d6c14113ed8a0340dc6534"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/BrainRecipes.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/BrainRecipes.svelte",
+      "bytes": 33720,
+      "sha256": "9bad5893979e0fe6152a39a0f7e974bd1180f37c976a8a8ef0aac1f1e907359e"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/ChunksViewer.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/ChunksViewer.svelte",
+      "bytes": 14367,
+      "sha256": "792109715d2b20108671f77269e9b84b506acc5559ad979b43f014eab6cbe599"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/Dashboard.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/Dashboard.svelte",
+      "bytes": 20957,
+      "sha256": "5a9bd89496d97f03d07460442c605b517737716103cac3ee4bae052c290283b9"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/EventMonitor.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/EventMonitor.svelte",
+      "bytes": 10132,
+      "sha256": "ab220edf1b4a5084dcefc910e863656b6b02d63f9ae36d9f5102d7ae350ce4ba"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/FeatureToggles.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/FeatureToggles.svelte",
+      "bytes": 6056,
+      "sha256": "30980f2e2865305b17d468c9503bed13d15113050fc56aaf90557b4c8c45a650"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/IntelligenceProviders.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/IntelligenceProviders.svelte",
+      "bytes": 8439,
+      "sha256": "90fa6936e410b9167208887d1a960682cc92b351f95c3e0737de265af60634ca"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/IpCard.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/IpCard.svelte",
+      "bytes": 8084,
+      "sha256": "b5f20ec965068484335b7446caa55f786e6a2f7d0242e4cbc53a47595988479c"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/LivingTopics.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/LivingTopics.svelte",
+      "bytes": 12987,
+      "sha256": "58cdabd856aae423e1648ca1884009e536bb60eba90f9ea8bd2572af8a23690f"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/LogJournal.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/LogJournal.svelte",
+      "bytes": 16154,
+      "sha256": "af60bc37e7708dc2b22e7377023d0f111d106270b97be9969e7d48bc56516ecf"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/Monitoring.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/Monitoring.svelte",
+      "bytes": 962,
+      "sha256": "24a0625ff562739119e75a7273f9da44317b31f8cbe5abc98a227f4aea316051"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/Organizations.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/Organizations.svelte",
+      "bytes": 16569,
+      "sha256": "6b792f3b8653f89e4d0e316f231be2b26babd2a3ad9511f86194f2561872a855"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/ProviderGlyph.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/ProviderGlyph.svelte",
+      "bytes": 1279,
+      "sha256": "9df81967fefcc83398eda8207d436a7f02383467e29caddba21ccf10d339bfd2"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/QuickText.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/QuickText.svelte",
+      "bytes": 5841,
+      "sha256": "352dd29ea3b8375d060192723152cdf46a06fe17d8ed09bb1cc8c4886f5e3392"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/Reactions.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/Reactions.svelte",
+      "bytes": 5850,
+      "sha256": "ea013013ce73c2c5f861cc28e2fef2b04b2b8e554470883a1045f16bdf84f7d5"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/Refresher.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/Refresher.svelte",
+      "bytes": 5189,
+      "sha256": "6379184338ae361a988b53092fc4010580811fd3598a5467adb094d83ad85f52"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/Repos.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/Repos.svelte",
+      "bytes": 15948,
+      "sha256": "b4bcb1af985e650b0baf51967872cbc17d67facaa0a72222a7350770aa0d9557"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/Retrieval.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/Retrieval.svelte",
+      "bytes": 29541,
+      "sha256": "7f54051e5490d13158cba070b9c1513e2f0b02d27127c5c8c08a66da2a845344"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/Secrets.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/Secrets.svelte",
+      "bytes": 31098,
+      "sha256": "d11223012f072447bfb05f0862afe39b591f84da84141ac58fddcd7435fe4170"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/Stewardship.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/Stewardship.svelte",
+      "bytes": 11360,
+      "sha256": "f9ab3afe2f274df9a5d981d493280d889b863d162fd5d6e560627ab8c4520653"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/SubscriptionRow.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/SubscriptionRow.svelte",
+      "bytes": 22864,
+      "sha256": "53dec5bb6967ecad853ec2957b102cd4b516daea34a23fab6aaca868ff389e5c"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/ip-edit/IntelligenceProviderEditModal.svelte",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/ip-edit/IntelligenceProviderEditModal.svelte",
+      "bytes": 21964,
+      "sha256": "4590d2b91694596a044f3556009a9562bcdfb232689c1636c64fe91f303973b5"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/pages/settingsCrud.css",
+      "archive_path": "source/renderer/apps/seqoya/src/pages/settingsCrud.css",
+      "bytes": 11274,
+      "sha256": "1107907f2e1ec9874f9cbfcca87415ac278f40f1b1b6651232ae7eba5bd30192"
+    },
+    {
+      "path": "renderer/apps/seqoya/src/types.ts",
+      "archive_path": "source/renderer/apps/seqoya/src/types.ts",
+      "bytes": 615,
+      "sha256": "26d442a449766fc2394d37413bae6b72960ab4cd019aa33f89a85cd6037243c9"
+    },
+    {
+      "path": "renderer/apps/seqoya/tsconfig.json",
+      "archive_path": "source/renderer/apps/seqoya/tsconfig.json",
+      "bytes": 734,
+      "sha256": "48cd2400179f5c6b668eaf48fb321553f64eb05ba60536d2cf53bb7a340ffb6e"
+    },
+    {
+      "path": "renderer/apps/seqoya/vite.config.ts",
+      "archive_path": "source/renderer/apps/seqoya/vite.config.ts",
+      "bytes": 143,
+      "sha256": "2ba1d55bebc30dfe0622281afe396ae4a1cb8aaf1d380db23553659fc11ffe8d"
+    },
+    {
+      "path": "renderer/apps/willo/e2e/agentic-stations.e2e.mjs",
+      "archive_path": "source/renderer/apps/willo/e2e/agentic-stations.e2e.mjs",
+      "bytes": 5986,
+      "sha256": "66ed93889ced101de3be44f3e68c31c5409b5dea0081fd273beee1902de1a672"
+    },
+    {
+      "path": "renderer/apps/willo/index.html",
+      "archive_path": "source/renderer/apps/willo/index.html",
+      "bytes": 317,
+      "sha256": "dd98e236fbc38594f52c7fc8e3f58ef3d4cccd5294c6479deccfa5c379578620"
+    },
+    {
+      "path": "renderer/apps/willo/src/App.svelte",
+      "archive_path": "source/renderer/apps/willo/src/App.svelte",
+      "bytes": 69011,
+      "sha256": "20bd05e838091f0de984d4b2b9a9587a0fcc8bf01b4444df2c140439cc7eb6db"
+    },
+    {
+      "path": "renderer/apps/willo/src/AttentionColumn.svelte",
+      "archive_path": "source/renderer/apps/willo/src/AttentionColumn.svelte",
+      "bytes": 11253,
+      "sha256": "bd4f9a0290943bfc6ac6f2ea7b10bf7e5f438e982dd2439cc158a5921b08303d"
+    },
+    {
+      "path": "renderer/apps/willo/src/BlueprintRuns.svelte",
+      "archive_path": "source/renderer/apps/willo/src/BlueprintRuns.svelte",
+      "bytes": 1615,
+      "sha256": "152add248f3d32e226678cdb28e290f55fbd4c089f5465aaaddbd6d6dccc5a1a"
+    },
+    {
+      "path": "renderer/apps/willo/src/CompactStationCard.svelte",
+      "archive_path": "source/renderer/apps/willo/src/CompactStationCard.svelte",
+      "bytes": 8392,
+      "sha256": "66669a202c8a0171fbbdcd80ef6f5ef6711db8a01c0dc456686544174a56a832"
+    },
+    {
+      "path": "renderer/apps/willo/src/ComunicadosPage.svelte",
+      "archive_path": "source/renderer/apps/willo/src/ComunicadosPage.svelte",
+      "bytes": 12311,
+      "sha256": "076ff1b12b9f8f4afa3da47af84d8b2e5e72dd910423756a81c2a1151314ddf5"
+    },
+    {
+      "path": "renderer/apps/willo/src/EmailContextMenu.svelte",
+      "archive_path": "source/renderer/apps/willo/src/EmailContextMenu.svelte",
+      "bytes": 3223,
+      "sha256": "d1b6a6062b7833daebbd9996b726218d9355aba8a0d5ff61bffb326e15268971"
+    },
+    {
+      "path": "renderer/apps/willo/src/EmailParserTestModal.svelte",
+      "archive_path": "source/renderer/apps/willo/src/EmailParserTestModal.svelte",
+      "bytes": 5810,
+      "sha256": "bafe44a8f42a2227d3f452737cdc9ee6db8aa08e57edeb5b546be72bc0ba777c"
+    },
+    {
+      "path": "renderer/apps/willo/src/EmailSignalRuleModal.svelte",
+      "archive_path": "source/renderer/apps/willo/src/EmailSignalRuleModal.svelte",
+      "bytes": 4997,
+      "sha256": "606ce0419e77c6047e4abead55fc8683731581f35ba75e9158f3e1d76867e0cd"
+    },
+    {
+      "path": "renderer/apps/willo/src/EmailsPage.svelte",
+      "archive_path": "source/renderer/apps/willo/src/EmailsPage.svelte",
+      "bytes": 43418,
+      "sha256": "c87edc0702dd2b7e7635e9578331d2df1d7f9b59afad1c9419c1683348d4d0a6"
+    },
+    {
+      "path": "renderer/apps/willo/src/IgnoreEmailConfirmModal.svelte",
+      "archive_path": "source/renderer/apps/willo/src/IgnoreEmailConfirmModal.svelte",
+      "bytes": 1766,
+      "sha256": "b49f9c2776d2bb5e4499f67146ee9f103f7cf9979593234a8c430fe144172823"
+    },
+    {
+      "path": "renderer/apps/willo/src/IgnoreEmailStringModal.svelte",
+      "archive_path": "source/renderer/apps/willo/src/IgnoreEmailStringModal.svelte",
+      "bytes": 1566,
+      "sha256": "1110fc0d714e464876d367b0674a3ab3e70036e1dfe898870e194bf24365a602"
+    },
+    {
+      "path": "renderer/apps/willo/src/IgnoredEmailSourcesModal.svelte",
+      "archive_path": "source/renderer/apps/willo/src/IgnoredEmailSourcesModal.svelte",
+      "bytes": 2201,
+      "sha256": "6571cb995302bcd5e0a86a4f06d13c7baff4223f9fac7682bab35b35c80bfc3c"
+    },
+    {
+      "path": "renderer/apps/willo/src/OpenChatSession.stories.tsx",
+      "archive_path": "source/renderer/apps/willo/src/OpenChatSession.stories.tsx",
+      "bytes": 1401,
+      "sha256": "8e99d1b69c60d0b8c7b51ce53ee9e39807eb82e7596c17276e03ca4fa897c0ba"
+    },
+    {
+      "path": "renderer/apps/willo/src/OpenChatSessionPreview.svelte",
+      "archive_path": "source/renderer/apps/willo/src/OpenChatSessionPreview.svelte",
+      "bytes": 8621,
+      "sha256": "4a0d9304c0a33434d2d983ff106e366efd65b6ab7f5229c6e4f84531f382f326"
+    },
+    {
+      "path": "renderer/apps/willo/src/OpenInElmaBadge.svelte",
+      "archive_path": "source/renderer/apps/willo/src/OpenInElmaBadge.svelte",
+      "bytes": 1347,
+      "sha256": "e9ade41e01c9941651222f223a78707f88fb4a33df1553b4cd1e87c476d0a28a"
+    },
+    {
+      "path": "renderer/apps/willo/src/PaginationControls.svelte",
+      "archive_path": "source/renderer/apps/willo/src/PaginationControls.svelte",
+      "bytes": 1718,
+      "sha256": "adb46f54cf66162284fbbb6b8293dd1a4228ad7832a3212296fff5729b243783"
+    },
+    {
+      "path": "renderer/apps/willo/src/RunDetails.svelte",
+      "archive_path": "source/renderer/apps/willo/src/RunDetails.svelte",
+      "bytes": 2281,
+      "sha256": "cefdaa79be94736d2266c2af9cee30927f9dd948ab1a31457d42b4977bbc948d"
+    },
+    {
+      "path": "renderer/apps/willo/src/RunningChatBackground.stories.tsx",
+      "archive_path": "source/renderer/apps/willo/src/RunningChatBackground.stories.tsx",
+      "bytes": 1681,
+      "sha256": "d1f68ff77092d772f4eab7a7b55f38eac67b046cd9a2528ba76d7d0652f628ac"
+    },
+    {
+      "path": "renderer/apps/willo/src/RunningChatBackground.svelte",
+      "archive_path": "source/renderer/apps/willo/src/RunningChatBackground.svelte",
+      "bytes": 4286,
+      "sha256": "1054519ebb4226c433a9498a5f28d13d59046350c92a6915da7f0a998253e5d2"
+    },
+    {
+      "path": "renderer/apps/willo/src/RunningChatBackgroundPreview.svelte",
+      "archive_path": "source/renderer/apps/willo/src/RunningChatBackgroundPreview.svelte",
+      "bytes": 5654,
+      "sha256": "abde848ae4b258716deaec743b96656bc7221415a2e0729baabed6b72e347db9"
+    },
+    {
+      "path": "renderer/apps/willo/src/SessionFailureCue.svelte",
+      "archive_path": "source/renderer/apps/willo/src/SessionFailureCue.svelte",
+      "bytes": 2405,
+      "sha256": "740c28ce0c45fcd0554f2f9d1826efe5d876b3fdf5e00aad86c8a53f92577525"
+    },
+    {
+      "path": "renderer/apps/willo/src/SessionImageIndicator.svelte",
+      "archive_path": "source/renderer/apps/willo/src/SessionImageIndicator.svelte",
+      "bytes": 569,
+      "sha256": "fe48692c7a6d85f2a692c1f5df41e3fe60008b1c976d60546d7f1e21390fa264"
+    },
+    {
+      "path": "renderer/apps/willo/src/SessionTitleEditor.svelte",
+      "archive_path": "source/renderer/apps/willo/src/SessionTitleEditor.svelte",
+      "bytes": 1843,
+      "sha256": "dee5b5b21a1da7f58a42f66160fcafff414ed687933fcd1b62b03da799693afe"
+    },
+    {
+      "path": "renderer/apps/willo/src/SignalRulesManagerModal.svelte",
+      "archive_path": "source/renderer/apps/willo/src/SignalRulesManagerModal.svelte",
+      "bytes": 2191,
+      "sha256": "2771f9a2ae61286479718fe1c77ba91043465e21b7e92a1192662b46b1ac761b"
+    },
+    {
+      "path": "renderer/apps/willo/src/SlackMessageView.svelte",
+      "archive_path": "source/renderer/apps/willo/src/SlackMessageView.svelte",
+      "bytes": 2579,
+      "sha256": "ee3ae6e4a80180d41244c65bbdf4b019119ba1dc8f9f38efd8d960dedfeb2186"
+    },
+    {
+      "path": "renderer/apps/willo/src/SlackPage.svelte",
+      "archive_path": "source/renderer/apps/willo/src/SlackPage.svelte",
+      "bytes": 28987,
+      "sha256": "f6189e13ae767d63b0ca789cd4ff4fe814270aa6647bfe8e6d774d000e331f1c"
+    },
+    {
+      "path": "renderer/apps/willo/src/StationCard.svelte",
+      "archive_path": "source/renderer/apps/willo/src/StationCard.svelte",
+      "bytes": 17552,
+      "sha256": "001bf4d8a965284c3f5c649714d851a52fd2dd4834dd1080a1ec6bed4a4f890a"
+    },
+    {
+      "path": "renderer/apps/willo/src/StationTags.svelte",
+      "archive_path": "source/renderer/apps/willo/src/StationTags.svelte",
+      "bytes": 3068,
+      "sha256": "a3d9c06189c7bb548dd1e85365d8d384ef9dc7b432849446dd3600c3ced7b7d0"
+    },
+    {
+      "path": "renderer/apps/willo/src/TelegramPage.svelte",
+      "archive_path": "source/renderer/apps/willo/src/TelegramPage.svelte",
+      "bytes": 34702,
+      "sha256": "621807e64512ff1d3535480b7267a7f0a6ab22952481f9a9b3fb076479cabb91"
+    },
+    {
+      "path": "renderer/apps/willo/src/WilloGlyph.svelte",
+      "archive_path": "source/renderer/apps/willo/src/WilloGlyph.svelte",
+      "bytes": 1024,
+      "sha256": "b2d533c68bc48ba54d442325389a88a0cdc722813559f545f5a6e7de43179e13"
+    },
+    {
+      "path": "renderer/apps/willo/src/api.ts",
+      "archive_path": "source/renderer/apps/willo/src/api.ts",
+      "bytes": 15907,
+      "sha256": "8d4854204b6a14e600791004c5a3efbcf0bf1d45ea204ec0f84bca1442ff7326"
+    },
+    {
+      "path": "renderer/apps/willo/src/attentionApi.ts",
+      "archive_path": "source/renderer/apps/willo/src/attentionApi.ts",
+      "bytes": 2256,
+      "sha256": "d8f6a8f174d8d180b923d0c9482898da09c745e883b934e5acf8ae756267187b"
+    },
+    {
+      "path": "renderer/apps/willo/src/comunicado.ts",
+      "archive_path": "source/renderer/apps/willo/src/comunicado.ts",
+      "bytes": 1956,
+      "sha256": "39a235821178145ebf04af0e529fe3083eeef40b70a0ff4912a21767ef82d124"
+    },
+    {
+      "path": "renderer/apps/willo/src/emailAutomationState.ts",
+      "archive_path": "source/renderer/apps/willo/src/emailAutomationState.ts",
+      "bytes": 1562,
+      "sha256": "22c607495a76875cc3d8d0138e25905efb79cd4f0cdff2557c9918f047cd2afb"
+    },
+    {
+      "path": "renderer/apps/willo/src/emailPagination.ts",
+      "archive_path": "source/renderer/apps/willo/src/emailPagination.ts",
+      "bytes": 4512,
+      "sha256": "69e1ad27b11423f0e1ffc4e17b6275b2b13e5dcadb4120880564d5237848bd54"
+    },
+    {
+      "path": "renderer/apps/willo/src/helpers.ts",
+      "archive_path": "source/renderer/apps/willo/src/helpers.ts",
+      "bytes": 12722,
+      "sha256": "4ce1ef78771e849ac013dd5b3ab43fcd698f1135effda7330fd3db632cf20ae1"
+    },
+    {
+      "path": "renderer/apps/willo/src/liveTails.ts",
+      "archive_path": "source/renderer/apps/willo/src/liveTails.ts",
+      "bytes": 8151,
+      "sha256": "a0ac0a676e07dd574517b7cdab80f24fce818cc38183056a57421ed45501a28e"
+    },
+    {
+      "path": "renderer/apps/willo/src/mailApi.ts",
+      "archive_path": "source/renderer/apps/willo/src/mailApi.ts",
+      "bytes": 25897,
+      "sha256": "21d4b1bc82c3608334eb5927bc6300889622022912c821259a62423ee0d61319"
+    },
+    {
+      "path": "renderer/apps/willo/src/main.ts",
+      "archive_path": "source/renderer/apps/willo/src/main.ts",
+      "bytes": 333,
+      "sha256": "0a657c9e6da0125edb879038fed12c4e00597732f279dfd7f1d539c874f8ec97"
+    },
+    {
+      "path": "renderer/apps/willo/src/runPagination.ts",
+      "archive_path": "source/renderer/apps/willo/src/runPagination.ts",
+      "bytes": 1303,
+      "sha256": "482e7eb064b26f285e6ee129f7462e411d78d02a2736c134d0ba49aff9ac4e8b"
+    },
+    {
+      "path": "renderer/apps/willo/src/slackApi.ts",
+      "archive_path": "source/renderer/apps/willo/src/slackApi.ts",
+      "bytes": 4400,
+      "sha256": "e818fea4cfaf411cbd2aae7ea923c39e8fac740a906da22e50bb9b25fee05b18"
+    },
+    {
+      "path": "renderer/apps/willo/src/stationSearch.ts",
+      "archive_path": "source/renderer/apps/willo/src/stationSearch.ts",
+      "bytes": 5578,
+      "sha256": "3917cca61536acbcc23f389fa68bf54a31d8106d06691564b30150aefeb9758f"
+    },
+    {
+      "path": "renderer/apps/willo/src/stations.ts",
+      "archive_path": "source/renderer/apps/willo/src/stations.ts",
+      "bytes": 10494,
+      "sha256": "3b41c491381f216c6da8fe77200702b9b1db209d2609a898e3dcab0076d9fa93"
+    },
+    {
+      "path": "renderer/apps/willo/src/telegramApi.ts",
+      "archive_path": "source/renderer/apps/willo/src/telegramApi.ts",
+      "bytes": 3859,
+      "sha256": "2e3b5b48e62af3134d9fd865e98525e8581324820e5c935e58282ea457697023"
+    },
+    {
+      "path": "renderer/apps/willo/src/willo.css",
+      "archive_path": "source/renderer/apps/willo/src/willo.css",
+      "bytes": 118747,
+      "sha256": "16f98cfa8502f6a072d9af654a8e76563f4c110af53d1a4e1f3bd72b5e98e213"
+    },
+    {
+      "path": "renderer/apps/willo/test/comunicado.test.ts",
+      "archive_path": "source/renderer/apps/willo/test/comunicado.test.ts",
+      "bytes": 2098,
+      "sha256": "9b604d319b54515b1436d5e1df05793df2933e0acd52512ff8e8aff609794917"
+    },
+    {
+      "path": "renderer/apps/willo/test/designSystemStub.ts",
+      "archive_path": "source/renderer/apps/willo/test/designSystemStub.ts",
+      "bytes": 1906,
+      "sha256": "b4db30af139b2ba4af9714c3cc01cb610bc5cf76d551726f5cec6dc60246de7d"
+    },
+    {
+      "path": "renderer/apps/willo/test/draftStations.test.ts",
+      "archive_path": "source/renderer/apps/willo/test/draftStations.test.ts",
+      "bytes": 7222,
+      "sha256": "9f597671c54ea0e5278a074161b8a0a5faa90ac436ccb63a1e626b621387e63b"
+    },
+    {
+      "path": "renderer/apps/willo/test/emailAutomationState.test.ts",
+      "archive_path": "source/renderer/apps/willo/test/emailAutomationState.test.ts",
+      "bytes": 1705,
+      "sha256": "ea8c343aa14e71e2845d52382ecb0bb5db9e7cdaff2a76302a8878202c34febb"
+    },
+    {
+      "path": "renderer/apps/willo/test/emailPagination.test.ts",
+      "archive_path": "source/renderer/apps/willo/test/emailPagination.test.ts",
+      "bytes": 3631,
+      "sha256": "9ac152567a9fe4834ee11619fdf927ad90de515ab3b210509124bca1b0843780"
+    },
+    {
+      "path": "renderer/apps/willo/test/helpers.test.ts",
+      "archive_path": "source/renderer/apps/willo/test/helpers.test.ts",
+      "bytes": 4914,
+      "sha256": "dab91a7519ca34a5498afd688984bde50930a9625bb048aad8182820a0e3131a"
+    },
+    {
+      "path": "renderer/apps/willo/test/liveTails.test.ts",
+      "archive_path": "source/renderer/apps/willo/test/liveTails.test.ts",
+      "bytes": 7361,
+      "sha256": "c3bc421683714f363c9097d12980981774a134bb82980a2d9ed435447cd860d9"
+    },
+    {
+      "path": "renderer/apps/willo/test/mailApi.test.ts",
+      "archive_path": "source/renderer/apps/willo/test/mailApi.test.ts",
+      "bytes": 8319,
+      "sha256": "9230ba0bc3387a3868ac1033c85780de49c9858149f36cf8301f3d8f53b39801"
+    },
+    {
+      "path": "renderer/apps/willo/test/run-comunicado.mjs",
+      "archive_path": "source/renderer/apps/willo/test/run-comunicado.mjs",
+      "bytes": 1072,
+      "sha256": "467ab4655b6685bbbfb3f5fc80110ba321557747a6a7d7b1901e6e2f3ae8b6df"
+    },
+    {
+      "path": "renderer/apps/willo/test/run-draft-stations.mjs",
+      "archive_path": "source/renderer/apps/willo/test/run-draft-stations.mjs",
+      "bytes": 827,
+      "sha256": "886e0a75078966afd7bc41b6427dd72f5c3c03270897823eeb535e3f5c39c62a"
+    },
+    {
+      "path": "renderer/apps/willo/test/run-email-automation.mjs",
+      "archive_path": "source/renderer/apps/willo/test/run-email-automation.mjs",
+      "bytes": 827,
+      "sha256": "b083d1f2951370c028309c0e5ec22e46204c339133f04188dacad800bb7e19fb"
+    },
+    {
+      "path": "renderer/apps/willo/test/run-email-pagination.mjs",
+      "archive_path": "source/renderer/apps/willo/test/run-email-pagination.mjs",
+      "bytes": 965,
+      "sha256": "c6cbf32da4471c2c7fdbdb0c458f3d36500423ed988aff2ae565840e01204c9e"
+    },
+    {
+      "path": "renderer/apps/willo/test/run-helpers.mjs",
+      "archive_path": "source/renderer/apps/willo/test/run-helpers.mjs",
+      "bytes": 1369,
+      "sha256": "f4df71f3ca5d1138d5e1adc17d634798bfd8a7d855520a053246a559775e6289"
+    },
+    {
+      "path": "renderer/apps/willo/test/run-live-tails.mjs",
+      "archive_path": "source/renderer/apps/willo/test/run-live-tails.mjs",
+      "bytes": 1241,
+      "sha256": "262ba1236a85dbe997e49bab9e363acf686d7f81515fc4b8e53e82df7752b7f9"
+    },
+    {
+      "path": "renderer/apps/willo/test/run-mail-api.mjs",
+      "archive_path": "source/renderer/apps/willo/test/run-mail-api.mjs",
+      "bytes": 937,
+      "sha256": "fe1660d62f27275158989f7ba67dee7c138f16a5e5f1c49ac3aec839045ab217"
+    },
+    {
+      "path": "renderer/apps/willo/test/run-pagination.mjs",
+      "archive_path": "source/renderer/apps/willo/test/run-pagination.mjs",
+      "bytes": 759,
+      "sha256": "e688ec911cfa1b221faa7bcf62024edfd0259cb3d418aa196000b1d98993d1cf"
+    },
+    {
+      "path": "renderer/apps/willo/test/run-station-search.mjs",
+      "archive_path": "source/renderer/apps/willo/test/run-station-search.mjs",
+      "bytes": 1393,
+      "sha256": "baca42026a0fe3575c5bdbee67b960f64da53e4c56af5c89e44e5b520d6e9f09"
+    },
+    {
+      "path": "renderer/apps/willo/test/runPagination.test.ts",
+      "archive_path": "source/renderer/apps/willo/test/runPagination.test.ts",
+      "bytes": 958,
+      "sha256": "a0e106cbb91772abd75e8ee69b470d7c849729b9a74dc366625646b4c4846686"
+    },
+    {
+      "path": "renderer/apps/willo/test/stationSearch.test.ts",
+      "archive_path": "source/renderer/apps/willo/test/stationSearch.test.ts",
+      "bytes": 5411,
+      "sha256": "6fee08120535e564dec6ef39107fca19b105b6845377bdcc45d1af2da96b5bf0"
+    },
+    {
+      "path": "renderer/apps/willo/tsconfig.json",
+      "archive_path": "source/renderer/apps/willo/tsconfig.json",
+      "bytes": 826,
+      "sha256": "ac3f00b0d8a442cb161022c8f6e50debf47773b07492c960efb90275eb4e17c7"
+    },
+    {
+      "path": "renderer/apps/willo/vite.config.ts",
+      "archive_path": "source/renderer/apps/willo/vite.config.ts",
+      "bytes": 142,
+      "sha256": "4e40849b6e4406397f72bcf3b70b985abc0e3bbac67dd2d81f2af3d63509fc27"
+    },
+    {
+      "path": "renderer/package-lock.json",
+      "archive_path": "source/renderer/package-lock.json",
+      "bytes": 217073,
+      "sha256": "786defedc7bf8a817c1792d2acf9a9b1578b9e662fb75ae15449f75775c0c0b0"
+    },
+    {
+      "path": "renderer/package.json",
+      "archive_path": "source/renderer/package.json",
+      "bytes": 3268,
+      "sha256": "8df3539fa5dd330aaac861a24a3e468fb1e368c30d59f3fa5d385ac949b72ed7"
+    },
+    {
+      "path": "renderer/packages/design-system/gallery/Gallery.svelte",
+      "archive_path": "source/renderer/packages/design-system/gallery/Gallery.svelte",
+      "bytes": 8523,
+      "sha256": "b004604d221697ffdec5e58333c3c7d17916184dbb69e012400c73b113d660a4"
+    },
+    {
+      "path": "renderer/packages/design-system/gallery/index.html",
+      "archive_path": "source/renderer/packages/design-system/gallery/index.html",
+      "bytes": 183,
+      "sha256": "865efe8920ffb50e6b7f5353554ecd9cf68934e7f0f146105645092ca7f7677f"
+    },
+    {
+      "path": "renderer/packages/design-system/gallery/main.ts",
+      "archive_path": "source/renderer/packages/design-system/gallery/main.ts",
+      "bytes": 172,
+      "sha256": "7517ff3e7605caf52a20af428362964d53e25ebd5fdb72e03100a93d1de68acb"
+    },
+    {
+      "path": "renderer/packages/design-system/gallery/vite.config.ts",
+      "archive_path": "source/renderer/packages/design-system/gallery/vite.config.ts",
+      "bytes": 474,
+      "sha256": "ce7121bcd597b8e6ca9ff474d4c8bc350d5cbcafd9bf3306b6a4ec3a637cac6b"
+    },
+    {
+      "path": "renderer/packages/design-system/package.json",
+      "archive_path": "source/renderer/packages/design-system/package.json",
+      "bytes": 290,
+      "sha256": "2934362e2d87a158318628dedd69438d07fee68d6fdb8885e7344ff74ea99b83"
+    },
+    {
+      "path": "renderer/packages/design-system/src/ComingSoon.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/ComingSoon.svelte",
+      "bytes": 622,
+      "sha256": "c671c2785532c0a2f091aa9f2f2c273a3e8ea8c263267dc0ed5ee754dd89fe9e"
+    },
+    {
+      "path": "renderer/packages/design-system/src/bridge/arbol.ts",
+      "archive_path": "source/renderer/packages/design-system/src/bridge/arbol.ts",
+      "bytes": 10404,
+      "sha256": "a15a5b2e7489a911d1072945265ab54b67e102ad62f34e62c36d815e518d257d"
+    },
+    {
+      "path": "renderer/packages/design-system/src/chrome/BriefPane.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/chrome/BriefPane.svelte",
+      "bytes": 448,
+      "sha256": "af5062473738b9eebc4698c8d8533bc5461ce6cb6ab8bf29234abb16a8953359"
+    },
+    {
+      "path": "renderer/packages/design-system/src/chrome/CompletionSoundToggle.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/chrome/CompletionSoundToggle.svelte",
+      "bytes": 10955,
+      "sha256": "70056338d014a8ee6de84a2edaab95a25b4934ca3d0e3db2c6a1e9e72f3c72fc"
+    },
+    {
+      "path": "renderer/packages/design-system/src/chrome/Header.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/chrome/Header.svelte",
+      "bytes": 4024,
+      "sha256": "f2e53af9901834232377b013e9398859717ec45b0cd47d16e1585196fc3bb58a"
+    },
+    {
+      "path": "renderer/packages/design-system/src/chrome/RebuildProgress.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/chrome/RebuildProgress.svelte",
+      "bytes": 6748,
+      "sha256": "b831cfbcbea352a258c8ed9a6b5f18391c297d652101b645028b66acd07324c1"
+    },
+    {
+      "path": "renderer/packages/design-system/src/chrome/RebuildTrafficLight.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/chrome/RebuildTrafficLight.svelte",
+      "bytes": 3973,
+      "sha256": "02cb3a37336f735ef25f0813b674e0e015a63673c68f7e8878683c1b0931171d"
+    },
+    {
+      "path": "renderer/packages/design-system/src/chrome/ShellInsignia.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/chrome/ShellInsignia.svelte",
+      "bytes": 4537,
+      "sha256": "b7fab90dbfd44f32e877a28b284f0f74c987f88a931e74f4071ba4619f19630d"
+    },
+    {
+      "path": "renderer/packages/design-system/src/chrome/ThemeSwitcher.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/chrome/ThemeSwitcher.svelte",
+      "bytes": 3838,
+      "sha256": "15d5adcca0d844cc69f6a8e193ff5615fce9906e49a6ec37876feb6cba3b2bc0"
+    },
+    {
+      "path": "renderer/packages/design-system/src/chrome/UIShell.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/chrome/UIShell.svelte",
+      "bytes": 2656,
+      "sha256": "49cc88babea4190857b154f29d8840e11ae0267de7d8317c1e927adb77c0b775"
+    },
+    {
+      "path": "renderer/packages/design-system/src/chrome/Viewport.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/chrome/Viewport.svelte",
+      "bytes": 204,
+      "sha256": "71ee5a1cecbbd2a56f637c3921b94f42d9d84d15381ce68f0e1abc61aecb25f1"
+    },
+    {
+      "path": "renderer/packages/design-system/src/chrome/chrome.ts",
+      "archive_path": "source/renderer/packages/design-system/src/chrome/chrome.ts",
+      "bytes": 2860,
+      "sha256": "1850e0299dc65a8f52fdc0dbc34a12fa8a294811470d5fb7b17291e6aa350529"
+    },
+    {
+      "path": "renderer/packages/design-system/src/chrome/rebuildTiming.ts",
+      "archive_path": "source/renderer/packages/design-system/src/chrome/rebuildTiming.ts",
+      "bytes": 2245,
+      "sha256": "7ecf2a44c470a28db79ed3708d03660db6662b51cbe0ea32d785776ec141efcd"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/Badge.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/Badge.svelte",
+      "bytes": 846,
+      "sha256": "542e9bc7387acf56c0ba03b5e06bfef4d0c35db6de28e40e98a7e7f2f6490b86"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/Button.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/Button.svelte",
+      "bytes": 1688,
+      "sha256": "714a099fc2e347c356931e7b620d9eed97a60bab43825df8d6f531d4e0f50a69"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/Card.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/Card.svelte",
+      "bytes": 1093,
+      "sha256": "64aa1214f12f86069a82c6a5141c5cda23aa65566ac30fc2e3133c815a183269"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/ChatWidthControl.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/ChatWidthControl.svelte",
+      "bytes": 1291,
+      "sha256": "2f24aad74e3811f4d8d216c00cd96a5e197219f37fd7d1080ae8e4272fd63c74"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/DateTimePicker.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/DateTimePicker.svelte",
+      "bytes": 14066,
+      "sha256": "d5ec19ea2d981329bac432429768a55ae3e751ecd27a514debefab2611530f0e"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/Dot.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/Dot.svelte",
+      "bytes": 417,
+      "sha256": "35f6b033ac89b684363f82ac10dde41980ebb96543282a65284d87df9045ba38"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/Dropdown.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/Dropdown.svelte",
+      "bytes": 2715,
+      "sha256": "a9b065e28d76a0e780d208150911205a25ca5781cba8a4500be46803c089c7d5"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/Field.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/Field.svelte",
+      "bytes": 700,
+      "sha256": "9261a3785b887aeec641f8142c34a0bfef6d5433d69161541fc05e7a14e0a21c"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/FontSizeControl.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/FontSizeControl.svelte",
+      "bytes": 1115,
+      "sha256": "45bfa4ca8f16efd1ee7ec499bfde2eb133318544bb7b5d5f9cc3398e9c26087b"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/KbdHint.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/KbdHint.svelte",
+      "bytes": 402,
+      "sha256": "38ccd67a324140b9b2f1eb11bbd75a970661b6504b2293bca45aff9f5aa796cb"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/Meter.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/Meter.svelte",
+      "bytes": 1277,
+      "sha256": "a68c20ce1d0f2fd7bafae27f0c8bebbd4e593546d0f8003bfb557cb6ec3e4a6a"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/MultiSelect.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/MultiSelect.svelte",
+      "bytes": 3823,
+      "sha256": "f270fa99444fd4dffd96f47968371ed21f8750f27f44a8b041c65a3d91a65de4"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/PermissionDecisionActions.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/PermissionDecisionActions.svelte",
+      "bytes": 3293,
+      "sha256": "392c3b400abda11aa04ccd4e64a24880afe3b4cb563a55a3e5f805c2769ad043"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/RingsMark.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/RingsMark.svelte",
+      "bytes": 933,
+      "sha256": "87d1e30716ac8bd36f35304e87c9120b8a2546d671813f37db21eb0c3413adbc"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/Tabs.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/components/Tabs.svelte",
+      "bytes": 1215,
+      "sha256": "8c8dd4af2dfcca2fc6681bfa82ba4f5ee97714ff94548f32b3622ba2b2dd90e9"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/datetime.ts",
+      "archive_path": "source/renderer/packages/design-system/src/components/datetime.ts",
+      "bytes": 1938,
+      "sha256": "951666f77c3459274bf8e45804cd81bde9613b6d31ca6071045920d7dcbabc9d"
+    },
+    {
+      "path": "renderer/packages/design-system/src/components/types.ts",
+      "archive_path": "source/renderer/packages/design-system/src/components/types.ts",
+      "bytes": 233,
+      "sha256": "93528b53876b7f111df1fb36cc20457302760fd8a30f31b5964f06b8895f1554"
+    },
+    {
+      "path": "renderer/packages/design-system/src/comunicado/NotificationComunicado.stories.tsx",
+      "archive_path": "source/renderer/packages/design-system/src/comunicado/NotificationComunicado.stories.tsx",
+      "bytes": 1699,
+      "sha256": "91e1a52d86d35669c20fd81a1a2f1e2a949a2c5069f6dd71a83423c89e37e6e1"
+    },
+    {
+      "path": "renderer/packages/design-system/src/comunicado/NotificationComunicadoStoryPreview.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/comunicado/NotificationComunicadoStoryPreview.svelte",
+      "bytes": 4866,
+      "sha256": "db21bd4789efb088ddf85fe4ced39fc0bad585d5df8f63983a996a040240e1c7"
+    },
+    {
+      "path": "renderer/packages/design-system/src/comunicado.ts",
+      "archive_path": "source/renderer/packages/design-system/src/comunicado.ts",
+      "bytes": 2071,
+      "sha256": "9259830137d38eefb5326957a7f27e25e29467cc9e0796dc802b5ddbfedc770c"
+    },
+    {
+      "path": "renderer/packages/design-system/src/diffs/DiffViewSwitcher.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/diffs/DiffViewSwitcher.svelte",
+      "bytes": 3172,
+      "sha256": "563ceb31962bc7df28718ef5f25e0c0888be5fdaf9444833c5e00c460f35c386"
+    },
+    {
+      "path": "renderer/packages/design-system/src/diffs/types.ts",
+      "archive_path": "source/renderer/packages/design-system/src/diffs/types.ts",
+      "bytes": 146,
+      "sha256": "3e562602595c07c92aab0699e266505d7fba8de9d91935af35561cf019e5d183"
+    },
+    {
+      "path": "renderer/packages/design-system/src/entities/EntityCard.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/entities/EntityCard.svelte",
+      "bytes": 5064,
+      "sha256": "09dd34d2a2751b6ea0007576bd6404ac135650973b9ea6952208b29645cabcbc"
+    },
+    {
+      "path": "renderer/packages/design-system/src/entities/EntityChip.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/entities/EntityChip.svelte",
+      "bytes": 5457,
+      "sha256": "87f76d21f1fe0f4b18db2d93acb329a6b8292894d8db1ae68a71d713e3fd3f9a"
+    },
+    {
+      "path": "renderer/packages/design-system/src/entities/EntityChipGlyph.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/entities/EntityChipGlyph.svelte",
+      "bytes": 3233,
+      "sha256": "f772ca04733ed46b542c83efb374fd62e6ea0ce02ad448fb34c183082496dcc1"
+    },
+    {
+      "path": "renderer/packages/design-system/src/entities/EntityComponents.stories.tsx",
+      "archive_path": "source/renderer/packages/design-system/src/entities/EntityComponents.stories.tsx",
+      "bytes": 2421,
+      "sha256": "5dd84245a9e7d7db0c121a9846201ea98a2cdf2d97b5c410f4d563263be8934c"
+    },
+    {
+      "path": "renderer/packages/design-system/src/entities/EntityComponentsStoryPreview.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/entities/EntityComponentsStoryPreview.svelte",
+      "bytes": 14351,
+      "sha256": "b376a65baa941f992c13ae02628ecd07d41426b4a7e49cd39ba33577f7a1aa41"
+    },
+    {
+      "path": "renderer/packages/design-system/src/entities/EntityRichText.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/entities/EntityRichText.svelte",
+      "bytes": 694,
+      "sha256": "dc8810c8702b7b02d093167d8f125f9c5659641aaa5aa26206dc36899a1a0a0f"
+    },
+    {
+      "path": "renderer/packages/design-system/src/entities/card.ts",
+      "archive_path": "source/renderer/packages/design-system/src/entities/card.ts",
+      "bytes": 240,
+      "sha256": "fd351ed3dcf6ce0a97c172d4a98d20168d30449c0fd76df60832a7bbbbfd6130"
+    },
+    {
+      "path": "renderer/packages/design-system/src/entities/data.ts",
+      "archive_path": "source/renderer/packages/design-system/src/entities/data.ts",
+      "bytes": 6467,
+      "sha256": "dae99b579f57a0a94b45fa86ba181bf73e86d7c586224bc47f1faa260c2597c6"
+    },
+    {
+      "path": "renderer/packages/design-system/src/entities/entityUri.ts",
+      "archive_path": "source/renderer/packages/design-system/src/entities/entityUri.ts",
+      "bytes": 5307,
+      "sha256": "ec89311a285871454cd8b91140ba8fd5931449cb357b7fc011a54b8bcf082fee"
+    },
+    {
+      "path": "renderer/packages/design-system/src/entities/linkTarget.ts",
+      "archive_path": "source/renderer/packages/design-system/src/entities/linkTarget.ts",
+      "bytes": 23965,
+      "sha256": "c8d1ef1f6e3b84e013fef56375c2f2d70e2d8f4dddd1acd453eab1784995418d"
+    },
+    {
+      "path": "renderer/packages/design-system/src/entities/navigation.ts",
+      "archive_path": "source/renderer/packages/design-system/src/entities/navigation.ts",
+      "bytes": 1677,
+      "sha256": "91278184e8bdaae5c7b976df9c67f3400a6bc7143b0c3537d10759514310bd9c"
+    },
+    {
+      "path": "renderer/packages/design-system/src/grafts/GraftModal.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/grafts/GraftModal.svelte",
+      "bytes": 7376,
+      "sha256": "024ad38bfe77f532295337711c95a0b4958455814e40521d45951af271d690b2"
+    },
+    {
+      "path": "renderer/packages/design-system/src/grafts/TimePicker.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/grafts/TimePicker.svelte",
+      "bytes": 4740,
+      "sha256": "bdfd0aa948327bd2c90ddc977048468a9ca6498f7ec5310550a68b6f3ff52b46"
+    },
+    {
+      "path": "renderer/packages/design-system/src/grafts/WallPicker.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/grafts/WallPicker.svelte",
+      "bytes": 10633,
+      "sha256": "9aafacc8daf4e1e19ca5d47b8202680ce578987033c9f2efbf930c3f5a5e5e4c"
+    },
+    {
+      "path": "renderer/packages/design-system/src/grafts/grafts.ts",
+      "archive_path": "source/renderer/packages/design-system/src/grafts/grafts.ts",
+      "bytes": 1817,
+      "sha256": "60c2a21b7212c88c7984e2e634967dcbbd4c9e08382c6b1fb73032c5b88f985a"
+    },
+    {
+      "path": "renderer/packages/design-system/src/grafts/payload.ts",
+      "archive_path": "source/renderer/packages/design-system/src/grafts/payload.ts",
+      "bytes": 624,
+      "sha256": "05866b1d616240370b38c325891bf0a8f219ad5d85dd9f1d2ceb0389c6c34711"
+    },
+    {
+      "path": "renderer/packages/design-system/src/grafts/time.ts",
+      "archive_path": "source/renderer/packages/design-system/src/grafts/time.ts",
+      "bytes": 1625,
+      "sha256": "b585561730b11ccc79c9b62fb417668804ae538fe7e57bf7ea367c644c57b221"
+    },
+    {
+      "path": "renderer/packages/design-system/src/hunks/HunkReview.stories.tsx",
+      "archive_path": "source/renderer/packages/design-system/src/hunks/HunkReview.stories.tsx",
+      "bytes": 1288,
+      "sha256": "ab6c5ce1d552496515ff1ff0027b647dd41e789f217ae6fca3f7a8fd1b17c883"
+    },
+    {
+      "path": "renderer/packages/design-system/src/hunks/HunkReview.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/hunks/HunkReview.svelte",
+      "bytes": 15501,
+      "sha256": "8f7835a16294b09e8f80f21df0d6e8084fd216da50264d61254905ff9ab7edbf"
+    },
+    {
+      "path": "renderer/packages/design-system/src/hunks/HunkReviewStoryPreview.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/hunks/HunkReviewStoryPreview.svelte",
+      "bytes": 9887,
+      "sha256": "a81693448058f44dd9fe969f20a2f52178196902f58a22295ee7d907ffa054d5"
+    },
+    {
+      "path": "renderer/packages/design-system/src/hunks/types.ts",
+      "archive_path": "source/renderer/packages/design-system/src/hunks/types.ts",
+      "bytes": 5394,
+      "sha256": "0823bbb20c7802da66eec86815a2654a9a12e079e9e290ff7a928cacc415c41c"
+    },
+    {
+      "path": "renderer/packages/design-system/src/index.ts",
+      "archive_path": "source/renderer/packages/design-system/src/index.ts",
+      "bytes": 7849,
+      "sha256": "f60ab922009ee8e91a91826f6378ec65e92aa32c81d7ad5900d5482790da8750"
+    },
+    {
+      "path": "renderer/packages/design-system/src/links.ts",
+      "archive_path": "source/renderer/packages/design-system/src/links.ts",
+      "bytes": 6028,
+      "sha256": "92f779c88a50a822ae718de8db7813f29c1887ffc72d0ca83d1001982af80224"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/ArbolSeparator.stories.tsx",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/ArbolSeparator.stories.tsx",
+      "bytes": 5014,
+      "sha256": "2a81da7e0f382c554d4fac922c1211af771f63d853cfa1b146dc094a22b77ce0"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/ArbolSeparator.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/ArbolSeparator.svelte",
+      "bytes": 4487,
+      "sha256": "75aeee89a79e3b2887fdf4f67981d99f112825b8f92e948f719f2e101497e6e1"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/BlueprintDoc.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/BlueprintDoc.svelte",
+      "bytes": 16639,
+      "sha256": "a6d425d24fe7ae8f5219dba2a9a1aefea9072ea2782db79245d576ab7729af22"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/ChainDoc.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/ChainDoc.svelte",
+      "bytes": 12699,
+      "sha256": "634d5f9e21ab0bab5752b85926c33e250dd5e040e2b5c7a28927fec037c58513"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/CodeBlock.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/CodeBlock.svelte",
+      "bytes": 4104,
+      "sha256": "add9c983e7a7dd92e63dea2cc0bbb94eed5d9691430f14e616428ae6990ec231"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/CopyBlockButton.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/CopyBlockButton.svelte",
+      "bytes": 4344,
+      "sha256": "eedb7901ee9c60a00f3c5f7ecb7d869fead0e31a997ceb4e555648107ff941ba"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/Frontmatter.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/Frontmatter.svelte",
+      "bytes": 6659,
+      "sha256": "3a8d0e606de2775493859c81750782ac396aee5b8be778f4104cd64c4ea2a8bc"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/HighlightedText.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/HighlightedText.svelte",
+      "bytes": 893,
+      "sha256": "3c8f8be260047f99fd14f05bedb2c805741bd63bc0858fd21615d461051b2b12"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/InlineMarkdown.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/InlineMarkdown.svelte",
+      "bytes": 3792,
+      "sha256": "5584d0d83f65a39bf81d3359ede1ab9d924b78d047834b1ca5cdd3018e156ab1"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/JsonCodeBlock.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/JsonCodeBlock.svelte",
+      "bytes": 1373,
+      "sha256": "8ef62194c4409d5fc17801cc2f06ef62c559ae24eb5515872ce34b5969e93898"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/MarkdownBlocks.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/MarkdownBlocks.svelte",
+      "bytes": 4752,
+      "sha256": "4b4703c40ef3977962df3998a052c03f18872a6a04bb17274f3703921758c291"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/MarkdownDoc.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/MarkdownDoc.svelte",
+      "bytes": 6503,
+      "sha256": "28df116b1a5891eae151708dd7f65c49ef70d0a931569c8baa06150850c859d0"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/MarkdownTable.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/MarkdownTable.svelte",
+      "bytes": 2123,
+      "sha256": "9c8ea55e917bfbceb4bfe590e376a38d43dc67a900fef1d629df57fac97c468f"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/QuoteBlock.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/QuoteBlock.svelte",
+      "bytes": 2925,
+      "sha256": "7240974972541c9bfba9d5bde5f63e090d29686d9a014cfae3878e31e61645da"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/WrapBlockButton.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/WrapBlockButton.svelte",
+      "bytes": 1950,
+      "sha256": "65bb8c197e4969728387b15896ecdfd2cdfc8e386f7da9abb9c46086cf684849"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/blocks.ts",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/blocks.ts",
+      "bytes": 6293,
+      "sha256": "4ab710e26932c607edbcf5350697ffc792705aeac73cab006d936936e7947e98"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/blueprint.ts",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/blueprint.ts",
+      "bytes": 9376,
+      "sha256": "268e715c3ff0247dd5d20dfab092e828db7e76586a386f3d005404d70fc7553f"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/chain.ts",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/chain.ts",
+      "bytes": 6075,
+      "sha256": "36bb6bfc6ccb7b14339247e440947bcb45c4041e3eb8ba3651ce029efff2be9b"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/frontmatter.ts",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/frontmatter.ts",
+      "bytes": 5686,
+      "sha256": "5f4369c7b12b3306a95a2798bd4ae0bb6550e11c196604c17633ffb7681b03b4"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/markdown.ts",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/markdown.ts",
+      "bytes": 13929,
+      "sha256": "c0b4bd04f32117eeaf1b24fa5e3b798334df4ee6dc3957f996c9920ffd46ce61"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/sourcerefs.ts",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/sourcerefs.ts",
+      "bytes": 4538,
+      "sha256": "99294c41ef9fabcb85f268862fcb9f7f9d3d1d5de3235f7bd7dd173d5913392b"
+    },
+    {
+      "path": "renderer/packages/design-system/src/markdown/wrapPreference.ts",
+      "archive_path": "source/renderer/packages/design-system/src/markdown/wrapPreference.ts",
+      "bytes": 890,
+      "sha256": "8465eb05ec15f9d4a3e3955e64a2fb5f4a41f395cb6cf3cfed0fcfc2b985bbcb"
+    },
+    {
+      "path": "renderer/packages/design-system/src/overlay/Modal.svelte",
+      "archive_path": "source/renderer/packages/design-system/src/overlay/Modal.svelte",
+      "bytes": 2842,
+      "sha256": "00bfcc8aab08eb104ef73b9527bd1a603543e50b7effa36f49f483655157dc38"
+    },
+    {
+      "path": "renderer/packages/design-system/src/providers.ts",
+      "archive_path": "source/renderer/packages/design-system/src/providers.ts",
+      "bytes": 1234,
+      "sha256": "84cc8079e38d4243dab75de6170aca5e8ac6dca90d716db0a1e4aececcf4e850"
+    },
+    {
+      "path": "renderer/packages/design-system/src/themes.ts",
+      "archive_path": "source/renderer/packages/design-system/src/themes.ts",
+      "bytes": 1897,
+      "sha256": "c9aaef6548ddc3df4e32724c206ef7ba07819ee2b5f0a9ec862b0e588e924a21"
+    },
+    {
+      "path": "renderer/packages/design-system/src/tokens.css",
+      "archive_path": "source/renderer/packages/design-system/src/tokens.css",
+      "bytes": 19115,
+      "sha256": "f331a8900c0cfe9d15829ca84ac63b240f5355dcb8246409b79e3cb29e11ebbb"
+    },
+    {
+      "path": "renderer/packages/design-system/test/rebuildTiming.test.ts",
+      "archive_path": "source/renderer/packages/design-system/test/rebuildTiming.test.ts",
+      "bytes": 1851,
+      "sha256": "fb6806dd77dbd84e45bb56b0b127e3068065522cfbfcd42b1a1503d73530d397"
+    },
+    {
+      "path": "renderer/packages/design-system/test/run-rebuild-timing.mjs",
+      "archive_path": "source/renderer/packages/design-system/test/run-rebuild-timing.mjs",
+      "bytes": 722,
+      "sha256": "4bc4e162a7363e766cf23f145f81b749d118da60ca7e39f199027ecb84c71eef"
+    },
+    {
+      "path": "renderer/packages/events/package.json",
+      "archive_path": "source/renderer/packages/events/package.json",
+      "bytes": 163,
+      "sha256": "704a11d561c183fc25801b9e9c4b577a10e1678fbabfa6b4ac7c7ffca16cf79b"
+    },
+    {
+      "path": "renderer/packages/events/src/catalog.gen.ts",
+      "archive_path": "source/renderer/packages/events/src/catalog.gen.ts",
+      "bytes": 8774,
+      "sha256": "d7777c998e69310cb9aaad33803fd9bd7306e181f244b7dc790a2005a0931262"
+    },
+    {
+      "path": "renderer/packages/events/src/index.ts",
+      "archive_path": "source/renderer/packages/events/src/index.ts",
+      "bytes": 826,
+      "sha256": "553ce8d88e70df8b1f6cb3fd66f48044f7e3a6e4bc0bd1f76230072a00e49dca"
+    },
+    {
+      "path": "renderer/packages/events/src/project.ts",
+      "archive_path": "source/renderer/packages/events/src/project.ts",
+      "bytes": 19701,
+      "sha256": "de57b031e1628e40d89dc5d5bdeaa5eec695e22fd3556b4fe39fda1db2b02bad"
+    },
+    {
+      "path": "renderer/packages/events/src/renderInvalidation.ts",
+      "archive_path": "source/renderer/packages/events/src/renderInvalidation.ts",
+      "bytes": 1079,
+      "sha256": "fba6c967bdadc7c5eec1279d22cbc4ccacf3b3e51eb21f0551b831d4c80fe1bc"
+    },
+    {
+      "path": "renderer/packages/events/src/state.ts",
+      "archive_path": "source/renderer/packages/events/src/state.ts",
+      "bytes": 331,
+      "sha256": "4d8c5407ce553c6e49b6c41ed5bbe59ccdf9b6aec933684d1c283856cb3babd7"
+    },
+    {
+      "path": "renderer/packages/events/src/useProjection.ts",
+      "archive_path": "source/renderer/packages/events/src/useProjection.ts",
+      "bytes": 23281,
+      "sha256": "e4e68f40cf1c5e1ab3fd85ff39c572db45ac7d4a1e518ee4b9f5a7e18e425c80"
+    },
+    {
+      "path": "renderer/packages/events/src/view.ts",
+      "archive_path": "source/renderer/packages/events/src/view.ts",
+      "bytes": 7515,
+      "sha256": "18500ee7096f33792dda1ae0cb735c2f29114f3e574234dbf16f174e46d27779"
+    },
+    {
+      "path": "renderer/packages/events/test/fold_cli.ts",
+      "archive_path": "source/renderer/packages/events/test/fold_cli.ts",
+      "bytes": 2165,
+      "sha256": "8c92ff2e41f25f80a315b2aa53e286ee69b9446b858e3a766b47511b5e008580"
+    },
+    {
+      "path": "renderer/packages/events/test/project.test.ts",
+      "archive_path": "source/renderer/packages/events/test/project.test.ts",
+      "bytes": 20181,
+      "sha256": "86aa8848920da71f0921a7f7b43a5037ffb10da52a33e81cff290f6d6ce41c0a"
+    },
+    {
+      "path": "renderer/packages/events/test/run.mjs",
+      "archive_path": "source/renderer/packages/events/test/run.mjs",
+      "bytes": 1294,
+      "sha256": "b1b3247c190e88870f8784309b9ed5c4f63ab3d9455c63f69bf1f8728f6761d4"
+    },
+    {
+      "path": "renderer/packages/events/test/state-profile.test.mjs",
+      "archive_path": "source/renderer/packages/events/test/state-profile.test.mjs",
+      "bytes": 3114,
+      "sha256": "2316534c7aba202e4eaa0f334ca3f8fb006c26b211930d0d0565a7c41d5937af"
+    },
+    {
+      "path": "renderer/packages/events/tsconfig.json",
+      "archive_path": "source/renderer/packages/events/tsconfig.json",
+      "bytes": 270,
+      "sha256": "c2651eed3ac46a196cf2a46645afe50aaab8c5e8641d087cfc349f46dd8eed90"
+    },
+    {
+      "path": "renderer/svelte.config.js",
+      "archive_path": "source/renderer/svelte.config.js",
+      "bytes": 279,
+      "sha256": "a9d4e3be5bc97b1522938dd5d50da47dec6f9ed9b9c3dc7cff2aa33c48e3fa90"
+    },
+    {
+      "path": "renderer/tools/repro-setwall.mjs",
+      "archive_path": "source/renderer/tools/repro-setwall.mjs",
+      "bytes": 2977,
+      "sha256": "bc6ae9a78c15d7de40adc1f9b4f07517dde11419c1095a7322fac9d7990ce38f"
+    },
+    {
+      "path": "renderer/tools/shot.mjs",
+      "archive_path": "source/renderer/tools/shot.mjs",
+      "bytes": 1013,
+      "sha256": "46c9176d6fd39277e25c881e9b7211e4dbc2a7e78963c93d307d3b995f0ab82e"
+    },
+    {
+      "path": "renderer/tsconfig.json",
+      "archive_path": "source/renderer/tsconfig.json",
+      "bytes": 673,
+      "sha256": "13580daec6241c829d13de7589347c92b2c0dddcbf90bc3594e00970d37fe8c2"
+    },
+    {
+      "path": "renderer/vite.config.ts",
+      "archive_path": "source/renderer/vite.config.ts",
+      "bytes": 1586,
+      "sha256": "617e22fddadea1684b98f70e9a8e0aa30f10f4f9f7c4cb5db2814ccf2d32be36"
+    },
+    {
+      "path": "renderer/vite.shared.ts",
+      "archive_path": "source/renderer/vite.shared.ts",
+      "bytes": 1928,
+      "sha256": "586b59b2948bc2955b2e8a24eaf8351290f7c84fb998c48a97a30deb38a09eae"
+    },
+    {
+      "path": "renderer/vitest.config.ts",
+      "archive_path": "source/renderer/vitest.config.ts",
+      "bytes": 1146,
+      "sha256": "e64e223f0765690a19fc37cac5818af770d60704107de7d72b109cbcf2087d20"
+    },
+    {
+      "path": "renderer/vitest.shims.d.ts",
+      "archive_path": "source/renderer/vitest.shims.d.ts",
+      "bytes": 52,
+      "sha256": "77733d5f00909776e4af59f7e6035c130deb06264bee34921571ca03e0e94727"
+    },
+    {
+      "path": "../artifacts/ux-ui-guide.md",
+      "archive_path": "artifacts/ux-ui-guide.md",
+      "bytes": 20419,
+      "sha256": "455534cc2c450f502e7ae60e488a38abd9f405e4c4876be69160edd1941374db"
+    }
+  ],
+  "publication_export": {
+    "date": "2026-10-07",
+    "basis": "sanitized historical working-tree capture",
+    "private_original_retained": true,
+    "notice": "Publication note (7 October 2026): This is a sanitized export of the 5 October design evidence. Personal identities, machine paths and private work examples were replaced with fictional values; three identifying gallery captures were omitted. Original evidence is retained privately. Published hashes describe the sanitized files, not the private original."
+  }
+}

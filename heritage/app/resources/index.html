@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Arbol</title>
+<style>
+  body { font: 14px -apple-system, sans-serif; padding: 20px; color: #222; background: #fafafa; }
+  pre { background: white; border: 1px solid #ddd; padding: 12px; border-radius: 6px; }
+  h1 { font-weight: 500; }
+</style></head>
+<body>
+  <h1>Arbol</h1>
+  <p>Core daemon status:</p>
+  <pre id="out">loading…</pre>
+  <script>
+    const pending = {};
+    window.__arbolReply = (id, payload) => {
+      const fn = pending[id]; if (fn) { fn(payload); delete pending[id]; }
+    };
+    function call(method) {
+      return new Promise((resolve) => {
+        const id = String(Math.random());
+        pending[id] = resolve;
+        window.webkit.messageHandlers.arbol.postMessage({kind: 'request', method, callbackId: id});
+      });
+    }
+    (async () => {
+      const r = await call('healthz');
+      document.getElementById('out').textContent = JSON.stringify(r, null, 2);
+    })();
+  </script>
+</body></html>

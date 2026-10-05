@@ -1,0 +1,298 @@
+/* @arbol/design-system — design tokens, re-skinned (ux-ui-guide.md §1.7).
+ * 12-step BRIGHTNESS LADDER, dark→light. Layout/spacing/radius/type are
+ * theme-invariant; only color tokens are redefined per [data-theme]. Generated. */
+
+:root {
+  --arbol-control-bar-height: 44px;
+  --arbol-navigation-panel-width: 248px;
+  --arbol-traffic-light-gutter: 78px;
+  --arbol-space-1: 4px;  --arbol-space-2: 8px;  --arbol-space-3: 12px;
+  --arbol-space-4: 16px; --arbol-space-5: 24px; --arbol-space-6: 32px;
+  --arbol-radius-s: 5px; --arbol-radius-m: 9px; --arbol-radius-l: 16px;
+  --arbol-text-area-max-width: 720px;
+  --arbol-max-chat-area-width: 820px;
+  --arbol-font-scale: 1;
+  --arbol-content-font-scale: 1;
+  --arbol-content-font-size: calc(13.5px * var(--arbol-content-font-scale));
+  --arbol-font-ui: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --arbol-font-mono: "Spline Sans Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --arbol-type-label: calc(11.5px * var(--arbol-font-scale)); --arbol-type-body: calc(13.5px * var(--arbol-font-scale));
+  --arbol-type-title: calc(16px * var(--arbol-font-scale));   --arbol-type-display: calc(22px * var(--arbol-font-scale));
+  --arbol-row-gap: var(--arbol-space-3);
+  --arbol-shadow-1: 0 1px 0 var(--arbol-color-hairline), 0 1px 2px rgba(0,0,0,0.16);
+  --arbol-shadow-2: 0 4px 16px -4px var(--arbol-color-shadow);
+  --arbol-shadow-pop: 0 18px 50px -12px var(--arbol-color-shadow);
+}
+
+/* 01 Ironbark — dark · bg L 0.150 · hue 33 */
+[data-theme="ironbark"] {
+  --arbol-color-bg:         oklch(0.150 0.013 33);
+  --arbol-color-surface:    oklch(0.195 0.013 33);
+  --arbol-color-surface-2:  oklch(0.240 0.013 33);
+  --arbol-color-border:     oklch(0.300 0.016 33);
+  --arbol-color-hairline:   oklch(0.280 0.013 33 / 0.45);
+  --arbol-color-text:       oklch(0.945 0.013 74);
+  --arbol-color-text-muted: oklch(0.700 0.015 66);
+  --arbol-color-shadow:     oklch(0.075 0.02 33 / 0.55);
+  --arbol-color-accent:     oklch(0.665 0.142 33);
+  --arbol-color-accent-ink: oklch(0.190 0.045 33);
+  --arbol-color-accent-soft:oklch(0.665 0.142 33 / 0.15);
+  --arbol-color-ok:         oklch(0.740 0.125 152);
+  --arbol-color-warn:       oklch(0.800 0.125 80);
+  --arbol-color-err:        oklch(0.665 0.165 28);
+  --arbol-brief-pane-bg-silver: linear-gradient(150deg, oklch(0.865 0.035 33) 0%, oklch(0.740 0.058 33) 48%, oklch(0.600 0.078 33) 100%);
+  --arbol-brief-pane-fg: oklch(0.245 0.060 33);
+  --arbol-brief-ring:    oklch(0.400 0.090 33 / 0.55);
+}
+
+/* 02 Bloodwood — dark · bg L 0.190 · hue 20 */
+[data-theme="bloodwood"] {
+  --arbol-color-bg:         oklch(0.190 0.013 20);
+  --arbol-color-surface:    oklch(0.235 0.013 20);
+  --arbol-color-surface-2:  oklch(0.280 0.013 20);
+  --arbol-color-border:     oklch(0.340 0.016 20);
+  --arbol-color-hairline:   oklch(0.320 0.013 20 / 0.45);
+  --arbol-color-text:       oklch(0.945 0.013 74);
+  --arbol-color-text-muted: oklch(0.700 0.015 66);
+  --arbol-color-shadow:     oklch(0.075 0.02 20 / 0.55);
+  --arbol-color-accent:     oklch(0.665 0.142 20);
+  --arbol-color-accent-ink: oklch(0.190 0.045 20);
+  --arbol-color-accent-soft:oklch(0.665 0.142 20 / 0.15);
+  --arbol-color-ok:         oklch(0.740 0.125 152);
+  --arbol-color-warn:       oklch(0.800 0.125 80);
+  --arbol-color-err:        oklch(0.665 0.165 28);
+  --arbol-brief-pane-bg-silver: linear-gradient(150deg, oklch(0.865 0.035 20) 0%, oklch(0.740 0.058 20) 48%, oklch(0.600 0.078 20) 100%);
+  --arbol-brief-pane-fg: oklch(0.245 0.060 20);
+  --arbol-brief-ring:    oklch(0.400 0.090 20 / 0.55);
+}
+
+/* 03 Redwood — dark · bg L 0.235 · hue 42 */
+:root,
+[data-theme="redwood"] {
+  --arbol-color-bg:         oklch(0.235 0.013 42);
+  --arbol-color-surface:    oklch(0.280 0.013 42);
+  --arbol-color-surface-2:  oklch(0.325 0.013 42);
+  --arbol-color-border:     oklch(0.385 0.016 42);
+  --arbol-color-hairline:   oklch(0.365 0.013 42 / 0.45);
+  --arbol-color-text:       oklch(0.945 0.013 74);
+  --arbol-color-text-muted: oklch(0.700 0.015 66);
+  --arbol-color-shadow:     oklch(0.075 0.02 42 / 0.55);
+  --arbol-color-accent:     oklch(0.665 0.142 42);
+  --arbol-color-accent-ink: oklch(0.190 0.045 42);
+  --arbol-color-accent-soft:oklch(0.665 0.142 42 / 0.15);
+  --arbol-color-ok:         oklch(0.740 0.125 152);
+  --arbol-color-warn:       oklch(0.800 0.125 80);
+  --arbol-color-err:        oklch(0.665 0.165 28);
+  --arbol-brief-pane-bg-silver: linear-gradient(150deg, oklch(0.865 0.035 42) 0%, oklch(0.740 0.058 42) 48%, oklch(0.600 0.078 42) 100%);
+  --arbol-brief-pane-fg: oklch(0.245 0.060 42);
+  --arbol-brief-ring:    oklch(0.400 0.090 42 / 0.55);
+}
+
+/* 04 Mahogany — dark · bg L 0.285 · hue 66 */
+[data-theme="mahogany"] {
+  --arbol-color-bg:         oklch(0.285 0.013 66);
+  --arbol-color-surface:    oklch(0.330 0.013 66);
+  --arbol-color-surface-2:  oklch(0.375 0.013 66);
+  --arbol-color-border:     oklch(0.435 0.016 66);
+  --arbol-color-hairline:   oklch(0.415 0.013 66 / 0.45);
+  --arbol-color-text:       oklch(0.945 0.013 74);
+  --arbol-color-text-muted: oklch(0.700 0.015 66);
+  --arbol-color-shadow:     oklch(0.075 0.02 66 / 0.55);
+  --arbol-color-accent:     oklch(0.665 0.142 66);
+  --arbol-color-accent-ink: oklch(0.190 0.045 66);
+  --arbol-color-accent-soft:oklch(0.665 0.142 66 / 0.15);
+  --arbol-color-ok:         oklch(0.740 0.125 152);
+  --arbol-color-warn:       oklch(0.800 0.125 80);
+  --arbol-color-err:        oklch(0.665 0.165 28);
+  --arbol-brief-pane-bg-silver: linear-gradient(150deg, oklch(0.865 0.035 66) 0%, oklch(0.740 0.058 66) 48%, oklch(0.600 0.078 66) 100%);
+  --arbol-brief-pane-fg: oklch(0.245 0.060 66);
+  --arbol-brief-ring:    oklch(0.400 0.090 66 / 0.55);
+}
+
+/* 05 Cedar — dark · bg L 0.345 · hue 98 */
+[data-theme="cedar"] {
+  --arbol-color-bg:         oklch(0.345 0.013 98);
+  --arbol-color-surface:    oklch(0.390 0.013 98);
+  --arbol-color-surface-2:  oklch(0.435 0.013 98);
+  --arbol-color-border:     oklch(0.495 0.016 98);
+  --arbol-color-hairline:   oklch(0.475 0.013 98 / 0.45);
+  --arbol-color-text:       oklch(0.945 0.013 74);
+  --arbol-color-text-muted: oklch(0.700 0.015 66);
+  --arbol-color-shadow:     oklch(0.075 0.02 98 / 0.55);
+  --arbol-color-accent:     oklch(0.665 0.142 98);
+  --arbol-color-accent-ink: oklch(0.190 0.045 98);
+  --arbol-color-accent-soft:oklch(0.665 0.142 98 / 0.15);
+  --arbol-color-ok:         oklch(0.740 0.125 152);
+  --arbol-color-warn:       oklch(0.800 0.125 80);
+  --arbol-color-err:        oklch(0.665 0.165 28);
+  --arbol-brief-pane-bg-silver: linear-gradient(150deg, oklch(0.865 0.035 98) 0%, oklch(0.740 0.058 98) 48%, oklch(0.600 0.078 98) 100%);
+  --arbol-brief-pane-fg: oklch(0.245 0.060 98);
+  --arbol-brief-ring:    oklch(0.400 0.090 98 / 0.55);
+}
+
+/* 06 Evergreen — dark · bg L 0.408 · hue 152 */
+[data-theme="evergreen"] {
+  --arbol-color-bg:         oklch(0.408 0.013 152);
+  --arbol-color-surface:    oklch(0.453 0.013 152);
+  --arbol-color-surface-2:  oklch(0.498 0.013 152);
+  --arbol-color-border:     oklch(0.558 0.016 152);
+  --arbol-color-hairline:   oklch(0.538 0.013 152 / 0.45);
+  --arbol-color-text:       oklch(0.945 0.013 74);
+  --arbol-color-text-muted: oklch(0.700 0.015 66);
+  --arbol-color-shadow:     oklch(0.075 0.02 152 / 0.55);
+  --arbol-color-accent:     oklch(0.665 0.142 152);
+  --arbol-color-accent-ink: oklch(0.190 0.045 152);
+  --arbol-color-accent-soft:oklch(0.665 0.142 152 / 0.15);
+  --arbol-color-ok:         oklch(0.740 0.125 152);
+  --arbol-color-warn:       oklch(0.800 0.125 80);
+  --arbol-color-err:        oklch(0.665 0.165 28);
+  --arbol-brief-pane-bg-silver: linear-gradient(150deg, oklch(0.865 0.035 152) 0%, oklch(0.740 0.058 152) 48%, oklch(0.600 0.078 152) 100%);
+  --arbol-brief-pane-fg: oklch(0.245 0.060 152);
+  --arbol-brief-ring:    oklch(0.400 0.090 152 / 0.55);
+}
+
+/* 07 Driftwood — dark · bg L 0.478 · hue 196 */
+[data-theme="driftwood"] {
+  --arbol-color-bg:         oklch(0.478 0.013 196);
+  --arbol-color-surface:    oklch(0.523 0.013 196);
+  --arbol-color-surface-2:  oklch(0.568 0.013 196);
+  --arbol-color-border:     oklch(0.628 0.016 196);
+  --arbol-color-hairline:   oklch(0.608 0.013 196 / 0.45);
+  --arbol-color-text:       oklch(0.945 0.013 74);
+  --arbol-color-text-muted: oklch(0.700 0.015 66);
+  --arbol-color-shadow:     oklch(0.075 0.02 196 / 0.55);
+  --arbol-color-accent:     oklch(0.665 0.142 196);
+  --arbol-color-accent-ink: oklch(0.190 0.045 196);
+  --arbol-color-accent-soft:oklch(0.665 0.142 196 / 0.15);
+  --arbol-color-ok:         oklch(0.740 0.125 152);
+  --arbol-color-warn:       oklch(0.800 0.125 80);
+  --arbol-color-err:        oklch(0.665 0.165 28);
+  --arbol-brief-pane-bg-silver: linear-gradient(150deg, oklch(0.865 0.035 196) 0%, oklch(0.740 0.058 196) 48%, oklch(0.600 0.078 196) 100%);
+  --arbol-brief-pane-fg: oklch(0.245 0.060 196);
+  --arbol-brief-ring:    oklch(0.400 0.090 196 / 0.55);
+}
+
+/* 08 Amber — light · bg L 0.700 · hue 62 */
+[data-theme="amber"] {
+  --arbol-color-bg:         oklch(0.700 0.014 62);
+  --arbol-color-surface:    oklch(0.742 0.014 62);
+  --arbol-color-surface-2:  oklch(0.790 0.014 62);
+  --arbol-color-border:     oklch(0.535 0.017 62);
+  --arbol-color-hairline:   oklch(0.610 0.014 62 / 0.45);
+  --arbol-color-text:       oklch(0.150 0.012 70);
+  --arbol-color-text-muted: oklch(0.365 0.016 58);
+  --arbol-color-shadow:     oklch(0.480 0.040 62 / 0.22);
+  --arbol-color-accent:     oklch(0.480 0.155 62);
+  --arbol-color-accent-ink: oklch(0.985 0.012 62);
+  --arbol-color-accent-soft:oklch(0.480 0.155 62 / 0.18);
+  --arbol-color-ok:         oklch(0.495 0.140 150);
+  --arbol-color-warn:       oklch(0.535 0.145 62);
+  --arbol-color-err:        oklch(0.505 0.190 28);
+  --arbol-brief-pane-bg-silver: linear-gradient(150deg, oklch(0.700 0.058 62) 0%, oklch(0.580 0.080 62) 50%, oklch(0.470 0.094 62) 100%);
+  --arbol-brief-pane-fg: oklch(0.985 0.018 62);
+  --arbol-brief-ring:    oklch(0.980 0.030 62 / 0.50);
+}
+
+/* 09 Sandstone — light · bg L 0.740 · hue 34 */
+[data-theme="sandstone"] {
+  --arbol-color-bg:         oklch(0.740 0.02 34);
+  --arbol-color-surface:    oklch(0.782 0.02 34);
+  --arbol-color-surface-2:  oklch(0.830 0.02 34);
+  --arbol-color-border:     oklch(0.575 0.023 34);
+  --arbol-color-hairline:   oklch(0.650 0.02 34 / 0.45);
+  --arbol-color-text:       oklch(0.150 0.012 70);
+  --arbol-color-text-muted: oklch(0.365 0.016 58);
+  --arbol-color-shadow:     oklch(0.480 0.040 34 / 0.22);
+  --arbol-color-accent:     oklch(0.480 0.155 34);
+  --arbol-color-accent-ink: oklch(0.985 0.012 34);
+  --arbol-color-accent-soft:oklch(0.480 0.155 34 / 0.18);
+  --arbol-color-ok:         oklch(0.495 0.140 150);
+  --arbol-color-warn:       oklch(0.535 0.145 62);
+  --arbol-color-err:        oklch(0.505 0.190 28);
+  --arbol-brief-pane-bg-silver: linear-gradient(150deg, oklch(0.700 0.058 34) 0%, oklch(0.580 0.080 34) 50%, oklch(0.470 0.094 34) 100%);
+  --arbol-brief-pane-fg: oklch(0.985 0.018 34);
+  --arbol-brief-ring:    oklch(0.980 0.030 34 / 0.50);
+}
+
+/* 10 Oat — light · bg L 0.808 · hue 88 */
+[data-theme="oat"] {
+  --arbol-color-bg:         oklch(0.808 0.02 88);
+  --arbol-color-surface:    oklch(0.850 0.02 88);
+  --arbol-color-surface-2:  oklch(0.898 0.02 88);
+  --arbol-color-border:     oklch(0.643 0.023 88);
+  --arbol-color-hairline:   oklch(0.718 0.02 88 / 0.45);
+  --arbol-color-text:       oklch(0.150 0.012 70);
+  --arbol-color-text-muted: oklch(0.365 0.016 58);
+  --arbol-color-shadow:     oklch(0.480 0.040 88 / 0.22);
+  --arbol-color-accent:     oklch(0.480 0.155 88);
+  --arbol-color-accent-ink: oklch(0.985 0.012 88);
+  --arbol-color-accent-soft:oklch(0.480 0.155 88 / 0.18);
+  --arbol-color-ok:         oklch(0.495 0.140 150);
+  --arbol-color-warn:       oklch(0.535 0.145 62);
+  --arbol-color-err:        oklch(0.505 0.190 28);
+  --arbol-brief-pane-bg-silver: linear-gradient(150deg, oklch(0.700 0.058 88) 0%, oklch(0.580 0.080 88) 50%, oklch(0.470 0.094 88) 100%);
+  --arbol-brief-pane-fg: oklch(0.985 0.018 88);
+  --arbol-brief-ring:    oklch(0.980 0.030 88 / 0.50);
+}
+
+/* 11 Birch — light · bg L 0.888 · hue 44 */
+[data-theme="birch"] {
+  --arbol-color-bg:         oklch(0.888 0.02 44);
+  --arbol-color-surface:    oklch(0.930 0.02 44);
+  --arbol-color-surface-2:  oklch(0.978 0.02 44);
+  --arbol-color-border:     oklch(0.723 0.023 44);
+  --arbol-color-hairline:   oklch(0.798 0.02 44 / 0.45);
+  --arbol-color-text:       oklch(0.150 0.012 70);
+  --arbol-color-text-muted: oklch(0.365 0.016 58);
+  --arbol-color-shadow:     oklch(0.480 0.040 44 / 0.22);
+  --arbol-color-accent:     oklch(0.480 0.155 44);
+  --arbol-color-accent-ink: oklch(0.985 0.012 44);
+  --arbol-color-accent-soft:oklch(0.480 0.155 44 / 0.18);
+  --arbol-color-ok:         oklch(0.495 0.140 150);
+  --arbol-color-warn:       oklch(0.535 0.145 62);
+  --arbol-color-err:        oklch(0.505 0.190 28);
+  --arbol-brief-pane-bg-silver: linear-gradient(150deg, oklch(0.700 0.058 44) 0%, oklch(0.580 0.080 44) 50%, oklch(0.470 0.094 44) 100%);
+  --arbol-brief-pane-fg: oklch(0.985 0.018 44);
+  --arbol-brief-ring:    oklch(0.980 0.030 44 / 0.50);
+}
+
+/* 12 Paper — light · bg L 0.964 · hue 32 */
+[data-theme="paper"] {
+  --arbol-color-bg:         oklch(0.964 0.02 32);
+  --arbol-color-surface:    oklch(0.997 0.02 32);
+  --arbol-color-surface-2:  oklch(0.999 0.02 32);
+  --arbol-color-border:     oklch(0.799 0.023 32);
+  --arbol-color-hairline:   oklch(0.874 0.02 32 / 0.45);
+  --arbol-color-text:       oklch(0.150 0.012 70);
+  --arbol-color-text-muted: oklch(0.365 0.016 58);
+  --arbol-color-shadow:     oklch(0.480 0.040 32 / 0.22);
+  --arbol-color-accent:     oklch(0.480 0.155 32);
+  --arbol-color-accent-ink: oklch(0.985 0.012 32);
+  --arbol-color-accent-soft:oklch(0.480 0.155 32 / 0.18);
+  --arbol-color-ok:         oklch(0.495 0.140 150);
+  --arbol-color-warn:       oklch(0.535 0.145 62);
+  --arbol-color-err:        oklch(0.505 0.190 28);
+  --arbol-brief-pane-bg-silver: linear-gradient(150deg, oklch(0.700 0.058 32) 0%, oklch(0.580 0.080 32) 50%, oklch(0.470 0.094 32) 100%);
+  --arbol-brief-pane-fg: oklch(0.985 0.018 32);
+  --arbol-brief-ring:    oklch(0.980 0.030 32 / 0.50);
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  background:
+    radial-gradient(120% 90% at 50% -10%, oklch(0.30 0.03 45 / 0.45), transparent 60%),
+    oklch(0.12 0.014 45);
+  color: var(--arbol-color-text);
+  font-family: var(--arbol-font-ui);
+  font-size: var(--arbol-type-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: var(--arbol-color-accent-soft); }
+*::-webkit-scrollbar { width: 11px; height: 11px; }
+*::-webkit-scrollbar-thumb {
+  background: var(--arbol-color-border); border: 3px solid transparent;
+  background-clip: padding-box; border-radius: 99px;
+}
+*::-webkit-scrollbar-thumb:hover { background: var(--arbol-color-text-muted); }

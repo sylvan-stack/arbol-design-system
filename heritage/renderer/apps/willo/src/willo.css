@@ -1,0 +1,3271 @@
+/* Willo Station — event-monitor layout & list/json/diff styling. Color, space,
+ * radius and type all come from --arbol-* tokens (set in @arbol/design-system's
+ * tokens.css); arbolpulse lives there too. The grid is two panes: the live tail
+ * (left) and the inspector (right). */
+
+.willo-grid {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.willo-pane {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100%;
+}
+.willo-right {
+  border-left: 1px solid var(--arbol-color-border);
+}
+
+/* scrollable region inside a pane (list / inspector body) */
+.willo-scroll {
+  min-height: 0;
+  overflow: auto;
+}
+
+/* ── the live event list ───────────────────────────────────────────────── */
+.willo-list {
+  display: flex;
+  flex-direction: column;
+}
+.willo-row {
+  display: flex;
+  align-items: center;
+  gap: var(--arbol-space-2);
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--arbol-color-hairline);
+  padding: 6px var(--arbol-space-3);
+  cursor: pointer;
+  color: var(--arbol-color-text);
+  font: 500 var(--arbol-type-label)/1.2 var(--arbol-font-ui);
+  transition: background .1s ease;
+}
+.willo-row:hover {
+  background: var(--arbol-color-surface);
+}
+.willo-row[data-on='1'] {
+  background: var(--arbol-color-accent-soft);
+  box-shadow: inset 2px 0 0 0 var(--arbol-color-accent);
+}
+
+/* ── JSON payload block ────────────────────────────────────────────────── */
+.willo-json {
+  margin: 0;
+  padding: var(--arbol-space-3);
+  background: var(--arbol-color-surface-2);
+  border: 1px solid var(--arbol-color-hairline);
+  border-radius: var(--arbol-radius-m);
+  font: 400 var(--arbol-type-label)/1.5 var(--arbol-font-mono);
+  color: var(--arbol-color-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+}
+
+/* sub-section label inside the folded-view panel */
+.willo-sub {
+  font: 600 var(--arbol-type-label)/1 var(--arbol-font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--arbol-color-text-muted);
+  margin-bottom: 5px;
+}
+
+/* ── diff table ────────────────────────────────────────────────────────── */
+.willo-diff {
+  width: 100%;
+  border-collapse: collapse;
+  font: 500 var(--arbol-type-label)/1.4 var(--arbol-font-ui);
+}
+.willo-diff th,
+.willo-diff td {
+  text-align: left;
+  padding: 6px var(--arbol-space-2);
+  border-bottom: 1px solid var(--arbol-color-hairline);
+}
+.willo-diff th {
+  color: var(--arbol-color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-weight: 600;
+}
+.willo-diff tr[data-drift='1'] td {
+  background: color-mix(in oklch, var(--arbol-color-err) 14%, transparent);
+  color: var(--arbol-color-err);
+}
+
+/* ── Willo navigation + Stations page ─────────────────────────────────── */
+.willo-stations {
+  height: 100%;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--arbol-space-6);
+}
+.willo-stations-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--arbol-space-4);
+  margin-bottom: var(--arbol-space-5);
+}
+.willo-stations-head h2 {
+  margin: 0 0 var(--arbol-space-2);
+  font-size: var(--arbol-type-display);
+  line-height: 1.1;
+}
+.willo-stations-head p {
+  margin: 0;
+  color: var(--arbol-color-text-muted);
+  line-height: 1.45;
+}
+.willo-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--arbol-space-4);
+}
+.willo-session-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--arbol-radius-m);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--arbol-color-accent);
+  background: var(--arbol-color-accent-soft);
+  border: 1px solid var(--arbol-color-border);
+}
+.willo-session-icon > svg { width: 20px; height: 20px; }
+.willo-card-kv {
+  display: flex;
+  align-items: center;
+  gap: var(--arbol-space-2);
+}
+.willo-card-kv span {
+  width: 62px;
+  flex-shrink: 0;
+  color: var(--arbol-color-text-muted);
+}
+.willo-card-kv b {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--arbol-font-mono);
+  font-weight: 500;
+}
+.willo-empty {
+  padding: var(--arbol-space-6);
+  color: var(--arbol-color-text-muted);
+  text-align: center;
+  border: 1px dashed var(--arbol-color-border);
+  border-radius: var(--arbol-radius-l);
+  background: var(--arbol-color-surface);
+}
+.willo-monitor-wrap {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+.willo-monitor-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--arbol-space-2) var(--arbol-space-3);
+  border-bottom: 1px solid var(--arbol-color-border);
+  background: var(--arbol-color-surface);
+}
+.willo-follow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  background: var(--arbol-color-surface-2);
+  border: 1px solid var(--arbol-color-border);
+  border-radius: 99px;
+  padding: 4px 10px;
+  color: var(--arbol-color-text-muted);
+  font: 600 var(--arbol-type-label)/1 var(--arbol-font-ui);
+}
+.willo-follow[data-on='1'] {
+  background: var(--arbol-color-accent-soft);
+  border-color: var(--arbol-color-accent);
+  color: var(--arbol-color-accent);
+}
+
+.willo-session-main {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+.willo-session-title-row {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+.willo-session-title {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: var(--arbol-type-body);
+  line-height: 1.22;
+  cursor: pointer;
+}
+.willo-session-subrow {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.willo-session-id {
+  flex: 1 1 8.5rem;
+  min-width: 5.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 500 var(--arbol-type-label)/1.25 var(--arbol-font-mono);
+  color: var(--arbol-color-text-muted);
+}
+.willo-session-badge-row {
+  flex: 0 1 auto;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.willo-session-badge-row > * {
+  flex: 0 0 auto;
+}
+.willo-session-title:hover {
+  color: var(--arbol-color-accent);
+}
+.willo-title-edit {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+}
+.willo-title-edit input {
+  min-width: 80px;
+  flex: 1;
+  height: 26px;
+  padding: 3px 7px;
+  border: 1px solid var(--arbol-color-accent);
+  border-radius: var(--arbol-radius-s);
+  background: var(--arbol-color-bg);
+  color: var(--arbol-color-text);
+  font: 700 var(--arbol-type-body)/1 var(--arbol-font-ui);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--arbol-color-accent-soft);
+}
+.willo-title-edit button {
+  height: 24px;
+  padding: 0 7px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: var(--arbol-radius-s);
+  background: var(--arbol-color-surface-2);
+  color: var(--arbol-color-text-muted);
+  cursor: pointer;
+  font: 700 10px/1 var(--arbol-font-ui);
+}
+.willo-title-edit button:hover:not(:disabled) {
+  border-color: var(--arbol-color-accent);
+  color: var(--arbol-color-accent);
+}
+.willo-title-edit button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.willo-title-edit-ok {
+  background: var(--arbol-color-accent-soft) !important;
+  color: var(--arbol-color-accent) !important;
+}
+.willo-title-error {
+  margin: calc(-1 * var(--arbol-space-3)) 0 var(--arbol-space-4);
+  padding: var(--arbol-space-2) var(--arbol-space-3);
+  border: 1px solid color-mix(in oklch, var(--arbol-color-err) 45%, transparent);
+  border-radius: var(--arbol-radius-m);
+  background: color-mix(in oklch, var(--arbol-color-err) 10%, transparent);
+  color: var(--arbol-color-err);
+  font: 600 var(--arbol-type-label)/1.3 var(--arbol-font-ui);
+}
+
+
+/* ── Compact Keep-on-Top station list ─────────────────────────────────── */
+.willo-compact-stations {
+  height: 100%;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--arbol-space-3);
+  background: var(--arbol-color-bg);
+}
+.willo-compact-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--arbol-space-2);
+  padding: var(--arbol-space-2) var(--arbol-space-1) var(--arbol-space-3);
+  color: var(--arbol-color-text-muted);
+}
+.willo-compact-head b {
+  color: var(--arbol-color-text);
+  font: 700 var(--arbol-type-body)/1 var(--arbol-font-ui);
+}
+.willo-compact-head span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 500 var(--arbol-type-label)/1 var(--arbol-font-mono);
+}
+.willo-compact-section-head {
+  display: flex;
+  align-items: center;
+  gap: var(--arbol-space-2);
+  margin: var(--arbol-space-3) 0 var(--arbol-space-2);
+  color: var(--arbol-color-text-muted);
+  font: 800 11px/1 var(--arbol-font-mono);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.willo-compact-section-head::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: var(--arbol-color-hairline);
+}
+.willo-compact-section-head.is-inspection {
+  color: var(--arbol-color-accent);
+}
+.willo-compact-section-head.is-inspection::before {
+  content: '◉';
+  letter-spacing: 0;
+}
+.willo-compact-section-head.is-inspection::after {
+  background: color-mix(in oklch, var(--arbol-color-accent) 44%, var(--arbol-color-hairline));
+}
+.willo-compact-card[data-inspected='1'] {
+  border-color: color-mix(in oklch, var(--arbol-color-accent) 42%, var(--arbol-color-hairline));
+  background: color-mix(in oklch, var(--arbol-color-accent) 7%, var(--arbol-color-surface));
+}
+.willo-compact-inspection {
+  padding: 2px 5px; border: 1px solid color-mix(in oklch, var(--arbol-color-accent) 42%, var(--arbol-color-border));
+  border-radius: 99px; color: var(--arbol-color-accent); font: 700 7px/1 var(--arbol-font-mono);
+  letter-spacing: .35px; text-transform: uppercase;
+}
+
+.willo-compact-section-head.is-drafted {
+  color: color-mix(in oklch, #ef4444 76%, var(--arbol-color-text));
+}
+.willo-compact-section-head.is-drafted::before {
+  content: '✎';
+  letter-spacing: 0;
+}
+.willo-compact-section-head.is-drafted::after {
+  background: color-mix(in oklch, #ef4444 44%, var(--arbol-color-hairline));
+}
+
+.willo-compact-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--arbol-space-3);
+}
+.willo-compact-stations .willo-session-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--arbol-radius-s);
+}
+.willo-compact-stations .willo-session-icon > svg { width: 16px; height: 16px; }
+.willo-compact-stations .willo-card-kv span { width: 46px; }
+.willo-compact-stations .willo-title-edit input { min-width: 70px; }
+
+
+/* ── Minimal Keep-on-Top compact mode ─────────────────────────────────── */
+.willo-compact-shell {
+  height: 100vh;
+  width: 100vw;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 38px minmax(0, 1fr);
+  overflow: hidden;
+  background: var(--arbol-color-bg);
+  color: var(--arbol-color-text);
+}
+.willo-compact-header {
+  -webkit-app-region: drag;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 var(--arbol-space-2);
+  border-bottom: 1px solid var(--arbol-color-hairline);
+  background: var(--arbol-color-surface);
+  user-select: none;
+}
+.willo-compact-header button,
+.willo-compact-header .arbol-button {
+  -webkit-app-region: no-drag;
+}
+.willo-compact-stations {
+  height: 100%;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--arbol-space-2);
+  background: var(--arbol-color-bg);
+}
+.willo-compact-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--arbol-space-2);
+}
+.willo-compact-card {
+  cursor: pointer;
+  display: grid;
+  gap: 4px;
+  padding: 9px 10px;
+  border: 1px solid var(--arbol-color-hairline);
+  border-radius: var(--arbol-radius-m);
+  background: var(--arbol-color-surface);
+  box-shadow: var(--arbol-shadow-card);
+}
+.willo-compact-card:hover {
+  border-color: color-mix(in srgb, var(--arbol-color-accent) 34%, var(--arbol-color-hairline));
+}
+.willo-compact-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--arbol-color-text);
+  font: 700 var(--arbol-type-body)/1.2 var(--arbol-font-ui);
+}
+.willo-compact-meta {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  color: var(--arbol-color-text-muted);
+  font: 500 var(--arbol-type-label)/1.25 var(--arbol-font-mono);
+}
+.willo-compact-meta span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.willo-compact-meta span + span::before {
+  content: '·';
+  margin: 0 6px;
+  color: var(--arbol-color-text-muted);
+  opacity: 0.65;
+}
+.willo-compact-card .willo-title-edit { width: 100%; }
+.willo-compact-card .willo-title-edit input { min-width: 0; flex: 1; }
+
+
+.willo-compact-title-row {
+  min-width: 0;
+  display: grid;
+  /* color dot | title | state icons */
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+}
+.willo-compact-status-row {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.willo-compact-color {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--session-color, var(--arbol-color-accent));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--session-color, var(--arbol-color-accent)) 20%, transparent);
+}
+.willo-compact-card {
+  border-left: 3px solid var(--session-color, var(--arbol-color-accent));
+}
+.willo-compact-status {
+  color: var(--session-color, var(--arbol-color-accent));
+  font-weight: 700;
+}
+
+
+/* Breathing red dot: at least one chat session is responding. */
+.willo-responding-indicator {
+  display: inline-flex;
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: #ff3b30;
+  box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.5), 0 0 10px rgba(255, 59, 48, 0.55);
+  transform: scale(0.9);
+  transform-origin: center;
+  will-change: transform, opacity, box-shadow;
+  animation: willo-breathe-red 2.2s ease-in-out infinite;
+}
+.willo-compact-header .willo-responding-indicator {
+  margin-right: auto;
+  margin-left: var(--arbol-space-2);
+}
+@keyframes willo-breathe-red {
+  0%, 100% {
+    transform: scale(0.78);
+    opacity: 0.58;
+    box-shadow:
+      0 0 0 0 rgba(255, 59, 48, 0.42),
+      0 0 6px rgba(255, 59, 48, 0.42);
+  }
+  45% {
+    transform: scale(1.18);
+    opacity: 1;
+    box-shadow:
+      0 0 0 8px rgba(255, 59, 48, 0),
+      0 0 15px rgba(255, 59, 48, 0.95);
+  }
+  70% {
+    transform: scale(0.96);
+    opacity: 0.82;
+    box-shadow:
+      0 0 0 3px rgba(255, 59, 48, 0.12),
+      0 0 10px rgba(255, 59, 48, 0.62);
+  }
+}
+
+/* ── Running session highlight (compact) ──────────────────────────────── */
+/* Agreed running cues:
+ * 1. left accent scanner,
+ * 2. card sheen sweep.
+ * This version uses moving pseudo-elements/transforms so the motion is obvious. */
+.willo-compact-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.willo-compact-card > * {
+  position: relative;
+  z-index: 3;
+}
+.willo-compact-card[data-running='1'] {
+  border-left-color: var(--session-color, var(--arbol-color-accent));
+  animation: willo-running-card-pulse 3.2s ease-in-out infinite;
+}
+
+/* Option 1: animated left accent scanner. */
+.willo-compact-card[data-running='1']::before {
+  content: '';
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  width: 8px;
+  height: 34px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow:
+    0 0 0 2px var(--session-color, var(--arbol-color-accent)),
+    0 0 18px 4px var(--session-color, var(--arbol-color-accent));
+  transform: translateY(-44px);
+  animation: willo-running-accent-scan 2.6s linear infinite;
+  pointer-events: none;
+}
+
+/* Option 3: visible diagonal sheen sweep. */
+.willo-compact-card[data-running='1']::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: -35%;
+  bottom: -35%;
+  left: -45%;
+  width: 38%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.16) 24%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0.16) 76%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+  transform: translateX(-160%) skewX(-18deg);
+  animation: willo-running-card-sheen 5.2s ease-in-out infinite;
+  pointer-events: none;
+}
+.willo-compact-card[data-running='1'] .willo-compact-status {
+  animation: willo-running-status-pulse 2.8s ease-in-out infinite;
+}
+.willo-compact-card[data-running='1'] .willo-compact-color {
+  animation: willo-running-dot-pulse 2.8s ease-in-out infinite;
+}
+@keyframes willo-running-card-pulse {
+  0%, 100% {
+    box-shadow:
+      var(--arbol-shadow-card),
+      0 0 0 1px rgba(255, 255, 255, 0),
+      0 0 0 0 rgba(255, 255, 255, 0);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow:
+      var(--arbol-shadow-card),
+      0 0 0 2px var(--session-color, var(--arbol-color-accent)),
+      0 0 22px 2px var(--session-color, var(--arbol-color-accent));
+    filter: brightness(1.06);
+  }
+}
+@keyframes willo-running-accent-scan {
+  0% { top: var(--willo-running-scan-inset); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: calc(100% - var(--willo-running-scan-inset) - var(--willo-running-scan-height)); opacity: 0; }
+}
+@keyframes willo-running-card-sheen {
+  0% { transform: translateX(-160%) skewX(-18deg); opacity: 0; }
+  12% { opacity: .95; }
+  55% { opacity: .95; }
+  72%, 100% { transform: translateX(520%) skewX(-18deg); opacity: 0; }
+}
+@keyframes willo-running-status-pulse {
+  0%, 100% { opacity: .45; }
+  50% { opacity: 1; }
+}
+@keyframes willo-running-dot-pulse {
+  0%, 100% {
+    transform: scale(.9);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0), 0 0 0 0 var(--session-color, var(--arbol-color-accent));
+  }
+  50% {
+    transform: scale(1.18);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .18), 0 0 14px 2px var(--session-color, var(--arbol-color-accent));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .willo-compact-card[data-running='1'],
+  .willo-compact-card[data-running='1']::before,
+  .willo-compact-card[data-running='1']::after,
+  .willo-compact-card[data-running='1'] .willo-compact-status,
+  .willo-compact-card[data-running='1'] .willo-compact-color {
+    animation: none;
+  }
+  .willo-compact-card[data-running='1'] {
+    box-shadow:
+      var(--arbol-shadow-card),
+      0 0 0 2px var(--session-color, var(--arbol-color-accent)),
+      0 0 18px 1px var(--session-color, var(--arbol-color-accent));
+    filter: brightness(1.04);
+  }
+  .willo-compact-card[data-running='1']::before {
+    height: 100%;
+    transform: none;
+    background: var(--session-color, var(--arbol-color-accent));
+    opacity: 1;
+  }
+  .willo-compact-card[data-running='1']::after {
+    content: none;
+  }
+}
+
+
+.willo-compact-running-badge {
+  position: relative;
+  flex: 0 0 auto;
+  margin-left: auto;
+  overflow: hidden;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: var(--session-color, var(--arbol-color-accent));
+  color: white;
+  font: 800 9px/1 var(--arbol-font-ui);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  box-shadow: 0 0 14px 1px var(--session-color, var(--arbol-color-accent));
+  animation: willo-running-badge-pulse .95s ease-in-out infinite;
+}
+.willo-compact-running-badge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.75), transparent);
+  transform: translateX(-120%);
+  animation: willo-running-badge-sheen 1.15s linear infinite;
+}
+@keyframes willo-running-badge-pulse {
+  0%, 100% { opacity: .75; transform: scale(.98); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+@keyframes willo-running-badge-sheen {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .willo-compact-running-badge,
+  .willo-compact-running-badge::after {
+    animation: none;
+  }
+}
+
+
+
+/* ── Running session highlight (regular station cards) ─────────────────── */
+/* Same motion language as compact view, tuned for the larger regular cards:
+ * - slow left accent scanner
+ * - subtle diagonal sheen sweep
+ * - calm glow pulse
+ * No extra RUNNING badges; the existing status badge remains the label. */
+.willo-station-card-hitbox[data-status='running'],
+.willo-station-card-hitbox[data-running='1'] {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--arbol-radius-l);
+  animation: willo-running-card-pulse 3.4s ease-in-out infinite;
+}
+.willo-station-card-hitbox[data-status='running'] > *,
+.willo-station-card-hitbox[data-running='1'] > * {
+  position: relative;
+  z-index: 3;
+}
+.willo-station-card-hitbox[data-status='running']::before,
+.willo-station-card-hitbox[data-running='1']::before {
+  content: '';
+  position: absolute;
+  z-index: 6;
+  left: 0;
+  top: var(--arbol-radius-l);
+  width: 9px;
+  height: 46px;
+  --willo-running-scan-inset: var(--arbol-radius-l);
+  --willo-running-scan-height: 46px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow:
+    0 0 0 2px var(--arbol-color-accent),
+    0 0 18px 4px var(--arbol-color-accent);
+  animation: willo-running-regular-accent-scan 3.0s linear infinite;
+  pointer-events: none;
+}
+.willo-station-card-hitbox[data-status='running']::after,
+.willo-station-card-hitbox[data-running='1']::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: -40%;
+  bottom: -40%;
+  left: -55%;
+  width: 34%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 18%,
+    rgba(255, 255, 255, 0.34) 50%,
+    rgba(255, 255, 255, 0.08) 82%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+  opacity: 0;
+  transform: translateX(-170%) skewX(-18deg);
+  animation: willo-running-regular-card-sheen 6.0s ease-in-out infinite;
+  pointer-events: none;
+}
+.willo-station-card-hitbox[data-status='running'] .willo-session-icon,
+.willo-station-card-hitbox[data-running='1'] .willo-session-icon {
+  animation: willo-running-dot-pulse 3.0s ease-in-out infinite;
+}
+@keyframes willo-running-regular-accent-scan {
+  0% { top: var(--willo-running-scan-inset); opacity: 0; }
+  12% { opacity: .95; }
+  88% { opacity: .95; }
+  100% { top: calc(100% - var(--willo-running-scan-inset) - var(--willo-running-scan-height)); opacity: 0; }
+}
+@keyframes willo-running-regular-card-sheen {
+  0% { transform: translateX(-170%) skewX(-18deg); opacity: 0; }
+  14% { opacity: .34; }
+  44% { opacity: .34; }
+  62%, 100% { transform: translateX(560%) skewX(-18deg); opacity: 0; }
+}
+
+/* ── Open in Elma Chat highlight (compact) ─────────────────────────────── */
+/* Persistent target highlight for the compact station currently open in Elma.
+ * Uses outline + background so it composes with the running ::before/::after
+ * scanner/sheen animations without stealing their pseudo-elements. */
+.willo-compact-card[data-open-in-elma='1'] {
+  outline: 2px solid var(--arbol-color-accent);
+  outline-offset: -2px;
+  background:
+    linear-gradient(rgba(59, 130, 246, 0.10), rgba(59, 130, 246, 0.10)),
+    var(--arbol-color-surface);
+}
+@supports (background: color-mix(in srgb, white 50%, black)) {
+  .willo-compact-card[data-open-in-elma='1'] {
+    background:
+      linear-gradient(
+        color-mix(in srgb, var(--arbol-color-accent) 10%, transparent),
+        color-mix(in srgb, var(--arbol-color-accent) 10%, transparent)
+      ),
+      var(--arbol-color-surface);
+  }
+}
+.willo-compact-card[data-open-in-elma='1'] .willo-compact-color {
+  box-shadow:
+    0 0 0 3px rgba(59, 130, 246, 0.20),
+    0 0 12px var(--arbol-color-accent);
+}
+
+/* ── Stations pagination + page-scoped search ─────────────────────────── */
+.willo-stations-layout {
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--arbol-space-5);
+}
+.willo-stations-layout.has-search {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  align-items: start;
+}
+.willo-stations-main { min-width: 0; }
+.willo-search-box {
+  min-width: min(360px, 42vw);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 8px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: 999px;
+  background: var(--arbol-color-surface);
+  color: var(--arbol-color-text-muted);
+  font: 600 var(--arbol-type-label)/1 var(--arbol-font-ui);
+}
+.willo-search-box span {
+  text-transform: uppercase;
+  letter-spacing: .55px;
+  opacity: .82;
+}
+.willo-search-box input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--arbol-color-text);
+  font: 500 var(--arbol-type-body)/1.2 var(--arbol-font-ui);
+}
+.willo-search-box button {
+  border: 0;
+  background: transparent;
+  color: var(--arbol-color-text-muted);
+  cursor: pointer;
+  font: 700 16px/1 var(--arbol-font-ui);
+  padding: 0 3px;
+}
+.willo-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--arbol-space-2);
+  margin: 0 0 var(--arbol-space-4);
+  color: var(--arbol-color-text-muted);
+  font: 600 var(--arbol-type-label)/1 var(--arbol-font-mono);
+}
+.willo-card-grid + .willo-pagination,
+.willo-compact-list + .willo-pagination {
+  margin-top: var(--arbol-space-4);
+  margin-bottom: 0;
+}
+.willo-search-panel {
+  position: sticky;
+  top: 0;
+  max-height: calc(100vh - 120px);
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: var(--arbol-radius-l);
+  background: var(--arbol-color-surface);
+  box-shadow: var(--arbol-shadow-1);
+}
+.willo-search-panel-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--arbol-space-2);
+  padding: var(--arbol-space-3) var(--arbol-space-4) var(--arbol-space-1);
+}
+.willo-search-panel-head b {
+  color: var(--arbol-color-text);
+  font: 700 var(--arbol-type-body)/1.2 var(--arbol-font-ui);
+}
+.willo-search-panel-head span,
+.willo-search-panel-sub {
+  color: var(--arbol-color-text-muted);
+  font: 500 var(--arbol-type-label)/1.35 var(--arbol-font-mono);
+}
+.willo-search-panel-sub {
+  padding: 0 var(--arbol-space-4) var(--arbol-space-3);
+  border-bottom: 1px solid var(--arbol-color-hairline);
+}
+.willo-search-results {
+  min-height: 0;
+  overflow: auto;
+  padding: 5px;
+}
+.willo-search-hit {
+  width: 100%;
+  text-align: left;
+  display: grid;
+  gap: 5px;
+  padding: var(--arbol-space-3);
+  margin-bottom: 3px;
+  border: 1px solid transparent;
+  border-radius: var(--arbol-radius-m);
+  background: transparent;
+  color: var(--arbol-color-text);
+  cursor: pointer;
+}
+.willo-search-hit:hover {
+  background: var(--arbol-color-surface-2);
+  border-color: var(--arbol-color-border);
+}
+.willo-search-hit-meta {
+  min-width: 0;
+  display: flex;
+  gap: 7px;
+  align-items: baseline;
+}
+.willo-search-hit-meta b {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 700 var(--arbol-type-body)/1.25 var(--arbol-font-ui);
+}
+.willo-search-hit-meta span {
+  flex-shrink: 0;
+  color: var(--arbol-color-text-muted);
+  font: 500 var(--arbol-type-label)/1 var(--arbol-font-mono);
+}
+.willo-search-hit-text {
+  color: var(--arbol-color-text-muted);
+  font: 500 var(--arbol-type-label)/1.45 var(--arbol-font-ui);
+}
+.willo-search-mark {
+  border-radius: 4px;
+  padding: 0 2px;
+  background: color-mix(in oklch, var(--arbol-color-warn) 45%, transparent);
+  color: var(--arbol-color-text);
+}
+.willo-search-empty {
+  padding: var(--arbol-space-5);
+  color: var(--arbol-color-text-muted);
+  text-align: center;
+  font: 500 var(--arbol-type-body)/1.4 var(--arbol-font-ui);
+}
+.willo-compact-tools {
+  display: grid;
+  gap: var(--arbol-space-2);
+  margin-bottom: var(--arbol-space-2);
+}
+.willo-compact-tools .willo-search-box {
+  min-width: 0;
+  width: 100%;
+}
+.willo-compact-stations > .willo-search-panel {
+  position: relative;
+  top: auto;
+  max-height: 42vh;
+  margin-top: var(--arbol-space-2);
+}
+@media (max-width: 980px) {
+  .willo-stations-layout.has-search { grid-template-columns: minmax(0, 1fr); }
+  .willo-search-panel {
+    position: relative;
+    max-height: 420px;
+  }
+  .willo-search-box { min-width: min(100%, 360px); }
+}
+.willo-page-size {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  color: var(--arbol-color-text-muted);
+  font: 600 var(--arbol-type-label)/1 var(--arbol-font-mono);
+}
+.willo-page-size span {
+  text-transform: uppercase;
+  letter-spacing: .45px;
+}
+.willo-page-size select {
+  border: 1px solid var(--arbol-color-border);
+  border-radius: 999px;
+  background: var(--arbol-color-surface);
+  color: var(--arbol-color-text);
+  padding: 4px 24px 4px 9px;
+  font: 700 var(--arbol-type-label)/1 var(--arbol-font-mono);
+}
+
+
+/* ── Force-visible running animation trigger ─────────────────────────────
+ * Compact cards already expose data-status="running" in the DOM. Use that as
+ * a direct fallback trigger so the animation works even if the React running
+ * prop/badge path or OS reduced-motion media query interferes.
+ */
+.willo-compact-card[data-status='running'],
+.willo-compact-card[data-running='1'] {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  animation: willo-running-card-pulse 3.2s ease-in-out infinite !important;
+}
+.willo-compact-card[data-status='running'] > *,
+.willo-compact-card[data-running='1'] > * {
+  position: relative;
+  z-index: 3;
+}
+
+/* Option 1: animated left accent scanner — explicitly re-enabled even if
+ * a previous reduced-motion block set animation:none/content:none. */
+.willo-compact-card[data-status='running']::before,
+.willo-compact-card[data-running='1']::before {
+  content: '' !important;
+  position: absolute;
+  z-index: 7;
+  left: 0;
+  top: var(--arbol-radius-m);
+  width: 10px;
+  height: 38px;
+  --willo-running-scan-inset: var(--arbol-radius-m);
+  --willo-running-scan-height: 38px;
+  border-radius: 999px;
+  background: #fff !important;
+  box-shadow:
+    0 0 0 2px var(--session-color, var(--arbol-color-accent)),
+    0 0 20px 5px var(--session-color, var(--arbol-color-accent));
+  opacity: 1;
+  animation: willo-running-accent-scan 2.6s linear infinite !important;
+  pointer-events: none;
+}
+
+/* Option 3: card sheen sweep — stronger and independent of color-mix. */
+.willo-compact-card[data-status='running']::after,
+.willo-compact-card[data-running='1']::after {
+  content: '' !important;
+  position: absolute;
+  z-index: 2;
+  top: -45%;
+  bottom: -45%;
+  left: -55%;
+  width: 44%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.10) 18%,
+    rgba(255, 255, 255, 0.62) 50%,
+    rgba(255, 255, 255, 0.10) 82%,
+    transparent 100%
+  ) !important;
+  mix-blend-mode: screen;
+  transform: translateX(-170%) skewX(-18deg);
+  opacity: 0;
+  animation: willo-running-card-sheen 5.2s ease-in-out infinite !important;
+  pointer-events: none;
+}
+
+/* Visible DOM fallback: animate the status text itself and add a pulsing dot.
+ * This is the easiest thing to confirm visually because the status text is
+ * already visible in the screenshot. */
+.willo-compact-card[data-status='running'] .willo-compact-status,
+.willo-compact-card[data-running='1'] .willo-compact-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  animation: willo-running-status-pulse 2.8s ease-in-out infinite !important;
+}
+.willo-compact-card[data-status='running'] .willo-compact-status::before,
+.willo-compact-card[data-running='1'] .willo-compact-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--session-color, var(--arbol-color-accent));
+  box-shadow: 0 0 10px 2px var(--session-color, var(--arbol-color-accent));
+  animation: willo-running-dot-pulse 2.8s ease-in-out infinite !important;
+}
+
+/* ── Ongoing grouping + card context menu ─────────────────────────────── */
+.willo-station-section {
+  display: grid;
+  gap: var(--arbol-space-3);
+  margin-bottom: var(--arbol-space-6);
+}
+.willo-station-section + .willo-station-section {
+  padding-top: var(--arbol-space-5);
+  border-top: 1px solid var(--arbol-color-border);
+}
+.willo-station-section-ongoing {
+  margin: calc(-1 * var(--arbol-space-2)) calc(-1 * var(--arbol-space-2)) var(--arbol-space-6);
+  padding: var(--arbol-space-4);
+  border: 1px solid color-mix(in oklch, var(--arbol-color-accent) 28%, var(--arbol-color-border));
+  border-radius: var(--arbol-radius-l);
+  background:
+    radial-gradient(120% 90% at 18% 0%, color-mix(in oklch, var(--arbol-color-accent) 11%, transparent), transparent 62%),
+    color-mix(in oklch, var(--arbol-color-accent) 5%, var(--arbol-color-surface));
+}
+.willo-station-section-head {
+  display: flex;
+  align-items: center;
+  gap: var(--arbol-space-2);
+  color: var(--arbol-color-text-muted);
+  font: 800 var(--arbol-type-label)/1 var(--arbol-font-ui);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.willo-station-section-head b {
+  min-width: 20px;
+  height: 20px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--arbol-color-surface-2);
+  color: var(--arbol-color-text-muted);
+  font: 800 10px/1 var(--arbol-font-mono);
+}
+.willo-station-section-ongoing .willo-station-section-head {
+  color: var(--arbol-color-accent);
+}
+.willo-station-section-ongoing .willo-station-section-head b {
+  background: var(--arbol-color-accent-soft);
+  color: var(--arbol-color-accent);
+}
+.willo-station-section-draft {
+  margin: calc(-1 * var(--arbol-space-1)) calc(-1 * var(--arbol-space-1)) var(--arbol-space-6);
+  padding: var(--arbol-space-4);
+  border: 1px dashed color-mix(in oklch, #ef4444 48%, var(--arbol-color-border));
+  border-radius: var(--arbol-radius-l);
+  background:
+    radial-gradient(110% 90% at 16% 0%, color-mix(in oklch, #ef4444 13%, transparent), transparent 60%),
+    color-mix(in oklch, #ef4444 5%, var(--arbol-color-surface));
+}
+.willo-station-section-draft .willo-station-section-head {
+  color: color-mix(in oklch, #ef4444 72%, var(--arbol-color-text));
+}
+.willo-station-section-draft .willo-station-section-head::before {
+  content: '✎';
+  font: 900 12px/1 var(--arbol-font-mono);
+}
+.willo-station-section-draft .willo-station-section-head b {
+  background: color-mix(in oklch, #ef4444 14%, var(--arbol-color-surface));
+  color: color-mix(in oklch, #ef4444 78%, var(--arbol-color-text));
+}
+.willo-station-section-empty {
+  margin-bottom: var(--arbol-space-5);
+  padding: var(--arbol-space-4);
+  border: 1px dashed color-mix(in oklch, var(--arbol-color-accent) 34%, var(--arbol-color-border));
+  border-radius: var(--arbol-radius-l);
+  background: color-mix(in oklch, var(--arbol-color-accent) 5%, var(--arbol-color-surface));
+  color: var(--arbol-color-text-muted);
+  text-align: center;
+  font: 500 var(--arbol-type-label)/1.45 var(--arbol-font-ui);
+}
+.willo-session-context-menu {
+  position: fixed;
+  z-index: 1000;
+  min-width: 168px;
+  padding: 5px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: var(--arbol-radius-m);
+  background: var(--arbol-color-surface);
+  box-shadow: var(--arbol-shadow-pop);
+  color: var(--arbol-color-text);
+}
+.willo-session-context-check,
+.willo-session-context-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: var(--arbol-radius-s);
+  cursor: pointer;
+  font: 600 var(--arbol-type-label)/1 var(--arbol-font-ui);
+}
+.willo-session-context-item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--arbol-color-text);
+  text-align: left;
+}
+.willo-session-context-check:hover,
+.willo-session-context-item:hover {
+  background: var(--arbol-color-surface-2);
+}
+.willo-session-context-check input {
+  accent-color: var(--arbol-color-accent);
+}
+.willo-session-context-separator {
+  display: block;
+  height: 1px;
+  margin: 4px 5px;
+  background: var(--arbol-color-border);
+}
+.willo-state-icons {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.willo-state-icons.compact {
+  margin-left: var(--arbol-space-2);
+  gap: 5px;
+}
+.willo-state-icon {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: 900 9px/1 var(--arbol-font-mono);
+  box-shadow: 0 0 0 2px color-mix(in oklch, currentColor 16%, transparent);
+}
+.willo-state-icons.compact .willo-state-icon {
+  width: 9px;
+  height: 9px;
+  font-size: 8px;
+}
+.willo-state-icon.is-ongoing {
+  color: #24c46b;
+  background: currentColor;
+  box-shadow: 0 0 0 3px color-mix(in oklch, #24c46b 18%, transparent), 0 0 14px color-mix(in oklch, #24c46b 55%, transparent);
+}
+.willo-state-icon.is-unread {
+  color: #ef4444;
+  background: currentColor;
+  box-shadow: 0 0 0 3px color-mix(in oklch, #ef4444 18%, transparent), 0 0 14px color-mix(in oklch, #ef4444 55%, transparent);
+}
+.willo-state-icon.is-idle {
+  color: color-mix(in oklch, var(--arbol-color-text-muted) 68%, white);
+  background: linear-gradient(180deg, #fff, color-mix(in oklch, var(--arbol-color-text-muted) 24%, var(--arbol-color-surface)));
+  border: 1px solid color-mix(in oklch, var(--arbol-color-text-muted) 36%, var(--arbol-color-border));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 0 0 2px color-mix(in oklch, var(--arbol-color-text-muted) 10%, transparent);
+}
+.willo-state-icon.is-draft {
+  width: 18px;
+  height: 18px;
+  color: color-mix(in oklch, #ef4444 82%, var(--arbol-color-text));
+  background: color-mix(in oklch, #ef4444 18%, var(--arbol-color-surface));
+  border: 1px solid color-mix(in oklch, #ef4444 40%, var(--arbol-color-border));
+  box-shadow: 0 0 0 3px color-mix(in oklch, #ef4444 12%, transparent);
+}
+.willo-state-icons.compact .willo-state-icon.is-draft {
+  width: 16px;
+  height: 16px;
+}.willo-station-card-hitbox > * {
+  height: 100%;
+}
+
+.willo-station-ongoing-row {
+  display: grid;
+  gap: var(--arbol-space-3);
+}
+.willo-station-ongoing-row + .willo-station-ongoing-row {
+  margin-top: var(--arbol-space-4);
+  padding-top: var(--arbol-space-4);
+  border-top: 1px solid color-mix(in oklch, var(--arbol-color-accent) 18%, var(--arbol-color-border));
+}
+.willo-station-ongoing-row-head {
+  display: flex;
+  align-items: center;
+  gap: var(--arbol-space-2);
+  color: var(--arbol-color-text-muted);
+  font: 800 11px/1 var(--arbol-font-ui);
+  letter-spacing: .075em;
+  text-transform: uppercase;
+}
+.willo-station-ongoing-row-head b {
+  min-width: 18px;
+  height: 18px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--arbol-color-surface-2);
+  color: var(--arbol-color-text-muted);
+  font: 800 9px/1 var(--arbol-font-mono);
+}
+.willo-station-ongoing-row-running .willo-station-ongoing-row-head { color: var(--arbol-color-accent); }
+.willo-station-ongoing-row-unread .willo-station-ongoing-row-head { color: #ef4444; }
+.willo-station-ongoing-row-unread .willo-station-ongoing-row-head b {
+  background: color-mix(in oklch, #ef4444 18%, var(--arbol-color-surface));
+  color: #ef4444;
+}
+.willo-compact-unread-dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: #ef4444;
+  box-shadow: 0 0 0 3px color-mix(in oklch, #ef4444 16%, transparent);
+}
+
+/* ── Force-visible running animation layers for regular station cards ──── */
+/* Real DOM layers are used here instead of relying only on ::before/::after,
+ * because the design-system Card can obscure pseudo-elements on the wrapper. */
+.willo-station-card-hitbox[data-status='running'],
+.willo-station-card-hitbox[data-running='1'] {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate;
+  border-radius: var(--arbol-radius-l);
+  animation: willo-running-card-pulse 3.4s ease-in-out infinite !important;
+}
+.willo-station-card-hitbox[data-status='running'] > *,
+.willo-station-card-hitbox[data-running='1'] > * {
+  position: relative;
+  z-index: 3;
+}
+.willo-regular-running-accent {
+  position: absolute !important;
+  z-index: 20 !important;
+  left: 0;
+  top: var(--arbol-radius-l);
+  width: 10px;
+  height: 48px;
+  --willo-running-scan-inset: var(--arbol-radius-l);
+  --willo-running-scan-height: 48px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow:
+    0 0 0 2px var(--session-color, var(--arbol-color-accent)),
+    0 0 22px 5px var(--session-color, var(--arbol-color-accent));
+  animation: willo-running-regular-dom-accent-scan 3.0s linear infinite;
+  pointer-events: none;
+}
+.willo-regular-running-sheen {
+  position: absolute !important;
+  z-index: 12 !important;
+  top: -40%;
+  bottom: -40%;
+  left: -55%;
+  width: 36%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.10) 18%,
+    rgba(255, 255, 255, 0.42) 50%,
+    rgba(255, 255, 255, 0.10) 82%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+  transform: translateX(-170%) skewX(-18deg);
+  opacity: 0;
+  animation: willo-running-regular-dom-sheen 6.0s ease-in-out infinite;
+  pointer-events: none;
+}
+.willo-station-card-hitbox[data-status='running'] .willo-session-icon,
+.willo-station-card-hitbox[data-running='1'] .willo-session-icon {
+  animation: willo-running-dot-pulse 3.0s ease-in-out infinite !important;
+}
+@keyframes willo-running-regular-dom-accent-scan {
+  0% { top: var(--willo-running-scan-inset); opacity: 0; }
+  10% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { top: calc(100% - var(--willo-running-scan-inset) - var(--willo-running-scan-height)); opacity: 0; }
+}
+@keyframes willo-running-regular-dom-sheen {
+  0% { transform: translateX(-170%) skewX(-18deg); opacity: 0; }
+  12% { opacity: .42; }
+  42% { opacity: .42; }
+  62%, 100% { transform: translateX(560%) skewX(-18deg); opacity: 0; }
+}
+
+/* ── Regular station card running animation on the actual Card element ─── */
+/* The shared Card is the painted surface, so attach the same animation there
+ * instead of relying on wrapper overlays. */
+.willo-station-card[data-status='running'],
+.willo-station-card[data-running='1'] {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate;
+  animation: willo-running-card-pulse 3.4s ease-in-out infinite !important;
+}
+.willo-station-card[data-status='running'] > *,
+.willo-station-card[data-running='1'] > * {
+  position: relative;
+  z-index: 3;
+}
+.willo-station-card[data-status='running']::before,
+.willo-station-card[data-running='1']::before {
+  content: '' !important;
+  position: absolute;
+  z-index: 6;
+  left: 0;
+  top: var(--arbol-radius-l);
+  width: 10px;
+  height: 48px;
+  --willo-running-scan-inset: var(--arbol-radius-l);
+  --willo-running-scan-height: 48px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow:
+    0 0 0 2px var(--session-color, var(--arbol-color-accent)),
+    0 0 22px 5px var(--session-color, var(--arbol-color-accent));
+  animation: willo-running-regular-card-accent-scan 3.0s linear infinite !important;
+  pointer-events: none;
+}
+.willo-station-card[data-status='running']::after,
+.willo-station-card[data-running='1']::after {
+  content: '' !important;
+  position: absolute;
+  z-index: 2;
+  top: -40%;
+  bottom: -40%;
+  left: -55%;
+  width: 36%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.10) 18%,
+    rgba(255, 255, 255, 0.42) 50%,
+    rgba(255, 255, 255, 0.10) 82%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+  opacity: 0;
+  transform: translateX(-170%) skewX(-18deg);
+  animation: willo-running-regular-card-sheen-real 6.0s ease-in-out infinite !important;
+  pointer-events: none;
+}
+.willo-station-card[data-status='running'] .willo-session-icon,
+.willo-station-card[data-running='1'] .willo-session-icon {
+  animation: willo-running-dot-pulse 3.0s ease-in-out infinite !important;
+}
+@keyframes willo-running-regular-card-accent-scan {
+  0% { top: var(--willo-running-scan-inset); opacity: 0; }
+  10% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { top: calc(100% - var(--willo-running-scan-inset) - var(--willo-running-scan-height)); opacity: 0; }
+}
+@keyframes willo-running-regular-card-sheen-real {
+  0% { transform: translateX(-170%) skewX(-18deg); opacity: 0; }
+  12% { opacity: .42; }
+  42% { opacity: .42; }
+  62%, 100% { transform: translateX(560%) skewX(-18deg); opacity: 0; }
+}
+
+
+
+/* ── Unread chat-card highlight ────────────────────────────────────────── */
+.willo-station-card-hitbox[data-unread='1'] .willo-station-card,
+.willo-station-card[data-unread='1'] {
+  border-color: color-mix(in oklch, #ef4444 68%, var(--arbol-color-border)) !important;
+  background:
+    radial-gradient(120% 90% at 12% 0%, color-mix(in oklch, #ef4444 16%, transparent), transparent 58%),
+    linear-gradient(90deg, color-mix(in oklch, #ef4444 10%, transparent), transparent 38%),
+    var(--arbol-color-surface) !important;
+  box-shadow:
+    var(--arbol-shadow-card),
+    inset 4px 0 0 color-mix(in oklch, #ef4444 86%, transparent),
+    0 0 0 1px color-mix(in oklch, #ef4444 28%, transparent),
+    0 10px 28px -18px #ef4444 !important;
+}
+
+.willo-station-card-hitbox[data-unread='1'] .willo-session-title,
+.willo-station-card[data-unread='1'] .willo-session-title,
+.willo-compact-card[data-unread='1'] .willo-compact-title {
+  color: color-mix(in oklch, #ef4444 35%, var(--arbol-color-text));
+}
+
+.willo-compact-card[data-unread='1'] {
+  border-color: color-mix(in oklch, #ef4444 62%, var(--arbol-color-hairline)) !important;
+  border-left-color: #ef4444 !important;
+  background:
+    linear-gradient(90deg, color-mix(in oklch, #ef4444 14%, transparent), transparent 46%),
+    var(--arbol-color-surface) !important;
+  box-shadow:
+    var(--arbol-shadow-card),
+    0 0 0 1px color-mix(in oklch, #ef4444 28%, transparent),
+    0 8px 22px -16px #ef4444 !important;
+}
+
+.willo-compact-card[data-unread='1'] .willo-compact-color {
+  background: #ef4444;
+  box-shadow:
+    0 0 0 3px color-mix(in oklch, #ef4444 20%, transparent),
+    0 0 12px color-mix(in oklch, #ef4444 58%, transparent);
+}
+
+
+/* ── Regular station card live agent tail ─────────────────────────────── */
+
+
+/* Open in Elma Chat highlight (regular station cards)
+ * Mirrors the compact card affordance while using outline/background on the
+ * real card so it composes with running and unread overlays. */
+.willo-station-card-hitbox[data-draft='1'] .willo-station-card,
+.willo-station-card[data-draft='1'] {
+  border-color: color-mix(in oklch, #ef4444 44%, var(--arbol-color-border)) !important;
+  background:
+    radial-gradient(100% 80% at 10% 0%, color-mix(in oklch, #ef4444 10%, transparent), transparent 56%),
+    linear-gradient(90deg, color-mix(in oklch, #ef4444 6%, transparent), transparent 34%),
+    var(--arbol-color-surface) !important;
+  box-shadow:
+    var(--arbol-shadow-card),
+    inset 3px 0 0 color-mix(in oklch, #ef4444 66%, transparent),
+    0 8px 24px -20px #ef4444 !important;
+}
+.willo-station-card-hitbox[data-draft='1'] .willo-session-title,
+.willo-station-card[data-draft='1'] .willo-session-title,
+.willo-compact-card[data-draft='1'] .willo-compact-title {
+  color: color-mix(in oklch, #ef4444 24%, var(--arbol-color-text));
+}
+.willo-compact-card[data-draft='1'] {
+  border-color: color-mix(in oklch, #ef4444 44%, var(--arbol-color-hairline)) !important;
+  border-left-color: color-mix(in oklch, #ef4444 72%, var(--arbol-color-hairline)) !important;
+  background:
+    linear-gradient(90deg, color-mix(in oklch, #ef4444 8%, transparent), transparent 42%),
+    var(--arbol-color-surface) !important;
+}
+
+
+/* Drafted chat-card background override */
+.willo-station-card-hitbox[data-draft='1'] .willo-station-card,
+.willo-station-card[data-draft='1'] {
+  border-color: color-mix(in oklch, #d28a00 42%, var(--arbol-color-border)) !important;
+  background:
+    radial-gradient(95% 80% at 12% 0%, color-mix(in oklch, #d28a00 13%, transparent), transparent 58%),
+    linear-gradient(135deg, color-mix(in oklch, #f6c453 12%, transparent), transparent 48%),
+    color-mix(in oklch, #f6c453 6%, var(--arbol-color-surface)) !important;
+  box-shadow:
+    var(--arbol-shadow-card),
+    inset 4px 0 0 color-mix(in oklch, #d28a00 62%, transparent),
+    0 10px 26px -20px #d28a00 !important;
+}
+.willo-compact-card[data-draft='1'] {
+  border-color: color-mix(in oklch, #d28a00 44%, var(--arbol-color-hairline)) !important;
+  border-left-color: color-mix(in oklch, #d28a00 72%, var(--arbol-color-hairline)) !important;
+  background:
+    linear-gradient(90deg, color-mix(in oklch, #f6c453 13%, transparent), transparent 46%),
+    color-mix(in oklch, #f6c453 5%, var(--arbol-color-surface)) !important;
+}
+.willo-station-card-hitbox[data-draft='1'] .willo-session-title,
+.willo-station-card[data-draft='1'] .willo-session-title,
+.willo-compact-card[data-draft='1'] .willo-compact-title {
+  color: color-mix(in oklch, #d28a00 28%, var(--arbol-color-text));
+}
+.willo-state-icon.is-draft {
+  color: color-mix(in oklch, #d28a00 82%, var(--arbol-color-text));
+  background: color-mix(in oklch, #d28a00 18%, var(--arbol-color-surface));
+  border-color: color-mix(in oklch, #d28a00 40%, var(--arbol-color-border));
+  box-shadow: 0 0 0 3px color-mix(in oklch, #d28a00 12%, transparent);
+}
+
+.willo-station-card-hitbox[data-open-in-elma='1'] .willo-station-card,
+.willo-station-card[data-open-in-elma='1'] {
+  outline: 2px solid var(--arbol-color-accent);
+  outline-offset: -2px;
+  border-color: color-mix(in oklch, var(--arbol-color-accent) 58%, var(--arbol-color-border)) !important;
+  background:
+    linear-gradient(rgba(59, 130, 246, 0.10), rgba(59, 130, 246, 0.10)),
+    var(--arbol-color-surface) !important;
+  box-shadow:
+    var(--arbol-shadow-card),
+    0 0 0 1px color-mix(in oklch, var(--arbol-color-accent) 34%, transparent),
+    0 10px 28px -18px var(--arbol-color-accent) !important;
+}
+@supports (background: color-mix(in srgb, white 50%, black)) {
+  .willo-station-card-hitbox[data-open-in-elma='1'] .willo-station-card,
+  .willo-station-card[data-open-in-elma='1'] {
+    background:
+      radial-gradient(120% 90% at 12% 0%, color-mix(in srgb, var(--arbol-color-accent) 12%, transparent), transparent 58%),
+      linear-gradient(color-mix(in srgb, var(--arbol-color-accent) 10%, transparent), color-mix(in srgb, var(--arbol-color-accent) 10%, transparent)),
+      var(--arbol-color-surface) !important;
+  }
+}
+.willo-station-card-hitbox[data-open-in-elma='1'] .willo-session-title,
+.willo-station-card[data-open-in-elma='1'] .willo-session-title {
+  color: color-mix(in oklch, var(--arbol-color-accent) 34%, var(--arbol-color-text));
+}
+
+.willo-live-tail {
+  margin-top: auto;
+  padding-top: var(--arbol-space-2);
+  border-top: 1px solid var(--arbol-color-hairline);
+  color: var(--arbol-color-text-muted);
+  font: 600 var(--arbol-type-label)/1.35 var(--arbol-font-mono);
+  min-height: 1.35em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: .78;
+}
+.willo-live-tail.has-tail {
+  color: var(--arbol-color-accent);
+  opacity: .95;
+  animation: willo-live-tail-pulse 1.6s ease-in-out infinite;
+}
+@keyframes willo-live-tail-pulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.22); }
+}
+
+.willo-card-meta {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: var(--arbol-type-label);
+}
+.willo-card-meta b {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--arbol-color-text);
+  font: 700 var(--arbol-type-label)/1.35 var(--arbol-font-mono);
+}
+.willo-card-meta b:not(:last-child)::after {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  margin-left: 8px;
+  vertical-align: middle;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--arbol-color-text-muted) 55%, transparent);
+}
+
+/* ── Chat card hierarchy refresh ─────────────────────────────────────── */
+.willo-station-card {
+  position: relative;
+}
+.willo-card-title-block {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+.willo-card-title-block .willo-session-title {
+  font-size: clamp(18px, 1.45vw, 22px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+.willo-card-activity,
+.willo-compact-activity {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--arbol-color-text-muted);
+  font: 700 var(--arbol-type-label)/1.2 var(--arbol-font-ui);
+}
+.willo-card-state-row {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.willo-card-status-text {
+  color: var(--arbol-color-text-muted);
+  font: 750 11px/1 var(--arbol-font-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.willo-card-meta {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  font-size: var(--arbol-type-label);
+}
+.willo-card-meta span,
+.willo-card-meta b {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--arbol-color-text-muted);
+  font: 650 var(--arbol-type-label)/1.35 var(--arbol-font-mono);
+}
+.willo-card-meta span:first-child,
+.willo-card-meta b:first-child {
+  color: var(--arbol-color-text);
+}
+.willo-card-meta span:not(:last-child)::after,
+.willo-card-meta b:not(:last-child)::after {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  margin-left: 8px;
+  vertical-align: middle;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--arbol-color-text-muted) 55%, transparent);
+}
+.willo-compact-card {
+  gap: 7px;
+}
+.willo-compact-status-row {
+  order: 3;
+}
+.willo-compact-card .willo-live-tail {
+  order: 5;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+.willo-compact-meta {
+  order: 6;
+}
+.willo-card-usage {
+  min-height: 1.35em;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  color: color-mix(in oklch, var(--arbol-color-accent) 72%, var(--arbol-color-text-muted));
+  font: 700 var(--arbol-type-label)/1.35 var(--arbol-font-mono);
+  letter-spacing: .01em;
+}
+.willo-compact-card .willo-card-usage {
+  order: 4;
+  min-height: 1.2em;
+  font-size: calc(var(--arbol-type-label) * .95);
+}
+.willo-compact-card .willo-compact-meta {
+  order: 6;
+}.willo-compact-card[data-open-in-elma='1'] {
+  border-width: 2px !important;
+  border-color: color-mix(in oklch, var(--arbol-color-accent) 76%, var(--arbol-color-hairline)) !important;
+  box-shadow:
+    0 0 0 2px color-mix(in oklch, var(--arbol-color-accent) 18%, transparent),
+    inset 3px 0 0 color-mix(in oklch, var(--arbol-color-accent) 72%, transparent) !important;
+}
+
+/* Draft indicator emphasis — no draft badge needed. */
+.willo-state-icon.is-draft {
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 10px !important;
+  font-size: 15px !important;
+  transform: rotate(-6deg);
+  color: color-mix(in oklch, #a76600 88%, var(--arbol-color-text)) !important;
+  background:
+    linear-gradient(180deg, color-mix(in oklch, #ffd36a 42%, var(--arbol-color-surface)), color-mix(in oklch, #d28a00 18%, var(--arbol-color-surface))) !important;
+  border: 1px solid color-mix(in oklch, #d28a00 58%, var(--arbol-color-border)) !important;
+  box-shadow:
+    0 0 0 3px color-mix(in oklch, #d28a00 14%, transparent),
+    0 8px 18px -12px #d28a00,
+    inset 0 1px 0 rgba(255,255,255,.55) !important;
+}
+.willo-state-icons.compact .willo-state-icon.is-draft {
+  width: 22px !important;
+  height: 22px !important;
+  font-size: 13px !important;
+  border-radius: 8px !important;
+}.willo-compact-card[data-open-in-elma='1'] {
+  border-width: 3px !important;
+  border-color: color-mix(in oklch, var(--arbol-color-accent) 82%, var(--arbol-color-hairline)) !important;
+  box-shadow:
+    0 0 0 2px color-mix(in oklch, var(--arbol-color-accent) 18%, transparent),
+    inset 5px 0 0 color-mix(in oklch, var(--arbol-color-accent) 76%, transparent) !important;
+}
+
+/* Draft icon final non-badge emphasis. */
+.willo-state-icon.is-draft {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 12px !important;
+  font-size: 17px !important;
+}
+.willo-state-icons.compact .willo-state-icon.is-draft {
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 9px !important;
+  font-size: 14px !important;
+}
+
+/* Blueprint Runs + Run Details */
+.willo-runs,.willo-run-details{max-width:1100px;margin:0 auto}.willo-runs-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:var(--arbol-space-5)}.willo-runs-head h2,.willo-details-head h2{margin:0;font-size:24px}.willo-runs-head p,.willo-details-head p{margin:6px 0 0;color:var(--arbol-color-text-muted)}.willo-runs-head>span{font:500 var(--arbol-type-label)/1 var(--arbol-font-mono);color:var(--arbol-color-text-muted)}.willo-run-list{border:1px solid var(--arbol-color-border);border-radius:var(--arbol-radius-l);overflow:hidden;background:var(--arbol-color-surface-1)}.willo-run-row{width:100%;display:grid;grid-template-columns:90px minmax(220px,1fr) 90px 170px 14px;gap:var(--arbol-space-3);align-items:center;border:0;border-bottom:1px solid var(--arbol-color-hairline);padding:14px 16px;text-align:left;background:transparent;color:var(--arbol-color-text);cursor:pointer}.willo-run-row:last-child{border-bottom:0}.willo-run-row:hover{background:var(--arbol-color-surface-2)}.willo-run-kind{font:600 var(--arbol-type-label)/1 var(--arbol-font-mono);color:var(--arbol-color-accent)}.willo-run-kind[data-kind=chain]{color:var(--arbol-color-warn)}.willo-run-main{display:flex;flex-direction:column;gap:5px;min-width:0}.willo-run-main b,.willo-run-main small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.willo-run-main small,.willo-run-row time{color:var(--arbol-color-text-muted)}.willo-run-status{text-transform:capitalize;font-size:var(--arbol-type-label)}.willo-run-status[data-status=running]{color:var(--arbol-color-ok)}.willo-details-head{display:flex;gap:var(--arbol-space-5);align-items:flex-start;margin-bottom:var(--arbol-space-5)}.willo-details-head>div>span{display:block;color:var(--arbol-color-accent);font:600 var(--arbol-type-label)/1 var(--arbol-font-mono);text-transform:uppercase;margin-bottom:7px}.willo-back,.willo-run-pages button{border:1px solid var(--arbol-color-border);border-radius:var(--arbol-radius-m);background:var(--arbol-color-surface-1);color:var(--arbol-color-text);padding:8px 11px;cursor:pointer}.willo-transcript{max-width:var(--arbol-max-chat-area-width);margin:0 auto;display:flex;flex-direction:column;gap:var(--arbol-space-4)}.willo-message{border:1px solid var(--arbol-color-border);border-radius:var(--arbol-radius-l);padding:var(--arbol-space-4);background:var(--arbol-color-surface-1)}.willo-message[data-role=user]{margin-left:12%;background:var(--arbol-color-surface-2)}.willo-message[data-role=system]{padding:10px 14px;border-style:dashed;color:var(--arbol-color-text-muted)}.willo-message-meta{display:flex;gap:10px;align-items:center;margin-bottom:10px;font:500 var(--arbol-type-label)/1.2 var(--arbol-font-mono);color:var(--arbol-color-text-muted);text-transform:capitalize}.willo-message-meta time{margin-left:auto}.willo-message-body{overflow-wrap:anywhere}.willo-message-body>:last-child{margin-bottom:0!important}.willo-run-pages{display:flex;justify-content:center;align-items:center;gap:var(--arbol-space-3);margin-top:var(--arbol-space-5);color:var(--arbol-color-text-muted)}.willo-run-pages button:disabled{opacity:.4;cursor:default}@media(max-width:760px){.willo-run-row{grid-template-columns:75px 1fr 14px}.willo-run-row time,.willo-run-status{display:none}.willo-details-head{flex-direction:column;gap:var(--arbol-space-3)}}
+
+/* Keep pagination legible when Willo is compact or the full window is narrow.
+ * Navigation stays balanced around the range; page size gets its own row rather
+ * than forcing labels and controls to wrap independently. */
+.willo-pagination-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--arbol-space-2);
+}
+.willo-pagination-range {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+@media (max-width: 560px) {
+  .willo-pagination {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    row-gap: var(--arbol-space-2);
+    width: 100%;
+  }
+  .willo-pagination-nav.is-back { justify-content: flex-start; }
+  .willo-pagination-nav.is-forward { justify-content: flex-end; }
+  .willo-pagination-range {
+    text-align: center;
+    line-height: 1.2;
+  }
+  .willo-pagination .willo-page-size {
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin-left: 0;
+  }
+}
+
+
+/* ── Slack Surface ─────────────────────────────────────────────────────── */
+.slack-page { height:100%; min-height:0; display:grid; grid-template-rows:auto minmax(0,1fr); border:1px solid var(--arbol-color-border); border-radius:var(--arbol-radius-l); overflow:hidden; }
+.slack-browser { min-height:0; min-width:0; display:grid; grid-template-columns:280px minmax(0,1fr); }
+.slack-empty { min-height:240px; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--arbol-space-3); color:var(--arbol-color-text-muted); }
+.slack-sync { padding:10px 18px; border-radius:var(--arbol-radius-m); border:1px solid var(--arbol-color-border); background:var(--arbol-color-accent); color:white; font:600 var(--arbol-type-body)/1 var(--arbol-font-ui); cursor:pointer; }
+.slack-sync:disabled { opacity:.6; cursor:wait; }
+.slack-error { margin:var(--arbol-space-2); padding:8px 10px; border:1px solid var(--arbol-color-danger); border-radius:var(--arbol-radius-m); color:var(--arbol-color-danger); font-size:var(--arbol-type-label); }
+.slack-sources { min-height:0; overflow:auto; border-right:1px solid var(--arbol-color-border); background:var(--arbol-color-bg); }
+.slack-tabs { display:flex; align-items:center; gap:4px; padding:var(--arbol-space-2); border-bottom:1px solid var(--arbol-color-border); background:var(--arbol-color-bg); z-index:2; }
+.slack-tabs button { border:0; border-radius:var(--arbol-radius-m); background:transparent; color:var(--arbol-color-text-muted); padding:7px; cursor:pointer; }
+.slack-tabs button.active { background:var(--arbol-color-surface-2); color:var(--arbol-color-text); }
+.slack-source-section h2 { margin:14px 12px 5px; color:var(--arbol-color-text-muted); font:600 11px/1 var(--arbol-font-ui); text-transform:uppercase; letter-spacing:.7px; }
+.slack-source { display:flex; align-items:center; margin:1px 6px; border-radius:var(--arbol-radius-m); }
+.slack-source:hover, .slack-source.selected { background:var(--arbol-color-surface-2); }
+.slack-source.selected { box-shadow:inset 2px 0 var(--arbol-color-accent); }
+.slack-source-main, .slack-source-label { flex:1; min-width:0; text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding:8px; color:var(--arbol-color-text); }
+.slack-source-main { border:0; background:transparent; cursor:pointer; }
+.slack-star, .slack-ignore { opacity:0; border:0; background:transparent; cursor:pointer; padding:5px; color:var(--arbol-color-text-muted); }
+.slack-star.on { opacity:1; color:#eab308; }
+.slack-source:hover .slack-star, .slack-source:hover .slack-ignore { opacity:1; }
+.slack-ignore { font-size:10px; margin-right:4px; }
+.slack-ignore:hover { color:var(--arbol-color-danger); }
+.slack-unignore { margin-right:6px; padding:4px 7px; border:1px solid var(--arbol-color-border); border-radius:var(--arbol-radius-s); background:transparent; color:var(--arbol-color-accent); font-size:10px; cursor:pointer; }
+.slack-unignore:hover { background:var(--arbol-color-accent-soft); }
+.slack-source-empty { margin:12px; color:var(--arbol-color-text-muted); font-size:var(--arbol-type-label); }
+.slack-conversation { min-width:0; min-height:0; display:grid; grid-template-rows:auto minmax(0,1fr); }
+.slack-conversation-head { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--arbol-color-border); }
+.slack-conversation-head label { color:var(--arbol-color-text-muted); font-size:11px; }
+.slack-conversation-head input { width:52px; margin-left:6px; background:var(--arbol-color-surface); color:var(--arbol-color-text); border:1px solid var(--arbol-color-border); border-radius:4px; }
+.slack-timeline { min-height:0; overflow:auto; padding:12px 18px; }
+.slack-loading { text-align:center; color:var(--arbol-color-text-muted); font-size:11px; padding:8px; }
+.slack-message { display:grid; grid-template-columns:34px 1fr; gap:10px; padding:8px 0; }
+/* Telegram Surface reuses the slack-message-body/meta/text styles; only the
+ * article layout differs (no avatar column). */
+.telegram-message { display:grid; grid-template-columns:1fr; gap:10px; padding:8px 0; }
+.slack-avatar { width:32px; height:32px; border-radius:7px; display:grid; place-items:center; overflow:hidden; background:var(--arbol-color-surface-2); color:var(--arbol-color-text-muted); font-weight:700; }
+.slack-avatar img { width:100%; height:100%; display:block; object-fit:cover; }
+.slack-message-body { min-width:0; position:relative; }
+.slack-message-meta { display:flex; align-items:baseline; gap:7px; font-size:var(--arbol-type-label); }
+.slack-message-meta time, .slack-message-meta span { color:var(--arbol-color-text-muted); font-size:10px; }
+.slack-message-text { margin-top:3px; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.45; }
+.slack-message-text.deleted { color:var(--arbol-color-text-muted); font-style:italic; }
+.slack-message-actions { position:absolute; z-index:1; top:-5px; right:0; display:flex; gap:5px; opacity:0; pointer-events:none; transition:opacity .1s ease; }
+.slack-message-actions button { padding:4px 7px; border:1px solid var(--arbol-color-border); border-radius:var(--arbol-radius-s); background:var(--arbol-color-surface-2); color:var(--arbol-color-text-muted); font:600 10px/1.2 var(--arbol-font-ui); cursor:pointer; }
+.slack-message:hover > .slack-message-body > .slack-message-actions, .slack-thread-reply:hover > .slack-message-body > .slack-message-actions, .slack-message-actions:focus-within { opacity:1; pointer-events:auto; }
+.slack-message-actions button:hover, .slack-message-actions button:focus-visible { color:var(--arbol-color-text); border-color:var(--arbol-color-text-muted); }
+.slack-message-actions .slack-to-spotlight.active { color:var(--arbol-color-accent); border-color:var(--arbol-color-accent); }
+.slack-message-actions button:disabled { cursor:default; opacity:.75; }
+.slack-message-actions .slack-to-graft { color:var(--arbol-color-accent); }
+.slack-message-actions .slack-to-graft:hover, .slack-message-actions .slack-to-graft:focus-visible { border-color:var(--arbol-color-accent); }
+.slack-copy-link.copied { color:var(--arbol-color-accent); }
+.slack-message.has-thread { padding-bottom:10px; }
+.slack-message-thread-content { grid-column:2; min-width:0; }
+.slack-message.source-highlight, .slack-thread-reply.source-highlight {
+  border-radius:var(--arbol-radius-m);
+  background:color-mix(in oklch, var(--arbol-color-warn) 24%, var(--arbol-color-surface));
+  box-shadow:inset 3px 0 color-mix(in oklch, var(--arbol-color-warn) 78%, var(--arbol-color-accent));
+  scroll-margin-block:var(--arbol-space-6);
+}
+.slack-message.source-highlight-breathing, .slack-thread-reply.source-highlight-breathing {
+  animation:slack-source-highlight-breathe 1s ease-in-out 3;
+}
+@keyframes slack-source-highlight-breathe {
+  0%,100% {
+    background:color-mix(in oklch, var(--arbol-color-warn) 24%, var(--arbol-color-surface));
+    box-shadow:inset 3px 0 color-mix(in oklch, var(--arbol-color-warn) 78%, var(--arbol-color-accent));
+  }
+  50% {
+    background:color-mix(in oklch, var(--arbol-color-warn) 43%, var(--arbol-color-surface));
+    box-shadow:
+      inset 3px 0 var(--arbol-color-warn),
+      0 0 0 3px color-mix(in oklch, var(--arbol-color-warn) 22%, transparent),
+      0 0 22px color-mix(in oklch, var(--arbol-color-warn) 28%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slack-message.source-highlight-breathing, .slack-thread-reply.source-highlight-breathing { animation:none; }
+}
+.slack-thread-toggle { display:inline-flex; align-items:center; gap:5px; margin-top:6px; padding:3px 7px 3px 4px; border:0; border-radius:var(--arbol-radius-s); background:transparent; color:var(--arbol-color-accent); font:600 var(--arbol-type-label)/1.2 var(--arbol-font-ui); cursor:pointer; }
+.slack-thread-toggle:hover { background:var(--arbol-color-accent-soft); }
+.slack-thread-chevron { display:inline-block; font-size:17px; line-height:10px; transform:rotate(0deg); transition:transform .12s ease; }
+.slack-thread-chevron.expanded { transform:rotate(90deg); }
+.slack-thread { margin-top:7px; padding:2px 0 2px 13px; border-left:2px solid var(--arbol-color-border); }
+.slack-thread-reply { display:grid; grid-template-columns:27px minmax(0,1fr); gap:8px; padding:7px 0 7px 9px; }
+.slack-avatar.small { width:25px; height:25px; border-radius:6px; font-size:11px; }
+.slack-thread-loading { padding:8px 10px; color:var(--arbol-color-text-muted); font-size:11px; }
+
+/* ── Extra-small compact widget ──────────────────────────────────────────
+ * This is a density inside Keep-on-Top mode, not a separate station page.
+ * Pagination/search state remains mounted in App state while their controls are
+ * omitted. Cards intentionally expose only title, activity, status, and repo. */
+.willo-compact-density-toggle {
+  -webkit-app-region: no-drag;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  margin-right: 6px;
+  padding: 0 7px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: var(--arbol-radius-s);
+  background: var(--arbol-color-surface-2);
+  color: var(--arbol-color-text-muted);
+  font: 650 10px/1 var(--arbol-font-ui);
+  cursor: pointer;
+}
+.willo-compact-density-toggle:hover,
+.willo-compact-density-toggle.is-on {
+  border-color: color-mix(in srgb, var(--arbol-color-accent) 48%, var(--arbol-color-border));
+  color: var(--arbol-color-accent);
+}
+.willo-density-switch {
+  position: relative;
+  width: 22px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--arbol-color-border);
+}
+.willo-density-switch > span {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--arbol-color-text-muted);
+  transition: transform .12s ease, background .12s ease;
+}
+.willo-compact-density-toggle.is-on .willo-density-switch {
+  background: var(--arbol-color-accent-soft);
+}
+.willo-compact-density-toggle.is-on .willo-density-switch > span {
+  background: var(--arbol-color-accent);
+  transform: translateX(10px);
+}
+
+.willo-compact-shell.is-minimal {
+  grid-template-rows: 32px minmax(0, 1fr);
+}
+.willo-compact-shell.is-minimal .willo-compact-header {
+  padding: 0 4px;
+}
+.willo-compact-shell.is-minimal .willo-compact-header .arbol-button {
+  height: 25px;
+  padding-inline: 7px;
+  font-size: 10px;
+}
+.willo-compact-shell.is-minimal .willo-responding-indicator {
+  width: 7px;
+  height: 7px;
+  margin-left: 4px;
+  box-shadow: 0 0 0 2px rgba(255, 59, 48, .14);
+  opacity: 1;
+  transform: none;
+}
+.willo-compact-shell.is-minimal .willo-compact-stations {
+  padding: 4px;
+}
+.willo-compact-shell.is-minimal .willo-compact-list {
+  gap: 4px;
+}
+.willo-compact-shell.is-minimal .willo-empty,
+.willo-compact-shell.is-minimal .willo-title-error {
+  padding: 8px;
+  border-radius: var(--arbol-radius-s);
+  font-size: 10px;
+}
+.willo-compact-card[data-minimal='1'] {
+  gap: 3px;
+  margin-top: 0 !important;
+  padding: 6px 7px;
+  border-radius: var(--arbol-radius-s);
+  border-left-width: 3px;
+  box-shadow: none !important;
+  background: var(--arbol-color-surface) !important;
+}
+.willo-minimal-main,
+.willo-minimal-meta {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 7px;
+}
+.willo-compact-card[data-minimal='1'] .willo-compact-title {
+  font: 700 11px/1.2 var(--arbol-font-ui);
+}
+.willo-compact-card[data-minimal='1'] .willo-compact-activity {
+  color: var(--arbol-color-text-muted);
+  font: 600 9px/1 var(--arbol-font-mono);
+  white-space: nowrap;
+}
+.willo-compact-card[data-minimal='1'] .willo-compact-status {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--arbol-color-text-muted);
+  font: 750 9px/1.15 var(--arbol-font-mono);
+  text-transform: uppercase;
+}
+.willo-minimal-repo {
+  min-width: 0;
+  max-width: 112px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--arbol-color-text-muted);
+  font: 550 9px/1.15 var(--arbol-font-mono);
+}
+/* Retain the existing state palette without retaining its movement. */
+.willo-compact-card[data-minimal='1'][data-running='1'] .willo-compact-status {
+  color: var(--session-color, var(--arbol-color-accent));
+}
+.willo-compact-card[data-minimal='1'][data-unread='1']:not([data-running='1']):not([data-draft='1']) .willo-compact-status {
+  color: #ef4444;
+}
+.willo-compact-card[data-minimal='1'][data-draft='1']:not([data-running='1']) .willo-compact-status {
+  color: color-mix(in oklch, #d28a00 82%, var(--arbol-color-text));
+}
+/* Error is deliberately amber: red is reserved for unread agent replies. */
+.willo-compact-card[data-minimal='1'][data-error='1']:not([data-unread='1']):not([data-running='1']) {
+  border-left-color: #d97706 !important;
+}
+.willo-compact-card[data-minimal='1'][data-error='1']:not([data-unread='1']):not([data-running='1']) .willo-compact-status {
+  color: #d97706;
+}
+/* The widget is deliberately motionless, including the global force-visible
+ * running rules and the responding indicator. Status survives as static color. */
+.willo-compact-shell.is-minimal *,
+.willo-compact-shell.is-minimal *::before,
+.willo-compact-shell.is-minimal *::after {
+  animation: none !important;
+  transition: none !important;
+}
+.willo-compact-shell.is-minimal .willo-compact-card::before,
+.willo-compact-shell.is-minimal .willo-compact-card::after,
+.willo-compact-shell.is-minimal .willo-compact-status::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* ── Rolling generation speed + stale running sessions ────────────────── */
+.willo-agent-inactivity { color:var(--arbol-color-text-muted); font:600 var(--arbol-type-label)/1.2 var(--arbol-font-mono); }
+.willo-generation-speeds {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--arbol-color-text-muted);
+  font: 650 10px/1.2 var(--arbol-font-mono);
+  white-space: nowrap;
+}
+.willo-generation-speeds b {
+  color: var(--session-color, var(--arbol-color-accent));
+  font-size: 11px;
+}
+.willo-generation-speeds em {
+  margin-left: auto;
+  padding: 2px 5px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: 99px;
+  color: var(--arbol-color-text-muted);
+  font: 750 8px/1 var(--arbol-font-mono);
+  font-style: normal;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+}
+.willo-minimal-speed {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--session-color, var(--arbol-color-accent));
+  font: 650 9px/1.15 var(--arbol-font-mono);
+}
+
+/* A running card with no generated characters in either rolling window is
+ * still clickable and visibly classified, but all running motion stops. These
+ * selectors intentionally come last and use !important to beat the historical
+ * force-visible running rules above. */
+.willo-compact-card[data-stale='1'] {
+  border-color: color-mix(in oklch, var(--arbol-color-text-muted) 65%, var(--arbol-color-hairline));
+  background: color-mix(in oklch, var(--arbol-color-text-muted) 5%, var(--arbol-color-surface));
+  box-shadow: var(--arbol-shadow-card) !important;
+  filter: saturate(.72);
+  animation: none !important;
+}
+.willo-compact-card[data-stale='1']::before,
+.willo-compact-card[data-stale='1']::after,
+.willo-compact-card[data-stale='1'] .willo-compact-status::before {
+  content: none !important;
+  display: none !important;
+  animation: none !important;
+}
+.willo-compact-card[data-stale='1'] .willo-compact-status,
+.willo-compact-card[data-stale='1'] .willo-compact-color,
+.willo-compact-card[data-stale='1'] .willo-live-tail {
+  color: var(--arbol-color-text-muted);
+  animation: none !important;
+}
+.willo-compact-card[data-stale='1'] .willo-generation-speeds b,
+.willo-compact-card[data-stale='1'] .willo-minimal-speed {
+  color: var(--arbol-color-text-muted);
+}
+
+/* ── Emails page (isolated web-mail synchronization) ────────────────── */
+.mail-page {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(340px, 410px) minmax(0, 1fr);
+  margin: calc(-1 * var(--arbol-space-5));
+  overflow: hidden;
+  background: var(--arbol-color-bg);
+}
+.mail-list-pane,
+.mail-detail-pane {
+  min-width: 0;
+  min-height: 0;
+}
+.mail-list-pane {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--arbol-color-border);
+  background: color-mix(in oklch, var(--arbol-color-surface) 48%, var(--arbol-color-bg));
+}
+.mail-toolbar {
+  flex: 0 0 auto;
+  display: grid;
+  gap: var(--arbol-space-3);
+  padding: var(--arbol-space-4);
+  border-bottom: 1px solid var(--arbol-color-border);
+  background: var(--arbol-color-bg);
+}
+.mail-toolbar-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--arbol-space-3);
+}
+.mail-toolbar h1 {
+  margin: 0;
+  font: 650 18px/1.2 var(--arbol-font-ui);
+  color: var(--arbol-color-text);
+}
+.mail-toolbar p {
+  margin: 3px 0 0;
+  color: var(--arbol-color-text-muted);
+  font: 500 11px/1.25 var(--arbol-font-ui);
+}
+.mail-refresh,
+.mail-login,
+.mail-open-button {
+  border: 1px solid var(--arbol-color-border);
+  border-radius: var(--arbol-radius-m);
+  background: var(--arbol-color-surface-2);
+  color: var(--arbol-color-text-muted);
+  padding: 6px 9px;
+  cursor: pointer;
+  font: 600 11px/1 var(--arbol-font-ui);
+}
+.mail-refresh,
+.mail-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.mail-refresh:hover:not(:disabled),
+.mail-login:hover:not(:disabled),
+.mail-open-button:hover {
+  border-color: color-mix(in oklch, var(--arbol-color-accent) 52%, var(--arbol-color-border));
+  color: var(--arbol-color-accent);
+}
+.mail-refresh:disabled, .mail-login:disabled { opacity: .55; cursor: default; }
+.mail-refresh .spinning { animation: mail-spin .8s linear infinite; }
+@keyframes mail-spin { to { transform: rotate(360deg); } }
+.mail-account-tabs {
+  display: flex;
+  gap: 4px;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.mail-account-tabs::-webkit-scrollbar { display: none; }
+.mail-account-tabs button {
+  flex: 0 0 auto;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: 99px;
+  background: transparent;
+  color: var(--arbol-color-text-muted);
+  padding: 5px 9px;
+  cursor: pointer;
+  font: 600 10px/1 var(--arbol-font-ui);
+}
+.mail-account-tabs button:hover { color: var(--arbol-color-text); background: var(--arbol-color-surface); }
+.mail-account-tabs button.active {
+  color: var(--arbol-color-accent);
+  border-color: color-mix(in oklch, var(--arbol-color-accent) 34%, var(--arbol-color-border));
+  background: var(--arbol-color-accent-soft);
+}
+.mail-search {
+  height: 31px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 9px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: var(--arbol-radius-m);
+  background: var(--arbol-color-surface);
+  color: var(--arbol-color-text-muted);
+}
+.mail-search:focus-within {
+  border-color: var(--arbol-color-accent);
+  box-shadow: 0 0 0 2px var(--arbol-color-accent-soft);
+}
+.mail-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--arbol-color-text);
+  font: 500 12px/1 var(--arbol-font-ui);
+}
+.mail-search button {
+  border: 0;
+  background: transparent;
+  color: var(--arbol-color-text-muted);
+  cursor: pointer;
+  font-size: 16px;
+}
+.mail-list-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--arbol-color-text-muted);
+  font: 500 9px/1 var(--arbol-font-mono);
+}
+.mail-list-meta time { margin-left: auto; }
+.mail-sync-progress {
+  flex: 0 0 auto;
+  display: grid;
+  gap: 6px;
+  margin: 8px 10px 0;
+  padding: 10px 11px;
+  border: 1px solid color-mix(in oklch, var(--arbol-color-accent) 38%, var(--arbol-color-border));
+  border-radius: var(--arbol-radius-m);
+  background: color-mix(in oklch, var(--arbol-color-accent) 8%, var(--arbol-color-surface));
+  overflow: hidden;
+}
+.mail-sync-progress-head { display: flex; align-items: center; gap: 7px; min-width: 0; }
+.mail-sync-progress-head .mail-spinner { width: 12px; height: 12px; border-width: 1.5px; }
+.mail-sync-progress-head b { color: var(--arbol-color-text); font: 650 11px/1.2 var(--arbol-font-ui); }
+.mail-sync-progress-head > span:last-child:not(.mail-spinner) { margin-left: auto; color: var(--arbol-color-text-muted); font: 550 9px/1 var(--arbol-font-mono); }
+.mail-sync-progress-title,
+.mail-sync-progress-sender { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mail-sync-progress-title { color: var(--arbol-color-text); font: 600 11px/1.3 var(--arbol-font-ui); }
+.mail-sync-progress-sender { color: var(--arbol-color-text-muted); font: 500 9px/1.2 var(--arbol-font-ui); }
+.mail-sync-progress progress { width: 100%; height: 3px; border: 0; border-radius: 99px; overflow: hidden; accent-color: var(--arbol-color-accent); }
+.mail-sync-progress progress::-webkit-progress-bar { background: var(--arbol-color-border); }
+.mail-sync-progress progress::-webkit-progress-value { background: var(--arbol-color-accent); }
+.mail-banner {
+  flex: 0 0 auto;
+  margin: 8px 10px 0;
+  padding: 8px 10px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: var(--arbol-radius-m);
+  white-space: pre-wrap;
+  font: 500 11px/1.4 var(--arbol-font-ui);
+}
+.mail-banner.error { color: var(--arbol-color-err); background: color-mix(in oklch, var(--arbol-color-err) 9%, transparent); }
+.mail-banner.warning { color: var(--arbol-color-warn, #d69a35); background: color-mix(in oklch, var(--arbol-color-warn, #d69a35) 9%, transparent); }
+.mail-message-list {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+}
+.mail-row {
+  position: relative;
+  display: flex;
+  border-bottom: 1px solid var(--arbol-color-hairline);
+  background: transparent;
+  transition: background .1s ease;
+}
+.mail-row:hover { background: var(--arbol-color-surface); }
+.mail-row.selected {
+  background: var(--arbol-color-accent-soft);
+  box-shadow: inset 2px 0 0 var(--arbol-color-accent);
+}
+.mail-row-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: 10px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 10px 8px 10px 12px;
+  cursor: pointer;
+  text-align: left;
+}
+.mail-avatar {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  margin-top: 1px;
+  border: 1px solid color-mix(in oklch, var(--arbol-color-accent) 22%, var(--arbol-color-border));
+  border-radius: 50%;
+  background: color-mix(in oklch, var(--arbol-color-accent) 12%, var(--arbol-color-surface));
+  color: var(--arbol-color-accent);
+  font: 700 11px/1 var(--arbol-font-ui);
+}
+.mail-avatar.large { width: 36px; height: 36px; font-size: 13px; }
+.mail-row-copy { flex: 1; min-width: 0; display: grid; gap: 3px; }
+.mail-row-head { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.mail-row-head b {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--arbol-color-text-muted);
+  font: 600 12px/1.2 var(--arbol-font-ui);
+}
+.mail-row.unread .mail-row-head b { color: var(--arbol-color-text); font-weight: 750; }
+.mail-row-head time { color: var(--arbol-color-text-muted); font: 500 9px/1 var(--arbol-font-mono); }
+.mail-row-subject,
+.mail-row-preview {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mail-row-subject { color: var(--arbol-color-text); font: 550 12px/1.25 var(--arbol-font-ui); }
+.mail-row.unread .mail-row-subject { font-weight: 700; }
+.mail-row-preview { color: var(--arbol-color-text-muted); font: 500 10px/1.25 var(--arbol-font-ui); }
+.mail-row-badges { display: flex; gap: 4px; min-height: 14px; }
+.mail-row-badges span,
+.mail-attachments span {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: 99px;
+  background: var(--arbol-color-surface-2);
+  color: var(--arbol-color-text-muted);
+  padding: 2px 6px;
+  font: 550 8px/1 var(--arbol-font-ui);
+}
+.mail-row-badges span.mail-thread-count {
+  border-color: color-mix(in oklch, var(--arbol-color-accent) 36%, var(--arbol-color-border));
+  background: var(--arbol-color-accent-soft);
+  color: var(--arbol-color-accent);
+  font-weight: 700;
+}
+.mail-row-badges span.mail-content-warning {
+  border-color: color-mix(in oklch, var(--arbol-color-warn, #d69a35) 55%, var(--arbol-color-border));
+  background: color-mix(in oklch, var(--arbol-color-warn, #d69a35) 14%, var(--arbol-color-surface-2));
+  color: var(--arbol-color-warn, #d69a35);
+  font-weight: 700;
+}
+.mail-row:has(.mail-content-warning) {
+  box-shadow: inset 2px 0 0 color-mix(in oklch, var(--arbol-color-warn, #d69a35) 72%, transparent);
+}
+.mail-row.selected:has(.mail-content-warning) {
+  box-shadow: inset 2px 0 0 var(--arbol-color-warn, #d69a35);
+}
+.mail-detail-content-warning {
+  padding: 8px 10px;
+  border: 1px solid color-mix(in oklch, var(--arbol-color-warn, #d69a35) 50%, var(--arbol-color-border));
+  border-radius: var(--arbol-radius-m);
+  background: color-mix(in oklch, var(--arbol-color-warn, #d69a35) 10%, transparent);
+  color: var(--arbol-color-warn, #d69a35);
+  font: 650 10px/1.35 var(--arbol-font-ui);
+}
+.mail-row-actions {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 9px 7px 0 0;
+}
+.mail-row-actions button {
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: var(--arbol-radius-s);
+  background: transparent;
+  color: var(--arbol-color-text-muted);
+  cursor: pointer;
+  opacity: .15;
+  font-size: 11px;
+}
+.mail-row:hover .mail-row-actions button,
+.mail-row-actions button.active { opacity: 1; }
+.mail-row-actions button:hover,
+.mail-row-actions button.active { color: var(--arbol-color-accent); background: var(--arbol-color-accent-soft); }
+.mail-empty,
+.mail-detail-empty {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: var(--arbol-space-6);
+  color: var(--arbol-color-text-muted);
+  text-align: center;
+}
+.mail-empty b,
+.mail-detail-empty b { color: var(--arbol-color-text); font: 650 13px/1.2 var(--arbol-font-ui); }
+.mail-empty p,
+.mail-detail-empty p { max-width: 300px; margin: 0; font: 500 11px/1.4 var(--arbol-font-ui); }
+.mail-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--arbol-color-border);
+  border-top-color: var(--arbol-color-accent);
+  border-radius: 50%;
+  animation: mail-spin .75s linear infinite;
+}
+.mail-detail-pane {
+  display: flex;
+  flex-direction: column;
+  background: var(--arbol-color-bg);
+}
+.mail-detail-head {
+  flex: 0 0 auto;
+  display: grid;
+  gap: var(--arbol-space-3);
+  padding: var(--arbol-space-5) var(--arbol-space-6) var(--arbol-space-4);
+  border-bottom: 1px solid var(--arbol-color-border);
+}
+.mail-detail-title-row { display: flex; align-items: flex-start; gap: var(--arbol-space-4); }
+.mail-detail-title-row h2 {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  color: var(--arbol-color-text);
+  font: 650 20px/1.3 var(--arbol-font-ui);
+  overflow-wrap: anywhere;
+}
+.mail-open-button { flex: 0 0 auto; color: var(--arbol-color-accent); background: var(--arbol-color-accent-soft); }
+.mail-sender-line { display: flex; align-items: center; gap: 10px; }
+.mail-sender-line > div { min-width: 0; display: grid; gap: 2px; }
+.mail-sender-line b { color: var(--arbol-color-text); font: 650 12px/1.2 var(--arbol-font-ui); }
+.mail-sender-line span { color: var(--arbol-color-text-muted); font: 500 10px/1.2 var(--arbol-font-mono); }
+.mail-sender-line time { margin-left: auto; color: var(--arbol-color-text-muted); font: 500 10px/1 var(--arbol-font-mono); }
+.mail-addresses { display: grid; gap: 4px; margin: 0; }
+.mail-addresses div { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 8px; }
+.mail-addresses dt { color: var(--arbol-color-text-muted); font: 600 9px/1.3 var(--arbol-font-ui); text-transform: uppercase; letter-spacing: .5px; }
+.mail-addresses dd { margin: 0; color: var(--arbol-color-text-muted); font: 500 10px/1.35 var(--arbol-font-mono); overflow-wrap: anywhere; }
+.mail-attachments { display: flex; flex-wrap: wrap; gap: 5px; }
+.mail-attachments span { max-width: 260px; padding: 4px 8px; font-size: 9px; }
+.mail-body {
+  min-height: 0;
+  flex: 1;
+  overflow: auto;
+  padding: var(--arbol-space-6);
+}
+.mail-body pre {
+  max-width: 880px;
+  margin: 0 auto;
+  color: var(--arbol-color-text);
+  font: 400 13px/1.62 var(--arbol-font-ui);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.mail-truncated {
+  max-width: 880px;
+  margin: var(--arbol-space-5) auto 0;
+  padding: 9px 12px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: var(--arbol-radius-m);
+  color: var(--arbol-color-text-muted);
+  font: 500 11px/1.35 var(--arbol-font-ui);
+}
+.mail-detail-empty { flex: 1; }
+.mail-envelope {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 4px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: 18px;
+  background: var(--arbol-color-surface);
+  color: var(--arbol-color-accent);
+  font-size: 24px;
+}
+@media (max-width: 860px) {
+  .mail-page { grid-template-columns: minmax(300px, 44%) minmax(0, 1fr); }
+  .mail-detail-head, .mail-body { padding-left: var(--arbol-space-4); padding-right: var(--arbol-space-4); }
+}
+
+.mail-toolbar-actions { display:flex; align-items:center; gap:6px; }
+.mail-login { border-color:color-mix(in oklch,var(--arbol-color-accent) 50%,var(--arbol-color-border)); background:var(--arbol-color-accent-soft); color:var(--arbol-color-accent); }
+.mail-login.large { padding:9px 14px; font-size:12px; }
+.mail-session-line { display:flex; align-items:center; gap:6px; color:var(--arbol-color-text-muted); font:550 10px/1 var(--arbol-font-ui); }
+.mail-session-line button { margin-left:auto; border:0; background:transparent; color:var(--arbol-color-text-muted); font:550 10px/1 var(--arbol-font-ui); cursor:pointer; }
+.mail-session-line button:hover { color:var(--arbol-color-text); }
+.mail-session-dot { width:7px; height:7px; border-radius:50%; background:var(--arbol-color-ok); box-shadow:0 0 0 2px color-mix(in oklch,var(--arbol-color-ok) 18%,transparent); }
+.mail-session-dot.disconnected { background:var(--arbol-color-text-muted); box-shadow:0 0 0 2px color-mix(in oklch,var(--arbol-color-text-muted) 18%,transparent); }
+.mail-login-empty .mail-envelope { margin-bottom:5px; }
+@media (max-width: 720px) { .mail-toolbar-top { flex-direction:column; } .mail-toolbar-actions { width:100%; } .mail-toolbar-actions button { flex:1; justify-content:center; } }
+
+/* ── Email automation controls ───────────────────────────────────────── */
+.mail-context-menu,
+.mail-automation-menu {
+  position: fixed;
+  z-index: 1100;
+  min-width: 190px;
+  padding: 5px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: var(--arbol-radius-m);
+  background: var(--arbol-color-surface);
+  box-shadow: var(--arbol-shadow-pop);
+}
+.mail-context-menu button,
+.mail-automation-menu button {
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: var(--arbol-radius-s);
+  background: transparent;
+  color: var(--arbol-color-text);
+  cursor: pointer;
+  text-align: left;
+  font: 600 var(--arbol-type-label)/1.2 var(--arbol-font-ui);
+}
+.mail-context-menu button:hover,
+.mail-context-menu button:focus-visible,
+.mail-automation-menu button:hover,
+.mail-automation-menu button:focus-visible {
+  outline: 0;
+  background: var(--arbol-color-surface-2);
+  color: var(--arbol-color-accent);
+}
+.mail-context-separator {
+  display: block;
+  height: 1px;
+  margin: 4px 5px;
+  background: var(--arbol-color-border);
+}
+.mail-automation-control { position: relative; }
+.mail-automation-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  z-index: 900;
+}
+.mail-banner button {
+  float: right;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 15px;
+}
+.mail-ignore-string { display: grid; gap: var(--arbol-space-2); }
+.mail-ignore-string label { color: var(--arbol-color-text); font: 650 var(--arbol-type-body)/1.3 var(--arbol-font-ui); }
+.mail-ignore-string textarea { box-sizing: border-box; width: 100%; min-height: 220px; max-height: 55vh; resize: vertical; border: 1px solid var(--arbol-color-border); border-radius: var(--arbol-radius-s); background: var(--arbol-color-surface); color: var(--arbol-color-text); padding: 10px; font: 500 var(--arbol-type-body)/1.45 var(--arbol-font-mono); }
+.mail-ignore-string textarea:focus { border-color: var(--arbol-color-accent); outline: 2px solid var(--arbol-color-accent-soft); }
+.mail-ignore-string p { margin: 0; color: var(--arbol-color-text-muted); font: 500 var(--arbol-type-label)/1.5 var(--arbol-font-ui); }
+.mail-ignore-confirm { display: grid; gap: var(--arbol-space-3); }
+.mail-ignore-confirm p { margin: 0; color: var(--arbol-color-text); font: 500 var(--arbol-type-body)/1.5 var(--arbol-font-ui); }
+.mail-ignore-confirm code { color: var(--arbol-color-accent); font-family: var(--arbol-font-mono); overflow-wrap: anywhere; }
+.mail-ignore-value {
+  box-sizing: border-box;
+  max-width: 100%;
+  max-height: min(240px, 32vh);
+  margin: 0;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  padding: 10px 12px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: var(--arbol-radius-s);
+  background: var(--arbol-color-bg);
+  color: var(--arbol-color-accent);
+  font: 500 var(--arbol-type-body)/1.45 var(--arbol-font-mono);
+}
+.mail-ignore-confirm .warning,
+.mail-ignored-note {
+  padding: 10px 12px;
+  border: 1px solid color-mix(in oklch, var(--arbol-color-warn, #d69a35) 38%, var(--arbol-color-border));
+  border-radius: var(--arbol-radius-m);
+  background: color-mix(in oklch, var(--arbol-color-warn, #d69a35) 8%, transparent);
+  color: var(--arbol-color-text-muted);
+}
+.mail-ignored-list { display: grid; gap: var(--arbol-space-3); }
+.mail-ignored-list > p { margin: 0; color: var(--arbol-color-text-muted); font: 500 var(--arbol-type-body)/1.5 var(--arbol-font-ui); }
+.mail-ignored-row {
+  display: flex;
+  align-items: center;
+  gap: var(--arbol-space-4);
+  padding: 10px 12px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: var(--arbol-radius-m);
+  background: var(--arbol-color-surface-2);
+}
+.mail-ignored-row > div { min-width: 0; flex: 1; display: grid; gap: 3px; }
+.mail-ignored-row b { overflow-wrap: anywhere; color: var(--arbol-color-text); font: 650 var(--arbol-type-body)/1.25 var(--arbol-font-mono); }
+.mail-ignored-row span { color: var(--arbol-color-text-muted); font: 500 var(--arbol-type-label)/1.25 var(--arbol-font-ui); text-transform: capitalize; }
+.mail-signal-placeholder { display: grid; place-items: center; gap: 8px; min-height: 150px; text-align: center; }
+.mail-signal-placeholder b { color: var(--arbol-color-text); font: 650 var(--arbol-type-title)/1.3 var(--arbol-font-ui); }
+.mail-signal-placeholder p { max-width: 440px; margin: 0; color: var(--arbol-color-text-muted); font: 500 var(--arbol-type-body)/1.5 var(--arbol-font-ui); }
+.mail-rule-editor { display:grid; gap:var(--arbol-space-4); }
+.mail-rule-editor section { display:grid; gap:8px; padding:12px; border:1px solid var(--arbol-color-border); border-radius:var(--arbol-radius-m); background:var(--arbol-color-surface-2); }
+.mail-rule-editor h3,.mail-rule-editor p { margin:0; }
+.mail-rule-editor h3 { color:var(--arbol-color-text); font:650 var(--arbol-type-body)/1.2 var(--arbol-font-ui); }
+.mail-rule-editor p,.mail-rule-editor label { color:var(--arbol-color-text-muted); font:500 var(--arbol-type-label)/1.45 var(--arbol-font-ui); }
+.mail-rule-editor label { display:grid; gap:5px; }
+.mail-rule-editor input,.mail-rule-editor select { box-sizing:border-box;width:100%;height:34px;border:1px solid var(--arbol-color-border);border-radius:var(--arbol-radius-s);background:var(--arbol-color-surface);color:var(--arbol-color-text);padding:0 9px; }
+.mail-rule-editor pre { max-height:220px;overflow:auto;margin:0;padding:9px;border-radius:var(--arbol-radius-s);background:var(--arbol-color-bg);color:var(--arbol-color-text);font:500 10px/1.5 var(--arbol-font-mono);white-space:pre-wrap; }
+.mail-rule-editor .warning {
+  margin: var(--arbol-space-2) 0 0;
+  color: var(--arbol-color-text-muted);
+  font: 500 var(--arbol-type-label)/1.45 var(--arbol-font-ui);
+}
+
+/* Full Gmail acquisition and normalized per-message conversation display. */
+.mail-detail-actions { margin-left:auto; display:flex; flex:0 0 auto; gap:6px; }
+.mail-acquire-button {
+  border-color:color-mix(in oklch,var(--arbol-color-ok) 55%,var(--arbol-color-border));
+  background:color-mix(in oklch,var(--arbol-color-ok) 13%,var(--arbol-color-surface));
+  color:var(--arbol-color-ok);
+}
+.mail-acquire-button:disabled { opacity:.6; cursor:wait; }
+.mail-acquisition-notice {
+  padding:8px 10px; border:1px solid var(--arbol-color-border); border-radius:var(--arbol-radius-s);
+  background:var(--arbol-color-surface-2); color:var(--arbol-color-text-muted);
+  font:550 10px/1.4 var(--arbol-font-ui);
+}
+.mail-list-thread { border-bottom: 1px solid var(--arbol-color-hairline); }
+.mail-list-thread .mail-row { border-bottom: 0; }
+.mail-row-thread-toggle {
+  align-self: stretch;
+  flex: 0 0 25px;
+  display: grid;
+  place-items: center;
+  padding: 0 0 0 5px;
+  border: 0;
+  background: transparent;
+  color: var(--arbol-color-text-muted);
+  cursor: pointer;
+}
+.mail-row-thread-toggle span {
+  font: 500 20px/1 var(--arbol-font-ui);
+  transition: transform 120ms ease;
+}
+.mail-list-thread.expanded .mail-row-thread-toggle span { transform: rotate(90deg); }
+.mail-row-thread-toggle:hover { color: var(--arbol-color-accent); }
+.mail-row-thread-toggle:focus-visible { outline: 2px solid var(--arbol-color-accent); outline-offset: -2px; }
+.mail-row-thread-toggle + .mail-row-main { padding-left: 3px; }
+.mail-list-thread-items {
+  display: grid;
+  background: var(--arbol-color-surface-2);
+  border-top: 1px solid var(--arbol-color-hairline);
+}
+.mail-list-thread-item {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 31px 8px 34px;
+  border: 0;
+  border-bottom: 1px solid var(--arbol-color-hairline);
+  background: transparent;
+  color: var(--arbol-color-text);
+  cursor: pointer;
+  text-align: left;
+}
+.mail-list-thread-item:last-child { border-bottom: 0; }
+.mail-list-thread-item:hover { background: var(--arbol-color-surface); }
+.mail-list-thread-item.selected {
+  background: var(--arbol-color-accent-soft);
+  box-shadow: inset 2px 0 0 var(--arbol-color-accent);
+}
+.mail-list-thread-item:focus-visible {
+  outline: 2px solid var(--arbol-color-accent);
+  outline-offset: -2px;
+}
+.mail-list-thread-item .mail-avatar { width: 24px; height: 24px; font-size: 9px; }
+.mail-list-thread-copy { min-width: 0; flex: 1; display: grid; gap: 3px; }
+.mail-list-thread-copy > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mail-list-thread-copy > span:first-child { display: flex; align-items: baseline; gap: 7px; }
+.mail-list-thread-copy b { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; font: 650 10px/1.2 var(--arbol-font-ui); }
+.mail-list-thread-copy time { flex: 0 0 auto; color: var(--arbol-color-text-muted); font: 500 8px/1 var(--arbol-font-mono); }
+.mail-list-thread-copy > span:last-child { color: var(--arbol-color-text-muted); font: 500 9px/1.25 var(--arbol-font-ui); }
+.mail-list-thread-loading { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 12px; color: var(--arbol-color-text-muted); font: 550 9px/1 var(--arbol-font-ui); }
+.mail-list-thread-loading .mail-spinner { width: 12px; height: 12px; border-width: 1.5px; }
+.mail-thread-messages {
+  max-width: 880px;
+  margin: 0 auto;
+  display: grid;
+  gap: 8px;
+}
+.mail-acquired-message {
+  display:grid; gap:9px; padding:12px; border:1px solid var(--arbol-color-border);
+  border-radius:var(--arbol-radius-m); background:var(--arbol-color-surface);
+  scroll-margin-block: var(--arbol-space-6);
+  transition: border-color 140ms ease, background 140ms ease, box-shadow 140ms ease;
+}
+.mail-acquired-message.selected {
+  border-color: color-mix(in oklch, var(--arbol-color-accent) 72%, var(--arbol-color-border));
+  background: color-mix(in oklch, var(--arbol-color-accent) 9%, var(--arbol-color-surface));
+  box-shadow: 0 0 0 2px var(--arbol-color-accent-soft), inset 3px 0 0 var(--arbol-color-accent);
+}
+.mail-acquired-message header { display:flex; align-items:start; gap:10px; }
+.mail-acquired-message header > div { min-width:0; display:grid; gap:2px; }
+.mail-acquired-message header b { color:var(--arbol-color-text); font:650 11px/1.2 var(--arbol-font-ui); }
+.mail-acquired-message header span,.mail-acquired-message header time { color:var(--arbol-color-text-muted); font:500 9px/1.25 var(--arbol-font-mono); }
+.mail-acquired-message header time { margin-left:auto; }
+.mail-source-state { justify-self:start; padding:3px 6px; border-radius:999px; background:var(--arbol-color-warn-soft); color:var(--arbol-color-warn); font:650 8px/1 var(--arbol-font-mono); text-transform:uppercase; }
+.mail-source-state.complete { background:var(--arbol-color-ok-soft); color:var(--arbol-color-ok); }
+
+/* Email Parser test result */
+.mail-parser-tester .mail-parser-match,
+.mail-parser-tester .mail-parser-no-match {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--arbol-space-3);
+  padding: var(--arbol-space-3);
+  border: 1px solid var(--arbol-color-border);
+  border-radius: var(--arbol-radius-md);
+}
+.mail-parser-tester .mail-parser-match {
+  border-color: color-mix(in oklch, var(--arbol-color-ok, #36b37e) 52%, var(--arbol-color-border));
+  background: color-mix(in oklch, var(--arbol-color-ok, #36b37e) 9%, transparent);
+}
+.mail-parser-tester .mail-parser-no-match {
+  background: color-mix(in oklch, var(--arbol-color-text-muted) 8%, transparent);
+}
+.mail-parser-tester .mail-parser-match span,
+.mail-parser-tester .mail-parser-no-match span {
+  color: var(--arbol-color-text-muted);
+  font-size: var(--arbol-font-size-sm);
+}
+
+.mail-parser-tester .mail-parser-raw {
+  display: grid;
+  gap: var(--arbol-space-2);
+}
+.mail-parser-tester .mail-parser-raw summary {
+  cursor: pointer;
+  color: var(--arbol-color-text);
+  font: 650 var(--arbol-type-label)/1.3 var(--arbol-font-ui);
+}
+.mail-parser-tester .mail-parser-raw pre {
+  max-height: 280px;
+}
+
+/* One-click email synchronization stays on the Willo page. The native Gmail
+ * surface remains attached offscreen while this compact progress treatment is
+ * the only visible feedback. */
+.mail-sync-all-button {
+  position: relative;
+  overflow: hidden;
+  color: var(--arbol-color-accent);
+  border-color: color-mix(in oklch, var(--arbol-color-accent) 45%, var(--arbol-color-border));
+}
+.mail-sync-all-button.running { min-width: 104px; }
+.mail-sync-all-button .mail-spinner { width: 11px; height: 11px; border-width: 1.5px; }
+.mail-toolbar-sync-progress {
+  display: grid;
+  gap: 5px;
+  padding: 7px 9px;
+  border-radius: var(--arbol-radius-m);
+  background: color-mix(in oklch, var(--arbol-color-accent) 9%, var(--arbol-color-surface));
+  border: 1px solid color-mix(in oklch, var(--arbol-color-accent) 35%, var(--arbol-color-border));
+}
+.mail-toolbar-sync-copy {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--arbol-color-text-muted);
+  font: 550 10px/1.2 var(--arbol-font-ui);
+}
+.mail-toolbar-sync-copy span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mail-toolbar-sync-copy b { flex: 0 0 auto; color: var(--arbol-color-accent); font: 600 9px/1 var(--arbol-font-mono); }
+.mail-toolbar-sync-progress progress {
+  width: 100%;
+  height: 4px;
+  border: 0;
+  border-radius: 99px;
+  overflow: hidden;
+  accent-color: var(--arbol-color-accent);
+}
+.mail-toolbar-sync-progress progress::-webkit-progress-bar { background: var(--arbol-color-border); }
+.mail-toolbar-sync-progress progress::-webkit-progress-value { background: var(--arbol-color-accent); }
+
+/* Email calendar grouping and archive pagination. Page one is intentionally a
+ * live today/yesterday view; subsequent pages are fixed 30-thread archives. */
+.mail-day-separator {
+  position: sticky;
+  z-index: 4;
+  top: 0;
+  min-height: 31px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 12px;
+  border-top: 1px solid color-mix(in oklch, var(--arbol-color-accent) 22%, var(--arbol-color-border));
+  border-bottom: 1px solid color-mix(in oklch, var(--arbol-color-accent) 28%, var(--arbol-color-border));
+  background: color-mix(in oklch, var(--arbol-color-accent) 8%, var(--arbol-color-bg));
+  color: var(--arbol-color-text);
+  box-shadow: 0 3px 10px color-mix(in oklch, var(--arbol-color-bg) 78%, transparent);
+  font: 750 10px/1 var(--arbol-font-ui);
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+.mail-day-separator:first-child { border-top: 0; }
+.mail-day-separator b {
+  min-width: 18px;
+  height: 18px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 99px;
+  background: var(--arbol-color-accent-soft);
+  color: var(--arbol-color-accent);
+  font: 700 8px/1 var(--arbol-font-mono);
+}
+.mail-pagination {
+  flex: 0 0 auto;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 27px minmax(0, auto) 27px minmax(0, 1fr);
+  align-items: center;
+  gap: 5px;
+  padding: 8px 10px;
+  border-top: 1px solid var(--arbol-color-border);
+  background: var(--arbol-color-bg);
+}
+.mail-pagination > button,
+.mail-pagination-pages button {
+  height: 27px;
+  min-width: 27px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0 6px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: var(--arbol-radius-s);
+  background: var(--arbol-color-surface-2);
+  color: var(--arbol-color-text-muted);
+  cursor: pointer;
+  font: 650 10px/1 var(--arbol-font-mono);
+}
+.mail-pagination > button { padding: 0; font-size: 17px; }
+.mail-pagination button:hover:not(:disabled) {
+  border-color: color-mix(in oklch, var(--arbol-color-accent) 52%, var(--arbol-color-border));
+  color: var(--arbol-color-accent);
+}
+.mail-pagination button.active {
+  border-color: color-mix(in oklch, var(--arbol-color-accent) 55%, var(--arbol-color-border));
+  background: var(--arbol-color-accent-soft);
+  color: var(--arbol-color-accent);
+}
+.mail-pagination button:disabled { opacity: .38; cursor: default; }
+.mail-pagination-pages {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.mail-pagination-pages::-webkit-scrollbar { display: none; }
+.mail-pagination-pages > span {
+  flex: 0 0 auto;
+  color: var(--arbol-color-text-muted);
+  font: 650 10px/1 var(--arbol-font-mono);
+}
+.mail-pagination-summary {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+  color: var(--arbol-color-text-muted);
+  font: 550 8px/1.2 var(--arbol-font-mono);
+}
+
+/* Email Sync All belongs to Station-level activity: it can be triggered by a
+ * newly-created Chat Session while the user is on any Willo page. Keep a small
+ * determinate/indeterminate rail in the shared status bar, then replace it with
+ * the durable Core completion timestamp when idle. */
+.willo-status-email-sync {
+  width: clamp(150px, 21vw, 240px);
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  gap: 3px;
+}
+.willo-status-email-sync-copy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  gap: 8px;
+  font: 550 9px/1 var(--arbol-font-ui);
+}
+.willo-status-email-sync-copy b {
+  color: var(--arbol-color-accent);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.willo-status-email-sync-copy span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--arbol-font-mono);
+}
+.willo-status-email-sync progress {
+  display: block;
+  width: 100%;
+  height: 3px;
+  border: 0;
+  border-radius: 99px;
+  overflow: hidden;
+  accent-color: var(--arbol-color-accent);
+}
+.willo-status-email-sync progress::-webkit-progress-bar {
+  background: var(--arbol-color-border);
+}
+.willo-status-email-sync progress::-webkit-progress-value {
+  background: var(--arbol-color-accent);
+}
+.willo-status-email-sync progress:indeterminate {
+  animation: willo-status-email-sync-pulse 900ms ease-in-out infinite alternate;
+}
+.willo-status-email-last-sync {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--arbol-font-mono);
+}
+.willo-status-email-last-sync.is-error,
+.mail-list-meta .is-error {
+  color: var(--arbol-color-err);
+}
+@keyframes willo-status-email-sync-pulse {
+  from { opacity: .45; }
+  to { opacity: 1; }
+}
+
+/* ── Willo Station controls panel ─────────────────────────────────────── */
+/* This sits below navigation but deliberately reads as an instrument panel,
+ * not another destination: ruled separator, tinted surface, uppercase label,
+ * and a physical switch treatment. */
+.willo-navigation-scroll {
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--arbol-space-3);
+}
+.willo-navigation-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--arbol-space-1);
+  padding: 0 var(--arbol-space-3);
+}
+.willo-control-panel {
+  position: relative;
+  display: grid;
+  gap: var(--arbol-space-2);
+  margin: var(--arbol-space-4) var(--arbol-space-3) 0;
+  padding: var(--arbol-space-3);
+  border: 1px solid color-mix(in oklch, var(--arbol-color-accent) 38%, var(--arbol-color-border));
+  border-radius: var(--arbol-radius-l);
+  background:
+    linear-gradient(145deg, color-mix(in oklch, var(--arbol-color-accent) 13%, transparent), transparent 62%),
+    var(--arbol-color-surface);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), var(--arbol-shadow-card);
+}
+.willo-control-panel::before {
+  content: '';
+  position: absolute;
+  left: var(--arbol-space-2);
+  right: var(--arbol-space-2);
+  top: calc(-1 * var(--arbol-space-3));
+  height: 1px;
+  background: var(--arbol-color-border);
+}
+.willo-control-panel-head,
+.willo-control-panel-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--arbol-space-2);
+}
+.willo-control-panel-kicker {
+  color: var(--arbol-color-accent);
+  font: 750 9px/1 var(--arbol-font-mono);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.willo-control-panel-mark {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in oklch, var(--arbol-color-accent) 42%, var(--arbol-color-border));
+  border-radius: 99px;
+  background: var(--arbol-color-accent-soft);
+  color: var(--arbol-color-accent);
+  font: 800 12px/1 var(--arbol-font-mono);
+}
+.willo-control-panel h2 {
+  margin: 0 0 2px;
+  color: var(--arbol-color-text);
+  font: 650 var(--arbol-type-body)/1.2 var(--arbol-font-ui);
+}
+.willo-control-toggle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--arbol-color-hairline);
+  border-radius: var(--arbol-radius-m);
+  background: color-mix(in oklch, var(--arbol-color-bg) 62%, transparent);
+  cursor: pointer;
+  transition: border-color .12s ease, background .12s ease;
+}
+.willo-control-toggle:hover {
+  border-color: color-mix(in oklch, var(--arbol-color-accent) 48%, var(--arbol-color-border));
+}
+.willo-control-toggle.is-on {
+  border-color: color-mix(in oklch, var(--arbol-color-accent) 58%, var(--arbol-color-border));
+  background: color-mix(in oklch, var(--arbol-color-accent) 10%, var(--arbol-color-bg));
+}
+.willo-control-toggle-copy {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+.willo-control-toggle-copy b {
+  color: var(--arbol-color-text);
+  font: 650 12px/1.25 var(--arbol-font-ui);
+}
+.willo-control-toggle-copy > span {
+  color: var(--arbol-color-text-muted);
+  font: 500 10px/1.4 var(--arbol-font-ui);
+}
+.willo-control-toggle input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.willo-control-switch {
+  box-sizing: border-box;
+  width: 35px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: 99px;
+  background: var(--arbol-color-surface-2);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.18);
+  transition: background .15s ease, border-color .15s ease;
+}
+.willo-control-switch span {
+  width: 14px;
+  height: 14px;
+  border-radius: 99px;
+  background: var(--arbol-color-text-muted);
+  box-shadow: 0 1px 2px rgba(0,0,0,.24);
+  transition: transform .15s ease, background .15s ease;
+}
+.willo-control-toggle input:focus-visible + .willo-control-switch {
+  outline: 2px solid var(--arbol-color-accent);
+  outline-offset: 2px;
+}
+.willo-control-toggle input:checked + .willo-control-switch {
+  border-color: var(--arbol-color-accent);
+  background: var(--arbol-color-accent-soft);
+}
+.willo-control-toggle input:checked + .willo-control-switch span {
+  transform: translateX(15px);
+  background: var(--arbol-color-accent);
+}
+.willo-control-toggle input:disabled + .willo-control-switch { opacity: .55; }
+.willo-control-panel-foot {
+  color: var(--arbol-color-text-muted);
+  font: 550 9px/1.2 var(--arbol-font-mono);
+}
+.willo-control-panel-foot > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.willo-control-panel-foot > span:first-child::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--arbol-color-text-muted);
+}
+.willo-control-panel-foot > span.active { color: var(--arbol-color-ok); }
+.willo-control-panel-foot > span.active::before {
+  background: var(--arbol-color-ok);
+  box-shadow: 0 0 7px color-mix(in oklch, var(--arbol-color-ok) 70%, transparent);
+}
+.willo-control-error {
+  margin: 0;
+  color: var(--arbol-color-err);
+  font: 600 9px/1.35 var(--arbol-font-ui);
+}
+
+
+/* ── Error chat-session highlight (compact) ───────────────────────────────
+ * Amber distinguishes a failed chat from an unread agent reply, for which red
+ * is intentionally reserved. Unread takes precedence when both flags exist.
+ */
+.willo-compact-card[data-error='1']:not([data-unread='1']) {
+  border-color: color-mix(in oklch, #d97706 64%, var(--arbol-color-hairline)) !important;
+  border-left-color: #d97706 !important;
+  background:
+    linear-gradient(90deg, color-mix(in oklch, #d97706 14%, transparent), transparent 46%),
+    var(--arbol-color-surface) !important;
+  box-shadow:
+    var(--arbol-shadow-card),
+    0 0 0 1px color-mix(in oklch, #d97706 28%, transparent),
+    0 8px 22px -16px #d97706 !important;
+}
+.willo-compact-card[data-error='1']:not([data-unread='1']) .willo-compact-color {
+  background: #d97706;
+  box-shadow:
+    0 0 0 3px color-mix(in oklch, #d97706 20%, transparent),
+    0 0 12px color-mix(in oklch, #d97706 58%, transparent);
+}
+.willo-compact-card[data-error='1']:not([data-unread='1']) .willo-compact-status {
+  color: #d97706;
+}
+
+/* Search occurrences are grouped by stable Chat Session identity. The short
+   identity disambiguates sessions that still share their generated title. */
+.willo-search-group {
+  overflow: hidden;
+  margin-bottom: var(--arbol-space-2);
+  border: 1px solid var(--arbol-color-border);
+  border-radius: var(--arbol-radius-m);
+  background: color-mix(in srgb, var(--arbol-color-surface-2) 55%, transparent);
+}
+.willo-search-group:last-child { margin-bottom: 0; }
+.willo-search-group-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 7px;
+  row-gap: 4px;
+  padding: 9px var(--arbol-space-3) 8px;
+  border-bottom: 1px solid var(--arbol-color-hairline);
+  background: var(--arbol-color-surface-2);
+}
+.willo-search-group-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--arbol-color-text);
+  font: 700 var(--arbol-type-body)/1.2 var(--arbol-font-ui);
+}
+.willo-search-group-count {
+  min-width: 20px;
+  padding: 2px 6px;
+  border: 1px solid var(--arbol-color-border);
+  border-radius: 99px;
+  color: var(--arbol-color-text-muted);
+  font: 600 10px/1 var(--arbol-font-mono);
+  text-align: center;
+}
+.willo-search-group-context {
+  grid-column: 1 / -1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--arbol-color-text-muted);
+  font: 500 var(--arbol-type-label)/1.2 var(--arbol-font-mono);
+}
+.willo-search-group-context span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.willo-search-group-context code::before { content: '· '; opacity: .55; }
+.willo-search-group-context code {
+  flex-shrink: 0;
+  color: var(--arbol-color-text-muted);
+  font: inherit;
+}
+.willo-search-group-hits { padding: 4px; }
+.willo-search-group .willo-search-hit {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 8px;
+  margin-bottom: 1px;
+  padding: 8px;
+}
+.willo-search-group .willo-search-hit:last-child { margin-bottom: 0; }
+.willo-search-hit-role {
+  padding-top: 2px;
+  color: var(--arbol-color-text-muted);
+  font: 500 10px/1.2 var(--arbol-font-mono);
+}

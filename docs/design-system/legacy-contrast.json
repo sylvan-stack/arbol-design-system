@@ -1,0 +1,77 @@
+{
+  "method": "Opaque CSS token pairs rendered to 8-bit sRGB canvas in Chrome; WCAG relative luminance; excludes transparency, entity colors and other combinations",
+  "measurements": [
+    {
+      "theme": "ironbark",
+      "text_on_surface": 15.63,
+      "muted_on_surface": 6.86,
+      "accent_ink_on_accent": 5.77
+    },
+    {
+      "theme": "bloodwood",
+      "text_on_surface": 14.24,
+      "muted_on_surface": 6.25,
+      "accent_ink_on_accent": 5.74
+    },
+    {
+      "theme": "redwood",
+      "text_on_surface": 12.46,
+      "muted_on_surface": 5.47,
+      "accent_ink_on_accent": 5.74
+    },
+    {
+      "theme": "mahogany",
+      "text_on_surface": 10.46,
+      "muted_on_surface": 4.59,
+      "accent_ink_on_accent": 5.86
+    },
+    {
+      "theme": "cedar",
+      "text_on_surface": 8.18,
+      "muted_on_surface": 3.59,
+      "accent_ink_on_accent": 6.05
+    },
+    {
+      "theme": "evergreen",
+      "text_on_surface": 6.23,
+      "muted_on_surface": 2.74,
+      "accent_ink_on_accent": 6.39
+    },
+    {
+      "theme": "driftwood",
+      "text_on_surface": 4.61,
+      "muted_on_surface": 2.02,
+      "accent_ink_on_accent": 6.54
+    },
+    {
+      "theme": "amber",
+      "text_on_surface": 8.61,
+      "muted_on_surface": 4.65,
+      "accent_ink_on_accent": 6.5
+    },
+    {
+      "theme": "sandstone",
+      "text_on_surface": 9.86,
+      "muted_on_surface": 5.32,
+      "accent_ink_on_accent": 6.69
+    },
+    {
+      "theme": "oat",
+      "text_on_surface": 12.45,
+      "muted_on_surface": 6.72,
+      "accent_ink_on_accent": 6.28
+    },
+    {
+      "theme": "birch",
+      "text_on_surface": 15.96,
+      "muted_on_surface": 8.61,
+      "accent_ink_on_accent": 6.65
+    },
+    {
+      "theme": "paper",
+      "text_on_surface": 19.03,
+      "muted_on_surface": 10.26,
+      "accent_ink_on_accent": 6.67
+    }
+  ]
+}

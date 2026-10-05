@@ -1,0 +1,36 @@
+{
+  "build": "Fresh source build succeeded; existing Svelte state/accessibility and chunk-size warnings",
+  "browser": "installed Chrome headless, 1440x1000, reduced motion",
+  "captures": [
+    {
+      "id": "oaken-swimlanes-board--all-elements",
+      "rendered": true,
+      "image": "assets/legacy-oaken-story.png",
+      "render_error": null
+    },
+    {
+      "id": "elma-entity-composer--pasted-entity-uris",
+      "rendered": true,
+      "image": "assets/legacy-elma-composer-story.png",
+      "render_error": null
+    },
+    {
+      "id": "willo-running-chat-backgrounds--aurora",
+      "rendered": true,
+      "image": "assets/legacy-willo-stations-story.png",
+      "render_error": null
+    },
+    {
+      "id": "design-system-entity-references--all-components",
+      "rendered": false,
+      "image": null,
+      "render_error": "Entity title must be non-empty"
+    },
+    {
+      "id": "design-system-hunk-review--definitions",
+      "rendered": true,
+      "image": "assets/legacy-hunk-story.png",
+      "render_error": null
+    }
+  ]
+}

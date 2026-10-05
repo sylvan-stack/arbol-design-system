@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-05",
+  "local_links_checked": 611,
+  "source_refs_checked": 149,
+  "missing_links_or_refs": [],
+  "archive_files_verified": 538,
+  "archive_hash_passed": true,
+  "archive_member_mismatches": [],
+  "ui_source_files_changed_since_capture": [],
+  "specimen_checks_passed": 51,
+  "specimen_checks_failed": [],
+  "source_storybook_build": "passed with existing warnings",
+  "source_story_render_failures": [
+    {
+      "id": "design-system-entity-references--all-components",
+      "rendered": false,
+      "image": null,
+      "render_error": "Entity title must be non-empty"
+    }
+  ],
+  "screen_capture_limit": "Component fixtures and proposed sketches; not a full installed-app or accessibility audit",
+  "application_code_modified_by_task": false,
+  "mycel_retrieval": "explicit executable ran; no hits; direct source evidence used",
+  "historical_checks_notice": "The checks dated 2026-10-05 describe the private original. The publication archive and manifest were regenerated after anonymization; three identifying gallery captures were removed. Original checks are retained as historical observations, not rerun acceptance claims."
+}

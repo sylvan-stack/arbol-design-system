@@ -1,0 +1,6 @@
+{
+  "fixture": "renderer/apps/seqoya/e2e/repos-fixture.html",
+  "data": "fictional mocked native bridge",
+  "styling": "captured legacy tokens applied; no app shell; offline fallback fonts",
+  "errors": []
+}

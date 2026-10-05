@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-05",
+  "environment": "Node 22.23.3; local macOS Chrome; reduced-motion browser tests",
+  "check": "0 errors, 0 warnings in successor source",
+  "build": "passed",
+  "story_rendering": {
+    "total": 229,
+    "failures": 0
+  },
+  "design_contracts_rendered": 11,
+  "interaction_checks": [
+    "Collection preserves search and selected identity across presentations",
+    "No-results recovery restores all collection items",
+    "Create validates, focuses invalid field, and commits fixture data",
+    "Dirty Escape keeps draft, offers discard and restores trigger focus",
+    "Save failure retains draft and stays in dialog",
+    "Destructive confirmation focuses Cancel and contains keyboard focus",
+    "Permission resolves once and removes obsolete decisions",
+    "Email rule requires a preview before activation",
+    "Workspace navigation resets domain records and opens long-form editors",
+    "Long editor guards navigation and keeps its unsaved values",
+    "Source categories expose distinct cached conversations and empty results",
+    "Action popover closes on Escape and restores its trigger",
+    "Read-only records do not offer editing controls",
+    "All 47 pages fit 390px and 768px viewports",
+    "Eight representative component/page accessibility checks"
+  ],
+  "responsive": {
+    "pages": 47,
+    "widths": [
+      390,
+      768
+    ],
+    "overflow": []
+  },
+  "contrast": {
+    "themes": 12,
+    "text_background_pairs": 300,
+    "minimum_ratio": 4.563,
+    "failures_below_4_5": 0
+  },
+  "axe": {
+    "representative_stories": 8,
+    "wcag_tags": [
+      "wcag2a",
+      "wcag2aa",
+      "wcag21aa"
+    ],
+    "violations": 0
+  },
+  "source_integrity": {
+    "legacy_components_mapped": 213,
+    "extracted_source_files_verified": 537,
+    "archive_sha256": "45924f9debd23d652721051d098d5c772d0b02dd2a9872504f9770596dd14f35"
+  },
+  "limitations": "Fixture verification, not full accessibility certification or native/backend integration validation."
+}

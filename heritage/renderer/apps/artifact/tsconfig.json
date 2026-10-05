@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", "lib": ["ES2020", "DOM", "DOM.Iterable"], "module": "ESNext",
+    "skipLibCheck": true, "moduleResolution": "bundler", "isolatedModules": true, "noEmit": true, "strict": true,
+    "paths": { "@arbol/design-system": ["../../packages/design-system/src/index.ts"], "@arbol/design-system/tokens.css": ["../../packages/design-system/src/tokens.css"] }
+  },
+  "include": ["src", "../../packages/design-system/src"]
+}

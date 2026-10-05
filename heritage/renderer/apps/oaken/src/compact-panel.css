@@ -1,0 +1,72 @@
+/* Oaken compact Swimlanes panel — a low-noise, always-on-top time glance. */
+.oaken-compact-shell {
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 36px minmax(0, 1fr);
+  overflow: hidden;
+  color: var(--arbol-color-text);
+  background: var(--arbol-color-bg);
+  font-family: var(--arbol-font-ui);
+}
+
+.oaken-compact-header {
+  -webkit-app-region: drag;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 6px 0 10px;
+  border-bottom: 1px solid var(--arbol-color-hairline);
+  background: color-mix(in oklch, var(--arbol-color-surface) 94%, var(--arbol-color-bg));
+  user-select: none;
+}
+.oaken-compact-header button { -webkit-app-region: no-drag; }
+.oaken-compact-brand { min-width:0;display:flex;align-items:center;gap:7px;font:700 11px/1 var(--arbol-font-ui); }
+.oaken-compact-mark { width:17px;height:17px;display:grid;place-items:center;border-radius:99px;color:var(--arbol-color-accent);background:var(--arbol-color-accent-soft);font-size:11px; }
+.oaken-compact-count { min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--arbol-color-text-muted);font:600 8.5px/1 var(--arbol-font-mono); }
+.oaken-compact-exit { cursor:pointer;height:25px;padding:0 8px;border:1px solid var(--arbol-color-border);border-radius:6px;color:var(--arbol-color-text-muted);background:var(--arbol-color-surface-2);font:650 9.5px/1 var(--arbol-font-ui); }
+.oaken-compact-exit:hover { color:var(--arbol-color-text);border-color:var(--arbol-color-text-muted); }
+
+.oaken-compact-body { min-height:0;overflow:auto;padding:6px;overscroll-behavior:contain; }
+.oaken-compact-body::-webkit-scrollbar { width:5px; }
+.oaken-compact-body::-webkit-scrollbar-thumb { border-radius:99px;background:var(--arbol-color-border); }
+.oaken-compact-list { display:grid;gap:6px; }
+.oaken-compact-lane { min-width:0;overflow:hidden;border:1px solid var(--arbol-color-hairline);border-radius:8px;background:var(--arbol-color-surface); }
+.oaken-compact-lane-head { width:100%;min-width:0;display:grid;grid-template-columns:6px 20px minmax(0,1fr) auto;align-items:center;gap:6px;cursor:pointer;padding:6px 7px 5px;border:0;border-bottom:1px solid var(--arbol-color-hairline);color:var(--arbol-color-text);background:color-mix(in oklch,var(--lane-color) 5%,var(--arbol-color-surface));text-align:left; }
+.oaken-compact-lane-head:hover { background:color-mix(in oklch,var(--lane-color) 10%,var(--arbol-color-surface)); }
+.oaken-compact-lane-dot { width:5px;height:5px;border-radius:99px;background:var(--lane-color);box-shadow:0 0 0 2px color-mix(in oklch,var(--lane-color) 16%,transparent); }
+.oaken-compact-lane-number { color:var(--arbol-color-text-muted);font:650 8px/1 var(--arbol-font-mono); }
+.oaken-compact-lane-name { min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:700 10.5px/1.1 var(--arbol-font-ui); }
+.oaken-compact-lane-total { min-width:16px;text-align:center;padding:2px 4px;border-radius:99px;color:var(--arbol-color-text-muted);background:var(--arbol-color-surface-2);font:650 8px/1 var(--arbol-font-mono); }
+
+.oaken-compact-swimmers { display:grid; }
+.oaken-compact-swimmer { min-width:0;padding:7px;box-shadow:inset 2px 0 0 color-mix(in oklch,var(--lane-color) 72%,transparent); }
+.oaken-compact-swimmer + .oaken-compact-swimmer { border-top:1px solid var(--arbol-color-hairline); }
+.oaken-compact-swimmer.overdue { box-shadow:inset 2px 0 0 var(--arbol-color-err); }
+.oaken-compact-swimmer.planned { opacity:.7; }
+.oaken-compact-swimmer-top { min-width:0;display:flex;align-items:center;gap:6px; }
+.oaken-compact-source { flex:0 0 auto;padding:2px 4px;border-radius:4px;color:var(--arbol-color-text-muted);background:var(--arbol-color-surface-2);font:700 6.5px/1 var(--arbol-font-mono);letter-spacing:.25px; }
+.oaken-compact-swimmer-name { min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:650 10.5px/1.2 var(--arbol-font-ui); }
+.oaken-compact-planned { margin-left:auto;color:var(--arbol-color-text-muted);font:700 7px/1 var(--arbol-font-mono);letter-spacing:.5px; }
+.oaken-compact-times { display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px;color:var(--arbol-color-text-muted);font:600 8.5px/1 var(--arbol-font-mono);font-variant-numeric:tabular-nums; }
+.oaken-compact-left { display:inline-flex;align-items:center;gap:3px;color:var(--arbol-color-text);font-weight:700;white-space:nowrap; }
+.oaken-compact-left.overdue { color:var(--arbol-color-err); }
+.oaken-compact-progress { position:relative;height:5px;margin-top:4px;overflow:hidden;border-radius:99px;background:var(--arbol-color-surface-2);box-shadow:inset 0 0 0 1px var(--arbol-color-hairline); }
+.oaken-compact-progress-fill { position:absolute;inset:0 auto 0 0;min-width:2px;border-radius:99px;background:var(--bar-color); }
+.oaken-compact-progress:not(.overdue) .oaken-compact-progress-fill { background:linear-gradient(90deg,color-mix(in oklch,var(--bar-color) 55%,var(--arbol-color-surface-2)),var(--bar-color)); }
+.oaken-compact-progress.overdue { background:repeating-linear-gradient(135deg,color-mix(in oklch,var(--arbol-color-err) 20%,var(--arbol-color-surface-2)) 0 5px,var(--arbol-color-surface-2) 5px 10px);box-shadow:inset 0 0 0 1px color-mix(in oklch,var(--arbol-color-err) 55%,var(--arbol-color-hairline)); }
+.oaken-compact-progress.overdue .oaken-compact-progress-fill { background:var(--arbol-color-err); }
+.oaken-compact-overdue-cap { position:absolute;right:0;top:0;width:3px;height:100%;background:var(--arbol-color-err); }
+.oaken-compact-elapsed-only { display:grid;grid-template-columns:6px auto;align-items:center;gap:6px;margin-top:6px;color:var(--arbol-color-text);font:650 8.5px/1 var(--arbol-font-mono);font-variant-numeric:tabular-nums; }
+.oaken-compact-elapsed-pulse { width:5px;height:5px;border-radius:99px;background:var(--lane-color); }
+.oaken-compact-empty { display:grid;gap:7px;margin:8px;padding:20px 12px;border:1px dashed var(--arbol-color-border);border-radius:9px;text-align:center;color:var(--arbol-color-text-muted);font:500 10px/1.35 var(--arbol-font-ui); }
+.oaken-compact-empty strong { color:var(--arbol-color-text);font-size:11px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .oaken-compact-shell *, .oaken-compact-shell *::before, .oaken-compact-shell *::after { animation:none!important;transition:none!important; }
+}
+.oaken-compact-loading { place-items:center; }
+.oaken-compact-spinner { width:14px;height:14px;border:2px solid var(--arbol-color-border);border-top-color:var(--arbol-color-accent);border-radius:50%;animation:oaken-compact-spin .8s linear infinite; }
+@keyframes oaken-compact-spin { to { transform:rotate(360deg); } }

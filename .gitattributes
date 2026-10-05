@@ -1,0 +1,5 @@
+* text=auto eol=lf
+*.png binary
+*.tar.gz binary
+# Preserve the exact historical bytes checked by snapshot-manifest.json.
+heritage/** -text -whitespace
