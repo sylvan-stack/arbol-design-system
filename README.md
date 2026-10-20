@@ -46,3 +46,9 @@ Read [implementation decisions and boundaries](docs/IMPLEMENTATION.md) before ad
 A ready-to-use [GitHub Actions workflow](docs/ci/storybook.yml) builds, tests and uploads the Storybook bundle. It is stored as a template because the available `gh` token lacks the `workflow` scope required to publish active workflows. To enable it with suitable credentials, copy it to `.github/workflows/storybook.yml` and push. This private repository does not automatically publish a public website.
 
 Font redistribution notices: [Hanken Grotesk](docs/licenses/Hanken-Grotesk-OFL.txt) and [Spline Sans Mono](docs/licenses/Spline-Sans-Mono-OFL.txt).
+
+## Sylvan Stack 2
+
+| Repository | Package | Version | Artifact corpus | Artifact repository |
+|---|---|---|---|---|
+| `arbol-pi-driver` | `@sylvan-stack/arbol-pi-driver` | 1.0.0 | `~/Artifacts/arbol-pi-driver` | `sylvan-stack/arbol-pi-driver-artifacts` |
