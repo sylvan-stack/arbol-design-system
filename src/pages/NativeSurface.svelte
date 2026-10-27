@@ -51,7 +51,7 @@
           disabled={!/^https?:\/\//.test(url)}
           onclick={() => (feedback = 'Sample reference imported')}
         />
-      {:else if surface === 'Latest Chat Sessions'}<CommandPalette title="Latest chats" searchable={false} rows={Array.from({length:12},(_,i)=>({id:String(i),label:'Fictional chat '+(i+1),detail:'sample · claude/fictional/model-a · completed · '+(i+1)+' minutes ago'}))} onselect={id=>feedback='Selected fictional chat '+(Number(id)+1)+'; native window activation is outside this browser fixture.'}/>
+      {:else if surface === 'Latest Chat Sessions'}<CommandPalette title="Latest chats" searchable={false} rows={Array.from({length:12},(_,i)=>({id:String(i),label:'Fictional chat '+(i+1),detail:'sample · claude/fictional/model-a · completed · '+(i+1)+(i?' minutes ago':' minute ago')}))} onselect={id=>feedback='Selected fictional chat '+(Number(id)+1)+'; native window activation is outside this browser fixture.'}/>
       {:else if surface === 'Permission Panel'}<PermissionRequest />
       {:else if surface === 'Tray Menu'}<Badge
           label="Core connected"

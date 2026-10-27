@@ -20,7 +20,7 @@
     archiveRunning = false, archiveFailure = false, latest=false, latestEmpty=false, latestLoading=false, latestFailure=false,
   }: { empty?: boolean; approval?: boolean; history?: boolean;routeFailure?:boolean;failed?:boolean;renameFailure?:boolean;archiveRunning?:boolean;archiveFailure?:boolean;latest?:boolean;latestEmpty?:boolean;latestLoading?:boolean;latestFailure?:boolean } = $props();
   let latestOpen=$state(untrack(()=>latest));
-  const latestRows=Array.from({length:12},(_,i)=>({id:String(i),label:'Fictional chat '+(i+1),detail:'sample · claude/fictional/model-a · completed · '+(i+1)+' minutes ago'}));
+  const latestRows=Array.from({length:12},(_,i)=>({id:String(i),label:'Fictional chat '+(i+1),detail:'sample · claude/fictional/model-a · completed · '+(i+1)+(i?' minutes ago':' minute ago')}));
   const archivedDrafts=new Map<string,string>();
   let quickOpen=$state(false),archiveConfirm=$state(false),archiveWaiting=$state(false);
   function quickAction(id:string){quickOpen=false;if(id==='rename')startRename();else if(id==='archive')archiveConfirm=true;else actionNotice='Copy session ID selected in the fictional preview; clipboard unchanged.';}
