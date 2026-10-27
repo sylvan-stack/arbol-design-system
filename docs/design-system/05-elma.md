@@ -84,7 +84,7 @@ arbol-design-system:scripts/check-elma-composer.mjs
 
 A busy First Sapling composer is closed and cannot be reopened for editing while its send receipt is unconfirmed; its parent retains the captured text. WaitingReceipt and SendRefused show the waiting status and the exact restored message respectively. The application owns persistent request identifiers, retry after an uncertain receipt, a provisional Exchange without a fabricated acceptance time, and reconciliation with canonical chat/Draft data. The shared component emits a send request but does not clear text or infer acceptance.
 
-StopCurrentResponse uses the same ConfirmAction with initial Cancel and a primary Confirm action. Its fictional result says that stopping was requested and waits for a saved end; it does not pretend that the agent stopped. The application releases a queued message only from saved terminal data, including when the stop reply or folder end arrived earlier.
+StopCurrentResponse uses the same ConfirmAction with initial Cancel and a primary Confirm action. Its fictional result says that stopping was requested and waits for a saved end; it does not pretend that the agent stopped. The Stopping response has no Stopped line; SavedCancellation shows Canceled and ⏹ Stopped only from a saved cancelled Exchange. A completion that won the race remains Completed, and a forced interruption remains Interrupted. CmdEscape is supplied by the application, which coalesces requests and retries an uncertain stop only on a new backend hello. The application releases a queued message only from saved terminal data, including when the stop reply or folder end arrived earlier.
 
 <!-- sources:
 arbol-design-system:src/sections/Composer.svelte
