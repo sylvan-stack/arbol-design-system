@@ -80,6 +80,21 @@ arbol-design-system:src/sections/ConversationWorkspace.svelte
 arbol-design-system:scripts/check-elma-composer.mjs
 -->
 
+## Accepted agent questions
+
+AskUserQuestion’s controlled First Sapling mode validates the public Ask shape and renders headers, question text, single radio or multiple checkbox choices, and no free-text answer. Submit requires a choice for every question with options; Continue answers the questions without options. Cancel declines. The parent supplies pending state, a recorded answer, closure and refusal; a successful control call alone never creates Your answer. A refusal keeps choices available, including after an earlier recorded answer. Closed recorded questions remain readable. Unknown/malformed Ask data stays literal with Cancel for its known ask identifier and no invented option. The original density/custom example remains a separate broader proposal.
+
+QuestionExample and its FirstSapling/Multiple/Continue/Refused/RecordedAnswer/Unknown stories use explicit local buttons to simulate file facts; they contact no backend. The production adapter fences each submission against actual answer/control-refused file positions so an old answer cannot acknowledge a later retry.
+
+<!-- sources:
+arbol-design-system:src/sections/AskUserQuestion.svelte
+arbol-design-system:src/sections/elma-response.ts
+arbol-design-system:src/sections/Response.svelte
+arbol-design-system:src/fixtures/QuestionExample.svelte
+arbol-design-system:src/stories/AskUserQuestion.stories.ts
+arbol-design-system:scripts/check-elma-questions.mjs
+-->
+
 ## Accepted sending states
 
 A busy First Sapling composer is closed and cannot be reopened for editing while its send receipt is unconfirmed; its parent retains the captured text. WaitingReceipt and SendRefused show the waiting status and the exact restored message respectively. The application owns persistent request identifiers, retry after an uncertain receipt, a provisional Exchange without a fabricated acceptance time, and reconciliation with canonical chat/Draft data. The shared component emits a send request but does not clear text or infer acceptance.

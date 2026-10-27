@@ -75,3 +75,5 @@ Semantic color aliases are resolved at each data-theme boundary. This lets a sco
 Exact JSON presentation uses the pinned lossless-json formatter for bigint adapter values. Protocol decoding, revision validation and persistence belong to the consuming application; the ToolCall ExactRevision story loads its fictional value through a local callback.
 
 The accepted controlled composer shares empty/closed/Draft/loading/busy/error fixtures, exact text ownership and keyboard/focus behavior with the production adapter. Its parent supplies persistence, receipt and scroll callbacks; the component never infers successful sending.
+
+First Sapling AskUserQuestion is controlled by file-confirmed question/answer/refusal state. The app supplies control calls; the shared sections expose no free-text answer and never treat a control reply as the recorded answer. Saved tool ask/answer data can be presented read-only.
