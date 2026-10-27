@@ -41,6 +41,16 @@ ElmaFrame composes WorkspaceShell with explicit header/navigation/status snippet
 
 Response/ToolCall/SafeMarkdown also consume adapter inputs. Missing production values stay missing: fictional times and tool input/output are provided by stories rather than component defaults. Markdown parsing produces an allowlisted syntax tree with literal HTML/image fallback and app-controlled links. Scrollable code/tool/table regions intentionally use keyboard focus without activation semantics. Browser checks cover actual safety, lazy detail and focus/reading contracts; native delivery remains external.
 
+<!-- sources:
+arbol-design-system:src/sections/ElmaFrame.svelte
+arbol-design-system:src/sections/Response.svelte
+arbol-design-system:src/sections/ResponseReader.svelte
+arbol-design-system:src/components/SafeMarkdown.svelte
+arbol-design-system:src/styles/tokens.css
+arbol-design-system:scripts/check-elma-response.mjs
+arbol-design-system:scripts/check-elma-reading.mjs
+-->
+
 ## Boundaries to implement in an application
 
 The catalog demonstrates visual composition and local interactions. It does not provide backend persistence, authentication, provider catalogs, file uploads, source synchronization, cross-window request resolution, durable draft storage, actual Git operations or production permission enforcement. Notification tests and tool actions are local previews. Avoid wiring a production side effect directly to a Storybook fixture callback.
