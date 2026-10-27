@@ -44,6 +44,20 @@ arbol-design-system:src/sections/ConversationWorkspace.svelte
 arbol-design-system:scripts/check-elma.mjs
 -->
 
+## Accepted composer presentation
+
+The First Sapling Composer is controlled: its parent owns the text, loading and busy state, errors, paste handling and send receipt. An empty chat centers a ten-line field below its repository/route caption. A conversation starts with the closed composer and working scroll-to-top/bottom controls; plain Return opens a three-line field, Escape collapses it without losing text, and a supplied Draft opens in focus. Return inside the field inserts a newline; Cmd/Control+Enter requests sending. Return on another control and keys inside an open dialog keep their own behavior. Loading or uncertain sending keeps text read-only. The application enables editing only after it has acquired its canonical Draft revision.
+
+Composer's FirstSapling, Closed, WithDraft, LoadingDraft, Waiting and SaveFailed stories use an explicit fictional local owner. ConversationWorkspace also binds its local text rather than relying on a hidden component copy. These fixtures have no production persistence or backend outcomes. The default attachment composer remains a broader proposal. `check-elma-composer.mjs` exercises focus, multiline editing, both send shortcuts, collapse/retention, scroll callbacks and narrow 200% text.
+
+<!-- sources:
+arbol-design-system:src/sections/Composer.svelte
+arbol-design-system:src/examples/ComposerExample.svelte
+arbol-design-system:src/stories/Composer.stories.ts
+arbol-design-system:src/sections/ConversationWorkspace.svelte
+arbol-design-system:scripts/check-elma-composer.mjs
+-->
+
 ## Accepted response presentation
 
 Response consumes typed blocks from an application adapter. While running it preserves their arrival order; after completion, open reasoning and closed tool rows stand above the Answer Threshold, with the answer's Markdown below it and Copy answer copying only that answer source. Lifecycle labels group actual times within three seconds. ToolCall exposes known times, elapsed running time after60 seconds, parallel progress, input/output, interrupted/failed and Driver-truncated marks. A cut Bridge preview loads its complete details only on opening, retains null/false values, and reports a failed load with an explicit retry. Saved Root rows have no tool timestamps: the component says Not recorded instead of inventing them.

@@ -73,3 +73,5 @@ ResponseReader is the shared bounded scroll owner for accepted Elma pages and th
 Semantic color aliases are resolved at each data-theme boundary. This lets a scoped Elma theme change its actual canvas/panels as well as text, including switching between dark and light ancestors. Font scale and layout tokens remain inherited from their own controls.
 
 Exact JSON presentation uses the pinned lossless-json formatter for bigint adapter values. Protocol decoding, revision validation and persistence belong to the consuming application; the ToolCall ExactRevision story loads its fictional value through a local callback.
+
+The accepted controlled composer shares empty/closed/Draft/loading/busy/error fixtures, exact text ownership and keyboard/focus behavior with the production adapter. Its parent supplies persistence, receipt and scroll callbacks; the component never infers successful sending.
