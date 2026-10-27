@@ -71,3 +71,5 @@ These checks establish specific properties of the fixtures. They are not a full 
 ResponseReader is the shared bounded scroll owner for accepted Elma pages and the renderer: tail following, user release, completed threshold/Beacon, three semantic reading stops and in-memory offsets. The application supplies snapshot generations and the position map; shared ReadingExample uses only fictional local changes.
 
 Semantic color aliases are resolved at each data-theme boundary. This lets a scoped Elma theme change its actual canvas/panels as well as text, including switching between dark and light ancestors. Font scale and layout tokens remain inherited from their own controls.
+
+Exact JSON presentation uses the pinned lossless-json formatter for bigint adapter values. Protocol decoding, revision validation and persistence belong to the consuming application; the ToolCall ExactRevision story loads its fictional value through a local callback.

@@ -67,6 +67,17 @@ arbol-design-system:scripts/check-elma-reading.mjs
 arbol-design-system:src/styles/tokens.css
 -->
 
+## Exact JSON values
+
+The maintained stringifyJson helper uses pinned MIT lossless-json4.3.3 to render bigint adapter values as exact numeric JSON. ToolCall's ExactRevision fixture loads a fictional64-bit value locally and checks its final digits. The application's wire decoder owns the revision/baseRevision policy and CAS validation; the shared formatter has no backend services. The ordinary numeric and null/false tool presentations remain covered by the response checks.
+
+<!-- sources:
+arbol-design-system:src/json.ts
+arbol-design-system:src/sections/elma-response.ts
+arbol-design-system:src/stories/ToolCall.stories.ts
+arbol-design-system:scripts/check-elma-response.mjs
+-->
+
 ## Surface inventory
 
 | Surface | What must survive reconstruction |

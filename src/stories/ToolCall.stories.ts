@@ -25,3 +25,5 @@ export const Truncated: Story = { args: { truncated: true, expanded: true } };
 export const Interrupted: Story = { args: { state: 'Interrupted' } };
 export const Parallel: Story = { args: { state: 'Running', parallel:{running:2,total:3}, startedAt:'2026-10-27T09:00:00Z', now:Date.parse('2026-10-27T09:02:00Z') } };
 export const CutNullFields: Story = { args: { cut: true, input:'Preview input', result:'Preview output', load: async()=>({input:null,result:false}) } };
+
+export const ExactRevision: Story = {args:{cut:true,input:'Preview',result:'Preview',load:async()=>({input:{revision:9223372036854775807n},result:{revision:9223372036854775807n}})}};
