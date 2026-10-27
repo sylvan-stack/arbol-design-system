@@ -38,6 +38,7 @@ try {
   await run('scripts/check-elma.mjs');
   await run('scripts/check-elma-composer.mjs');
   await run('scripts/check-elma-actions.mjs');
+  await run('scripts/check-elma-latest.mjs');
   await run('scripts/check-elma-routing.mjs');
   await run('scripts/check-elma-repositories.mjs');
   await run('scripts/check-elma-questions.mjs');

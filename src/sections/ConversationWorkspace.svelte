@@ -17,8 +17,10 @@
     routeFailure = false,
     failed = false,
     renameFailure = false,
-    archiveRunning = false, archiveFailure = false,
-  }: { empty?: boolean; approval?: boolean; history?: boolean;routeFailure?:boolean;failed?:boolean;renameFailure?:boolean;archiveRunning?:boolean;archiveFailure?:boolean } = $props();
+    archiveRunning = false, archiveFailure = false, latest=false, latestEmpty=false, latestLoading=false, latestFailure=false,
+  }: { empty?: boolean; approval?: boolean; history?: boolean;routeFailure?:boolean;failed?:boolean;renameFailure?:boolean;archiveRunning?:boolean;archiveFailure?:boolean;latest?:boolean;latestEmpty?:boolean;latestLoading?:boolean;latestFailure?:boolean } = $props();
+  let latestOpen=$state(untrack(()=>latest));
+  const latestRows=Array.from({length:12},(_,i)=>({id:String(i),label:'Fictional chat '+(i+1),detail:'sample · claude/fictional/model-a · completed · '+(i+1)+' minutes ago'}));
   const archivedDrafts=new Map<string,string>();
   let quickOpen=$state(false),archiveConfirm=$state(false),archiveWaiting=$state(false);
   function quickAction(id:string){quickOpen=false;if(id==='rename')startRename();else if(id==='archive')archiveConfirm=true;else actionNotice='Copy session ID selected in the fictional preview; clipboard unchanged.';}
@@ -57,6 +59,7 @@
   function chooseRepository(folder:string){if(shown)repoChange=folder;else newRepository(folder);}
   function keys(event: KeyboardEvent) {
     if(event.defaultPrevented||document.querySelector('dialog[open]')||rename)return;
+    if(event.ctrlKey&&event.shiftKey&&event.metaKey&&!event.altKey&&event.key.toLowerCase()==='c'){event.preventDefault();latestOpen=true;return;}
     if(event.key==='Enter'&&event.shiftKey&&!event.metaKey&&!event.ctrlKey&&!event.altKey){event.preventDefault();if(shown)quickOpen=true;else actionNotice='Start a chat before using chat actions';return;}
     if(event.key==='Backspace'&&event.metaKey&&!event.ctrlKey&&!event.altKey&&!event.shiftKey){event.preventDefault();if(shown)archiveConfirm=true;else actionNotice='Start a chat before archiving';return;}
     if(event.altKey&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&(event.key==='0'||event.code==='Digit0')){event.preventDefault();toggleOngoing();return;}
@@ -108,6 +111,7 @@
   onhistory={() => (historyOpen = true)}
 >
   {#if actionNotice}<p role="status">{actionNotice}</p>{/if}
+  {#if latestOpen}<Modal title="Latest chats" initialFocus="button[data-command-row]" onclose={()=>latestOpen=false}>{#if latestLoading}<p role="status">Loading latest chats…</p>{:else if latestFailure}<p role="alert">fictional_failure: The local chat list could not be read.</p><button onclick={()=>actionNotice='Retry selected in the fictional preview.'}>Retry latest chats</button>{:else}<CommandPalette title="Chats" emptyLabel="No other recent chats." searchable={false} rows={latestEmpty?[]:latestRows} onselect={id=>{latestOpen=false;storedTitle=latestRows[Number(id)].label;actionNotice='Opened in fictional preview; no backend or native window used.';}}/>{/if}</Modal>{/if}
   {#if quickOpen}<Modal title="Quick actions" initialFocus="button[data-command-row]" onclose={()=>quickOpen=false}><CommandPalette title="Chat actions" searchable={false} numbered={false} rows={[{id:'rename',label:'Rename chat session',shortcut:'R'},{id:'archive',label:'Archive',shortcut:'A'},{id:'copy',label:'Copy session ID',shortcut:'C'}]} onselect={quickAction}/></Modal>{/if}
   {#if archiveConfirm}<ConfirmAction title="Archive chat?" description="Save this Draft, stop a running answer first, and wait for its end to be saved before archiving. The chat and its messages are kept." action="Archive" oncancel={()=>archiveConfirm=false} onconfirm={archiveChat}/>{/if}
   {#if archiveWaiting}<p role="status">Waiting for the response to be saved…</p><button onclick={archiveChat}>Save stopped response in fixture</button><button onclick={()=>archiveWaiting=false}>Cancel archive</button>{/if}
