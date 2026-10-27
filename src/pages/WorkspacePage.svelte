@@ -52,6 +52,9 @@
   );
 </script>
 
+{#if ['elma-new-chat','elma-conversation','elma-history'].includes(current)}
+ <ConversationWorkspace empty={current==='elma-new-chat'} history={current==='elma-history'}/>
+{:else}
 <WorkspaceShell
   workspace={page.workspace}
   current={page.title}
@@ -172,6 +175,8 @@
         {/if}{/if}{/key}
   </div></WorkspaceShell
 >
+
+{/if}
 
 {#if pendingDestination !== null}<ConfirmAction
     title="Discard unsaved changes?"

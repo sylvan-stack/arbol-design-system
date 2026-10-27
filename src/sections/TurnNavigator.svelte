@@ -1,20 +1,10 @@
 <script lang="ts">
-  import Button from '../components/Button.svelte';
-  import Select from '../components/Select.svelte';
-  let turn = $state(3);
-  let branch = $state('Main branch');
+ let {index=3,total=5,busy=false,onolder,onnewer,onopen}: {index?:number;total?:number;busy?:boolean;onolder?:()=>void;onnewer?:()=>void;onopen?:()=>void}=$props();
+ let local=$state<number|null>(null);const shown=$derived(local??index);
 </script>
-
-<nav class="row spread" aria-label="Conversation navigation">
-  <div class="row">
-    <Button label="← Previous turn" disabled={turn <= 1} onclick={() => turn--} /><span
-      class="mono"
-      aria-live="polite">Turn {turn} of 5</span
-    ><Button label="Next turn →" disabled={turn >= 5} onclick={() => turn++} />
-  </div>
-  <Select
-    label="Branch"
-    options={['Main branch', 'Compact layout exploration', 'Shared editor alternative']}
-    bind:value={branch}
-  />
+<nav class="stepper" aria-label="Conversation navigation">
+ <button aria-label="Older turn" title="Older turn (⌘[)" disabled={busy||shown<=1} onclick={()=>onolder?onolder():local=shown-1}>‹</button>
+ <button aria-label={`Turn ${shown} of ${total}. Jump to turn`} title="Jump to turn (⌘P)" onclick={onopen}><span>{shown}</span>/{total}</button>
+ <button aria-label="Newer turn" title="Newer turn (⌘])" disabled={busy||shown>=total} onclick={()=>onnewer?onnewer():local=shown+1}>›</button>
 </nav>
+<style>.stepper{display:flex;align-items:center;gap:3px;flex-shrink:0}.stepper button{background:var(--panel);color:var(--text);border:1px solid transparent;border-radius:5px;min-height:26px;min-width:24px;padding:2px 6px;font:calc(11.5px * var(--font-scale))/1.3 var(--font-mono)}.stepper button:hover:not(:disabled){border-color:var(--border);background:var(--inset)}.stepper button:disabled{color:var(--disabled);cursor:default}</style>

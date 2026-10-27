@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Readable responses, connected context and a reliable composer. Interactive successor composition using shared components. Services are represented by local fixture state.',
+          'Readable responses, connected context and a reliable composer. Accepted First Sapling composition using shared ElmaFrame and Exchange controls. Fictional local state; no native or backend service.',
       },
     },
   },

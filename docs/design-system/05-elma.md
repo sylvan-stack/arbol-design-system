@@ -24,6 +24,12 @@ BKD-2/BKD-D18/BKD-D22, accepted19 October2026, govern Arbol2's first window. The
 
 ElmaFrame's Empty, Conversation, Preparing, Failed and Working stories are fictional local presentations. Production filesystem discovery, routing defaults, persistence and Bridge lifecycle belong to the application adapter; the maintained component does not read a real backend or store conversation content. The later proposals below and historical branch/attachment/permission surfaces are not additions to First Sapling's accepted scope.
 
+## Accepted Exchange navigation
+
+PinnedMessage keeps the prompt at three lines until See more, retains its own expanded scroll area, and offers Copy prompt with a truthful copy result. TurnNavigator uses the one-based place among unreplaced Exchanges and the chat's full count, with the compact ‹n/N› counter opening history. HistoryTree's accepted mode is a newest-first list, digit shortcuts and Search of loaded prompts; older pages load explicitly in12-Exchange batches through the application. A separate AdvancedRootProposal story preserves the wider branching discussion without enabling branches in First Sapling.
+
+The elma-new-chat, elma-conversation and elma-history pages compose the shared ElmaFrame and these controls directly, rather than a workspace list of chat pages. Composer has a FirstSapling fixture variant with multiline text, Return/Escape and send shortcuts and no Send button or attachments. These fixtures change local state only; backend Draft/send ownership remains in the application adapter. The broader composer default story is retained as a separate proposal.
+
 ## Surface inventory
 
 | Surface | What must survive reconstruction |
