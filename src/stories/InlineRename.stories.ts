@@ -1,0 +1,10 @@
+import type {Meta,StoryObj} from '@storybook/svelte-vite';
+import Component from '../patterns/InlineRename.svelte';
+import Example from '../fixtures/RenameExample.svelte';
+const meta={title:'Patterns/InlineRename',component:Component,tags:['autodocs']}satisfies Meta<typeof Component>;
+export default meta;
+export const Default={render:()=>({Component:Example})}satisfies StoryObj<typeof Example>;
+export const Empty={render:()=>({Component:Example,props:{value:''}})}satisfies StoryObj<typeof Example>;
+export const UnicodeLimit={render:()=>({Component:Example,props:{value:'🌲'.repeat(240)}})}satisfies StoryObj<typeof Example>;
+export const Saving={render:()=>({Component:Example,props:{busy:true}})}satisfies StoryObj<typeof Example>;
+export const Refused={render:()=>({Component:Example,props:{value:'Retained fictional title',problem:'fictional_failure: This title was not saved.'}})}satisfies StoryObj<typeof Example>;

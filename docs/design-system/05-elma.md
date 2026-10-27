@@ -258,3 +258,5 @@ arbol-design-system:scripts/check-elma-failures.mjs
 -->
 
 Question identifiers are opaque strings. Selection lookup uses own properties so names such as __proto__ remain ordinary question data; outgoing answers preserve their exact identifiers.
+
+First Sapling chat-title edits use controlled InlineRename with the canonical stored title (empty for an untitled chat), Unicode character counting and empty-title removal. Cmd-click or keyboard activation opens the header edit; Return/OK saves and Escape/Cancel dismisses before saving. Saving disables the editor, refusals retain its text and cause, and closing restores focus to the title control. The header remains a heading. Ongoing is a controlled cockpit pill with Alt0 and canonical-result notices. Production adapters own idempotent metadata requests, pending receipts/reload gates and Root/context/publication guards; composed previews use local fictional state.

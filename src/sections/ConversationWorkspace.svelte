@@ -15,12 +15,17 @@
     history = false,
     routeFailure = false,
     failed = false,
-  }: { empty?: boolean; approval?: boolean; history?: boolean;routeFailure?:boolean;failed?:boolean } = $props();
+    renameFailure = false,
+  }: { empty?: boolean; approval?: boolean; history?: boolean;routeFailure?:boolean;failed?:boolean;renameFailure?:boolean } = $props();
   let messages = $state([
     'A fictional first prompt',
     'Compare the useful shared patterns',
     'Keep the interface familiar.',
   ]);
+  let storedTitle=$state<string|null>(untrack(()=>empty?null:'A fictional conversation')),isOngoing=$state(true),actionNotice=$state(''),rename=$state<{value:string;busy:boolean;problem:string}|null>(null);
+  function startRename(){if(!shown){actionNotice='Start a chat before renaming';return;}rename={value:storedTitle??'',busy:false,problem:''};}
+  function saveRename(){if(!rename)return;if(renameFailure){rename.problem='fictional_failure: The local preview refused this rename.';return;}storedTitle=rename.value.trim()||null;rename=null;actionNotice='Title changed in the fictional preview.';}
+  function toggleOngoing(){if(!shown)return;isOngoing=!isOngoing;actionNotice=isOngoing?'Marked ongoing':'Cleared ongoing';}
   let failureAction=$state('');
   let draft = $state(''),
     composerOpen = $state(false),
@@ -42,10 +47,11 @@
   function pickRoute(driver:string,subscription:string){route={driver,subscription,model:'model-a',effort:'high'};}
   function nextModel(){route={...route,model:route.model==='model-a'?'model-b':'model-a',effort:route.model==='model-a'?'medium':'high'};}
   function nextEffort(){route={...route,effort:route.effort==='high'?'medium':'high'};}
-  function newRepository(folder:string){if(!shown)repositoryDrafts.set(repository,draft);repository=repositories.find(r=>r.folder===folder)?.name??'other';draft=repositoryDrafts.get(repository)??'';newChatMode=true;hasMessages=false;messages=[];current=0;repositoryNotice='';}
+  function newRepository(folder:string){if(!shown)repositoryDrafts.set(repository,draft);repository=repositories.find(r=>r.folder===folder)?.name??'other';draft=repositoryDrafts.get(repository)??'';newChatMode=true;hasMessages=false;storedTitle=null;isOngoing=false;messages=[];current=0;repositoryNotice='';}
   function chooseRepository(folder:string){if(shown)repoChange=folder;else newRepository(folder);}
   function keys(event: KeyboardEvent) {
-    if(event.defaultPrevented||document.querySelector('dialog[open]'))return;
+    if(event.defaultPrevented||document.querySelector('dialog[open]')||rename)return;
+    if(event.altKey&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&(event.key==='0'||event.code==='Digit0')){event.preventDefault();toggleOngoing();return;}
     if(event.metaKey&&!event.ctrlKey&&!event.altKey&&!event.shiftKey&&/^[12]$/.test(event.key)){event.preventDefault();newRepository(repositories[Number(event.key)-1].folder);return;}
     if(event.ctrlKey&&!event.metaKey&&!event.altKey&&!event.shiftKey){if(/^[1-3]$/.test(event.key)){const row=routes[Number(event.key)-1];if(!row.unavailable){event.preventDefault();pickRoute(row.driver,row.subscription);}}else if(event.key.toLowerCase()==='m'){event.preventDefault();nextModel();}else if(event.key==='Tab'){event.preventDefault();nextEffort();}return;}
     if (event.metaKey && event.key.toLowerCase() === 'p') {
@@ -64,11 +70,18 @@
 <svelte:window onkeydown={keys} />
 <ElmaFrame
   fitted
-  title={shown ? 'A fictional conversation' : 'New Chat'}
+  title={shown ? storedTitle||Array.from((messages[0]??'').split('\n')[0]).slice(0,80).join('')||'New Chat' : 'New Chat'}
+  placeholder={shown&&!storedTitle}
+  onrename={startRename}
+  {rename}
+  onRenameInput={value=>{if(rename)rename.value=value;}}
+  onRenameSave={saveRename}
+  onRenameCancel={()=>rename=null}
+  onongoing={shown?toggleOngoing:undefined}
   total={count}
   turn={current + 1}
   hasChat={shown}
-  ongoing={shown}
+  ongoing={shown&&isOngoing}
   {repository}
   {route}
   {repositories}
@@ -85,6 +98,7 @@
   onnewer={() => (current = Math.min(count - 1, current + 1))}
   onhistory={() => (historyOpen = true)}
 >
+  {#if actionNotice}<p role="status">{actionNotice}</p>{/if}
   {#if repositoryNotice}<p role="status">{repositoryNotice}</p>{/if}
   {#if shown}<PinnedMessage
       text={messages[current]}
