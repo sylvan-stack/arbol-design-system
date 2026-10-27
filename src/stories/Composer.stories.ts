@@ -45,3 +45,4 @@ export const SaveFailed: Story = {
   }),
 };
 export const ChangedElsewhere:Story={render:()=>({Component:Example,props:{empty:true,value:'My fictional changes',changed:true}})};
+export const RecoverUnsaved:Story={render:()=>({Component:Example,props:{empty:true,value:'Saved fictional Draft',recover:true}})};

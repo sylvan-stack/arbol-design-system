@@ -8,6 +8,7 @@
     busy = false,
     problem = '',
     changed = false,
+    recover = false,
   }: {
     empty?: boolean;
     value?: string;
@@ -15,12 +16,14 @@
     busy?: boolean;
     problem?: string;
     changed?: boolean;
+    recover?: boolean;
   } = $props();
   let text = $state(untrack(()=>value)),
     expanded = $state(false),
     receipt = $state('');
   let edge = $state('');
   let conflict=$state(untrack(()=>changed?{mine:'My fictional changes',theirs:'A fictional edit from another window'}:null));
+  let recovery=$state<string|null>(untrack(()=>recover?'Fictional unsaved text from this window':null));
 </script>
 
 <div class="example" style="--elma-reading-width:720px">
@@ -30,7 +33,10 @@
   <Composer
     firstSapling
     {empty}
-    {readOnly}
+    readOnly={readOnly||recovery!==null}
+    {recovery}
+    onRestore={()=>{text=recovery??text;recovery=null;}}
+    onDiscardRecovery={()=>recovery=null}
     {busy}
     {problem}
     {conflict}
