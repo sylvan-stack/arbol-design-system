@@ -35,6 +35,10 @@ Use the theme, density and text-scale toolbar globally. Viewport resizing is a r
 - The upward timeline has visible zoom controls and an Agenda alternative. The successor section is a bounded design fixture; the full historical calendar geometry, panning and lane-resizing mechanics remain in the interactive heritage board.
 - The theme hue ladder is preserved. Semantic foregrounds are revised, Cedar/Evergreen/Driftwood content surfaces are darkened, and Driftwood's canvas is slightly darkened so metadata and state labels remain readable. The original CSS is retained unchanged in the archive. The successor font assets are local.
 
+## Accepted Elma adapter
+
+ElmaFrame composes WorkspaceShell with explicit header/navigation/status snippets; the generic workspace keeps its existing defaults. It implements BKD-2's accepted First Sapling chrome/navigation/preferences and Root states. Production integrations remain external. Its stories are fictional local state, and the historical/proposed wider Elma surfaces are separately documented in the Elma chapter. Consuming applications import a hashed snapshot of these maintained successor sources for independent packaging, with paired source commits and explicit synchronization checks.
+
 ## Boundaries to implement in an application
 
 The catalog demonstrates visual composition and local interactions. It does not provide backend persistence, authentication, provider catalogs, file uploads, source synchronization, cross-window request resolution, durable draft storage, actual Git operations or production permission enforcement. Notification tests and tool actions are local previews. Avoid wiring a production side effect directly to a Storybook fixture callback.

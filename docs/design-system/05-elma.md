@@ -18,6 +18,12 @@ arbol:renderer/apps/elma/src/chat/ResponseView.svelte
 arbol:renderer/apps/elma/src/chat/SplitColumns.svelte
 -->
 
+## Accepted First Sapling window
+
+BKD-2/BKD-D18/BKD-D22, accepted19 October2026, govern Arbol2's first window. The maintained ElmaFrame shares WorkspaceShell's layout and narrow-navigation behavior while supplying Elma's40px chrome, Root display name/state, one-chat navigation, cockpit, readonly repository slots, History and Subscription-based Intelligence. It shows no list of chats. Repositories and Intelligence open for an empty chat and close on its first Exchange. Header controls preserve the720px default reading width (600–1680 in120px steps) and independent UI/response text scaling, with the twelve wood themes. Width shrinks to its container. Native traffic-light/window control behavior stays with the native adapter.
+
+ElmaFrame's Empty, Conversation, Preparing, Failed and Working stories are fictional local presentations. Production filesystem discovery, routing defaults, persistence and Bridge lifecycle belong to the application adapter; the maintained component does not read a real backend or store conversation content. The later proposals below and historical branch/attachment/permission surfaces are not additions to First Sapling's accepted scope.
+
 ## Surface inventory
 
 | Surface | What must survive reconstruction |

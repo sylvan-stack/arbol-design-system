@@ -19,28 +19,35 @@
       'Monitoring',
     ],
     children,
+    headerContent, navigation, status, fitted = false, elma = false,
     onnavigate = () => {},
   }: {
     workspace?: string;
     current?: string;
     destinations?: string[];
     children?: Snippet;
+    headerContent?: Snippet; navigation?: Snippet; status?: Snippet; fitted?: boolean; elma?: boolean;
     onnavigate?: (page: string) => void;
   } = $props();
   let expanded = $state(false);
 </script>
 
-<div class="workspace">
+<div class="workspace" class:fitted class:elma>
   <header class="chrome">
+    {#if headerContent}{@render headerContent()}
+      <IconButton label="Toggle navigation" icon="☰" onclick={() => (expanded = !expanded)} />
+    {:else}
     <div class="brand"><WorkspaceGlyph {workspace} size={24} /><strong>{workspace}</strong></div>
     <span class="small muted">Arbol / Design system</span>
     <div class="grow"></div>
     <IconButton label="Toggle navigation" icon="☰" onclick={() => (expanded = !expanded)} /><span
       class="pill">Sample workspace</span
     >
+    {/if}
   </header>
   <div class="layout" class:expanded>
     <nav aria-label={workspace + ' navigation'}>
+      {#if navigation}{@render navigation()}{:else}
       <p class="eyebrow">Workspace</p>
       {#each destinations as destination}<button
           aria-current={current === destination ? 'page' : undefined}
@@ -52,6 +59,7 @@
       <div class="nav-foot">
         <span class="small muted">Connected knowledge.<br />Thoughtful work.</span>
       </div>
+      {/if}
     </nav>
     <main>
       {#if children}{@render children()}{:else}<div class="page-content">
@@ -62,10 +70,20 @@
         </div>{/if}
     </main>
   </div>
-  <footer><span>● Fixture mode</span><span>Local sample data · No native services</span></footer>
+  <footer>{#if status}{@render status()}{:else}<span>● Fixture mode</span><span>Local sample data · No native services</span>{/if}</footer>
 </div>
 
 <style>
+  .fitted { height: 100dvh; min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; border: 0; border-radius: 0; }
+  .fitted .layout { min-height: 0; }
+  .fitted main { display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+  .fitted nav { min-height: 0; overflow: auto; }
+  .elma .chrome { min-height: 40px; padding: 4px 12px; gap: 8px; flex-wrap: wrap; }
+  .elma nav { padding: 12px; }
+  .elma footer { min-height: 40px; padding: 6px 12px; }
+  .elma .layout { grid-template-columns: 248px minmax(0, 1fr); }
+  @media (max-width: 800px) { .elma .layout { grid-template-columns: 1fr; } }
+
   .workspace {
     min-height: 720px;
     background: var(--canvas);
