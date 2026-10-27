@@ -36,3 +36,5 @@ export const InteractiveAccounts={render:()=>({Component:ConversationFixture,pro
 export const AttentionMultiple={render:()=>({Component:ConversationFixture,props:{attention:true}})} satisfies StoryObj<typeof ConversationFixture>;
 export const AttentionUnknown={render:()=>({Component:ConversationFixture,props:{attention:true,unknownAttention:true}})} satisfies StoryObj<typeof ConversationFixture>;
 export const ComingBack={render:()=>({Component:ConversationFixture,props:{attention:true,reconnecting:true}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const LatestSelectionFailure={render:()=>({Component:ConversationFixture,props:{latest:true,latestSelectionFailure:true}})} satisfies StoryObj<typeof ConversationFixture>;
