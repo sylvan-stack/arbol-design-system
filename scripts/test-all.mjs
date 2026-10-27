@@ -40,6 +40,7 @@ try {
   await run('scripts/check-elma-routing.mjs');
   await run('scripts/check-elma-repositories.mjs');
   await run('scripts/check-elma-questions.mjs');
+  await run('scripts/check-elma-failures.mjs');
   await run('scripts/check-elma-response.mjs');
   await run('scripts/check-elma-reading.mjs');
   await run('scripts/check-themes.mjs');

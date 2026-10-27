@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/svelte-vite';
 import Component from '../sections/Response.svelte';
+import FailureExample from '../fixtures/FailureExample.svelte';
 import {ELMA_RESPONSE_FIXTURE} from '../fixtures/elma-response';
 const meta = {
   title: 'Sections/Response',
@@ -27,3 +28,8 @@ export const NotSaved: Story = {args:{streaming:true,statusLabel:'claude · fict
 export const Interrupted: Story = {args:{statusLabel:'Interrupted',notes:["Interrupted: the agent's process ended before the answer was finished. What had arrived is kept."]}};
 export const Stopping:Story={args:{streaming:true,statusLabel:'Stopping…'}};
 export const SavedCancellation:Story={args:{statusLabel:'Canceled',notes:['⏹ Stopped']}};
+export const RateLimited={render:()=>({Component:FailureExample,props:{mode:'limit'}})} satisfies StoryObj<typeof FailureExample>;
+export const SignInRequired={render:()=>({Component:FailureExample,props:{mode:'signin'}})} satisfies StoryObj<typeof FailureExample>;
+export const MissingFailureTime={render:()=>({Component:FailureExample,props:{mode:'missing-time'}})} satisfies StoryObj<typeof FailureExample>;
+export const EarlierFailure={render:()=>({Component:FailureExample,props:{mode:'earlier'}})} satisfies StoryObj<typeof FailureExample>;
+export const RecoveryUnavailable={render:()=>({Component:FailureExample,props:{mode:'busy'}})} satisfies StoryObj<typeof FailureExample>;

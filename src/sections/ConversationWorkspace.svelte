@@ -14,12 +14,14 @@
     approval = false,
     history = false,
     routeFailure = false,
-  }: { empty?: boolean; approval?: boolean; history?: boolean;routeFailure?:boolean } = $props();
+    failed = false,
+  }: { empty?: boolean; approval?: boolean; history?: boolean;routeFailure?:boolean;failed?:boolean } = $props();
   let messages = $state([
     'A fictional first prompt',
     'Compare the useful shared patterns',
     'Keep the interface familiar.',
   ]);
+  let failureAction=$state('');
   let draft = $state(''),
     composerOpen = $state(false),
     reader = $state<{ scrollToEdge: (edge: 'top' | 'bottom') => void }>();
@@ -99,8 +101,10 @@
         acceptedAt: '2026-10-27T09:30:00Z',
         startedAt: '2026-10-27T09:30:02Z',
         endedAt: '2026-10-27T09:30:12Z',
+        ...(failed?{statusLabel:'Failed',error:{code:'rate_limited',message:'Fictional quota reached',retryAfterSeconds:3600},onretry:()=>failureAction='Retry selected in fixture; no agent was started.',oncontinue:()=>failureAction='Continue selected in fixture; no message was sent.'}:{}),
       }}
     />{/if}
+  {#if failureAction}<p role="status">{failureAction}</p>{/if}
   {#if approval}<p class="boundary">
       Advanced Root proposal: tool approvals are outside First Sapling.
     </p>

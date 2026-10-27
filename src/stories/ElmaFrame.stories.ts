@@ -12,3 +12,5 @@ export const LoadingModels:Story={args:{routeBusy:true}};
 export const UnavailableSubscription:Story={args:{routes:[{driver:'claude',subscription:'fictional',unavailable:'needs attention'}],routeProblem:'claude · fictional: needs attention'}};
 export const InteractiveIntelligence={render:()=>({Component:ConversationFixture,props:{empty:true}})} satisfies StoryObj<typeof ConversationFixture>;
 export const CatalogFailure={render:()=>({Component:ConversationFixture,props:{empty:true,routeFailure:true}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const FailedResponse={render:()=>({Component:ConversationFixture,props:{failed:true}})} satisfies StoryObj<typeof ConversationFixture>;
