@@ -74,3 +74,9 @@ export { THEMES, DEFAULT_THEME } from './themes';
 export { KINDS } from './entities';
 export type { EntityKind, EntityKindMeta } from './entities';
 export type { RecordItem, FieldSpec } from './types';
+
+export { default as ElmaFrame } from './sections/ElmaFrame.svelte';
+
+export { default as SafeMarkdown } from './components/SafeMarkdown.svelte';
+
+export { default as ResponseReader } from './sections/ResponseReader.svelte';

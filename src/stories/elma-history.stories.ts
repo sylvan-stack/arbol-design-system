@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Explore turns and alternative branches. Interactive successor composition using shared components. Services are represented by local fixture state.',
+          'Explore turns and alternative branches. Accepted First Sapling composition using shared ElmaFrame and Exchange controls. Fictional local state; no native or backend service.',
       },
     },
   },

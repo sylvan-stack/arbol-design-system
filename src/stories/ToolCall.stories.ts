@@ -4,7 +4,7 @@ const meta = {
   title: 'Sections/ToolCall',
   component: Component,
   tags: ['autodocs'],
-  args: {},
+  args: {name:'Read',state:'Complete',input:{path:'fictional/sample.md'},result:'Fictional source content'},
   parameters: {
     docs: {
       description: {
@@ -20,3 +20,8 @@ export const Default: Story = { args: {} };
 export const Running: Story = { args: { state: 'Running' } };
 export const Failed: Story = { args: { state: 'Failed' } };
 export const Expanded: Story = { args: { expanded: true } };
+export const CutPreview: Story = { args: { cut: true, input: 'Preview', load: async()=>({input:{command:'Fictional complete command'},result:'Fictional complete output'}) } };
+export const Truncated: Story = { args: { truncated: true, expanded: true } };
+export const Interrupted: Story = { args: { state: 'Interrupted' } };
+export const Parallel: Story = { args: { state: 'Running', parallel:{running:2,total:3}, startedAt:'2026-10-27T09:00:00Z', now:Date.parse('2026-10-27T09:02:00Z') } };
+export const CutNullFields: Story = { args: { cut: true, input:'Preview input', result:'Preview output', load: async()=>({input:null,result:false}) } };

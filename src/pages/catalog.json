@@ -448,7 +448,7 @@
     "workspace": "Elma",
     "title": "New Chat",
     "recipe": "chat-empty",
-    "description": "Start a conversation with a task, question or entity.",
+    "description": "Accepted First Sapling empty window, navigation and composer; fictional local state.",
     "entity": "",
     "items": [],
     "fields": []
@@ -458,7 +458,7 @@
     "workspace": "Elma",
     "title": "Conversation",
     "recipe": "chat",
-    "description": "Readable responses, connected context and a reliable composer.",
+    "description": "Accepted one-Exchange window with pinned prompt, bounded response reader and navigation; fictional local state.",
     "entity": "",
     "items": [],
     "fields": []
@@ -478,7 +478,7 @@
     "workspace": "Elma",
     "title": "History",
     "recipe": "history",
-    "description": "Explore turns and alternative branches.",
+    "description": "Newest-first Exchange history and search of loaded prompts; no branches in First Sapling.",
     "entity": "",
     "items": [],
     "fields": []

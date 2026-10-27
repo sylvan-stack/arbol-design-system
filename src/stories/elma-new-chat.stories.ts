@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Start a conversation with a task, question or entity. Interactive successor composition using shared components. Services are represented by local fixture state.',
+          'Start a conversation with a task, question or entity. Accepted First Sapling composition using shared ElmaFrame and Exchange controls. Fictional local state; no native or backend service.',
       },
     },
   },
