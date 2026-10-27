@@ -18,3 +18,4 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: {} };
 export const RepositoryMove:Story={args:{kind:'confirm',repository:true}};
+export const StopCurrentResponse:Story={args:{kind:'confirm',stopResponse:true}};

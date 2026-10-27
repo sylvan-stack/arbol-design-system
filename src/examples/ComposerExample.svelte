@@ -10,6 +10,7 @@
     changed = false,
     recover = false,
     pasting = false,
+    status = '',
   }: {
     empty?: boolean;
     value?: string;
@@ -19,6 +20,7 @@
     changed?: boolean;
     recover?: boolean;
     pasting?: boolean;
+    status?: string;
   } = $props();
   let text = $state(untrack(()=>value)),
     expanded = $state(false),
@@ -51,7 +53,7 @@
     route={{ driver: 'claude', subscription: 'fictional', model: 'model-a', effort: 'high' }}
     bind:value={text}
     bind:expanded
-    status={savingPaste?'Saving pasted text…':readOnly ? 'Loading Draft…' : busy ? 'Waiting for the backend…' : ''}
+    status={status||(savingPaste?'Saving pasted text…':readOnly ? 'Loading Draft…' : busy ? 'Waiting for the backend…' : '')}
     onTop={() => (edge = 'top')}
     onBottom={() => (edge = 'bottom')}
     onsend={send}

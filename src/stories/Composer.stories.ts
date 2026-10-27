@@ -48,3 +48,5 @@ export const ChangedElsewhere:Story={render:()=>({Component:Example,props:{empty
 export const RecoverUnsaved:Story={render:()=>({Component:Example,props:{empty:true,value:'Saved fictional Draft',recover:true}})};
 export const SavingPaste:Story={render:()=>({Component:Example,props:{empty:true,value:'Before fictional pasted text after',pasting:true}})};
 export const PasteFailed:Story={render:()=>({Component:Example,props:{empty:true,value:'Fictional pasted text is still here',problem:'Pasted text not saved: The file could not be written.'}})};
+export const WaitingReceipt:Story={render:()=>({Component:Example,props:{value:'Fictional pending message',busy:true,status:'Waiting for send receipt…'}})};
+export const SendRefused:Story={render:()=>({Component:Example,props:{value:'Fictional original message',problem:'Not sent: The database does not answer.'}})};

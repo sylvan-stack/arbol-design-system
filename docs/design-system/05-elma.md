@@ -80,6 +80,21 @@ arbol-design-system:src/sections/ConversationWorkspace.svelte
 arbol-design-system:scripts/check-elma-composer.mjs
 -->
 
+## Accepted sending states
+
+A busy First Sapling composer is closed and cannot be reopened for editing while its send receipt is unconfirmed; its parent retains the captured text. WaitingReceipt and SendRefused show the waiting status and the exact restored message respectively. The application owns persistent request identifiers, retry after an uncertain receipt, a provisional Exchange without a fabricated acceptance time, and reconciliation with canonical chat/Draft data. The shared component emits a send request but does not clear text or infer acceptance.
+
+StopCurrentResponse uses the same ConfirmAction with initial Cancel and a primary Confirm action. Its fictional result says that stopping was requested and waits for a saved end; it does not pretend that the agent stopped. The application releases a queued message only from saved terminal data, including when the stop reply or folder end arrived earlier.
+
+<!-- sources:
+arbol-design-system:src/sections/Composer.svelte
+arbol-design-system:src/examples/ComposerExample.svelte
+arbol-design-system:src/stories/Composer.stories.ts
+arbol-design-system:src/stories/ConfirmAction.stories.ts
+arbol-design-system:scripts/check-elma-composer.mjs
+arbol-design-system:scripts/check-elma-repositories.mjs
+-->
+
 ## Accepted response presentation
 
 Response consumes typed blocks from an application adapter. While running it preserves their arrival order; after completion, open reasoning and closed tool rows stand above the Answer Threshold, with the answer's Markdown below it and Copy answer copying only that answer source. Lifecycle labels group actual times within three seconds. ToolCall exposes known times, elapsed running time after60 seconds, parallel progress, input/output, interrupted/failed and Driver-truncated marks. A cut Bridge preview loads its complete details only on opening, retains null/false values, and reports a failed load with an explicit retry. Saved Root rows have no tool timestamps: the component says Not recorded instead of inventing them.

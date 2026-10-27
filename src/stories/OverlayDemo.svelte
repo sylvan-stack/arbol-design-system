@@ -8,7 +8,8 @@
     outcome = 'success',
     mode = 'create',
     repository = false,
-  }: { kind?: string; outcome?: string; mode?: string;repository?:boolean } = $props();
+    stopResponse = false,
+  }: { kind?: string; outcome?: string; mode?: string;repository?:boolean;stopResponse?:boolean } = $props();
   let open = $state(false);
   let result = $state('');
 </script>
@@ -29,9 +30,9 @@
       label={kind === 'editor'
         ? 'Open editor'
         : kind === 'confirm'
-          ? repository?'Change repository':'Delete work item'
+          ? repository?'Change repository':stopResponse?'Stop current response':'Delete work item'
           : 'Open dialog'}
-      tone={kind === 'confirm'&&!repository ? 'danger' : 'primary'}
+      tone={kind === 'confirm'&&!repository&&!stopResponse ? 'danger' : 'primary'}
       onclick={() => (open = true)}
     />
   </div>
@@ -48,9 +49,10 @@
       onclose={() => (open = false)}
     />{:else if kind === 'confirm'}<ConfirmAction
       {...(repository?{title:'Change repository?',description:'The agent still gets every message of this chat, but no longer remembers what it read and ran before',action:'Change repository',actionTone:'primary' as const}:{})}
+      {...(stopResponse?{title:'Stop current response?',description:'Stop the current response, wait until its end is saved, and then send this Draft.',action:'Confirm',actionTone:'primary' as const}:{})}
       onconfirm={() => {
         open = false;
-        result = repository?'Repo changed to fictional sample':'Work item deleted locally';
+        result = repository?'Repo changed to fictional sample':stopResponse?'Fictional stop requested; waiting for a saved end':'Work item deleted locally';
       }}
       oncancel={() => (open = false)}
     />{:else}<Modal
