@@ -35,6 +35,8 @@ try {
   await run('scripts/test-storybook.mjs');
   await run('scripts/check-docs.mjs');
   await run('scripts/check-interactions.mjs');
+  await run('scripts/check-elma.mjs');
+  await run('scripts/check-elma-response.mjs');
   await run('scripts/check-themes.mjs');
 } finally {
   server.kill();

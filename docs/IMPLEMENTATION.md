@@ -39,6 +39,8 @@ Use the theme, density and text-scale toolbar globally. Viewport resizing is a r
 
 ElmaFrame composes WorkspaceShell with explicit header/navigation/status snippets; the generic workspace keeps its existing defaults. It implements BKD-2's accepted First Sapling chrome/navigation/preferences and Root states. Production integrations remain external. Its stories are fictional local state, and the historical/proposed wider Elma surfaces are separately documented in the Elma chapter. Consuming applications import a hashed snapshot of these maintained successor sources for independent packaging, with paired source commits and explicit synchronization checks.
 
+Response/ToolCall/SafeMarkdown also consume adapter inputs. Missing production values stay missing: fictional times and tool input/output are provided by stories rather than component defaults. Markdown parsing produces an allowlisted syntax tree with literal HTML/image fallback and app-controlled links. Scrollable code/tool/table regions intentionally use keyboard focus without activation semantics. Browser checks cover actual safety, lazy detail and focus/reading contracts; native delivery remains external.
+
 ## Boundaries to implement in an application
 
 The catalog demonstrates visual composition and local interactions. It does not provide backend persistence, authentication, provider catalogs, file uploads, source synchronization, cross-window request resolution, durable draft storage, actual Git operations or production permission enforcement. Notification tests and tool actions are local previews. Avoid wiring a production side effect directly to a Storybook fixture callback.

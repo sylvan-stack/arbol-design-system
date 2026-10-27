@@ -30,6 +30,12 @@ PinnedMessage keeps the prompt at three lines until See more, retains its own ex
 
 The elma-new-chat, elma-conversation and elma-history pages compose the shared ElmaFrame and these controls directly, rather than a workspace list of chat pages. Composer has a FirstSapling fixture variant with multiline text, Return/Escape and send shortcuts and no Send button or attachments. These fixtures change local state only; backend Draft/send ownership remains in the application adapter. The broader composer default story is retained as a separate proposal.
 
+## Accepted response presentation
+
+Response consumes typed blocks from an application adapter. While running it preserves their arrival order; after completion, open reasoning and closed tool rows stand above the Answer Threshold, with the answer's Markdown below it and Copy answer copying only that answer source. Lifecycle labels group actual times within three seconds. ToolCall exposes known times, elapsed running time after60 seconds, parallel progress, input/output, interrupted/failed and Driver-truncated marks. A cut Bridge preview loads its complete details only on opening, retains null/false values, and reports a failed load with an explicit retry. Saved Root rows have no tool timestamps: the component says Not recorded instead of inventing them.
+
+SafeMarkdown uses a pinned CommonMark syntax-tree parser plus GFM tables and maps it into an allowlist of typed text/elements. It never inserts HTML strings. Raw HTML and image syntax remain text; only http/https links are buttons with link semantics routed through the application adapter. Failed or deeply nested parsing falls back to the complete source text. Code and table regions stay keyboard reachable and scroll inside their own boundaries. Standalone link stories only select fictional links locally; the application supplies the real app channel. The Answer Beacon delegates its scroll target to the reading-area owner.
+
 ## Surface inventory
 
 | Surface | What must survive reconstruction |

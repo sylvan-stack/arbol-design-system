@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/svelte-vite';
 import Component from '../sections/Response.svelte';
+import {ELMA_RESPONSE_FIXTURE} from '../fixtures/elma-response';
 const meta = {
   title: 'Sections/Response',
   component: Component,
   tags: ['autodocs'],
-  args: {},
+  args: {blocks:ELMA_RESPONSE_FIXTURE,acceptedAt:'2026-10-27T09:30:00Z',startedAt:'2026-10-27T09:30:02Z',endedAt:'2026-10-27T09:30:12Z'},
   parameters: {
     docs: {
       description: {
@@ -18,3 +19,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: {} };
 export const Streaming: Story = { args: { streaming: true } };
+export const UnknownFailure: Story = { args: { statusLabel:'Failed', error:{code:'future_vendor_code',message:'A fictional future failure.'} } };
+export const Beacon: Story = { args: { showBeacon:true } };
