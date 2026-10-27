@@ -44,6 +44,72 @@ arbol-design-system:src/sections/ConversationWorkspace.svelte
 arbol-design-system:scripts/check-elma.mjs
 -->
 
+## Accepted repository controls
+
+A repository slot click moves an existing chat only after the continuity warning in ConfirmAction; its action uses the primary tone and Cancel receives initial focus. Escape/Cancel restore focus to the slot. The parent guards the Root/chat identity and active Exchange state and supplies the real settings result. Cmd1–9 always starts the repository’s new-chat composition and brings back its Draft; Other/Cmd0 delegate the native folder picker to the application. ConversationWorkspace keeps only local fictional repository Drafts and confirmation state. The application’s relay adapter labels its folder prompt and sends no app-channel envelope to the backend.
+
+<!-- sources:
+arbol-design-system:src/patterns/ConfirmAction.svelte
+arbol-design-system:src/sections/ConversationWorkspace.svelte
+arbol-design-system:src/stories/ConfirmAction.stories.ts
+arbol-design-system:scripts/check-elma-repositories.mjs
+-->
+
+## Accepted Intelligence controls
+
+ElmaFrame exposes controlled Subscription rows and next-model/next-effort actions, with disabled unavailable rows, Loading models, Saving route and visible catalog failures with Retry models. ConversationWorkspace and the InteractiveIntelligence/CatalogFailure stories own fictional routes locally and exercise Ctrl1–9, CtrlM and CtrlTab; production catalog/default resolution and ordered chat settings writes belong to the application. Changing a route resets model/effort to its defaults; model changes reset effort to that model’s default. A catalog without a default does not authorize inventing one. The current Exchange keeps its captured route while choices apply to the next message.
+
+<!-- sources:
+arbol-design-system:src/sections/ElmaFrame.svelte
+arbol-design-system:src/sections/ConversationWorkspace.svelte
+arbol-design-system:src/stories/ElmaFrame.stories.ts
+arbol-design-system:scripts/check-elma-routing.mjs
+-->
+
+## Accepted composer presentation
+
+The First Sapling Composer is controlled: its parent owns the text, loading and busy state, errors, paste handling and send receipt. An empty chat centers a ten-line field below its repository/route caption. A conversation starts with the closed composer and working scroll-to-top/bottom controls; plain Return opens a three-line field, Escape collapses it without losing text, and a supplied Draft opens in focus. Return inside the field inserts a newline; Cmd/Control+Enter requests sending. Return on another control and keys inside an open dialog keep their own behavior. Loading or uncertain sending keeps text read-only. The application enables editing only after it has acquired its canonical Draft revision.
+
+Composer's FirstSapling, Closed, WithDraft, LoadingDraft, Waiting and SaveFailed stories use an explicit fictional local owner. ConversationWorkspace also binds its local text rather than relying on a hidden component copy. These fixtures have no production persistence or backend outcomes. RecoverUnsaved offers the unsaved text with Restore text/Discard while the field stays read-only; the parent offers it only over its matching canonical revision. SavingPaste keeps typed text visible with Saving pasted text… and queues a fictional send once; PasteFailed retains its text with a visible error. The parent controls when an actual send closes the composer. Controlled value changes preserve the caret through file-link insertion, and native edit ranges accompany input so repeated characters do not confuse pending pasted ranges. Empty composers scroll vertically when text scaling and recovery controls need more room. ChangedElsewhere displays both exact texts with Keep mine and Take theirs; the parent supplies revision handling, and the fictional owner resolves only local text. The default attachment composer remains a broader proposal. `check-elma-composer.mjs` exercises focus, multiline editing, both send shortcuts, collapse/retention, scroll callbacks and narrow 200% text.
+
+<!-- sources:
+arbol-design-system:src/sections/Composer.svelte
+arbol-design-system:src/examples/ComposerExample.svelte
+arbol-design-system:src/stories/Composer.stories.ts
+arbol-design-system:src/sections/ConversationWorkspace.svelte
+arbol-design-system:scripts/check-elma-composer.mjs
+-->
+
+## Accepted agent questions
+
+AskUserQuestion’s controlled First Sapling mode validates the public Ask shape and renders headers, question text, single radio or multiple checkbox choices, and no free-text answer. Submit requires a choice for every question with options; Continue answers the questions without options. Cancel declines. The parent supplies pending state, a recorded answer, closure and refusal; a successful control call alone never creates Your answer. A refusal keeps choices available, including after an earlier recorded answer. Closed recorded questions remain readable. Unknown/malformed Ask data stays literal with Cancel for its known ask identifier and no invented option. The original density/custom example remains a separate broader proposal.
+
+QuestionExample and its FirstSapling/Multiple/Continue/Refused/RecordedAnswer/Unknown stories use explicit local buttons to simulate file facts; they contact no backend. The production adapter fences each submission against actual answer/control-refused file positions so an old answer cannot acknowledge a later retry.
+
+<!-- sources:
+arbol-design-system:src/sections/AskUserQuestion.svelte
+arbol-design-system:src/sections/elma-response.ts
+arbol-design-system:src/sections/Response.svelte
+arbol-design-system:src/fixtures/QuestionExample.svelte
+arbol-design-system:src/stories/AskUserQuestion.stories.ts
+arbol-design-system:scripts/check-elma-questions.mjs
+-->
+
+## Accepted sending states
+
+A busy First Sapling composer is closed and cannot be reopened for editing while its send receipt is unconfirmed; its parent retains the captured text. WaitingReceipt and SendRefused show the waiting status and the exact restored message respectively. The application owns persistent request identifiers, retry after an uncertain receipt, a provisional Exchange without a fabricated acceptance time, and reconciliation with canonical chat/Draft data. The shared component emits a send request but does not clear text or infer acceptance.
+
+StopCurrentResponse uses the same ConfirmAction with initial Cancel and a primary Confirm action. Its fictional result says that stopping was requested and waits for a saved end; it does not pretend that the agent stopped. The Stopping response has no Stopped line; SavedCancellation shows Canceled and ⏹ Stopped only from a saved cancelled Exchange. A completion that won the race remains Completed, and a forced interruption remains Interrupted. CmdEscape is supplied by the application, which coalesces requests and retries an uncertain stop only on a new backend hello. The application releases a queued message only from saved terminal data, including when the stop reply or folder end arrived earlier.
+
+<!-- sources:
+arbol-design-system:src/sections/Composer.svelte
+arbol-design-system:src/examples/ComposerExample.svelte
+arbol-design-system:src/stories/Composer.stories.ts
+arbol-design-system:src/stories/ConfirmAction.stories.ts
+arbol-design-system:scripts/check-elma-composer.mjs
+arbol-design-system:scripts/check-elma-repositories.mjs
+-->
+
 ## Accepted response presentation
 
 Response consumes typed blocks from an application adapter. While running it preserves their arrival order; after completion, open reasoning and closed tool rows stand above the Answer Threshold, with the answer's Markdown below it and Copy answer copying only that answer source. Lifecycle labels group actual times within three seconds. ToolCall exposes known times, elapsed running time after60 seconds, parallel progress, input/output, interrupted/failed and Driver-truncated marks. A cut Bridge preview loads its complete details only on opening, retains null/false values, and reports a failed load with an explicit retry. Saved Root rows have no tool timestamps: the component says Not recorded instead of inventing them.
@@ -65,6 +131,17 @@ arbol-design-system:src/fixtures/ReadingExample.svelte
 arbol-design-system:scripts/check-elma-response.mjs
 arbol-design-system:scripts/check-elma-reading.mjs
 arbol-design-system:src/styles/tokens.css
+-->
+
+## Exact JSON values
+
+The maintained stringifyJson helper uses pinned MIT lossless-json4.3.3 to render bigint adapter values as exact numeric JSON. ToolCall's ExactRevision fixture loads a fictional64-bit value locally and checks its final digits. The application's wire decoder owns the revision/baseRevision policy and CAS validation; the shared formatter has no backend services. The ordinary numeric and null/false tool presentations remain covered by the response checks.
+
+<!-- sources:
+arbol-design-system:src/json.ts
+arbol-design-system:src/sections/elma-response.ts
+arbol-design-system:src/stories/ToolCall.stories.ts
+arbol-design-system:scripts/check-elma-response.mjs
 -->
 
 ## Surface inventory
@@ -161,3 +238,23 @@ Current entity-composer Storybook fixture; this is a component view, not the ent
 ![Current entity-composer Storybook fixture; this is a component view, not the entire chat window. The captured fixture shows overlapping text at the start of its input; this is retained as legacy evidence, not a target treatment.](assets/legacy-elma-composer-story.png)
 
 Compare the separately authored [successor specimen](reference.html) and see [capture provenance](assets/README.md).
+
+First Sapling failed responses keep the plain cause alongside the original code/message and recorded end time. Rate-limit reset times use that end plus retryAfterSeconds and remain fixed as the viewer’s clock moves; a missing end is Not recorded. Sign-in failures show the Driver command without running it. The adapter supplies Retry and Continue callbacks only for the last saved failed Exchange; shared controls can be disabled during unavailable/pending recovery. Retry replaces the same turn in its original folder, while Continue sends proceed in the current chat folder/route and preserves an independently composed Draft. Stories use local fictional callbacks only.
+
+<!-- sources:
+arbol-design-system:src/sections/Composer.svelte
+arbol-design-system:src/sections/AskUserQuestion.svelte
+arbol-design-system:src/sections/ElmaFrame.svelte
+arbol-design-system:src/sections/Response.svelte
+arbol-design-system:src/sections/elma-response.ts
+arbol-design-system:src/sections/ConversationWorkspace.svelte
+arbol-design-system:src/fixtures/QuestionExample.svelte
+arbol-design-system:src/fixtures/FailureExample.svelte
+arbol-design-system:scripts/check-elma-composer.mjs
+arbol-design-system:scripts/check-elma-routing.mjs
+arbol-design-system:scripts/check-elma-repositories.mjs
+arbol-design-system:scripts/check-elma-questions.mjs
+arbol-design-system:scripts/check-elma-failures.mjs
+-->
+
+Question identifiers are opaque strings. Selection lookup uses own properties so names such as __proto__ remain ordinary question data; outgoing answers preserve their exact identifiers.

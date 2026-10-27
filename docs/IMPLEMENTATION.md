@@ -71,3 +71,29 @@ These checks establish specific properties of the fixtures. They are not a full 
 ResponseReader is the shared bounded scroll owner for accepted Elma pages and the renderer: tail following, user release, completed threshold/Beacon, three semantic reading stops and in-memory offsets. The application supplies snapshot generations and the position map; shared ReadingExample uses only fictional local changes.
 
 Semantic color aliases are resolved at each data-theme boundary. This lets a scoped Elma theme change its actual canvas/panels as well as text, including switching between dark and light ancestors. Font scale and layout tokens remain inherited from their own controls.
+
+Exact JSON presentation uses the pinned lossless-json formatter for bigint adapter values. Protocol decoding, revision validation and persistence belong to the consuming application; the ToolCall ExactRevision story loads its fictional value through a local callback.
+
+The accepted controlled composer shares empty/closed/Draft/loading/busy/error fixtures, exact text ownership and keyboard/focus behavior with the production adapter. Its parent supplies persistence, receipt and scroll callbacks; the component never infers successful sending.
+
+First Sapling AskUserQuestion is controlled by file-confirmed question/answer/refusal state. The app supplies control calls; the shared sections expose no free-text answer and never treat a control reply as the recorded answer. Saved tool ask/answer data can be presented read-only.
+
+First Sapling failed responses keep the plain cause alongside the original code/message and recorded end time. Rate-limit reset times use that end plus retryAfterSeconds and remain fixed as the viewer’s clock moves; a missing end is Not recorded. Sign-in failures show the Driver command without running it. The adapter supplies Retry and Continue callbacks only for the last saved failed Exchange; shared controls can be disabled during unavailable/pending recovery. Retry replaces the same turn in its original folder, while Continue sends proceed in the current chat folder/route and preserves an independently composed Draft. Stories use local fictional callbacks only.
+
+<!-- sources:
+arbol-design-system:src/sections/Composer.svelte
+arbol-design-system:src/sections/AskUserQuestion.svelte
+arbol-design-system:src/sections/ElmaFrame.svelte
+arbol-design-system:src/sections/Response.svelte
+arbol-design-system:src/sections/elma-response.ts
+arbol-design-system:src/sections/ConversationWorkspace.svelte
+arbol-design-system:src/fixtures/QuestionExample.svelte
+arbol-design-system:src/fixtures/FailureExample.svelte
+arbol-design-system:scripts/check-elma-composer.mjs
+arbol-design-system:scripts/check-elma-routing.mjs
+arbol-design-system:scripts/check-elma-repositories.mjs
+arbol-design-system:scripts/check-elma-questions.mjs
+arbol-design-system:scripts/check-elma-failures.mjs
+-->
+
+Question identifiers are opaque strings. Selection lookup uses own properties so names such as __proto__ remain ordinary question data; outgoing answers preserve their exact identifiers.

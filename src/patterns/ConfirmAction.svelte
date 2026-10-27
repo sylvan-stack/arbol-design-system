@@ -5,12 +5,14 @@
     title = 'Delete this work item?',
     description = 'The item and its saved settings will be permanently removed.',
     action = 'Delete item',
+    actionTone = 'danger',
     onconfirm = () => {},
     oncancel = () => {},
   }: {
     title?: string;
     description?: string;
     action?: string;
+    actionTone?: 'primary'|'danger';
     onconfirm?: () => void;
     oncancel?: () => void;
   } = $props();
@@ -20,7 +22,7 @@
   ><p>{description}</p>
   {#snippet footer()}<Button label="Cancel" onclick={oncancel} /><Button
       label={action}
-      tone="danger"
+      tone={actionTone}
       onclick={onconfirm}
     />{/snippet}</Modal
 >
