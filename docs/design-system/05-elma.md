@@ -44,6 +44,17 @@ arbol-design-system:src/sections/ConversationWorkspace.svelte
 arbol-design-system:scripts/check-elma.mjs
 -->
 
+## Accepted Intelligence controls
+
+ElmaFrame exposes controlled Subscription rows and next-model/next-effort actions, with disabled unavailable rows, Loading models, Saving route and visible catalog failures with Retry models. ConversationWorkspace and the InteractiveIntelligence/CatalogFailure stories own fictional routes locally and exercise Ctrl1–9, CtrlM and CtrlTab; production catalog/default resolution and ordered chat settings writes belong to the application. Changing a route resets model/effort to its defaults; model changes reset effort to that model’s default. A catalog without a default does not authorize inventing one. The current Exchange keeps its captured route while choices apply to the next message.
+
+<!-- sources:
+arbol-design-system:src/sections/ElmaFrame.svelte
+arbol-design-system:src/sections/ConversationWorkspace.svelte
+arbol-design-system:src/stories/ElmaFrame.stories.ts
+arbol-design-system:scripts/check-elma-routing.mjs
+-->
+
 ## Accepted composer presentation
 
 The First Sapling Composer is controlled: its parent owns the text, loading and busy state, errors, paste handling and send receipt. An empty chat centers a ten-line field below its repository/route caption. A conversation starts with the closed composer and working scroll-to-top/bottom controls; plain Return opens a three-line field, Escape collapses it without losing text, and a supplied Draft opens in focus. Return inside the field inserts a newline; Cmd/Control+Enter requests sending. Return on another control and keys inside an open dialog keep their own behavior. Loading or uncertain sending keeps text read-only. The application enables editing only after it has acquired its canonical Draft revision.

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   import ElmaFrame from './ElmaFrame.svelte';
   import PinnedMessage from './PinnedMessage.svelte';
   import HistoryTree from './HistoryTree.svelte';
@@ -11,7 +12,8 @@
     empty = false,
     approval = false,
     history = false,
-  }: { empty?: boolean; approval?: boolean; history?: boolean } = $props();
+    routeFailure = false,
+  }: { empty?: boolean; approval?: boolean; history?: boolean;routeFailure?:boolean } = $props();
   let messages = $state([
     'A fictional first prompt',
     'Compare the useful shared patterns',
@@ -28,8 +30,15 @@
   });
   const shown = $derived(!empty || hasMessages);
   const count = $derived(shown ? messages.length : 0);
-  const route = { driver: 'claude', subscription: 'fictional', model: 'model-a', effort: 'high' };
+  let route=$state({driver:'claude',subscription:'fictional',model:'model-a',effort:'high'});
+  let routeProblem=$state(untrack(()=>routeFailure?'Models could not be read: fictional Driver unavailable.':''));
+  const routes=[{driver:'claude',subscription:'fictional'},{driver:'codex',subscription:'fictional'},{driver:'claude',subscription:'offline',unavailable:'needs attention'}];
+  function pickRoute(driver:string,subscription:string){route={driver,subscription,model:'model-a',effort:'high'};}
+  function nextModel(){route={...route,model:route.model==='model-a'?'model-b':'model-a',effort:route.model==='model-a'?'medium':'high'};}
+  function nextEffort(){route={...route,effort:route.effort==='high'?'medium':'high'};}
   function keys(event: KeyboardEvent) {
+    if(event.defaultPrevented||document.querySelector('dialog[open]'))return;
+    if(event.ctrlKey&&!event.metaKey&&!event.altKey&&!event.shiftKey){if(/^[1-3]$/.test(event.key)){const row=routes[Number(event.key)-1];if(!row.unavailable){event.preventDefault();pickRoute(row.driver,row.subscription);}}else if(event.key.toLowerCase()==='m'){event.preventDefault();nextModel();}else if(event.key==='Tab'){event.preventDefault();nextEffort();}return;}
     if (event.metaKey && event.key.toLowerCase() === 'p') {
       event.preventDefault();
       historyOpen = !historyOpen;
@@ -57,7 +66,12 @@
     { name: 'sylvan-stack', folder: '/fictional/readonly' },
     { name: 'sample', folder: '/fictional/readonly/sample' },
   ]}
-  routes={[{ driver: 'claude', subscription: 'fictional' }]}
+  {routes}
+  {routeProblem}
+  onretryRoute={()=>routeProblem=''}
+  onroute={pickRoute}
+  onmodel={nextModel}
+  oneffort={nextEffort}
   inputTokens={shown ? 9100 : 0}
   outputTokens={shown ? 2700 : 0}
   onolder={() => (current = Math.max(0, current - 1))}
