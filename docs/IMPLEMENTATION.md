@@ -57,3 +57,7 @@ The broad source-to-story map identifies dedicated replacements, consolidations,
 - `npm test`: render every story, exercise interaction contracts, scan every page at narrow widths, measure semantic contrast in every theme, and run representative axe checks.
 
 These checks establish specific properties of the fixtures. They are not a full accessibility certification or evidence that native/backend integrations work. The prepared workflow in `docs/ci/storybook.yml` retains the static Storybook and test results as downloadable artifacts when enabled. It is a template, not an active workflow: the available GitHub CLI credential lacks workflow-upload permission. Local checks are fully runnable with `npm test`. The workflow does not publish private designs to a public website.
+
+ResponseReader is the shared bounded scroll owner for accepted Elma pages and the renderer: tail following, user release, completed threshold/Beacon, three semantic reading stops and in-memory offsets. The application supplies snapshot generations and the position map; shared ReadingExample uses only fictional local changes.
+
+Semantic color aliases are resolved at each data-theme boundary. This lets a scoped Elma theme change its actual canvas/panels as well as text, including switching between dark and light ancestors. Font scale and layout tokens remain inherited from their own controls.

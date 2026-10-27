@@ -38,6 +38,8 @@ SafeMarkdown uses a pinned CommonMark syntax-tree parser plus GFM tables and map
 
 The live adapter treats whole text/thinking as authoritative, nests sub-agent activity inside its parent tool, replaces usage totals per run and discards duplicate file positions. A new snapshot resets that projection. Saving replaces the answer with the saved rows while keeping already shown reasoning and actual tool times until the next snapshot. Response presents plain-language questions/options and the answer given above the future composer; answering controls belong to the application integration. NotSaved and Interrupted stories distinguish an uncommitted folder answer from a saved terminal Exchange. Status precedence is failed, stopping, waiting for an answer, starting, tools, thinking, responding, other work, then saved completion; no display clock ends a long wait.
 
+ResponseReader owns the bounded reading region used by the application and the three accepted pages. Live answers follow their end until an upward wheel/touch/scrolling-key action; completion keeps an intentional reading position. A newly opened completed answer locates its threshold, including delayed layout/font changes, and the Beacon appears only while that threshold is below the view. Cmd+Shift+Option+8/7 move among activity start, answer threshold and response end. Offsets and following intent are kept in memory per chat/Exchange while the window lives, with no answer content stored as a convenience. Snapshots refresh open tool detail and restore an older selected Exchange from fresh12-row pages when needed. ReadingExample is fictional and local; its controls append text or switch examples without a real backend.
+
 ## Surface inventory
 
 | Surface | What must survive reconstruction |

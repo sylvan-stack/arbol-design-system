@@ -458,7 +458,7 @@
     "workspace": "Elma",
     "title": "Conversation",
     "recipe": "chat",
-    "description": "Accepted one-Exchange window with pinned prompt and navigation; fictional local state.",
+    "description": "Accepted one-Exchange window with pinned prompt, bounded response reader and navigation; fictional local state.",
     "entity": "",
     "items": [],
     "fields": []

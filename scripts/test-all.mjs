@@ -37,6 +37,7 @@ try {
   await run('scripts/check-interactions.mjs');
   await run('scripts/check-elma.mjs');
   await run('scripts/check-elma-response.mjs');
+  await run('scripts/check-elma-reading.mjs');
   await run('scripts/check-themes.mjs');
 } finally {
   server.kill();
