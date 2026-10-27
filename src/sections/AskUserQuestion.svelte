@@ -23,7 +23,7 @@
  {#if question.answer!==undefined}<h4>Your answer</h4><p>{answerLabels(question.answer)}</p>{/if}
  {#if question.pending}<p role="status">Answer sent; waiting for the agent’s recorded answer…</p>{/if}
  {#if question.problem}<p class="problem" role="alert">{question.problem}</p>{/if}
- {#if onanswer&&question.open&&(!question.answer||retry)}<div class="actions">{#if items}<Button label={hasOptions?'Submit':'Continue'} tone="primary" disabled={!editable||!complete} onclick={submit}/>{/if}<Button label="Cancel" disabled={question.pending} onclick={()=>onanswer?.({type:'decline'})}/></div>{/if}
+ {#if onanswer&&question.open&&(!question.answer||retry||question.pending)}<div class="actions">{#if items}<Button label={hasOptions?'Submit':'Continue'} tone="primary" disabled={!editable||!complete} onclick={submit}/>{/if}<Button label="Cancel" disabled={question.pending} onclick={()=>onanswer?.({type:'decline'})}/></div>{/if}
 </section>
 {:else}
 <section class="panel stack" aria-label="Question">
