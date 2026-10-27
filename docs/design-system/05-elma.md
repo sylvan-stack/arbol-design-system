@@ -39,7 +39,7 @@ The elma-new-chat, elma-conversation and elma-history pages compose the shared E
 <!-- sources:
 arbol-design-system:src/sections/PinnedMessage.svelte
 arbol-design-system:src/sections/HistoryTree.svelte
-arbol-design-system:src/patterns/TurnNavigator.svelte
+arbol-design-system:src/sections/TurnNavigator.svelte
 arbol-design-system:src/sections/ConversationWorkspace.svelte
 arbol-design-system:scripts/check-elma.mjs
 -->
