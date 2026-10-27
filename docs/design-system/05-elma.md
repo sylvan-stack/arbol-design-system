@@ -9,13 +9,13 @@ Elma is a turn-oriented conversation workspace, not simply a scrolling messaging
 
 An empty chat uses a larger composer. Active chat uses a smaller composer with collapse/expand behavior. Response content has its own scroll region and reading-width limit. Elma separately persists UI scale, response scale and reading width.
 
-<!-- sources:
-arbol:renderer/apps/elma/src/App.svelte
-arbol:renderer/apps/elma/src/pages/ElmaPage.svelte
-arbol:renderer/apps/elma/src/nav/NavigationPanel.svelte
-arbol:renderer/apps/elma/src/nav/MetaCockpit.svelte
-arbol:renderer/apps/elma/src/chat/ResponseView.svelte
-arbol:renderer/apps/elma/src/chat/SplitColumns.svelte
+<!-- Historical locators from the frozen version1 reference:
+arbol_deprecated_v1:renderer/apps/elma/src/App.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/pages/ElmaPage.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/nav/NavigationPanel.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/nav/MetaCockpit.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/ResponseView.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/SplitColumns.svelte
 -->
 
 ## Accepted First Sapling window
@@ -24,11 +24,25 @@ BKD-2/BKD-D18/BKD-D22, accepted19 October2026, govern Arbol2's first window. The
 
 ElmaFrame's Empty, Conversation, Preparing, Failed and Working stories are fictional local presentations. Production filesystem discovery, routing defaults, persistence and Bridge lifecycle belong to the application adapter; the maintained component does not read a real backend or store conversation content. The later proposals below and historical branch/attachment/permission surfaces are not additions to First Sapling's accepted scope.
 
+<!-- sources:
+arbol-design-system:src/sections/ElmaFrame.svelte
+arbol-design-system:src/patterns/WorkspaceShell.svelte
+arbol-design-system:src/stories/ElmaFrame.stories.ts
+-->
+
 ## Accepted Exchange navigation
 
 PinnedMessage keeps the prompt at three lines until See more, retains its own expanded scroll area, and offers Copy prompt with a truthful copy result. TurnNavigator uses the one-based place among unreplaced Exchanges and the chat's full count, with the compact ‹n/N› counter opening history. HistoryTree's accepted mode is a newest-first list, digit shortcuts and Search of loaded prompts; older pages load explicitly in12-Exchange batches through the application. A separate AdvancedRootProposal story preserves the wider branching discussion without enabling branches in First Sapling.
 
 The elma-new-chat, elma-conversation and elma-history pages compose the shared ElmaFrame and these controls directly, rather than a workspace list of chat pages. Composer has a FirstSapling fixture variant with multiline text, Return/Escape and send shortcuts and no Send button or attachments. These fixtures change local state only; backend Draft/send ownership remains in the application adapter. The broader composer default story is retained as a separate proposal.
+
+<!-- sources:
+arbol-design-system:src/sections/PinnedMessage.svelte
+arbol-design-system:src/sections/HistoryTree.svelte
+arbol-design-system:src/patterns/TurnNavigator.svelte
+arbol-design-system:src/sections/ConversationWorkspace.svelte
+arbol-design-system:scripts/check-elma.mjs
+-->
 
 ## Accepted response presentation
 
@@ -39,6 +53,19 @@ SafeMarkdown uses a pinned CommonMark syntax-tree parser plus GFM tables and map
 The live adapter treats whole text/thinking as authoritative, nests sub-agent activity inside its parent tool, replaces usage totals per run and discards duplicate file positions. A new snapshot resets that projection. Saving replaces the answer with the saved rows while keeping already shown reasoning and actual tool times until the next snapshot. Response presents plain-language questions/options and the answer given above the future composer; answering controls belong to the application integration. NotSaved and Interrupted stories distinguish an uncommitted folder answer from a saved terminal Exchange. Status precedence is failed, stopping, waiting for an answer, starting, tools, thinking, responding, other work, then saved completion; no display clock ends a long wait.
 
 ResponseReader owns the bounded reading region used by the application and the three accepted pages. Live answers follow their end until an upward wheel/touch/scrolling-key action; completion keeps an intentional reading position. A newly opened completed answer locates its threshold, including delayed layout/font changes, and the Beacon appears only while that threshold is below the view. Cmd+Shift+Option+8/7 move among activity start, answer threshold and response end. Offsets and following intent are kept in memory per chat/Exchange while the window lives, with no answer content stored as a convenience. Snapshots refresh open tool detail and restore an older selected Exchange from fresh12-row pages when needed. ReadingExample is fictional and local; its controls append text or switch examples without a real backend.
+
+<!-- sources:
+arbol-design-system:src/sections/Response.svelte
+arbol-design-system:src/sections/ToolCall.svelte
+arbol-design-system:src/sections/ResponseReader.svelte
+arbol-design-system:src/components/SafeMarkdown.svelte
+arbol-design-system:src/markdown.ts
+arbol-design-system:src/sections/elma-response.ts
+arbol-design-system:src/fixtures/ReadingExample.svelte
+arbol-design-system:scripts/check-elma-response.mjs
+arbol-design-system:scripts/check-elma-reading.mjs
+arbol-design-system:src/styles/tokens.css
+-->
 
 ## Surface inventory
 
@@ -63,22 +90,22 @@ ResponseReader owns the bounded reading region used by the application and the t
 | Change Walkthrough | Target chooser, file rail, before/diff/with-changes modes, whitespace/context controls and ask-agent-about-selected-lines |
 | Worktree diff mode | Existing alternative diff entry points retained in archive; do not infer future worktree architecture from this UI |
 
-<!-- sources:
-arbol:renderer/apps/elma/src/chat/Composer.svelte
-arbol:renderer/apps/elma/src/chat/EntityComposerInput.svelte
-arbol:renderer/apps/elma/src/chat/AttachedContext.svelte
-arbol:renderer/apps/elma/src/chat/PinnedMessage.svelte
-arbol:renderer/apps/elma/src/chat/TurnStepper.svelte
-arbol:renderer/apps/elma/src/chat/branching/BranchSwitcher.svelte
-arbol:renderer/apps/elma/src/chat/HistoryOverlay.svelte
-arbol:renderer/apps/elma/src/chat/ApprovalDock.svelte
-arbol:renderer/apps/elma/src/chat/AskUserQuestionCard.svelte
-arbol:renderer/apps/elma/src/chat/AgentStatusBar.svelte
-arbol:renderer/apps/elma/src/chat/SidePanel.svelte
-arbol:renderer/apps/elma/src/chat/ThreadInspector.svelte
-arbol:renderer/apps/elma/src/chat/ActivityGraphPanel.svelte
-arbol:renderer/apps/elma/src/change-walkthrough/ChangeWalkthroughPage.svelte
-arbol:renderer/apps/elma/src/WorktreeDiffMode.svelte
+<!-- Historical locators from the frozen version1 reference:
+arbol_deprecated_v1:renderer/apps/elma/src/chat/Composer.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/EntityComposerInput.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/AttachedContext.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/PinnedMessage.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/TurnStepper.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/branching/BranchSwitcher.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/HistoryOverlay.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/ApprovalDock.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/AskUserQuestionCard.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/AgentStatusBar.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/SidePanel.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/ThreadInspector.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/ActivityGraphPanel.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/change-walkthrough/ChangeWalkthroughPage.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/WorktreeDiffMode.svelte
 -->
 
 ## Composer and continuity details
@@ -87,13 +114,13 @@ Observed image paste accepts PNG, JPEG, WebP and GIF, up to four images and 8 Mi
 
 Drafts are associated with composer/chat identity, not merely a repository. Preserve draft text and attachments across switching, refresh and failure. A failed send must not erase the only copy. Retry reloads persisted image bytes and stops on attachment failure instead of silently sending incomplete content. Read receipts must refer to the displayed chat/projection, not whichever chat a stale request originally targeted.
 
-<!-- sources:
-arbol:renderer/apps/elma/src/chat/Composer.svelte
-arbol:renderer/apps/elma/src/chat/largeTextPaste.ts
-arbol:renderer/apps/elma/src/chat/chatNoteClipboard.ts
-arbol:renderer/apps/elma/src/app/draft-cache.ts
-arbol:renderer/apps/elma/src/app/message-attachments.ts
-arbol:renderer/apps/elma/src/app/read-receipt.ts
+<!-- Historical locators from the frozen version1 reference:
+arbol_deprecated_v1:renderer/apps/elma/src/chat/Composer.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/largeTextPaste.ts
+arbol_deprecated_v1:renderer/apps/elma/src/chat/chatNoteClipboard.ts
+arbol_deprecated_v1:renderer/apps/elma/src/app/draft-cache.ts
+arbol_deprecated_v1:renderer/apps/elma/src/app/message-attachments.ts
+arbol_deprecated_v1:renderer/apps/elma/src/app/read-receipt.ts
 -->
 
 ## Proposed improvements
@@ -106,12 +133,12 @@ Use the shared PermissionRequest and ConfirmAction patterns. Require deliberate 
 
 Unify SidePanel and the detached artifact window around DocumentView. Both should share navigation, find, copy path, dirty-state protection and save-error handling. The current SidePanel uses autosave state while the detached renderer exposes explicit saving; choose a documented policy and maintain it across both hosts.
 
-<!-- sources:
-arbol:renderer/apps/elma/src/nav/NavigationPanel.svelte
-arbol:renderer/apps/elma/src/nav/MetaCockpit.svelte
-arbol:renderer/apps/elma/src/pages/ElmaPage.svelte
-arbol:renderer/apps/elma/src/chat/SidePanel.svelte
-arbol:renderer/apps/artifact/src/App.svelte
+<!-- Historical locators from the frozen version1 reference:
+arbol_deprecated_v1:renderer/apps/elma/src/nav/NavigationPanel.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/nav/MetaCockpit.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/pages/ElmaPage.svelte
+arbol_deprecated_v1:renderer/apps/elma/src/chat/SidePanel.svelte
+arbol_deprecated_v1:renderer/apps/artifact/src/App.svelte
 -->
 
 ## Layout and acceptance
@@ -120,11 +147,11 @@ Preserve the 720 px default reading column; let it shrink to its container and a
 
 Acceptance: fresh chat; long multiline draft; mixed entity/image context; failed attachment; retry; streaming while reading older output; branch switch with unsent draft; user question; tool permission resolved in another window; failed/stale execution; file autosave error; large diff; deleted file; narrow window; 200% text; reduced motion. Use the existing E2E fixtures as behavior references, not proof of the successor's correctness.
 
-<!-- sources:
-arbol:renderer/apps/elma/src/app/chat-width.ts
-arbol:renderer/apps/elma/e2e/response-autoscroll.e2e.mjs
-arbol:renderer/apps/elma/e2e/draft-session-switch.e2e.mjs
-arbol:renderer/apps/elma/e2e/side-panel-autosave.e2e.mjs
+<!-- Historical locators from the frozen version1 reference:
+arbol_deprecated_v1:renderer/apps/elma/src/app/chat-width.ts
+arbol_deprecated_v1:renderer/apps/elma/e2e/response-autoscroll.e2e.mjs
+arbol_deprecated_v1:renderer/apps/elma/e2e/draft-session-switch.e2e.mjs
+arbol_deprecated_v1:renderer/apps/elma/e2e/side-panel-autosave.e2e.mjs
 -->
 
 ## Captured visual reference
