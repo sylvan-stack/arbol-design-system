@@ -32,3 +32,7 @@ export const OpenRequestFailure={render:()=>({Component:ConversationFixture,prop
 export const SigningIn:Story={args:{routes:[{driver:'claude',subscription:'fictional',unavailable:'logged out'},{driver:'codex',subscription:'fictional',unavailable:'signing in'},{driver:'pi',subscription:'fictional',unavailable:'needs attention'}]}};
 export const RefreshingAccounts:Story={args:{accountBusy:true}};
 export const InteractiveAccounts={render:()=>({Component:ConversationFixture,props:{empty:true}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const AttentionMultiple={render:()=>({Component:ConversationFixture,props:{attention:true}})} satisfies StoryObj<typeof ConversationFixture>;
+export const AttentionUnknown={render:()=>({Component:ConversationFixture,props:{attention:true,unknownAttention:true}})} satisfies StoryObj<typeof ConversationFixture>;
+export const ComingBack={render:()=>({Component:ConversationFixture,props:{attention:true,reconnecting:true}})} satisfies StoryObj<typeof ConversationFixture>;

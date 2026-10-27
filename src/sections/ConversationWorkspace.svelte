@@ -19,8 +19,9 @@
     routeFailure = false,
     failed = false,
     renameFailure = false,
-    archiveRunning = false, archiveFailure = false, latest=false, latestEmpty=false, latestLoading=false, latestFailure=false, opening='none' as 'none'|'waiting'|'failed',
-  }: { empty?: boolean; approval?: boolean; history?: boolean;routeFailure?:boolean;failed?:boolean;renameFailure?:boolean;archiveRunning?:boolean;archiveFailure?:boolean;latest?:boolean;latestEmpty?:boolean;latestLoading?:boolean;latestFailure?:boolean;opening?:'none'|'waiting'|'failed' } = $props();
+    archiveRunning = false, archiveFailure = false, latest=false, latestEmpty=false, latestLoading=false, latestFailure=false, opening='none' as 'none'|'waiting'|'failed', attention=false,unknownAttention=false,reconnecting=false,
+  }: { empty?: boolean; approval?: boolean; history?: boolean;routeFailure?:boolean;failed?:boolean;renameFailure?:boolean;archiveRunning?:boolean;archiveFailure?:boolean;latest?:boolean;latestEmpty?:boolean;latestLoading?:boolean;latestFailure?:boolean;opening?:'none'|'waiting'|'failed';attention?:boolean;unknownAttention?:boolean;reconnecting?:boolean } = $props();
+  let noticeRows=$state(untrack(()=>[...(attention?[{id:'space',kind:'space_low',severity:'warning',message:'Fictional space warning: 8 GiB available.'},{id:'database_unreachable',kind:'database_unreachable',severity:'urgent',message:'The fictional database does not answer. Answers in progress go on.'}]:[]),...(unknownAttention?[{id:'__proto__',kind:'future_notice',severity:'warning',message:'An unfamiliar <literal> notice stays visible.'}]:[])]));
   let openingState=$state(untrack(()=>opening));
   let latestOpen=$state(untrack(()=>latest));
   const latestRows=Array.from({length:12},(_,i)=>({id:String(i),label:'Fictional chat '+(i+1),detail:'sample · claude/fictional/model-a · completed · '+(i+1)+(i?' minutes ago':' minute ago')}));
@@ -38,7 +39,7 @@
   function saveRename(){if(!rename)return;if(renameFailure){rename.problem='fictional_failure: The local preview refused this rename.';return;}storedTitle=rename.value.trim()||null;rename=null;actionNotice='Title changed in the fictional preview.';}
   function toggleOngoing(){if(!shown)return;isOngoing=!isOngoing;actionNotice=isOngoing?'Marked ongoing':'Cleared ongoing';}
   let failureAction=$state('');
-  let draft = $state(''),
+  let draft = $state(untrack(()=>reconnecting?'Fictional retained Draft':'')),
     composerOpen = $state(false),
     reader = $state<{ scrollToEdge: (edge: 'top' | 'bottom') => void }>();
   let current = $state(2),
@@ -115,6 +116,9 @@
   onnewer={() => (current = Math.min(count - 1, current + 1))}
   onhistory={() => (historyOpen = true)}
 >
+  {#if reconnecting}<Notice message="Reconnecting…"/>{/if}
+  {#each noticeRows as item(item.id)}<Notice identity={item.id} severity={item.severity} tone={item.severity==='urgent'?'urgent':'warning'} role={item.severity==='urgent'?'alert':'status'} message={item.message}/>{/each}
+  {#if noticeRows.length}<Button label="Simulate warning closed" onclick={()=>noticeRows=noticeRows.filter(row=>row.id!=='space')}/>{/if}
   {#if actionNotice}<p role="status">{actionNotice}</p>{/if}
   {#if openingState==='waiting'}<Notice message="Saving Draft and opening the requested chat…"><Button label="Complete open in fixture" onclick={()=>{openingState='none';storedTitle='Fictional requested chat';actionNotice='Opened in fictional preview; no native app request consumed.';}}/></Notice>{:else if openingState==='failed'}<Notice role="alert" tone="urgent" message="fictional_failure: The requested chat is not available. Its routing target is retained."><Button label="Retry opening" onclick={()=>openingState='waiting'}/><Button label="Dismiss request" onclick={()=>openingState='none'}/></Notice>{/if}
   {#if latestOpen}<Modal title="Latest chats" initialFocus="button[data-command-row]" onclose={()=>latestOpen=false}>{#if latestLoading}<p role="status">Loading latest chats…</p>{:else if latestFailure}<p role="alert">fictional_failure: The local chat list could not be read.</p><button onclick={()=>actionNotice='Retry selected in the fictional preview.'}>Retry latest chats</button>{:else}<CommandPalette title="Chats" emptyLabel="No other recent chats." searchable={false} rows={latestEmpty?[]:latestRows} onselect={id=>{latestOpen=false;storedTitle=latestRows[Number(id)].label;actionNotice='Opened in fictional preview; no backend or native window used.';}}/>{/if}</Modal>{/if}
