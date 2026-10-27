@@ -36,6 +36,8 @@ Response consumes typed blocks from an application adapter. While running it pre
 
 SafeMarkdown uses a pinned CommonMark syntax-tree parser plus GFM tables and maps it into an allowlist of typed text/elements. It never inserts HTML strings. Raw HTML and image syntax remain text; only http/https links are buttons with link semantics routed through the application adapter. Failed or deeply nested parsing falls back to the complete source text. Code and table regions stay keyboard reachable and scroll inside their own boundaries. Standalone link stories only select fictional links locally; the application supplies the real app channel. The Answer Beacon delegates its scroll target to the reading-area owner.
 
+The live adapter treats whole text/thinking as authoritative, nests sub-agent activity inside its parent tool, replaces usage totals per run and discards duplicate file positions. A new snapshot resets that projection. Saving replaces the answer with the saved rows while keeping already shown reasoning and actual tool times until the next snapshot. Response presents plain-language questions/options and the answer given above the future composer; answering controls belong to the application integration. NotSaved and Interrupted stories distinguish an uncommitted folder answer from a saved terminal Exchange. Status precedence is failed, stopping, waiting for an answer, starting, tools, thinking, responding, other work, then saved completion; no display clock ends a long wait.
+
 ## Surface inventory
 
 | Surface | What must survive reconstruction |
