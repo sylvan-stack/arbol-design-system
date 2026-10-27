@@ -3,16 +3,17 @@
   import WorkspaceShell from '../patterns/WorkspaceShell.svelte';
   import WorkspaceGlyph from '../components/WorkspaceGlyph.svelte';
   import { THEMES } from '../themes';
+  import type { ElmaRoute } from './elma-types';
   let {
     root = {name:'Fixture Root',status:'working',failed:undefined as {reason:string}|undefined}, title='New Chat', placeholder=false,
     turn=0, total=0, hasChat=false, working=false, ongoing=false, inputTokens=0, outputTokens=0,
-    repository='sylvan-stack', route={} as Record<string,string>, repositories=[] as {name:string;folder:string}[],
+    repository='sylvan-stack', route={} as ElmaRoute, repositories=[] as {name:string;folder:string}[],
     routes=[] as {driver:string;subscription:string;unavailable?:string}[], fitted=false,
     readingWidth=$bindable(720), uiScale=$bindable(0), contentScale=$bindable(0), theme=$bindable(''),
     onpreferences=()=>{}, onolder, onnewer, onhistory, onrepository, onroute, onmodel, oneffort, onother, onquick, onongoing, children,
   }: {
     root?:{name:string;status:string;failed?:{reason:string}};title?:string;placeholder?:boolean;turn?:number;total?:number;hasChat?:boolean;working?:boolean;ongoing?:boolean;
-    inputTokens?:number;outputTokens?:number;repository?:string;route?:Record<string,string>;repositories?:{name:string;folder:string}[];routes?:{driver:string;subscription:string;unavailable?:string}[];
+    inputTokens?:number;outputTokens?:number;repository?:string;route?:ElmaRoute;repositories?:{name:string;folder:string}[];routes?:{driver:string;subscription:string;unavailable?:string}[];
     fitted?:boolean;readingWidth?:number;uiScale?:number;contentScale?:number;theme?:string;onpreferences?:()=>void;
     onolder?:()=>void;onnewer?:()=>void;onhistory?:()=>void;onrepository?:(folder:string)=>void;onroute?:(driver:string,subscription:string)=>void;onmodel?:()=>void;oneffort?:()=>void;onother?:()=>void;onquick?:()=>void;onongoing?:()=>void;children?:Snippet;
   }=$props();
@@ -43,12 +44,12 @@
     <div class="nav-title" class:placeholder>{title}</div>
     {#if total}<p class="turn-count">Turn {turn} of {total}</p>{/if}
     {#if hasChat}<div class="cockpit"><button disabled={!onongoing} onclick={onongoing}>{ongoing?'○ Ongoing':'○ Not ongoing'}</button><span>∑ {(inputTokens+outputTokens).toLocaleString()} ↑{inputTokens.toLocaleString()} ↓{outputTokens.toLocaleString()}</span></div>{/if}
-    <button class="group" aria-expanded={repoOpen} onclick={()=>repoOpen=!repoOpen}><span>Repositories</span><span>{repoOpen?'−':'+'}</span></button>
+    <button class="group" aria-expanded={repoOpen} onclick={()=>repoOpen=!repoOpen}><span>Repositories</span><span aria-hidden="true">{repoOpen?'−':'+'}</span></button>
     {#if repoOpen}{#each repositories.slice(0,9) as repo,i}<button class="nav-row" disabled={!onrepository} onclick={()=>onrepository?.(repo.folder)}><span>{repo.name}</span><kbd>⌘{i+1}</kbd></button>{/each}<button class="nav-row" disabled={!onother} onclick={onother}><span>Other…</span><kbd>⌘0</kbd></button>{/if}
     <div class="history-heading">History{total?' · '+total+' turns':''}</div>
     {#if total>1}<button class="nav-row" disabled={!onolder||turn<=1} onclick={onolder}><span>Older turn</span><kbd>⌘[</kbd></button><button class="nav-row" disabled={!onnewer||turn>=total} onclick={onnewer}><span>Newer turn</span><kbd>⌘]</kbd></button><button class="nav-row" disabled={!onhistory} onclick={onhistory}><span>Jump to turn…</span><kbd>⌘P</kbd></button>{/if}
     {#if hasChat}<button class="nav-row" disabled={!onquick} onclick={onquick}><span>Quick actions…</span><kbd>⇧⏎</kbd></button>{/if}
-    <button class="group" aria-expanded={intelligenceOpen} onclick={()=>intelligenceOpen=!intelligenceOpen}><span>Intelligence</span><span>{intelligenceOpen?'−':'+'}</span></button>
+    <button class="group" aria-expanded={intelligenceOpen} onclick={()=>intelligenceOpen=!intelligenceOpen}><span>Intelligence</span><span aria-hidden="true">{intelligenceOpen?'−':'+'}</span></button>
     {#if intelligenceOpen}<button class="nav-row" disabled={!onmodel} onclick={onmodel}><span>Model: {route.model||'—'}</span><kbd>⌃M</kbd></button><button class="nav-row" disabled={!oneffort} onclick={oneffort}><span>Thinking: {route.effort||'—'}</span><kbd>⌃⇥</kbd></button>{#each routes as row,i}<button class="nav-row" disabled={!!row.unavailable||!onroute} onclick={()=>onroute?.(row.driver,row.subscription)} title={row.unavailable}><span>{row.driver} · {row.subscription}{row.unavailable?' · '+row.unavailable:''}</span>{#if i<9}<kbd>⌃{i+1}</kbd>{/if}</button>{/each}{/if}
   {/snippet}
   {#snippet status()}<span class="status-text">{repository} – {route.driver||'—'} · {route.subscription||'—'} – {route.model||'—'}::{route.effort||'—'}</span>{/snippet}

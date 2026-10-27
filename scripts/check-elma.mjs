@@ -1,0 +1,18 @@
+import { spawn } from 'node:child_process';
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+const base=process.env.STORYBOOK_URL||'http://127.0.0.1:6107';
+const server=process.env.STORYBOOK_URL?undefined:spawn(process.execPath,['scripts/serve.mjs'],{env:{...process.env,PORT:'6107'},stdio:'ignore'});
+if(server){for(let i=0;i<100;i++){try{if((await fetch(base+'/index.json')).ok)break;}catch{}await new Promise(r=>setTimeout(r,100));}}
+const browser=await chromium.launch({headless:true});const page=await browser.newPage({viewport:{width:1280,height:900}});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+const open=async(name)=>{await page.goto(base+'/iframe.html?id=sections-elmaframe--'+name+'&viewMode=story');await page.getByRole('heading',{name:/Elma Chat/}).waitFor();};
+try{
+ await open('empty');assert.equal(await page.getByRole('button',{name:'Repositories',exact:true}).getAttribute('aria-expanded'),'true');assert.equal(await page.getByRole('button',{name:'Intelligence',exact:true}).getAttribute('aria-expanded'),'true');assert.equal(await page.getByRole('navigation',{name:'Elma navigation'}).getByRole('button',{name:'Conversation',exact:true}).count(),0);
+ await open('conversation');assert.equal(await page.getByRole('button',{name:'Repositories',exact:true}).getAttribute('aria-expanded'),'false');assert.equal(await page.getByRole('button',{name:'Intelligence',exact:true}).getAttribute('aria-expanded'),'false');assert(await page.getByText('Turn 2 of 3',{exact:true}).isVisible());assert(await page.getByText('∑ 11,800 ↑9,100 ↓2,700',{exact:true}).isVisible());await page.getByRole('button',{name:'Repositories',exact:true}).click();assert.equal(await page.getByRole('button',{name:'Repositories',exact:true}).getAttribute('aria-expanded'),'true');
+ await page.getByRole('combobox',{name:'Reading width'}).selectOption('1680');assert.equal(await page.locator('.elma-frame').evaluate(el=>el.style.getPropertyValue('--elma-reading-width')),'1680px');
+ for(const name of ['ironbark','bloodwood','redwood','mahogany','cedar','evergreen','driftwood','amber','sandstone','oat','birch','paper']){await page.getByRole('combobox',{name:'Theme',exact:true}).selectOption(name);assert.equal(await page.locator('.elma-frame').getAttribute('data-theme'),name);}
+ for(let i=0;i<15;i++)await page.getByRole('button',{name:'Increase text size'}).click();const scales=await page.locator('.elma-frame').evaluate(el=>[Number(el.style.getPropertyValue('--font-scale')),Number(el.style.getPropertyValue('--elma-content-scale'))]);assert(scales[1]>scales[0]);assert(scales[0]<=23/13.5);
+ await open('preparing');assert(await page.getByText('preparing',{exact:true}).isVisible());await open('failed');assert(await page.getByText('failed: The fictional setup failed.',{exact:true}).isVisible());await open('working');assert.equal(await page.locator('.mark.working').count(),1);
+ await page.setViewportSize({width:390,height:844});assert.equal(await page.getByRole('navigation',{name:'Elma navigation'}).isVisible(),false);await page.getByRole('button',{name:'Toggle navigation'}).click();assert.equal(await page.getByRole('navigation',{name:'Elma navigation'}).isVisible(),true);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+ assert.deepEqual(errors,[]);console.log('Elma frame: empty/first-Exchange groups, Root states, cockpit, twelve themes, width/dual text scale and narrow navigation passed');
+}finally{await browser.close();server?.kill();}
