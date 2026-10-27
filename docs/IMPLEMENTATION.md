@@ -79,3 +79,19 @@ The accepted controlled composer shares empty/closed/Draft/loading/busy/error fi
 First Sapling AskUserQuestion is controlled by file-confirmed question/answer/refusal state. The app supplies control calls; the shared sections expose no free-text answer and never treat a control reply as the recorded answer. Saved tool ask/answer data can be presented read-only.
 
 First Sapling failed responses keep the plain cause alongside the original code/message and recorded end time. Rate-limit reset times use that end plus retryAfterSeconds and remain fixed as the viewer’s clock moves; a missing end is Not recorded. Sign-in failures show the Driver command without running it. The adapter supplies Retry and Continue callbacks only for the last saved failed Exchange; shared controls can be disabled during unavailable/pending recovery. Retry replaces the same turn in its original folder, while Continue sends proceed in the current chat folder/route and preserves an independently composed Draft. Stories use local fictional callbacks only.
+
+<!-- sources:
+arbol-design-system:src/sections/Composer.svelte
+arbol-design-system:src/sections/AskUserQuestion.svelte
+arbol-design-system:src/sections/ElmaFrame.svelte
+arbol-design-system:src/sections/Response.svelte
+arbol-design-system:src/sections/elma-response.ts
+arbol-design-system:src/sections/ConversationWorkspace.svelte
+arbol-design-system:src/fixtures/QuestionExample.svelte
+arbol-design-system:src/fixtures/FailureExample.svelte
+arbol-design-system:scripts/check-elma-composer.mjs
+arbol-design-system:scripts/check-elma-routing.mjs
+arbol-design-system:scripts/check-elma-repositories.mjs
+arbol-design-system:scripts/check-elma-questions.mjs
+arbol-design-system:scripts/check-elma-failures.mjs
+-->
