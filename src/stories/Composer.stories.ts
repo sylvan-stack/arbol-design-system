@@ -46,3 +46,5 @@ export const SaveFailed: Story = {
 };
 export const ChangedElsewhere:Story={render:()=>({Component:Example,props:{empty:true,value:'My fictional changes',changed:true}})};
 export const RecoverUnsaved:Story={render:()=>({Component:Example,props:{empty:true,value:'Saved fictional Draft',recover:true}})};
+export const SavingPaste:Story={render:()=>({Component:Example,props:{empty:true,value:'Before fictional pasted text after',pasting:true}})};
+export const PasteFailed:Story={render:()=>({Component:Example,props:{empty:true,value:'Fictional pasted text is still here',problem:'Pasted text not saved: The file could not be written.'}})};

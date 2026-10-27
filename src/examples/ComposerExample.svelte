@@ -9,6 +9,7 @@
     problem = '',
     changed = false,
     recover = false,
+    pasting = false,
   }: {
     empty?: boolean;
     value?: string;
@@ -17,6 +18,7 @@
     problem?: string;
     changed?: boolean;
     recover?: boolean;
+    pasting?: boolean;
   } = $props();
   let text = $state(untrack(()=>value)),
     expanded = $state(false),
@@ -24,6 +26,9 @@
   let edge = $state('');
   let conflict=$state(untrack(()=>changed?{mine:'My fictional changes',theirs:'A fictional edit from another window'}:null));
   let recovery=$state<string|null>(untrack(()=>recover?'Fictional unsaved text from this window':null));
+  let savingPaste=$state(untrack(()=>pasting)),queued=$state(false);
+  function send(value:string){if(savingPaste){queued=true;return;}receipt=value;text='';expanded=false;}
+  function finishPaste(){text=text.replace('fictional pasted text','[Pasted text (10,000 characters)](</fictional/root/pastes/example.txt>)');savingPaste=false;if(queued){queued=false;send(text);}}
 </script>
 
 <div class="example" style="--elma-reading-width:720px">
@@ -46,15 +51,12 @@
     route={{ driver: 'claude', subscription: 'fictional', model: 'model-a', effort: 'high' }}
     bind:value={text}
     bind:expanded
-    status={readOnly ? 'Loading Draft…' : busy ? 'Waiting for the backend…' : ''}
+    status={savingPaste?'Saving pasted text…':readOnly ? 'Loading Draft…' : busy ? 'Waiting for the backend…' : ''}
     onTop={() => (edge = 'top')}
     onBottom={() => (edge = 'bottom')}
-    onsend={(value) => {
-      receipt = value;
-      text = '';
-      expanded = false;
-    }}
+    onsend={send}
   />
+  {#if savingPaste}<button onclick={finishPaste}>Complete fictional paste save</button>{/if}
   {#if receipt}<p role="status">Fictional message received: {receipt}</p>{/if}
   {#if edge}<p role="status">Scroll requested: {edge}</p>{/if}
 </div>
