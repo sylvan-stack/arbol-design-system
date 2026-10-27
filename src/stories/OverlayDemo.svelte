@@ -7,7 +7,8 @@
     kind = 'editor',
     outcome = 'success',
     mode = 'create',
-  }: { kind?: string; outcome?: string; mode?: string } = $props();
+    repository = false,
+  }: { kind?: string; outcome?: string; mode?: string;repository?:boolean } = $props();
   let open = $state(false);
   let result = $state('');
 </script>
@@ -28,9 +29,9 @@
       label={kind === 'editor'
         ? 'Open editor'
         : kind === 'confirm'
-          ? 'Delete work item'
+          ? repository?'Change repository':'Delete work item'
           : 'Open dialog'}
-      tone={kind === 'confirm' ? 'danger' : 'primary'}
+      tone={kind === 'confirm'&&!repository ? 'danger' : 'primary'}
       onclick={() => (open = true)}
     />
   </div>
@@ -46,9 +47,10 @@
       onsave={(values) => (result = 'Saved: ' + values.title)}
       onclose={() => (open = false)}
     />{:else if kind === 'confirm'}<ConfirmAction
+      {...(repository?{title:'Change repository?',description:'The agent still gets every message of this chat, but no longer remembers what it read and ran before',action:'Change repository',actionTone:'primary' as const}:{})}
       onconfirm={() => {
         open = false;
-        result = 'Work item deleted locally';
+        result = repository?'Repo changed to fictional sample':'Work item deleted locally';
       }}
       oncancel={() => (open = false)}
     />{:else}<Modal

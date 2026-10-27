@@ -44,6 +44,17 @@ arbol-design-system:src/sections/ConversationWorkspace.svelte
 arbol-design-system:scripts/check-elma.mjs
 -->
 
+## Accepted repository controls
+
+A repository slot click moves an existing chat only after the continuity warning in ConfirmAction; its action uses the primary tone and Cancel receives initial focus. Escape/Cancel restore focus to the slot. The parent guards the Root/chat identity and active Exchange state and supplies the real settings result. Cmd1–9 always starts the repository’s new-chat composition and brings back its Draft; Other/Cmd0 delegate the native folder picker to the application. ConversationWorkspace keeps only local fictional repository Drafts and confirmation state. The application’s relay adapter labels its folder prompt and sends no app-channel envelope to the backend.
+
+<!-- sources:
+arbol-design-system:src/patterns/ConfirmAction.svelte
+arbol-design-system:src/sections/ConversationWorkspace.svelte
+arbol-design-system:src/stories/ConfirmAction.stories.ts
+arbol-design-system:scripts/check-elma-repositories.mjs
+-->
+
 ## Accepted Intelligence controls
 
 ElmaFrame exposes controlled Subscription rows and next-model/next-effort actions, with disabled unavailable rows, Loading models, Saving route and visible catalog failures with Retry models. ConversationWorkspace and the InteractiveIntelligence/CatalogFailure stories own fictional routes locally and exercise Ctrl1–9, CtrlM and CtrlTab; production catalog/default resolution and ordered chat settings writes belong to the application. Changing a route resets model/effort to its defaults; model changes reset effort to that model’s default. A catalog without a default does not authorize inventing one. The current Exchange keeps its captured route while choices apply to the next message.

@@ -8,6 +8,7 @@
   import Composer from './Composer.svelte';
   import PermissionRequest from '../patterns/PermissionRequest.svelte';
   import Modal from '../patterns/Modal.svelte';
+  import ConfirmAction from '../patterns/ConfirmAction.svelte';
   let {
     empty = false,
     approval = false,
@@ -25,10 +26,13 @@
   let current = $state(2),
     hasMessages = $state(false),
     historyOpen = $state(false);
+  let newChatMode=$state(false),repository=$state('sample'),repoChange=$state<string|null>(null),repositoryNotice=$state('');
+  const repositories=[{name:'sylvan-stack',folder:'/fictional/readonly'},{name:'sample',folder:'/fictional/readonly/sample'}];
+  const repositoryDrafts=new Map<string,string>([['sample','Fictional repository Draft']]);
   $effect(() => {
     historyOpen = history;
   });
-  const shown = $derived(!empty || hasMessages);
+  const shown = $derived((!empty&&!newChatMode) || hasMessages);
   const count = $derived(shown ? messages.length : 0);
   let route=$state({driver:'claude',subscription:'fictional',model:'model-a',effort:'high'});
   let routeProblem=$state(untrack(()=>routeFailure?'Models could not be read: fictional Driver unavailable.':''));
@@ -36,8 +40,11 @@
   function pickRoute(driver:string,subscription:string){route={driver,subscription,model:'model-a',effort:'high'};}
   function nextModel(){route={...route,model:route.model==='model-a'?'model-b':'model-a',effort:route.model==='model-a'?'medium':'high'};}
   function nextEffort(){route={...route,effort:route.effort==='high'?'medium':'high'};}
+  function newRepository(folder:string){if(!shown)repositoryDrafts.set(repository,draft);repository=repositories.find(r=>r.folder===folder)?.name??'other';draft=repositoryDrafts.get(repository)??'';newChatMode=true;hasMessages=false;messages=[];current=0;repositoryNotice='';}
+  function chooseRepository(folder:string){if(shown)repoChange=folder;else newRepository(folder);}
   function keys(event: KeyboardEvent) {
     if(event.defaultPrevented||document.querySelector('dialog[open]'))return;
+    if(event.metaKey&&!event.ctrlKey&&!event.altKey&&!event.shiftKey&&/^[12]$/.test(event.key)){event.preventDefault();newRepository(repositories[Number(event.key)-1].folder);return;}
     if(event.ctrlKey&&!event.metaKey&&!event.altKey&&!event.shiftKey){if(/^[1-3]$/.test(event.key)){const row=routes[Number(event.key)-1];if(!row.unavailable){event.preventDefault();pickRoute(row.driver,row.subscription);}}else if(event.key.toLowerCase()==='m'){event.preventDefault();nextModel();}else if(event.key==='Tab'){event.preventDefault();nextEffort();}return;}
     if (event.metaKey && event.key.toLowerCase() === 'p') {
       event.preventDefault();
@@ -60,12 +67,10 @@
   turn={current + 1}
   hasChat={shown}
   ongoing={shown}
-  repository="sample"
+  {repository}
   {route}
-  repositories={[
-    { name: 'sylvan-stack', folder: '/fictional/readonly' },
-    { name: 'sample', folder: '/fictional/readonly/sample' },
-  ]}
+  {repositories}
+  onrepository={chooseRepository}
   {routes}
   {routeProblem}
   onretryRoute={()=>routeProblem=''}
@@ -78,6 +83,7 @@
   onnewer={() => (current = Math.min(count - 1, current + 1))}
   onhistory={() => (historyOpen = true)}
 >
+  {#if repositoryNotice}<p role="status">{repositoryNotice}</p>{/if}
   {#if shown}<PinnedMessage
       text={messages[current]}
       index={current + 1}
@@ -102,9 +108,9 @@
   <Composer
     firstSapling
     empty={!shown}
-    repository="sample"
+    {repository}
     {route}
-    context={String(current)}
+    context={shown?'chat:'+current:'new:'+repository}
     bind:value={draft}
     bind:expanded={composerOpen}
     onTop={() => reader?.scrollToEdge('top')}
@@ -117,6 +123,7 @@
       composerOpen = false;
     }}
   />
+  {#if repoChange}<ConfirmAction title="Change repository?" description="The agent still gets every message of this chat, but no longer remembers what it read and ran before" action="Change repository" actionTone="primary" oncancel={()=>repoChange=null} onconfirm={()=>{repository=repositories.find(r=>r.folder===repoChange)?.name??'other';repositoryNotice='Repo changed to '+repository;repoChange=null;}}/>{/if}
   {#if historyOpen}<Modal
       title={`History · ${count} turns`}
       onclose={() => (historyOpen = false)}
