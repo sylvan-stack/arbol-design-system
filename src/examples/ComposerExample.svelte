@@ -7,17 +7,20 @@
     readOnly = false,
     busy = false,
     problem = '',
+    changed = false,
   }: {
     empty?: boolean;
     value?: string;
     readOnly?: boolean;
     busy?: boolean;
     problem?: string;
+    changed?: boolean;
   } = $props();
   let text = $state(untrack(()=>value)),
     expanded = $state(false),
     receipt = $state('');
   let edge = $state('');
+  let conflict=$state(untrack(()=>changed?{mine:'My fictional changes',theirs:'A fictional edit from another window'}:null));
 </script>
 
 <div class="example" style="--elma-reading-width:720px">
@@ -30,6 +33,9 @@
     {readOnly}
     {busy}
     {problem}
+    {conflict}
+    onKeepMine={()=>conflict=null}
+    onTakeTheirs={()=>{text=conflict?.theirs??text;conflict=null;}}
     repository="sample"
     route={{ driver: 'claude', subscription: 'fictional', model: 'model-a', effort: 'high' }}
     bind:value={text}

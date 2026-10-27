@@ -44,3 +44,4 @@ export const SaveFailed: Story = {
     },
   }),
 };
+export const ChangedElsewhere:Story={render:()=>({Component:Example,props:{empty:true,value:'My fictional changes',changed:true}})};
