@@ -17,4 +17,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: {} };
-export const AdvancedRootProposal: Story = { args: { branching: true } };
+export const AdvancedRootProposal: Story = { args: { branching: true, items: [{id:'root',number:1,message:'Preserve the useful design'},{id:'second',number:2,message:'Compare shared patterns',depth:1},{id:'main',number:3,message:'Build shared components',depth:2,branchLabel:'Main branch'},{id:'alternative',number:3,message:'Explore a compact layout',depth:2,branchLabel:'Alternative'}] } };
+
+export const OlderPageFailure: Story = { args: { more: true, problem: 'no_answer: The older turns could not be read.' } };
+export const LoadingOlder: Story = { args: { more: true, busy: true } };

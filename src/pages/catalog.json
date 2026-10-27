@@ -752,11 +752,7 @@
         "label": "Status",
         "type": "select",
         "required": false,
-        "options": [
-          "Open",
-          "In progress",
-          "Done"
-        ]
+        "options": ["Open", "In progress", "Done"]
       }
     ]
   },
@@ -808,11 +804,7 @@
         "label": "Status",
         "type": "select",
         "required": false,
-        "options": [
-          "Planned",
-          "Running",
-          "Done"
-        ]
+        "options": ["Planned", "Running", "Done"]
       },
       {
         "key": "deadline",

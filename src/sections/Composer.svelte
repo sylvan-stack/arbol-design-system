@@ -14,7 +14,7 @@
   let picker = $state(false);
   let feedback = $state('');let composerOpen=$state(false);let firstInput=$state<HTMLTextAreaElement>();
   $effect(()=>{if(firstSapling&&(empty||composerOpen))void tick().then(()=>firstInput?.focus());});
-  function firstKeys(event:KeyboardEvent){if(!firstSapling||empty||document.querySelector('dialog[open]'))return;if(event.key==='Enter'&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey&&!composerOpen&&!(event.target instanceof HTMLInputElement)&&!(event.target instanceof HTMLTextAreaElement)){event.preventDefault();composerOpen=true;}}
+  function firstKeys(event:KeyboardEvent){if(!firstSapling||empty||event.defaultPrevented||document.querySelector('dialog[open]'))return;if(event.key==='Enter'&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey&&!composerOpen&&!(event.target instanceof Element&&event.target.closest('button,a,input,textarea,select,[contenteditable=true]'))){event.preventDefault();composerOpen=true;}}
   function send() {
     if (!draft.trim() || disabled) return;
     onsend(draft);

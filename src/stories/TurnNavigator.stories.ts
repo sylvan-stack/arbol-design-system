@@ -7,3 +7,5 @@ const meta = {
 } satisfies Meta<typeof Component>;
 export default meta;
 export const Default: StoryObj<typeof meta> = {};
+
+export const AdvancedRootProposal: StoryObj<typeof meta> = { args: { branches: ['Main branch', 'Compact layout exploration'], branch: 'Main branch' } };
