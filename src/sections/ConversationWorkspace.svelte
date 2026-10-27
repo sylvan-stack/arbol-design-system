@@ -10,6 +10,8 @@
   import Modal from '../patterns/Modal.svelte';
   import ConfirmAction from '../patterns/ConfirmAction.svelte';
   import CommandPalette from '../patterns/CommandPalette.svelte';
+  import Notice from '../patterns/Notice.svelte';
+  import Button from '../components/Button.svelte';
   let {
     empty = false,
     approval = false,
@@ -17,8 +19,9 @@
     routeFailure = false,
     failed = false,
     renameFailure = false,
-    archiveRunning = false, archiveFailure = false, latest=false, latestEmpty=false, latestLoading=false, latestFailure=false,
-  }: { empty?: boolean; approval?: boolean; history?: boolean;routeFailure?:boolean;failed?:boolean;renameFailure?:boolean;archiveRunning?:boolean;archiveFailure?:boolean;latest?:boolean;latestEmpty?:boolean;latestLoading?:boolean;latestFailure?:boolean } = $props();
+    archiveRunning = false, archiveFailure = false, latest=false, latestEmpty=false, latestLoading=false, latestFailure=false, opening='none' as 'none'|'waiting'|'failed',
+  }: { empty?: boolean; approval?: boolean; history?: boolean;routeFailure?:boolean;failed?:boolean;renameFailure?:boolean;archiveRunning?:boolean;archiveFailure?:boolean;latest?:boolean;latestEmpty?:boolean;latestLoading?:boolean;latestFailure?:boolean;opening?:'none'|'waiting'|'failed' } = $props();
+  let openingState=$state(untrack(()=>opening));
   let latestOpen=$state(untrack(()=>latest));
   const latestRows=Array.from({length:12},(_,i)=>({id:String(i),label:'Fictional chat '+(i+1),detail:'sample · claude/fictional/model-a · completed · '+(i+1)+(i?' minutes ago':' minute ago')}));
   const archivedDrafts=new Map<string,string>();
@@ -111,6 +114,7 @@
   onhistory={() => (historyOpen = true)}
 >
   {#if actionNotice}<p role="status">{actionNotice}</p>{/if}
+  {#if openingState==='waiting'}<Notice message="Saving Draft and opening the requested chat…"><Button label="Complete open in fixture" onclick={()=>{openingState='none';storedTitle='Fictional requested chat';actionNotice='Opened in fictional preview; no native app request consumed.';}}/></Notice>{:else if openingState==='failed'}<Notice role="alert" tone="urgent" message="fictional_failure: The requested chat is not available. Its routing target is retained."><Button label="Retry opening" onclick={()=>openingState='waiting'}/><Button label="Dismiss request" onclick={()=>openingState='none'}/></Notice>{/if}
   {#if latestOpen}<Modal title="Latest chats" initialFocus="button[data-command-row]" onclose={()=>latestOpen=false}>{#if latestLoading}<p role="status">Loading latest chats…</p>{:else if latestFailure}<p role="alert">fictional_failure: The local chat list could not be read.</p><button onclick={()=>actionNotice='Retry selected in the fictional preview.'}>Retry latest chats</button>{:else}<CommandPalette title="Chats" emptyLabel="No other recent chats." searchable={false} rows={latestEmpty?[]:latestRows} onselect={id=>{latestOpen=false;storedTitle=latestRows[Number(id)].label;actionNotice='Opened in fictional preview; no backend or native window used.';}}/>{/if}</Modal>{/if}
   {#if quickOpen}<Modal title="Quick actions" initialFocus="button[data-command-row]" onclose={()=>quickOpen=false}><CommandPalette title="Chat actions" searchable={false} numbered={false} rows={[{id:'rename',label:'Rename chat session',shortcut:'R'},{id:'archive',label:'Archive',shortcut:'A'},{id:'copy',label:'Copy session ID',shortcut:'C'}]} onselect={quickAction}/></Modal>{/if}
   {#if archiveConfirm}<ConfirmAction title="Archive chat?" description="Save this Draft, stop a running answer first, and wait for its end to be saved before archiving. The chat and its messages are kept." action="Archive" oncancel={()=>archiveConfirm=false} onconfirm={archiveChat}/>{/if}

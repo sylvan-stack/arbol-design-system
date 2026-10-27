@@ -25,3 +25,6 @@ export const LatestChats={render:()=>({Component:ConversationFixture,props:{late
 export const LatestEmpty={render:()=>({Component:ConversationFixture,props:{latest:true,latestEmpty:true}})} satisfies StoryObj<typeof ConversationFixture>;
 export const LatestLoading={render:()=>({Component:ConversationFixture,props:{latest:true,latestLoading:true}})} satisfies StoryObj<typeof ConversationFixture>;
 export const LatestFailure={render:()=>({Component:ConversationFixture,props:{latest:true,latestFailure:true}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const OpenRequestWaiting={render:()=>({Component:ConversationFixture,props:{opening:'waiting'}})} satisfies StoryObj<typeof ConversationFixture>;
+export const OpenRequestFailure={render:()=>({Component:ConversationFixture,props:{opening:'failed'}})} satisfies StoryObj<typeof ConversationFixture>;
