@@ -17,3 +17,6 @@ export const FailedResponse={render:()=>({Component:ConversationFixture,props:{f
 
 export const ChatActions={render:()=>({Component:ConversationFixture})} satisfies StoryObj<typeof ConversationFixture>;
 export const RenameFailure={render:()=>({Component:ConversationFixture,props:{renameFailure:true}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const ArchiveWaiting={render:()=>({Component:ConversationFixture,props:{archiveRunning:true}})} satisfies StoryObj<typeof ConversationFixture>;
+export const ArchiveFailure={render:()=>({Component:ConversationFixture,props:{archiveFailure:true}})} satisfies StoryObj<typeof ConversationFixture>;

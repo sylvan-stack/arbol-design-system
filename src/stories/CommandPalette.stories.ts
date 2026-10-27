@@ -17,3 +17,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: {} };
+export const QuickActions:Story={args:{title:'Chat actions',searchable:false,numbered:false,rows:[{id:'rename',label:'Rename chat session',shortcut:'R'},{id:'archive',label:'Archive',shortcut:'A'},{id:'copy',label:'Copy session ID',shortcut:'C'}]}};
+export const Empty:Story={args:{rows:[]}};
+export const Disabled:Story={args:{searchable:false,rows:[{id:'pending',label:'Saving chat action…',disabled:true},{id:'copy',label:'Copy session ID',shortcut:'C'}]}};
+export const Details:Story={args:{searchable:false,rows:[{id:'chat',label:'A fictional chat',detail:'sample · claude/fictional/model-a · completed · 2 minutes ago'}]}};

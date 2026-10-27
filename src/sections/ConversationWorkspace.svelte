@@ -9,6 +9,7 @@
   import PermissionRequest from '../patterns/PermissionRequest.svelte';
   import Modal from '../patterns/Modal.svelte';
   import ConfirmAction from '../patterns/ConfirmAction.svelte';
+  import CommandPalette from '../patterns/CommandPalette.svelte';
   let {
     empty = false,
     approval = false,
@@ -16,7 +17,12 @@
     routeFailure = false,
     failed = false,
     renameFailure = false,
-  }: { empty?: boolean; approval?: boolean; history?: boolean;routeFailure?:boolean;failed?:boolean;renameFailure?:boolean } = $props();
+    archiveRunning = false, archiveFailure = false,
+  }: { empty?: boolean; approval?: boolean; history?: boolean;routeFailure?:boolean;failed?:boolean;renameFailure?:boolean;archiveRunning?:boolean;archiveFailure?:boolean } = $props();
+  const archivedDrafts=new Map<string,string>();
+  let quickOpen=$state(false),archiveConfirm=$state(false),archiveWaiting=$state(false);
+  function quickAction(id:string){quickOpen=false;if(id==='rename')startRename();else if(id==='archive')archiveConfirm=true;else actionNotice='Copy session ID selected in the fictional preview; clipboard unchanged.';}
+  function archiveChat(){archiveConfirm=false;if(archiveFailure){actionNotice='fictional_failure: The local preview refused this archive.';return;}if(archiveRunning&&!archiveWaiting){archiveWaiting=true;return;}archiveWaiting=false;archivedDrafts.set('fictional-chat',draft);newRepository(repositories.find(row=>row.name===repository)?.folder??repositories[0].folder);actionNotice='Chat archived in the fictional preview; its saved Draft is kept.';}
   let messages = $state([
     'A fictional first prompt',
     'Compare the useful shared patterns',
@@ -51,6 +57,8 @@
   function chooseRepository(folder:string){if(shown)repoChange=folder;else newRepository(folder);}
   function keys(event: KeyboardEvent) {
     if(event.defaultPrevented||document.querySelector('dialog[open]')||rename)return;
+    if(event.key==='Enter'&&event.shiftKey&&!event.metaKey&&!event.ctrlKey&&!event.altKey){event.preventDefault();if(shown)quickOpen=true;else actionNotice='Start a chat before using chat actions';return;}
+    if(event.key==='Backspace'&&event.metaKey&&!event.ctrlKey&&!event.altKey&&!event.shiftKey){event.preventDefault();if(shown)archiveConfirm=true;else actionNotice='Start a chat before archiving';return;}
     if(event.altKey&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&(event.key==='0'||event.code==='Digit0')){event.preventDefault();toggleOngoing();return;}
     if(event.metaKey&&!event.ctrlKey&&!event.altKey&&!event.shiftKey&&/^[12]$/.test(event.key)){event.preventDefault();newRepository(repositories[Number(event.key)-1].folder);return;}
     if(event.ctrlKey&&!event.metaKey&&!event.altKey&&!event.shiftKey){if(/^[1-3]$/.test(event.key)){const row=routes[Number(event.key)-1];if(!row.unavailable){event.preventDefault();pickRoute(row.driver,row.subscription);}}else if(event.key.toLowerCase()==='m'){event.preventDefault();nextModel();}else if(event.key==='Tab'){event.preventDefault();nextEffort();}return;}
@@ -73,6 +81,7 @@
   title={shown ? storedTitle||Array.from((messages[0]??'').split('\n')[0]).slice(0,80).join('')||'New Chat' : 'New Chat'}
   placeholder={shown&&!storedTitle}
   onrename={startRename}
+  onquick={()=>quickOpen=true}
   {rename}
   onRenameInput={value=>{if(rename)rename.value=value;}}
   onRenameSave={saveRename}
@@ -99,6 +108,9 @@
   onhistory={() => (historyOpen = true)}
 >
   {#if actionNotice}<p role="status">{actionNotice}</p>{/if}
+  {#if quickOpen}<Modal title="Quick actions" initialFocus="button[data-command-row]" onclose={()=>quickOpen=false}><CommandPalette title="Chat actions" searchable={false} numbered={false} rows={[{id:'rename',label:'Rename chat session',shortcut:'R'},{id:'archive',label:'Archive',shortcut:'A'},{id:'copy',label:'Copy session ID',shortcut:'C'}]} onselect={quickAction}/></Modal>{/if}
+  {#if archiveConfirm}<ConfirmAction title="Archive chat?" description="Save this Draft, stop a running answer first, and wait for its end to be saved before archiving. The chat and its messages are kept." action="Archive" oncancel={()=>archiveConfirm=false} onconfirm={archiveChat}/>{/if}
+  {#if archiveWaiting}<p role="status">Waiting for the response to be saved…</p><button onclick={archiveChat}>Save stopped response in fixture</button><button onclick={()=>archiveWaiting=false}>Cancel archive</button>{/if}
   {#if repositoryNotice}<p role="status">{repositoryNotice}</p>{/if}
   {#if shown}<PinnedMessage
       text={messages[current]}
