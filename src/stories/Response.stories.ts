@@ -20,7 +20,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: {} };
 export const Streaming: Story = { args: { streaming: true } };
-export const UnknownFailure: Story = { args: { statusLabel:'Failed', error:{code:'future_vendor_code',message:'A fictional future failure.'} } };
+export const UnknownFailure: Story = { args: { statusLabel:'Failed', error:{code:'__proto__',message:'A fictional future failure.'} } };
 export const Beacon: Story = { args: { showBeacon:true } };
 
 export const AgentQuestion: Story = {args:{streaming:true,statusLabel:'Waiting for your answer since 14:02',questions:[{id:'fictional-question',open:true,ask:{callId:'fictional-task',questions:[{id:'branch',multiple:false,question:'Which branch should I use?',options:[{label:'main',description:'Use the default branch'},{label:'work',description:'Use the work branch'}]}]},answer:{type:'answers',answers:{branch:['main']}}}]}};
