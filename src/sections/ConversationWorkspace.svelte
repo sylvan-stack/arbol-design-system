@@ -54,7 +54,7 @@
   const count = $derived(shown ? messages.length : 0);
   let route=$state({driver:'claude',subscription:'fictional',model:'model-a',effort:'high'});
   let routeProblem=$state(untrack(()=>routeFailure?'Models could not be read: fictional Driver unavailable.':''));
-  const routes=[{driver:'claude',subscription:'fictional'},{driver:'codex',subscription:'fictional'},{driver:'claude',subscription:'offline',unavailable:'needs attention'}];
+  let routes=$state<{driver:string;subscription:string;unavailable?:string}[]>([{driver:'claude',subscription:'fictional'},{driver:'codex',subscription:'fictional'},{driver:'claude',subscription:'offline',unavailable:'needs attention'}]);
   function pickRoute(driver:string,subscription:string){route={driver,subscription,model:'model-a',effort:'high'};}
   function nextModel(){route={...route,model:route.model==='model-a'?'model-b':'model-a',effort:route.model==='model-a'?'medium':'high'};}
   function nextEffort(){route={...route,effort:route.effort==='high'?'medium':'high'};}
@@ -102,6 +102,8 @@
   {repositories}
   onrepository={chooseRepository}
   {routes}
+  onrefreshAccounts={()=>{routes=routes.map(row=>({...row,unavailable:undefined}));actionNotice='Public accounts refreshed in fictional preview.';}}
+  onrefreshAccount={(driver,subscription)=>{routes=routes.map(row=>row.driver===driver&&row.subscription===subscription?{...row,unavailable:undefined}:row);pickRoute(driver,subscription);actionNotice='Sign-in status refreshed in fictional preview; no credential was requested.';}}
   {routeProblem}
   onretryRoute={()=>routeProblem=''}
   onroute={pickRoute}

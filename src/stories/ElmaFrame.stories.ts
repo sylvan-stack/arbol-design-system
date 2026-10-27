@@ -28,3 +28,7 @@ export const LatestFailure={render:()=>({Component:ConversationFixture,props:{la
 
 export const OpenRequestWaiting={render:()=>({Component:ConversationFixture,props:{opening:'waiting'}})} satisfies StoryObj<typeof ConversationFixture>;
 export const OpenRequestFailure={render:()=>({Component:ConversationFixture,props:{opening:'failed'}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const SigningIn:Story={args:{routes:[{driver:'claude',subscription:'fictional',unavailable:'logged out'},{driver:'codex',subscription:'fictional',unavailable:'signing in'},{driver:'pi',subscription:'fictional',unavailable:'needs attention'}]}};
+export const RefreshingAccounts:Story={args:{accountBusy:true}};
+export const InteractiveAccounts={render:()=>({Component:ConversationFixture,props:{empty:true}})} satisfies StoryObj<typeof ConversationFixture>;
