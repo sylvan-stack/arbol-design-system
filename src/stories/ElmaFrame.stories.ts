@@ -38,3 +38,10 @@ export const AttentionUnknown={render:()=>({Component:ConversationFixture,props:
 export const ComingBack={render:()=>({Component:ConversationFixture,props:{attention:true,reconnecting:true}})} satisfies StoryObj<typeof ConversationFixture>;
 
 export const LatestSelectionFailure={render:()=>({Component:ConversationFixture,props:{latest:true,latestSelectionFailure:true}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const StaleChat={render:()=>({Component:ConversationFixture,props:{stale:true}})} satisfies StoryObj<typeof ConversationFixture>;
+export const StaleLatest={render:()=>({Component:ConversationFixture,props:{stale:true,latest:true}})} satisfies StoryObj<typeof ConversationFixture>;
+export const ReimportCopied={render:()=>({Component:ConversationFixture,props:{stale:true,reimportOutcome:'copied'}})} satisfies StoryObj<typeof ConversationFixture>;
+export const ReimportUncertain={render:()=>({Component:ConversationFixture,props:{stale:true,reimportOutcome:'uncertain'}})} satisfies StoryObj<typeof ConversationFixture>;
+export const ReimportRefused={render:()=>({Component:ConversationFixture,props:{stale:true,reimportOutcome:'refused'}})} satisfies StoryObj<typeof ConversationFixture>;
+export const ReimportWaiting={render:()=>({Component:ConversationFixture,props:{stale:true,reimportOutcome:'waiting'}})} satisfies StoryObj<typeof ConversationFixture>;

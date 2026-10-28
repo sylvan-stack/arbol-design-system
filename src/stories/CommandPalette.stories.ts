@@ -21,3 +21,5 @@ export const QuickActions:Story={args:{title:'Chat actions',searchable:false,num
 export const Empty:Story={args:{rows:[]}};
 export const Disabled:Story={args:{searchable:false,rows:[{id:'pending',label:'Saving chat action…',disabled:true},{id:'copy',label:'Copy session ID',shortcut:'C'}]}};
 export const Details:Story={args:{searchable:false,rows:[{id:'chat',label:'A fictional chat',detail:'sample · claude/fictional/model-a · completed · 2 minutes ago'}]}};
+
+export const RowAction:Story={args:{searchable:false,rows:[{id:'copy',label:'Fictional stale chat',detail:'New messages in Older Fixture Root',action:{label:'Bring over again'}}]}};
