@@ -14,3 +14,34 @@ export const InteractiveIntelligence={render:()=>({Component:ConversationFixture
 export const CatalogFailure={render:()=>({Component:ConversationFixture,props:{empty:true,routeFailure:true}})} satisfies StoryObj<typeof ConversationFixture>;
 
 export const FailedResponse={render:()=>({Component:ConversationFixture,props:{failed:true}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const ChatActions={render:()=>({Component:ConversationFixture})} satisfies StoryObj<typeof ConversationFixture>;
+export const RenameFailure={render:()=>({Component:ConversationFixture,props:{renameFailure:true}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const ArchiveWaiting={render:()=>({Component:ConversationFixture,props:{archiveRunning:true}})} satisfies StoryObj<typeof ConversationFixture>;
+export const ArchiveFailure={render:()=>({Component:ConversationFixture,props:{archiveFailure:true}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const LatestChats={render:()=>({Component:ConversationFixture,props:{latest:true}})} satisfies StoryObj<typeof ConversationFixture>;
+export const LatestEmpty={render:()=>({Component:ConversationFixture,props:{latest:true,latestEmpty:true}})} satisfies StoryObj<typeof ConversationFixture>;
+export const LatestLoading={render:()=>({Component:ConversationFixture,props:{latest:true,latestLoading:true}})} satisfies StoryObj<typeof ConversationFixture>;
+export const LatestFailure={render:()=>({Component:ConversationFixture,props:{latest:true,latestFailure:true}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const OpenRequestWaiting={render:()=>({Component:ConversationFixture,props:{opening:'waiting'}})} satisfies StoryObj<typeof ConversationFixture>;
+export const OpenRequestFailure={render:()=>({Component:ConversationFixture,props:{opening:'failed'}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const SigningIn:Story={args:{routes:[{driver:'claude',subscription:'fictional',unavailable:'logged out'},{driver:'codex',subscription:'fictional',unavailable:'signing in'},{driver:'pi',subscription:'fictional',unavailable:'needs attention'}]}};
+export const RefreshingAccounts:Story={args:{accountBusy:true}};
+export const InteractiveAccounts={render:()=>({Component:ConversationFixture,props:{empty:true}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const AttentionMultiple={render:()=>({Component:ConversationFixture,props:{attention:true}})} satisfies StoryObj<typeof ConversationFixture>;
+export const AttentionUnknown={render:()=>({Component:ConversationFixture,props:{attention:true,unknownAttention:true}})} satisfies StoryObj<typeof ConversationFixture>;
+export const ComingBack={render:()=>({Component:ConversationFixture,props:{attention:true,reconnecting:true}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const LatestSelectionFailure={render:()=>({Component:ConversationFixture,props:{latest:true,latestSelectionFailure:true}})} satisfies StoryObj<typeof ConversationFixture>;
+
+export const StaleChat={render:()=>({Component:ConversationFixture,props:{stale:true}})} satisfies StoryObj<typeof ConversationFixture>;
+export const StaleLatest={render:()=>({Component:ConversationFixture,props:{stale:true,latest:true}})} satisfies StoryObj<typeof ConversationFixture>;
+export const ReimportCopied={render:()=>({Component:ConversationFixture,props:{stale:true,reimportOutcome:'copied'}})} satisfies StoryObj<typeof ConversationFixture>;
+export const ReimportUncertain={render:()=>({Component:ConversationFixture,props:{stale:true,reimportOutcome:'uncertain'}})} satisfies StoryObj<typeof ConversationFixture>;
+export const ReimportRefused={render:()=>({Component:ConversationFixture,props:{stale:true,reimportOutcome:'refused'}})} satisfies StoryObj<typeof ConversationFixture>;
+export const ReimportWaiting={render:()=>({Component:ConversationFixture,props:{stale:true,reimportOutcome:'waiting'}})} satisfies StoryObj<typeof ConversationFixture>;

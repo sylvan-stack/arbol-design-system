@@ -258,3 +258,40 @@ arbol-design-system:scripts/check-elma-failures.mjs
 -->
 
 Question identifiers are opaque strings. Selection lookup uses own properties so names such as __proto__ remain ordinary question data; outgoing answers preserve their exact identifiers.
+
+First Sapling chat-title edits use controlled InlineRename with the canonical stored title (empty for an untitled chat), Unicode character counting and empty-title removal. Cmd-click or keyboard activation opens the header edit; Return/OK saves and Escape/Cancel dismisses before saving. Saving disables the editor, refusals retain its text and cause, and closing restores focus to the title control. The header remains a heading. Ongoing is a controlled cockpit pill with Alt0 and canonical-result notices. Production adapters own idempotent metadata requests, pending receipts/reload gates and Root/context/publication guards; composed previews use local fictional state.
+
+Quick actions use the controlled shared CommandPalette rows (labels, optional details/shortcuts, disabled state and selection callbacks). Shift-Enter opens the menu; R starts inline rename, A opens archive confirmation and C requests copying the session ID. Arrow/Return and Escape retain modal focus behavior. Archive confirmation saves the current Draft, stops a running response and waits for its saved terminal state before the archived mark. While waiting it remains cancelable; the archive receipt must confirm archivedAt. A refused save/stop/archive keeps the chat and Draft. Successful archive forgets only chat-ID conveniences, then shows the same repository with its independent new-chat Draft. Shared stories simulate these operations locally and explicitly label clipboard/service boundaries.
+
+Latest chats use the same controlled CommandPalette rows over the Elma window until the native panel exists. Ctrl-Shift-Cmd-C opens it; 1–9 and0 choose the first ten, arrows/Return reach every row, and Escape restores the trigger focus. Rows show the canonical title or Unicode placeholder, repository, route, last Exchange state and recorded activity age; absent time is explicitly unrecorded. The application bounds active canonical summaries to100, excludes the current chat, puts Root-local recently shown UUIDs first and otherwise sorts by activity. Snapshots replace state, changed rows merge, archived rows disappear and a fresh snapshot backfills them. UUID ordering is the only cached list convenience. Loading, empty, read failure/retry and selection-saving states stay explicit. The native reference uses the same list behavior with a visible browser-only boundary.
+
+External open requests save the visible Draft and wait for unconfirmed sends/actions before taking the host request. A returned chat UUID or folder remains a Root-local routing target until actual opening succeeds, including across a page reload; no content is cached for this purpose. Concurrent notices are coalesced and processed serially, including a notice received during a take. A failed target read keeps the current transcript/subscription and exposes Retry opening and Dismiss request. A Draft conflict keeps the host request untaken. A visible saving/opening status lasts until the transition finishes and participates in the Build reload barrier. Shared stories simulate completion and refusal locally; actual Swift/Willo integration remains outside the browser fixture.
+
+Shared Notice lines keep literal status/error messages, severity colors and optional standard Button actions together with wrapping at narrow widths. The application and local external-open fixtures use the same Notice source; unknown future attention kinds can reuse this message presentation without introducing a new workflow.
+
+Intelligence refreshes only public accounts.list/catalog status on window visibility/focus and before activating a Subscription row. Concurrent refreshes coalesce, chosen routes/models and independent Drafts remain intact, and a late refresh cannot act in another context or Root. Disabled signed-out/signing-in/needs-attention rows keep the exact Claude/Codex/Pi sign-in command as text plus an explicit Refresh row action; Refresh accounts is also available for the whole list. No credential, sign-in code, Keychain access or native command execution occurs in this UI. Public read failures and unknown states remain visible without claiming a new sign-in state.
+
+Attention renders every stable ID as its own Notice line: warning uses the warning color and urgent the error color. Unknown kinds retain their literal message; unfamiliar severity also remains visible. Opened upserts only its own ID, closed removes only that ID, and a snapshot replaces the set. There is no client timeout or dismiss action; fixture controls explicitly simulate backend closure. Root changes clear the old set. Reconnecting keeps the transcript, existing notices and editable Draft; fresh snapshots replace file projections and immediately retry a dirty non-conflicting Draft. A clean fresh snapshot clears obsolete read errors. Database-return attention closure or a fresh healthy attention snapshot restarts database-ended subscriptions, including when a resubscription missed the individual closed event.
+
+A failed latest-chat selection keeps the current chat subscribed and reports its cause inside the still-open selector; the user can retry or close the selector. Restoring the old chat snapshot must not erase this selection-specific error.
+
+Stale migration metadata shows New messages in the source Root display name, resolved from the public Root catalogue with an identifier fallback. Bring over again is available in chat actions and as a separate latest-row action; its keyboard activation never selects the row by accident. Save the visible Draft and wait for pending sends, then issue exactly one chat.reimport. Validate and open its actual returned UUID, retaining that routing target for a failed read/reload. Replaced history keeps the same chat; a copied result opens another chat and preserves the continued copy. Pending state is explicit, no agent is stopped or moved, and a disconnected/no_answer outcome refreshes the list with the exact uncertainty message and no automatic mutation replay. A comparison failure stays visible through Root attention. Shared fixtures simulate replaced/copied/waiting/refused/uncertain results locally.
+
+Canonical archive marks/snapshots also remove the chat UUID from observing windows’ conveniences while leaving already-open content readable. A later theme or other preference save must not restore an archived default. Same-chat canonical rereads preserve the visible context for actions waiting on send acceptance; workspace inventory refresh remains independent of a guarded default-view decision. The complete frozen suite and exact paired merge remain the final qualification gate.
+
+<!-- sources:
+arbol-design-system:src/patterns/InlineRename.svelte
+arbol-design-system:src/patterns/CommandPalette.svelte
+arbol-design-system:src/patterns/Notice.svelte
+arbol-design-system:src/sections/ElmaFrame.svelte
+arbol-design-system:src/sections/ConversationWorkspace.svelte
+arbol-design-system:src/pages/NativeSurface.svelte
+arbol-design-system:src/fixtures/RenameExample.svelte
+arbol-design-system:src/stories/InlineRename.stories.ts
+arbol-design-system:src/stories/CommandPalette.stories.ts
+arbol-design-system:src/stories/Notice.stories.ts
+arbol-design-system:src/stories/ElmaFrame.stories.ts
+arbol-design-system:scripts/check-elma-actions.mjs
+arbol-design-system:scripts/check-elma-latest.mjs
+arbol-design-system:scripts/check-elma-lifecycle.mjs
+-->

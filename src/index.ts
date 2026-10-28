@@ -82,3 +82,7 @@ export { default as SafeMarkdown } from './components/SafeMarkdown.svelte';
 export { default as ResponseReader } from './sections/ResponseReader.svelte';
 
 export { stringifyJson } from './json';
+
+export {default as InlineRename} from './patterns/InlineRename.svelte';
+
+export {default as Notice} from './patterns/Notice.svelte';
