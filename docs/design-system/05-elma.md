@@ -276,3 +276,22 @@ Attention renders every stable ID as its own Notice line: warning uses the warni
 A failed latest-chat selection keeps the current chat subscribed and reports its cause inside the still-open selector; the user can retry or close the selector. Restoring the old chat snapshot must not erase this selection-specific error.
 
 Stale migration metadata shows New messages in the source Root display name, resolved from the public Root catalogue with an identifier fallback. Bring over again is available in chat actions and as a separate latest-row action; its keyboard activation never selects the row by accident. Save the visible Draft and wait for pending sends, then issue exactly one chat.reimport. Validate and open its actual returned UUID, retaining that routing target for a failed read/reload. Replaced history keeps the same chat; a copied result opens another chat and preserves the continued copy. Pending state is explicit, no agent is stopped or moved, and a disconnected/no_answer outcome refreshes the list with the exact uncertainty message and no automatic mutation replay. A comparison failure stays visible through Root attention. Shared fixtures simulate replaced/copied/waiting/refused/uncertain results locally.
+
+Canonical archive marks/snapshots also remove the chat UUID from observing windows’ conveniences while leaving already-open content readable. A later theme or other preference save must not restore an archived default. Same-chat canonical rereads preserve the visible context for actions waiting on send acceptance; workspace inventory refresh remains independent of a guarded default-view decision. The complete frozen suite and exact paired merge remain the final qualification gate.
+
+<!-- sources:
+arbol-design-system:src/patterns/InlineRename.svelte
+arbol-design-system:src/patterns/CommandPalette.svelte
+arbol-design-system:src/patterns/Notice.svelte
+arbol-design-system:src/sections/ElmaFrame.svelte
+arbol-design-system:src/sections/ConversationWorkspace.svelte
+arbol-design-system:src/pages/NativeSurface.svelte
+arbol-design-system:src/fixtures/RenameExample.svelte
+arbol-design-system:src/stories/InlineRename.stories.ts
+arbol-design-system:src/stories/CommandPalette.stories.ts
+arbol-design-system:src/stories/Notice.stories.ts
+arbol-design-system:src/stories/ElmaFrame.stories.ts
+arbol-design-system:scripts/check-elma-actions.mjs
+arbol-design-system:scripts/check-elma-latest.mjs
+arbol-design-system:scripts/check-elma-lifecycle.mjs
+-->
