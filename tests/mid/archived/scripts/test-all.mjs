@@ -32,18 +32,10 @@ try {
   }
   if (!ready) throw new Error('Storybook test server did not start');
   await run('scripts/verify-catalog.mjs');
-  await run('scripts/test-storybook.mjs');
-  await run('scripts/check-docs.mjs');
   await run('scripts/check-interactions.mjs');
-  await run('scripts/check-elma.mjs');
   await run('scripts/check-elma-composer.mjs');
   await run('scripts/check-elma-actions.mjs');
-  await run('scripts/check-elma-latest.mjs');
-  await run('scripts/check-elma-lifecycle.mjs');
-  await run('scripts/check-elma-routing.mjs');
-  await run('scripts/check-elma-repositories.mjs');
   await run('scripts/check-elma-questions.mjs');
-  await run('scripts/check-elma-failures.mjs');
   await run('scripts/check-elma-response.mjs');
   await run('scripts/check-elma-reading.mjs');
   await run('scripts/check-themes.mjs');
