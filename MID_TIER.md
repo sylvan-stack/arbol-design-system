@@ -1,119 +1,23 @@
 # Mid-tier tests: arbol-design-system
 
-This document lists every retained mid-tier selection with its description, existing tier reason and review status. Descriptions are source-level summaries, not reports of execution. Assertion examples are copied expressions for inspection, not independent proof of quality.
+Reviewed under SYL-327 against revision `d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7`. **17 → 9 retained mid-tier inventory entries**; 8 low-tier entries removed in this review. Counts mix separately labelled definitions, scenarios and orchestration entries, not runtime-discovered cases.
 
-**Provisional means retention still needs review.** An execution-default assignment does not establish useful coverage or justify keeping an obvious or redundant test. Reassess it against its implementation and overlapping cases before execution; delete confirmed low-value cases. Existing individual reviews are preserved. No case is promoted because it moved folders.
+Each selection must expose a consequential risk through real integration or an independent difficult invariant, observe a trustworthy result, and add information beyond another retained case. Ordinary branch, field, formatting and default coverage is insufficient.
 
-Layout based on `f3b7ae6ef21788f39a92e652cb29706a7596898a`. Mid-tier bodies live in [`tests/mid/`](tests/mid/); shared fixtures and compatibility APIs keep their original paths. [Execution policy](TESTS.md) · [All tiers](docs/test-inventory.md) · [Machine-readable inventory](test-tiers.json).
+Source remains available; writing or running these checks requires a separate testing task explicitly requested by the owner. No tests ran during this review. Historical full-qualification evidence does not apply to this reduced selection. Entry points coordinate checks and are not additional behavioral cases.
 
-## Source availability and execution
+[All tiers and removal reasons](docs/test-inventory.md) · [Machine inventory](test-tiers.json) · [Execution policy](TESTS.md)
 
-All retained mid-tier bodies were uncommented by explicit owner request under SYL-326. They stay uncommented. Writing or running them still requires a separate testing task; availability is not authorization to execute. Shared unit fixtures keep their original paths. Standalone programs and scenarios retain compatibility entries that preserve their original package and fixture paths; their implementation remains in the mid folder. Product-side test APIs load those sources only on explicit invocation and refuse when the installation lacks the test source.
-
-Use the exact mid selector with the mid folder on PYTHONPATH, or its existing program/qualification entry point, after checking prerequisites and indirect execution. A source restoration is not runtime or full qualification evidence. No tests ran during restoration. Provisional tier reasons remain provisional.
-
-## 17 retained selections
-
-Definitions, scenarios, programs and entry points are separate inventory units; this is not a runtime test count.
-
-### scripts/check-docs.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
+| Selection | Description | Consequence, observation and distinct value |
 | --- | --- | --- |
-| [`check-docs`](tests/mid/archived/scripts/check-docs.mjs#L1) — Standalone check docs check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
+| [`check-elma-actions`](tests/mid/archived/scripts/check-elma-actions.mjs#L1) | Standalone check elma actions check program; its combined scenarios are retained together. | Real browser Unicode input and rename keyboard/focus transitions must preserve code-point limits and retained edits; ordinary label/status and archive-fixture branches were removed. |
+| [`check-elma-composer`](tests/mid/archived/scripts/check-elma-composer.mjs#L1) | Standalone check elma composer check program; its combined scenarios are retained together. | Actual keyboard expansion/collapse must retain exact draft text and restore focus across DOM replacement; real narrow enlarged-text geometry is also observed. Canned fixture status and save callbacks were removed. |
+| [`check-elma-questions`](tests/mid/archived/scripts/check-elma-questions.mjs#L1) | Standalone check elma questions check program; its combined scenarios are retained together. | Actual browser controls submit reserved __proto__ question IDs without losing literal keys and distinguish submitted from recorded answers; observes the control payload independently of component state. |
+| [`check-elma-reading`](tests/mid/archived/scripts/check-elma-reading.mjs#L1) | Standalone check elma reading check program; its combined scenarios are retained together. | Actual browser layout, wheel input, streaming DOM growth and response switching must preserve intentional reading positions; pixel geometry and scrolling cannot be established by source reading. |
+| [`check-elma-response`](tests/mid/archived/scripts/check-elma-response.mjs#L1) | Standalone check elma response check program; its combined scenarios are retained together. | Actual browser renders untrusted Markdown without executable nodes or remote requests, preserves a 64-bit revision and copies only answer content through the clipboard; routine display-state examples were removed. |
+| [`check-interactions`](tests/mid/archived/scripts/check-interactions.mjs#L1) | Standalone check interactions check program; its combined scenarios are retained together. | Actual browser focus traps, dirty-dialog dismissal, retained edits and collection identity cross component boundaries; computed responsive geometry and an independent Axe audit expose inaccessible layouts. |
+| [`check-themes`](tests/mid/archived/scripts/check-themes.mjs#L1) | Standalone check themes check program; its combined scenarios are retained together. | Uses actual browser-computed colors and an independent luminance/contrast calculation across theme surfaces, detecting unreadable combinations not obvious from token literals. |
+| [`test-all`](tests/mid/archived/scripts/test-all.mjs#L1) | Standalone test all check program; its combined scenarios are retained together. | Orchestrates the explicitly requested retained browser, accessibility, contrast and immutable-evidence selection; it is not an additional behavior case or full historical story qualification. |
+| [`verify-catalog`](tests/mid/archived/scripts/verify-catalog.mjs#L1) | Standalone verify catalog check program; its combined scenarios are retained together. | Compares preserved archive and source bytes against the independent captured manifest; detects accidental alteration of historical evidence. Routine catalog/name/count assertions were removed. |
 
-### scripts/check-elma-actions.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`check-elma-actions`](tests/mid/archived/scripts/check-elma-actions.mjs#L1) — Standalone check elma actions check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/check-elma-composer.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`check-elma-composer`](tests/mid/archived/scripts/check-elma-composer.mjs#L1) — Standalone check elma composer check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/check-elma-failures.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`check-elma-failures`](tests/mid/archived/scripts/check-elma-failures.mjs#L1) — Standalone check elma failures check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/check-elma-latest.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`check-elma-latest`](tests/mid/archived/scripts/check-elma-latest.mjs#L1) — Standalone check elma latest check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/check-elma-lifecycle.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`check-elma-lifecycle`](tests/mid/archived/scripts/check-elma-lifecycle.mjs#L1) — Standalone check elma lifecycle check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/check-elma-questions.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`check-elma-questions`](tests/mid/archived/scripts/check-elma-questions.mjs#L1) — Standalone check elma questions check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/check-elma-reading.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`check-elma-reading`](tests/mid/archived/scripts/check-elma-reading.mjs#L1) — Standalone check elma reading check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/check-elma-repositories.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`check-elma-repositories`](tests/mid/archived/scripts/check-elma-repositories.mjs#L1) — Standalone check elma repositories check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/check-elma-response.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`check-elma-response`](tests/mid/archived/scripts/check-elma-response.mjs#L1) — Standalone check elma response check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/check-elma-routing.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`check-elma-routing`](tests/mid/archived/scripts/check-elma-routing.mjs#L1) — Standalone check elma routing check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/check-elma.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`check-elma`](tests/mid/archived/scripts/check-elma.mjs#L1) — Standalone check elma check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/check-interactions.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`check-interactions`](tests/mid/archived/scripts/check-interactions.mjs#L1) — Standalone check interactions check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/check-themes.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`check-themes`](tests/mid/archived/scripts/check-themes.mjs#L1) — Standalone check themes check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/test-all.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`test-all`](tests/mid/archived/scripts/test-all.mjs#L1) — Standalone test all check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/test-storybook.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`test-storybook`](tests/mid/archived/scripts/test-storybook.mjs#L1) — Standalone test storybook check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
-
-### scripts/verify-catalog.mjs
-
-| Selection and description | Tier justification and review status | Source observations |
-| --- | --- | --- |
-| [`verify-catalog`](tests/mid/archived/scripts/verify-catalog.mjs#L1) — Standalone verify catalog check program; its combined scenarios are retained together. | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. Review: **program**. | Read the linked body and its shared helpers; no semantic approval inferred. |
+The retained programs were also pruned internally: eight of thirteen named interaction groups, the 24-theme/density navigation sweep, routine catalog equality checks and canned fixture-only sequences were removed. Counts above describe programs, not these overlapping steps. `test-storybook.mjs` and its blanket every-story render loop are removed; `npm test` now selects only the nine documented programs, including its own orchestration entry.

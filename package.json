@@ -13,7 +13,6 @@
     "check": "svelte-check --config ./svelte.config.js --tsconfig ./tsconfig.json",
     "test": "node scripts/test-all.mjs",
     "test:coverage": "node scripts/verify-catalog.mjs",
-    "test:browser": "node scripts/test-storybook.mjs",
     "preview": "node scripts/serve.mjs",
     "format": "prettier --write \"src/**/*.{ts,svelte,css,json}\" .storybook scripts *.json *.ts *.js",
     "test:interactions": "node scripts/check-interactions.mjs",

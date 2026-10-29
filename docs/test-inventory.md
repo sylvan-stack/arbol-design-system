@@ -1,36 +1,32 @@
 # Test inventory: arbol-design-system
 
-[Execution policy](../TESTS.md) · [Mid-tier descriptions and reasons](../MID_TIER.md) · [Machine-readable inventory](../test-tiers.json).
+SYL-327 source review of `d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7`. No tests executed. Top selections are unchanged. Entries distinguish Python definitions, scenarios and orchestration; do not sum overlapping entries as runtime cases. Earlier removals retain their original historical rationale; references in those historical reasons describe the suite at their removal date.
 
-Folder separation from `f3b7ae6ef21788f39a92e652cb29706a7596898a` on 29 October 2026. Original source addresses remain in test-tiers.json. Top cases keep their previous individual justifications; provisional mid classifications remain provisional.
+## Retained selections
 
-## Top tier
+| Tier | Kind | Selection | Justification |
+| --- | --- | --- | --- |
+| mid | program | [`check-elma-actions`](../tests/mid/archived/scripts/check-elma-actions.mjs#L1) | Real browser Unicode input and rename keyboard/focus transitions must preserve code-point limits and retained edits; ordinary label/status and archive-fixture branches were removed. |
+| mid | program | [`check-elma-composer`](../tests/mid/archived/scripts/check-elma-composer.mjs#L1) | Actual keyboard expansion/collapse must retain exact draft text and restore focus across DOM replacement; real narrow enlarged-text geometry is also observed. Canned fixture status and save callbacks were removed. |
+| mid | program | [`check-elma-questions`](../tests/mid/archived/scripts/check-elma-questions.mjs#L1) | Actual browser controls submit reserved __proto__ question IDs without losing literal keys and distinguish submitted from recorded answers; observes the control payload independently of component state. |
+| mid | program | [`check-elma-reading`](../tests/mid/archived/scripts/check-elma-reading.mjs#L1) | Actual browser layout, wheel input, streaming DOM growth and response switching must preserve intentional reading positions; pixel geometry and scrolling cannot be established by source reading. |
+| mid | program | [`check-elma-response`](../tests/mid/archived/scripts/check-elma-response.mjs#L1) | Actual browser renders untrusted Markdown without executable nodes or remote requests, preserves a 64-bit revision and copies only answer content through the clipboard; routine display-state examples were removed. |
+| mid | program | [`check-interactions`](../tests/mid/archived/scripts/check-interactions.mjs#L1) | Actual browser focus traps, dirty-dialog dismissal, retained edits and collection identity cross component boundaries; computed responsive geometry and an independent Axe audit expose inaccessible layouts. |
+| mid | program | [`check-themes`](../tests/mid/archived/scripts/check-themes.mjs#L1) | Uses actual browser-computed colors and an independent luminance/contrast calculation across theme surfaces, detecting unreadable combinations not obvious from token literals. |
+| mid | program | [`test-all`](../tests/mid/archived/scripts/test-all.mjs#L1) | Orchestrates the explicitly requested retained browser, accessibility, contrast and immutable-evidence selection; it is not an additional behavior case or full historical story qualification. |
+| mid | program | [`verify-catalog`](../tests/mid/archived/scripts/verify-catalog.mjs#L1) | Compares preserved archive and source bytes against the independent captured manifest; detects accidental alteration of historical evidence. Routine catalog/name/count assertions were removed. |
 
-| Selection | State | Justification |
+## Removed low tier
+
+Source is recoverable in Git at the recorded revision. Removal is a retention decision, not a claim of runtime coverage.
+
+| Selection at removal | Review | Reason |
 | --- | --- | --- |
-
-## Mid tier
-
-| Selection | State | Justification |
-| --- | --- | --- |
-| [`check-docs`](../tests/mid/archived/scripts/check-docs.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`check-elma-actions`](../tests/mid/archived/scripts/check-elma-actions.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`check-elma-composer`](../tests/mid/archived/scripts/check-elma-composer.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`check-elma-failures`](../tests/mid/archived/scripts/check-elma-failures.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`check-elma-latest`](../tests/mid/archived/scripts/check-elma-latest.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`check-elma-lifecycle`](../tests/mid/archived/scripts/check-elma-lifecycle.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`check-elma-questions`](../tests/mid/archived/scripts/check-elma-questions.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`check-elma-reading`](../tests/mid/archived/scripts/check-elma-reading.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`check-elma-repositories`](../tests/mid/archived/scripts/check-elma-repositories.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`check-elma-response`](../tests/mid/archived/scripts/check-elma-response.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`check-elma-routing`](../tests/mid/archived/scripts/check-elma-routing.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`check-elma`](../tests/mid/archived/scripts/check-elma.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`check-interactions`](../tests/mid/archived/scripts/check-interactions.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`check-themes`](../tests/mid/archived/scripts/check-themes.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`test-all`](../tests/mid/archived/scripts/test-all.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`test-storybook`](../tests/mid/archived/scripts/test-storybook.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-| [`verify-catalog`](../tests/mid/archived/scripts/verify-catalog.mjs#L1) | available; explicit task only | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## Removed low-tier cases
-
-Historical removals remain in test-tiers.json with their original reason and revision. No removed case was restored by this layout change.
+| `tests/mid/archived/scripts/check-docs.mjs` | SYL-327 | Rendering every documentation page and requiring text length over 500 is a broad smoke check with a weak size oracle and no specific consequential behavior. Case reviewed: Standalone check docs check program; its combined scenarios are retained together. |
+| `tests/mid/archived/scripts/check-elma-failures.mjs` | SYL-327 | Mostly asserts literal fixture error text, button availability and local callback messages; the fixed reset time is a direct static field and adds no distinct difficult invariant. Case reviewed: Standalone check elma failures check program; its combined scenarios are retained together. |
+| `tests/mid/archived/scripts/check-elma-latest.mjs` | SYL-327 | Routine fixed-list keyboard selections, empty/loading labels and local refusal messages repeat shared navigation and modal mechanics. Case reviewed: Standalone check elma latest check program; its combined scenarios are retained together. |
+| `tests/mid/archived/scripts/check-elma-lifecycle.mjs` | SYL-327 | Fixture-only open/reimport/account/status callbacks assert labels manually authored by the same example; they do not establish real persistence or lifecycle correctness. Case reviewed: Standalone check elma lifecycle check program; its combined scenarios are retained together. |
+| `tests/mid/archived/scripts/check-elma-repositories.mjs` | SYL-327 | Local repository fixture switching and stop-confirmation messages duplicate retained shared focus/draft controls and provide no repository/backend integration evidence. Case reviewed: Standalone check elma repositories check program; its combined scenarios are retained together. |
+| `tests/mid/archived/scripts/check-elma-routing.mjs` | SYL-327 | Fixture route/model/effort toggles and loading/error labels repeat readable event handlers and static props. Case reviewed: Standalone check elma routing check program; its combined scenarios are retained together. |
+| `tests/mid/archived/scripts/check-elma.mjs` | SYL-327 | Broad component counts, theme attributes, fixed values and happy navigation duplicate stronger retained draft/focus, clipboard and layout checks. Case reviewed: Standalone check elma check program; its combined scenarios are retained together. |
+| `tests/mid/archived/scripts/test-storybook.mjs` | SYL-327 | Loads every story merely to observe nonempty DOM/no immediate error and takes unasserted screenshots; high volume with a weak oracle and no distinct consequential scenario. Case reviewed: Standalone test storybook check program; its combined scenarios are retained together. |

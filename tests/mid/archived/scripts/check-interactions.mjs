@@ -41,34 +41,6 @@ try {
       assert.equal(await page.getByRole('searchbox').inputValue(), 'design');
     },
   );
-  await check('No-results recovery restores all collection items', async () => {
-    await page.getByRole('searchbox').fill('impossible query');
-    await page.getByRole('button', { name: 'Clear filters', exact: true }).click();
-    assert.equal(await page.getByRole('searchbox').inputValue(), '');
-    assert.equal(
-      await page.getByRole('button', { name: 'Preserve chat drafts', exact: true }).count(),
-      1,
-    );
-  });
-  await check('Create validates, focuses invalid field, and commits fixture data', async () => {
-    await page.getByRole('button', { name: 'New work item', exact: true }).click();
-    await page.getByRole('button', { name: 'Create work item', exact: true }).click();
-    assert.equal(await page.locator('[aria-invalid=true]').count(), 1);
-    await page.waitForFunction(
-      () => document.activeElement?.getAttribute('aria-invalid') === 'true',
-    );
-    assert.equal(
-      await page.evaluate(() => document.activeElement?.getAttribute('aria-invalid')),
-      'true',
-    );
-    await page.getByRole('textbox', { name: /Title/ }).fill('Keyboard-tested work');
-    await page.getByRole('button', { name: 'Create work item', exact: true }).click();
-    await page.getByRole('dialog').waitFor({ state: 'hidden' });
-    assert.equal(
-      await page.getByRole('button', { name: 'Keyboard-tested work', exact: true }).count(),
-      1,
-    );
-  });
   await check('Dirty Escape keeps draft, offers discard and restores trigger focus', async () => {
     await open('patterns-entityeditor--default');
     await page.getByRole('button', { name: 'Open editor' }).click();
@@ -104,63 +76,6 @@ try {
     await page.keyboard.press('Escape');
     await page.getByRole('dialog').waitFor({ state: 'hidden' });
   });
-  await check('Permission resolves once and removes obsolete decisions', async () => {
-    await open('patterns-permissionrequest--default');
-    await page.getByRole('button', { name: 'Allow once', exact: true }).click();
-    assert.equal(await page.getByRole('button', { name: 'Reject', exact: true }).count(), 0);
-    assert.equal(await page.getByRole('status').count(), 1);
-  });
-  await check('Email rule requires a preview before activation', async () => {
-    await open('sections-emailruleeditor--default');
-    assert.equal(await page.getByRole('button', { name: 'Create rule' }).isDisabled(), true);
-    await page.getByRole('button', { name: 'Test retained email' }).click();
-    assert.equal(await page.getByRole('button', { name: 'Create rule' }).isEnabled(), true);
-    await page.getByRole('button', { name: 'Create rule' }).click();
-    assert(await page.getByText('Rule created for future email').isVisible());
-  });
-  await check(
-    'Workspace navigation resets domain records and opens long-form editors',
-    async () => {
-      await open('pages-seqoya-repos--default');
-      await page.getByRole('button', { name: 'Organizations', exact: true }).click();
-      assert.equal(
-        await page.getByRole('button', { name: 'Sylvan Stack', exact: true }).count(),
-        1,
-      );
-      assert.equal(await page.getByRole('button', { name: 'mycel', exact: true }).count(), 0);
-      await page.getByRole('button', { name: 'Blueprints', exact: true }).click();
-      await page.getByRole('button', { name: 'New Blueprint' }).click();
-      assert(await page.getByRole('textbox', { name: 'Blueprint name' }).isVisible());
-      assert.equal(await page.getByRole('dialog').count(), 0);
-    },
-  );
-  await check('Long editor guards navigation and keeps its unsaved values', async () => {
-    await page.getByRole('textbox', { name: 'Blueprint name' }).fill('Unsaved blueprint');
-    await page.getByRole('button', { name: '← Back to Blueprints' }).click();
-    assert.equal(await page.getByRole('dialog').count(), 1);
-    await page.getByRole('button', { name: 'Cancel', exact: true }).click();
-    assert.equal(
-      await page.getByRole('textbox', { name: 'Blueprint name' }).inputValue(),
-      'Unsaved blueprint',
-    );
-    await page.getByRole('button', { name: 'Save blueprint', exact: true }).click();
-    await page.getByRole('button', { name: '← Back to Blueprints' }).click();
-    assert.equal(await page.getByRole('dialog').count(), 0);
-    assert(await page.getByRole('button', { name: 'New Blueprint' }).isVisible());
-  });
-  await check(
-    'Source categories expose distinct cached conversations and empty results',
-    async () => {
-      await open('sections-sourceinbox--default');
-      assert(await page.getByRole('heading', { name: 'Maya Chen' }).isVisible());
-      await page.getByRole('button', { name: 'Channels', exact: true }).click();
-      assert(await page.getByRole('heading', { name: 'Design systems' }).isVisible());
-      await page.getByRole('button', { name: 'Ignored', exact: true }).click();
-      assert(await page.getByRole('heading', { name: 'Release updates' }).isVisible());
-      await page.getByRole('searchbox').fill('no matches');
-      assert(await page.getByRole('heading', { name: 'No conversation selected' }).isVisible());
-    },
-  );
   await check('Action popover closes on Escape and restores its trigger', async () => {
     await open('patterns-actionpopover--default');
     await page.getByRole('button', { name: 'More actions' }).click();
@@ -170,10 +85,6 @@ try {
     assert(
       (await page.evaluate(() => document.activeElement?.textContent)).includes('More actions'),
     );
-  });
-  await check('Read-only records do not offer editing controls', async () => {
-    await open('pages-seqoya-reactions--default');
-    assert.equal(await page.getByRole('button', { name: 'Edit', exact: true }).count(), 0);
   });
   const index = JSON.parse(await readFile('storybook-static/index.json', 'utf8'));
   const pages = Object.values(index.entries).filter(
