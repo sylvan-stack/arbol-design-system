@@ -1,107 +1,36 @@
 # Test inventory: arbol-design-system
 
-Reviewed source revision: `8f3989b8c0d81c6563ecf970f9ae58b42d6d2be5`. Static inventory dated 28 October 2026. See [TESTS.md](../TESTS.md) for execution and restoration rules.
+[Execution policy](../TESTS.md) · [Mid-tier descriptions and reasons](../MID_TIER.md) · [Machine-readable inventory](../test-tiers.json).
 
-**Top** means individually reviewed and active. **Mid*** means commented and provisionally reserved for a separate testing task; usefulness still needs assessment before restoration. **Low** means removed in the preceding pruning review. A function/program count is not an assertion count or a discovery result.
+Folder separation from `f3b7ae6ef21788f39a92e652cb29706a7596898a` on 29 October 2026. Original source addresses remain in test-tiers.json. Top cases keep their previous individual justifications; provisional mid classifications remain provisional.
 
-## scripts/check-docs.mjs
+## Top tier
 
-| Test or check | Tier / state | Justification |
+| Selection | State | Justification |
 | --- | --- | --- |
-| [`check-docs`](../scripts/check-docs.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
 
-## scripts/check-elma-actions.mjs
+## Mid tier
 
-| Test or check | Tier / state | Justification |
+| Selection | State | Justification |
 | --- | --- | --- |
-| [`check-elma-actions`](../scripts/check-elma-actions.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`check-docs`](../tests/mid/archived/scripts/check-docs.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`check-elma-actions`](../tests/mid/archived/scripts/check-elma-actions.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`check-elma-composer`](../tests/mid/archived/scripts/check-elma-composer.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`check-elma-failures`](../tests/mid/archived/scripts/check-elma-failures.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`check-elma-latest`](../tests/mid/archived/scripts/check-elma-latest.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`check-elma-lifecycle`](../tests/mid/archived/scripts/check-elma-lifecycle.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`check-elma-questions`](../tests/mid/archived/scripts/check-elma-questions.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`check-elma-reading`](../tests/mid/archived/scripts/check-elma-reading.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`check-elma-repositories`](../tests/mid/archived/scripts/check-elma-repositories.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`check-elma-response`](../tests/mid/archived/scripts/check-elma-response.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`check-elma-routing`](../tests/mid/archived/scripts/check-elma-routing.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`check-elma`](../tests/mid/archived/scripts/check-elma.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`check-interactions`](../tests/mid/archived/scripts/check-interactions.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`check-themes`](../tests/mid/archived/scripts/check-themes.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`test-all`](../tests/mid/archived/scripts/test-all.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`test-storybook`](../tests/mid/archived/scripts/test-storybook.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+| [`verify-catalog`](../tests/mid/archived/scripts/verify-catalog.mjs#L4) | commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
 
-## scripts/check-elma-composer.mjs
+## Removed low-tier cases
 
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`check-elma-composer`](../scripts/check-elma-composer.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## scripts/check-elma-failures.mjs
-
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`check-elma-failures`](../scripts/check-elma-failures.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## scripts/check-elma-latest.mjs
-
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`check-elma-latest`](../scripts/check-elma-latest.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## scripts/check-elma-lifecycle.mjs
-
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`check-elma-lifecycle`](../scripts/check-elma-lifecycle.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## scripts/check-elma-questions.mjs
-
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`check-elma-questions`](../scripts/check-elma-questions.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## scripts/check-elma-reading.mjs
-
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`check-elma-reading`](../scripts/check-elma-reading.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## scripts/check-elma-repositories.mjs
-
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`check-elma-repositories`](../scripts/check-elma-repositories.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## scripts/check-elma-response.mjs
-
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`check-elma-response`](../scripts/check-elma-response.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## scripts/check-elma-routing.mjs
-
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`check-elma-routing`](../scripts/check-elma-routing.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## scripts/check-elma.mjs
-
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`check-elma`](../scripts/check-elma.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## scripts/check-interactions.mjs
-
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`check-interactions`](../scripts/check-interactions.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## scripts/check-themes.mjs
-
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`check-themes`](../scripts/check-themes.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## scripts/test-all.mjs
-
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`test-all`](../scripts/test-all.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## scripts/test-storybook.mjs
-
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`test-storybook`](../scripts/test-storybook.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
-
-## scripts/verify-catalog.mjs
-
-| Test or check | Tier / state | Justification |
-| --- | --- | --- |
-| [`verify-catalog`](../scripts/verify-catalog.mjs#L1) | Mid* / commented | Standalone browser, native, installation or qualification program. Its combined checks need a dedicated testing task; the whole program has no individually justified top-tier selection. |
+Historical removals remain in test-tiers.json with their original reason and revision. No removed case was restored by this layout change.
