@@ -21,3 +21,7 @@ Source remains available; writing or running these checks requires a separate te
 | [`verify-catalog`](tests/mid/archived/scripts/verify-catalog.mjs#L1) | Standalone verify catalog check program; its combined scenarios are retained together. | Compares preserved archive and source bytes against the independent captured manifest; detects accidental alteration of historical evidence. Routine catalog/name/count assertions were removed. |
 
 The retained programs were also pruned internally: eight of thirteen named interaction groups, the 24-theme/density navigation sweep, routine catalog equality checks and canned fixture-only sequences were removed. Counts above describe programs, not these overlapping steps. `test-storybook.mjs` and its blanket every-story render loop are removed; `npm test` now selects only the nine documented programs, including its own orchestration entry.
+
+## Separate testing and low-tier history — SYL-330
+
+All test work, including top tier, belongs to a separate task explicitly requested by the owner. Only the owner decides when implementation is ready for tests. Previous low-tier removals are preserved as commented file-end examples, with reasons and source revisions in [the inventory](docs/test-inventory.md#commented-low-tier-source--syl-330). They add no retained mid-tier cases and must not be enabled or recreated.

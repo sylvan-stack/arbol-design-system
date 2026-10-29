@@ -16,7 +16,7 @@ SYL-327 source review of `d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7`. No tests ex
 | mid | program | [`test-all`](../tests/mid/archived/scripts/test-all.mjs#L1) | Orchestrates the explicitly requested retained browser, accessibility, contrast and immutable-evidence selection; it is not an additional behavior case or full historical story qualification. |
 | mid | program | [`verify-catalog`](../tests/mid/archived/scripts/verify-catalog.mjs#L1) | Compares preserved archive and source bytes against the independent captured manifest; detects accidental alteration of historical evidence. Routine catalog/name/count assertions were removed. |
 
-## Removed low tier
+## Historical low-tier decisions
 
 Source is recoverable in Git at the recorded revision. Removal is a retention decision, not a claim of runtime coverage.
 
@@ -30,3 +30,18 @@ Source is recoverable in Git at the recorded revision. Removal is a retention de
 | `tests/mid/archived/scripts/check-elma-routing.mjs` | SYL-327 | Fixture route/model/effort toggles and loading/error labels repeat readable event handlers and static props. Case reviewed: Standalone check elma routing check program; its combined scenarios are retained together. |
 | `tests/mid/archived/scripts/check-elma.mjs` | SYL-327 | Broad component counts, theme attributes, fixed values and happy navigation duplicate stronger retained draft/focus, clipboard and layout checks. Case reviewed: Standalone check elma check program; its combined scenarios are retained together. |
 | `tests/mid/archived/scripts/test-storybook.mjs` | SYL-327 | Loads every story merely to observe nonempty DOM/no immediate error and takes unasserted screenshots; high volume with a weak oracle and no distinct consequential scenario. Case reviewed: Standalone test storybook check program; its combined scenarios are retained together. |
+
+## Commented low-tier source — SYL-330
+
+Recovered historical examples are literal comments at the ends of test files. They are not runnable tests. Original removal reasons and revisions remain historical; top/mid selections are unchanged. Do not enable or recreate these cases without new evidence and an owner-requested testing task.
+
+| Original selection | Commented source | Rejection reason |
+| --- | --- | --- |
+| `tests/mid/archived/scripts/check-docs.mjs` | [footer](../tests/mid/archived/scripts/check-docs.mjs#L4) | Rendering every documentation page and requiring text length over 500 is a broad smoke check with a weak size oracle and no specific consequential behavior. Case reviewed: Standalone check docs check program; its combined scenarios are retained together. |
+| `tests/mid/archived/scripts/check-elma-failures.mjs` | [footer](../tests/mid/archived/scripts/check-elma-failures.mjs#L4) | Mostly asserts literal fixture error text, button availability and local callback messages; the fixed reset time is a direct static field and adds no distinct difficult invariant. Case reviewed: Standalone check elma failures check program; its combined scenarios are retained together. |
+| `tests/mid/archived/scripts/check-elma-latest.mjs` | [footer](../tests/mid/archived/scripts/check-elma-latest.mjs#L4) | Routine fixed-list keyboard selections, empty/loading labels and local refusal messages repeat shared navigation and modal mechanics. Case reviewed: Standalone check elma latest check program; its combined scenarios are retained together. |
+| `tests/mid/archived/scripts/check-elma-lifecycle.mjs` | [footer](../tests/mid/archived/scripts/check-elma-lifecycle.mjs#L4) | Fixture-only open/reimport/account/status callbacks assert labels manually authored by the same example; they do not establish real persistence or lifecycle correctness. Case reviewed: Standalone check elma lifecycle check program; its combined scenarios are retained together. |
+| `tests/mid/archived/scripts/check-elma-repositories.mjs` | [footer](../tests/mid/archived/scripts/check-elma-repositories.mjs#L4) | Local repository fixture switching and stop-confirmation messages duplicate retained shared focus/draft controls and provide no repository/backend integration evidence. Case reviewed: Standalone check elma repositories check program; its combined scenarios are retained together. |
+| `tests/mid/archived/scripts/check-elma-routing.mjs` | [footer](../tests/mid/archived/scripts/check-elma-routing.mjs#L4) | Fixture route/model/effort toggles and loading/error labels repeat readable event handlers and static props. Case reviewed: Standalone check elma routing check program; its combined scenarios are retained together. |
+| `tests/mid/archived/scripts/check-elma.mjs` | [footer](../tests/mid/archived/scripts/check-elma.mjs#L4) | Broad component counts, theme attributes, fixed values and happy navigation duplicate stronger retained draft/focus, clipboard and layout checks. Case reviewed: Standalone check elma check program; its combined scenarios are retained together. |
+| `tests/mid/archived/scripts/test-storybook.mjs` | [footer](../tests/mid/archived/scripts/test-storybook.mjs#L4) | Loads every story merely to observe nonempty DOM/no immediate error and takes unasserted screenshots; high volume with a weak oracle and no distinct consequential scenario. Case reviewed: Standalone test storybook check program; its combined scenarios are retained together. |
