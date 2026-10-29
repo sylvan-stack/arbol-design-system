@@ -284,12 +284,20 @@
       "class": "",
       "kind": "program",
       "tier": "low",
-      "status": "removed",
+      "status": "commented",
       "reason": "Rendering every documentation page and requiring text length over 500 is a broad smoke check with a weak size oracle and no specific consequential behavior. Case reviewed: Standalone check docs check program; its combined scenarios are retained together.",
       "reviewed_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
       "reviewed_line": 1,
       "removed_by": "SYL-327",
-      "date": "2026-10-29"
+      "date": "2026-10-29",
+      "archived_by": "SYL-330",
+      "archive_file": "tests/mid/archived/scripts/check-docs.mjs",
+      "archive_line": 4,
+      "archive_source_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
+      "archive_source_repository": "arbol-design-system",
+      "archive_source_file": "tests/mid/archived/scripts/check-docs.mjs",
+      "archive_body_sha256": "e36de36ccab528f7972f5d482272c20412d0a34bbc83439006e01b26292e50fb",
+      "archive_source_sha256": "e36de36ccab528f7972f5d482272c20412d0a34bbc83439006e01b26292e50fb"
     },
     {
       "id": "tests/mid/archived/scripts/check-elma-failures.mjs",
@@ -298,12 +306,20 @@
       "class": "",
       "kind": "program",
       "tier": "low",
-      "status": "removed",
+      "status": "commented",
       "reason": "Mostly asserts literal fixture error text, button availability and local callback messages; the fixed reset time is a direct static field and adds no distinct difficult invariant. Case reviewed: Standalone check elma failures check program; its combined scenarios are retained together.",
       "reviewed_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
       "reviewed_line": 1,
       "removed_by": "SYL-327",
-      "date": "2026-10-29"
+      "date": "2026-10-29",
+      "archived_by": "SYL-330",
+      "archive_file": "tests/mid/archived/scripts/check-elma-failures.mjs",
+      "archive_line": 4,
+      "archive_source_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
+      "archive_source_repository": "arbol-design-system",
+      "archive_source_file": "tests/mid/archived/scripts/check-elma-failures.mjs",
+      "archive_body_sha256": "b7a71356849f11df240cc7c05cf319337bb6cae0f29bfc50e39b2d47d7a798b6",
+      "archive_source_sha256": "b7a71356849f11df240cc7c05cf319337bb6cae0f29bfc50e39b2d47d7a798b6"
     },
     {
       "id": "tests/mid/archived/scripts/check-elma-latest.mjs",
@@ -312,12 +328,20 @@
       "class": "",
       "kind": "program",
       "tier": "low",
-      "status": "removed",
+      "status": "commented",
       "reason": "Routine fixed-list keyboard selections, empty/loading labels and local refusal messages repeat shared navigation and modal mechanics. Case reviewed: Standalone check elma latest check program; its combined scenarios are retained together.",
       "reviewed_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
       "reviewed_line": 1,
       "removed_by": "SYL-327",
-      "date": "2026-10-29"
+      "date": "2026-10-29",
+      "archived_by": "SYL-330",
+      "archive_file": "tests/mid/archived/scripts/check-elma-latest.mjs",
+      "archive_line": 4,
+      "archive_source_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
+      "archive_source_repository": "arbol-design-system",
+      "archive_source_file": "tests/mid/archived/scripts/check-elma-latest.mjs",
+      "archive_body_sha256": "704b383b8f46d96aa1acaebb84ace90e7d97618c56711e11b2c980f577d1270d",
+      "archive_source_sha256": "704b383b8f46d96aa1acaebb84ace90e7d97618c56711e11b2c980f577d1270d"
     },
     {
       "id": "tests/mid/archived/scripts/check-elma-lifecycle.mjs",
@@ -326,12 +350,20 @@
       "class": "",
       "kind": "program",
       "tier": "low",
-      "status": "removed",
+      "status": "commented",
       "reason": "Fixture-only open/reimport/account/status callbacks assert labels manually authored by the same example; they do not establish real persistence or lifecycle correctness. Case reviewed: Standalone check elma lifecycle check program; its combined scenarios are retained together.",
       "reviewed_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
       "reviewed_line": 1,
       "removed_by": "SYL-327",
-      "date": "2026-10-29"
+      "date": "2026-10-29",
+      "archived_by": "SYL-330",
+      "archive_file": "tests/mid/archived/scripts/check-elma-lifecycle.mjs",
+      "archive_line": 4,
+      "archive_source_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
+      "archive_source_repository": "arbol-design-system",
+      "archive_source_file": "tests/mid/archived/scripts/check-elma-lifecycle.mjs",
+      "archive_body_sha256": "21e0df5a29ece33cbd29865bb604d98f1d6f23da43882907649b73993dd95bd0",
+      "archive_source_sha256": "21e0df5a29ece33cbd29865bb604d98f1d6f23da43882907649b73993dd95bd0"
     },
     {
       "id": "tests/mid/archived/scripts/check-elma-repositories.mjs",
@@ -340,12 +372,20 @@
       "class": "",
       "kind": "program",
       "tier": "low",
-      "status": "removed",
+      "status": "commented",
       "reason": "Local repository fixture switching and stop-confirmation messages duplicate retained shared focus/draft controls and provide no repository/backend integration evidence. Case reviewed: Standalone check elma repositories check program; its combined scenarios are retained together.",
       "reviewed_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
       "reviewed_line": 1,
       "removed_by": "SYL-327",
-      "date": "2026-10-29"
+      "date": "2026-10-29",
+      "archived_by": "SYL-330",
+      "archive_file": "tests/mid/archived/scripts/check-elma-repositories.mjs",
+      "archive_line": 4,
+      "archive_source_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
+      "archive_source_repository": "arbol-design-system",
+      "archive_source_file": "tests/mid/archived/scripts/check-elma-repositories.mjs",
+      "archive_body_sha256": "01f59ac1676118b89fd87ec9f93e74f02621f8bccb3c34464311369a0b4649e4",
+      "archive_source_sha256": "01f59ac1676118b89fd87ec9f93e74f02621f8bccb3c34464311369a0b4649e4"
     },
     {
       "id": "tests/mid/archived/scripts/check-elma-routing.mjs",
@@ -354,12 +394,20 @@
       "class": "",
       "kind": "program",
       "tier": "low",
-      "status": "removed",
+      "status": "commented",
       "reason": "Fixture route/model/effort toggles and loading/error labels repeat readable event handlers and static props. Case reviewed: Standalone check elma routing check program; its combined scenarios are retained together.",
       "reviewed_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
       "reviewed_line": 1,
       "removed_by": "SYL-327",
-      "date": "2026-10-29"
+      "date": "2026-10-29",
+      "archived_by": "SYL-330",
+      "archive_file": "tests/mid/archived/scripts/check-elma-routing.mjs",
+      "archive_line": 4,
+      "archive_source_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
+      "archive_source_repository": "arbol-design-system",
+      "archive_source_file": "tests/mid/archived/scripts/check-elma-routing.mjs",
+      "archive_body_sha256": "47b8f4a5fd8028c7a29dd2814fe073fc652cffb0fba856c0d41cedfea086b47c",
+      "archive_source_sha256": "47b8f4a5fd8028c7a29dd2814fe073fc652cffb0fba856c0d41cedfea086b47c"
     },
     {
       "id": "tests/mid/archived/scripts/check-elma.mjs",
@@ -368,12 +416,20 @@
       "class": "",
       "kind": "program",
       "tier": "low",
-      "status": "removed",
+      "status": "commented",
       "reason": "Broad component counts, theme attributes, fixed values and happy navigation duplicate stronger retained draft/focus, clipboard and layout checks. Case reviewed: Standalone check elma check program; its combined scenarios are retained together.",
       "reviewed_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
       "reviewed_line": 1,
       "removed_by": "SYL-327",
-      "date": "2026-10-29"
+      "date": "2026-10-29",
+      "archived_by": "SYL-330",
+      "archive_file": "tests/mid/archived/scripts/check-elma.mjs",
+      "archive_line": 4,
+      "archive_source_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
+      "archive_source_repository": "arbol-design-system",
+      "archive_source_file": "tests/mid/archived/scripts/check-elma.mjs",
+      "archive_body_sha256": "1d4cd4df1afa9ebd96b4d02179fb09c5fb3637dfadddf0d7cc2ff970f5eed60b",
+      "archive_source_sha256": "1d4cd4df1afa9ebd96b4d02179fb09c5fb3637dfadddf0d7cc2ff970f5eed60b"
     },
     {
       "id": "tests/mid/archived/scripts/test-storybook.mjs",
@@ -382,12 +438,20 @@
       "class": "",
       "kind": "program",
       "tier": "low",
-      "status": "removed",
+      "status": "commented",
       "reason": "Loads every story merely to observe nonempty DOM/no immediate error and takes unasserted screenshots; high volume with a weak oracle and no distinct consequential scenario. Case reviewed: Standalone test storybook check program; its combined scenarios are retained together.",
       "reviewed_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
       "reviewed_line": 1,
       "removed_by": "SYL-327",
-      "date": "2026-10-29"
+      "date": "2026-10-29",
+      "archived_by": "SYL-330",
+      "archive_file": "tests/mid/archived/scripts/test-storybook.mjs",
+      "archive_line": 4,
+      "archive_source_revision": "d58f33487f0d2a47a2b42d307e6e5eeea7db8fc7",
+      "archive_source_repository": "arbol-design-system",
+      "archive_source_file": "tests/mid/archived/scripts/test-storybook.mjs",
+      "archive_body_sha256": "df13825241dba4ae48ad63162570de885eed348aa0500fa5a21839558ecef91a",
+      "archive_source_sha256": "df13825241dba4ae48ad63162570de885eed348aa0500fa5a21839558ecef91a"
     }
   ],
   "layout": {
@@ -428,5 +492,21 @@
     "top_changed": false,
     "limits": "Counts are static inventory entries; programs, entry points and contained cases overlap. Reduced selections do not establish historical full qualification.",
     "program_scope": "Eight whole programs removed; retained programs also lose routine fixture-only sequences, eight of thirteen named interaction groups, and the repeated 24-theme/density navigation sweep. No runtime case total inferred from these programs."
+  },
+  "low_tier_preservation": {
+    "task": "SYL-330",
+    "status": "commented-at-file-end",
+    "entries": 8,
+    "vendored_scenarios": 0,
+    "execution": "never while low tier",
+    "history": "removed_low records retain original deletion metadata; status and archive fields describe their current commented preservation. Counts named removed remain historical.",
+    "retained_top_mid_unchanged": true
+  },
+  "execution_policy": {
+    "task": "SYL-330",
+    "all_test_work": "separate-owner-requested-task-only",
+    "implementation_exception": false,
+    "readiness_decision": "owner-only",
+    "test_running_builds": "separate-owner-requested-testing-or-build-task-only"
   }
 }

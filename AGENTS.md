@@ -16,7 +16,7 @@ Explicit user scope takes precedence. If the user requests an experiment or an a
 3. **Implement in both places.** Update the application's implementation and the corresponding maintained source under `src/` here. A screenshot, prose note or copied production page alone does not substitute for an executable design-system update. Production services and data stay in application adapters; stories use fictional data and local state. Different application frameworks may implement the same documented contract without copying Svelte code.
 4. **Keep the catalog complete.** Add or update the isolated component/pattern story and relevant state variants, then update the affected section and page compositions. Cover the states the change affects: loading, empty/no results, error/retry, read-only, validation, dirty dismissal, successful/failed saving, selection and permissions. Add new exports to `src/index.ts` and update `src/pages/catalog.json` and coverage mappings when applicable. Removed or renamed designs must not leave broken stories or documentation links.
 5. **Update the design contract.** Record the resulting behavior and rationale in the relevant design chapter and `docs/IMPLEMENTATION.md` when needed. Keep the corresponding `src/docs/*.mdx` Storybook chapter in sync with edited chapter text. Distinguish historical observations, accepted successor behavior and proposals. Update coverage documentation and catalog counts when they change; do not rewrite old validation reports as if new checks had run.
-6. **Validate within the testing policy.** Follow `/Users/msix/Artifacts/mycel/operations/test-strategy.md`. During implementation, use useful static checks and inspect the changed design. Write or selectively run only top-tier cases that resolve a concrete non-obvious edge or reproduce a bug. Writing or running mid-tier checks, including the browser suite, `npm test`, and `npm run test:coverage`, requires a separate testing task explicitly requested by the owner. Inspect build scripts for indirect test execution before using them. Do not add low-tier tests or require a suite at every change or completion. Report actual checks and tests not run honestly.
+6. **Validate within the testing policy.** Follow `/Users/msix/Artifacts/mycel/operations/test-strategy.md`. During implementation, use useful static checks and inspect the changed design. All test work, including top-tier and browser checks, `npm test`, and `npm run test:coverage`, requires a separate testing task explicitly requested by the owner. Only the owner decides when code is ready for tests; do not write, edit or run them during implementation. Inspect build scripts for indirect test execution before using them. Do not add low-tier tests or require a suite at every change or completion. Report actual checks and tests not run honestly.
 7. **Deliver a traceable pair.** Follow each repository's contribution and branch rules. Link the application and design-system commits or PRs in their descriptions/handoff, with affected story names and validation results. Use `gh` for GitHub operations. Push the design-system changes when delivery is authorized; a local change must be described as local, not as synchronized remotely. Do not call the design work complete while a required update in either repository remains outstanding.
 
 If access, credentials, a missing application checkout or another dependency prevents synchronization, complete the accessible work, state precisely what remains, and provide a concrete patch or handoff where possible. Never silently skip the design-system update or claim that it was published. A deliberate design-system-only proposal may be implemented here without claiming that applications have adopted it; list any known adoption work.
@@ -34,10 +34,34 @@ An agent working only in an application repository will not automatically read t
 
 ## Test execution policy
 
-Read [TESTS.md](TESTS.md) and [MID_TIER.md](MID_TIER.md) before changing or running tests. Keep case bodies in the documented top/ or mid/ folder; shared helpers may retain their existing paths. Both tiers have uncommented source; only the explicitly listed top-tier cases may be selected during implementation. Agents may select one when it resolves a concrete uncertainty; no test run is required after an edit.
+Follow [TESTS.md](TESTS.md), [MID_TIER.md](MID_TIER.md), the linked inventory and
+the owner's [Test Strategy](/Users/msix/Artifacts/mycel/operations/test-strategy.md).
+**All test work belongs to a separate task explicitly requested by the owner.**
+There is no top-tier exception during implementation. Write and polish code
+first; only the owner decides when it is ready for tests and requests that work.
+Do not add, edit, fix, refactor, classify, retire, restore or run tests, fixtures,
+snapshots, runners or inventories as part of implementation. Existing tests may
+be read as source reference. Report relevant test impact; do not start testing,
+create a testing task yourself or relabel an implementation step as a testing task.
 
-Mid-tier tests and broad checks remain uncommented at the owner's request. Write or run them only in a separate testing task explicitly requested by the owner. A request to implement, review or refactor is not such authorization. Low-tier tests should not be added or restored. Update the inventory when a classification changes. Do not call a top-only run full qualification or bypass a guard for missing test sources. Do not re-comment mid-tier sources after a run.
+Keep runnable suites small. A new function, branch or option does not need a
+matching test automatically. Each retained case must add distinct consequential
+information. Routine permutations, copied defaults, mocked success/forwarding
+and redundant CRUD are low tier; use the strategy's examples and admission bar.
+Before adding a test in an authorized task, read the nearby retained cases and
+low-tier comments so the rejected idea is not recreated.
 
-Static inspection is permitted. Inspect commands and hooks for indirect test execution. This policy supersedes older repository instructions to run suites automatically.
+Keep existing rejected cases as literal comments at the end of their test files,
+marked `LOW TIER — DO NOT ENABLE OR RECREATE`, with original ID, reason, retained
+evidence when applicable and source revision. An entirely low-tier file is
+comment-only. Record low/commented status and footer location in the inventory.
+Never use skipped tests, disabled suites or executable wrappers as archives.
+New evidence and the owner's testing request are required for re-admission.
 
-Mid-tier retention follows the raised bar in MID_TIER.md: consequential risk, execution-dependent information, distinct coverage, an independent observation and proportionate cost are all required. Ordinary functional coverage alone does not qualify.
+Keep retained top/mid source in the repository's documented layout and state.
+A separately requested testing/Build task runs the whole top tier through the
+Build gate; no test-running Build or hook runs during implementation. Mid-tier
+execution additionally requires the owner's request for that scope. Do not
+bypass a gate or call a reduced selection full qualification. Test-free static
+syntax, type and compilation checks remain available. Report checks not run.
+This policy supersedes older automatic testing and top-tier exceptions.
