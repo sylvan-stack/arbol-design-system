@@ -1,2 +1,3 @@
-// Test implementations moved to tests/mid/archived/scripts/check-themes.mjs.
-throw new Error("Tests are commented under the tier policy; see TESTS.md. Restore only in an explicitly requested testing task.");
+// Mid-tier implementation; execution requires an explicit testing task.
+export * from "../tests/mid/archived/scripts/check-themes.mjs";
+import "../tests/mid/archived/scripts/check-themes.mjs";
