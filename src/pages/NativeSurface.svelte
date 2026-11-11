@@ -121,11 +121,9 @@
   }
 
   function handleSurfaceShortcut(event: KeyboardEvent) {
-    if (surface !== 'Tray Menu' || !trayRunning || !event.altKey) return;
-    const isElma = event.code === 'KeyE' && !event.ctrlKey && !event.metaKey && !event.shiftKey;
-    const isSeqoya = event.code === 'KeyS' && event.ctrlKey && event.metaKey && event.shiftKey;
-    const target = isElma && trayShortcutAvailable ? 'Elma Chat'
-      : isSeqoya && traySeqoyaShortcutAvailable ? 'Seqoya Lab' : undefined;
+    if (surface !== 'Tray Menu' || !trayRunning || !event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    const target = event.code === 'KeyE' && trayShortcutAvailable ? 'Elma Chat'
+      : event.code === 'KeyQ' && traySeqoyaShortcutAvailable ? 'Seqoya Lab' : undefined;
     if (!target) return;
     event.preventDefault();
     if (event.repeat) return;
@@ -209,6 +207,7 @@
     <p class="small muted">
       Browser preview of the Arbol menu bar.
       {#if trayRunning && trayShortcutAvailable}Press <kbd>⌥E</kbd> to open Elma Chat.{/if}
+      {#if trayRunning && traySeqoyaShortcutAvailable}Press <kbd>⌥Q</kbd> to open Seqoya Lab.{/if}
     </p>
     <div class="menu-bar">
       {#if trayRunning}
@@ -236,7 +235,7 @@
               <p class="catalogue-message">Option+E unavailable for Elma Chat</p>
             {/if}
             {#if !traySeqoyaShortcutAvailable}
-              <p class="catalogue-message">⌃⌥⇧⌘S unavailable for Seqoya Lab</p>
+              <p class="catalogue-message">Option+Q unavailable for Seqoya Lab</p>
             {/if}
             {#if trayCatalogueState === 'available' && selectableRoots.length > 0}
               <details class="tray-roots" bind:open={rootsOpen}>

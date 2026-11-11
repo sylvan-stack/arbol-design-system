@@ -26,7 +26,7 @@ When the Build registry offers a newer runnable working App Build, the oak shows
 
 **Roots** lists only compatible working Roots by display name in catalogue order. A checkmark marks the current Root. Selecting a name sets the shared current Root for new App opens, global shortcuts and CLI commands without an explicit Root. When the catalogue is loading, unavailable or has no eligible Roots, disable the submenu. Catalogue and selection refusals appear on the **Current Root** row. Reopening the tray refreshes the catalogue. The CLI command `arbol-roots use --auto` restores automatic selection.
 
-Global **Option+E (⌥E)** opens or raises Elma Chat and **Control+Option+Shift+Command+S (⌃⌥⇧⌘S)** opens or raises Seqoya Lab for the current Root. Arbol refreshes the catalogue before opening and shows the cause in the tray when an open fails. When macOS refuses a shortcut, the tray identifies the unavailable binding. The window header opens or raises the same UI for another Root and shows reasons a target is unavailable.
+Global **Option+E (⌥E)** opens or raises Elma Chat and **Option+Q (⌥Q)** opens or raises Seqoya Lab for the current Root. Arbol refreshes the catalogue before opening and shows the cause in the tray when an open fails. When macOS refuses a shortcut, the tray identifies the unavailable binding. The window header opens or raises the same UI for another Root and shows reasons a target is unavailable.
 
 ### Root-bound windows
 
