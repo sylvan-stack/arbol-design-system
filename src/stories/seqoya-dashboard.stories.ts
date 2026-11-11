@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/svelte-vite';
 import Component from '../pages/WorkspacePage.svelte';
+import SeqoyaLab from '../pages/SeqoyaLab.svelte';
 const meta = {
   title: 'Pages/Seqoya/Dashboard',
   component: Component,
@@ -17,3 +18,18 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: {} };
+export const LabLayout: StoryObj<typeof SeqoyaLab> = {
+  render: () => ({
+    Component: SeqoyaLab,
+    props: {
+      root: { root: 'canopy', name: 'Canopy', status: 'working' },
+      rootSelector: {
+        load: async () => [
+          { root: 'canopy', name: 'Canopy', status: 'working' },
+          { root: 'grove', name: 'Grove', status: 'working' },
+        ],
+        open: async () => {},
+      },
+    },
+  }),
+};

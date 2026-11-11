@@ -1,6 +1,7 @@
 <script lang="ts">
   import { tick } from 'svelte';
   import ElmaFrame from '../sections/ElmaFrame.svelte';
+  import SeqoyaLab from './SeqoyaLab.svelte';
   import type { WorkspaceRootSelector } from '../types';
   import CommandPalette from '../patterns/CommandPalette.svelte';
   import EntityPicker from '../patterns/EntityPicker.svelte';
@@ -15,7 +16,9 @@
   type TrayCatalogueState = 'available' | 'loading' | 'empty' | 'unavailable';
   type TrayRendererState = 'available' | 'load-failed';
   type FixtureRoot = { name: string; status?: string; appProblem?: string };
-  type ElmaPreview = { root: FixtureRoot; failed: boolean };
+  const previewSurfaces = ['Elma Chat', 'Seqoya Lab'] as const;
+  type PreviewSurface = (typeof previewSurfaces)[number];
+  type PreviewWindow = { id: string; surface: PreviewSurface; root: FixtureRoot; failed: boolean };
   let {
     surface = 'Go to Page',
     trayCatalogueState = 'available',
@@ -25,6 +28,7 @@
     trayRendererState = 'available',
     trayGroveBackendAvailable = true,
     trayShortcutAvailable = true,
+    traySeqoyaShortcutAvailable = true,
   }: {
     surface?: string;
     trayCatalogueState?: TrayCatalogueState;
@@ -34,6 +38,7 @@
     trayRendererState?: TrayRendererState;
     trayGroveBackendAvailable?: boolean;
     trayShortcutAvailable?: boolean;
+    traySeqoyaShortcutAvailable?: boolean;
   } = $props();
   let feedback = $state('');
   let url = $state('');
@@ -42,11 +47,11 @@
   let trayButton = $state<HTMLElement>();
   let rootsOpen = $state(false);
   let rootsButton = $state<HTMLElement>();
-  let elmaRootsOpen = $state(false);
-  let elmaRootsButton = $state<HTMLElement>();
-  let elmaWindows = $state<ElmaPreview[]>([]);
+  let surfaceMenus = $state<Record<PreviewSurface, boolean>>({ 'Elma Chat': false, 'Seqoya Lab': false });
+  const surfaceButtons: Partial<Record<PreviewSurface, HTMLElement>> = {};
+  let previewWindows = $state<PreviewWindow[]>([]);
   let previewRefusedGrove = false;
-  const elmaFrames: Record<string, HTMLElement> = {};
+  const previewFrames: Record<string, HTMLElement> = {};
   let rootChoice = $state<string | null>();
   let trayFeedback = $state('');
   let startedBuild = $state('');
@@ -78,9 +83,10 @@
   function closeTrayOnEscape(event: KeyboardEvent) {
     if (event.key !== 'Escape' || !trayOpen) return;
     event.preventDefault();
-    if (elmaRootsOpen) {
-      elmaRootsOpen = false;
-      elmaRootsButton?.focus();
+    const openSurface = previewSurfaces.find((name) => surfaceMenus[name] && surfaceButtons[name]?.parentElement?.contains(event.target as Node));
+    if (openSurface) {
+      surfaceMenus[openSurface] = false;
+      surfaceButtons[openSurface]?.focus();
     } else if (rootsOpen) {
       rootsOpen = false;
       rootsButton?.focus();
@@ -93,16 +99,16 @@
   function chooseRoot(name?: string) {
     rootChoice = name ?? null;
     trayFeedback = name ? `Current Root: ${name}` : 'Current Root follows the newest working Root.';
-    elmaRootsOpen = false;
+    surfaceMenus = { 'Elma Chat': false, 'Seqoya Lab': false };
     rootsOpen = false;
     trayOpen = false;
     trayButton?.focus();
   }
   function startNewVersion(build: string) {
     startedBuild = build;
-    elmaWindows = [];
+    previewWindows = [];
     trayFeedback = `Started Build ${build} in this preview.`;
-    elmaRootsOpen = false;
+    surfaceMenus = { 'Elma Chat': false, 'Seqoya Lab': false };
     rootsOpen = false;
     trayOpen = false;
     trayButton?.focus();
@@ -114,42 +120,47 @@
     return !trayGroveBackendAvailable && root.name === 'Grove';
   }
 
-  function canOpenElma(root: FixtureRoot) {
+  function canOpen(root: FixtureRoot) {
     return trayCatalogueState === 'available' && !root.appProblem && !missingBackend(root);
   }
 
-  function handleElmaShortcut(event: KeyboardEvent) {
-    if (surface !== 'Tray Menu' || !trayRunning || !trayShortcutAvailable || event.code !== 'KeyE'
-      || !event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+  function handleSurfaceShortcut(event: KeyboardEvent) {
+    if (surface !== 'Tray Menu' || !trayRunning || !event.altKey) return;
+    const isElma = event.code === 'KeyE' && !event.ctrlKey && !event.metaKey && !event.shiftKey;
+    const isSeqoya = event.code === 'KeyS' && event.ctrlKey && event.metaKey && event.shiftKey;
+    const target = isElma && trayShortcutAvailable ? 'Elma Chat'
+      : isSeqoya && traySeqoyaShortcutAvailable ? 'Seqoya Lab' : undefined;
+    if (!target) return;
     event.preventDefault();
     if (event.repeat) return;
     if (trayCatalogueState !== 'available') {
       trayFeedback = catalogueMessages[trayCatalogueState];
-    } else if (canOpenElma(currentRoot)) {
-      void openElma(currentRoot);
+    } else if (canOpen(currentRoot)) {
+      void openSurface(target, currentRoot);
     } else {
       trayFeedback = `${currentRoot.name} — ${currentRoot.appProblem ?? backendUnavailable}`;
     }
   }
 
-  async function openElma(root: FixtureRoot) {
-    if (!canOpenElma(root)) return;
-    const window = elmaWindows.find((entry) => entry.root.name === root.name)
-      ?? { root, failed: trayRendererState === 'load-failed' };
-    elmaWindows = [window, ...elmaWindows.filter((entry) => entry.root.name !== root.name)];
-    elmaRootsOpen = false;
+  async function openSurface(surface: PreviewSurface, root: FixtureRoot) {
+    if (!canOpen(root)) return;
+    const id = `${surface}:${root.name}`;
+    const window = previewWindows.find((entry) => entry.id === id)
+      ?? { id, surface, root, failed: trayRendererState === 'load-failed' };
+    previewWindows = [window, ...previewWindows.filter((entry) => entry.id !== id)];
+    surfaceMenus = { 'Elma Chat': false, 'Seqoya Lab': false };
     rootsOpen = false;
     trayOpen = false;
     trayFeedback = '';
     await tick();
-    elmaFrames[root.name]?.focus();
+    previewFrames[id]?.focus();
   }
 
-  async function closeElma(root: FixtureRoot) {
-    elmaWindows = elmaWindows.filter((entry) => entry.root.name !== root.name);
+  async function closeSurface(id: string) {
+    previewWindows = previewWindows.filter((entry) => entry.id !== id);
     await tick();
-    const next = elmaWindows[0];
-    if (next) elmaFrames[next.root.name]?.focus();
+    const next = previewWindows[0];
+    if (next) previewFrames[next.id]?.focus();
     else trayButton?.focus();
   }
 
@@ -162,7 +173,7 @@
     return { ...identity, status: 'working' };
   }
 
-  const previewRootSelector: WorkspaceRootSelector = {
+  const previewRootSelector = (surface: PreviewSurface): WorkspaceRootSelector => ({
     load: async () => {
       if (trayCatalogueState === 'empty') return [];
       if (trayCatalogueState !== 'available') throw new Error(catalogueMessages[trayCatalogueState]);
@@ -175,17 +186,17 @@
     },
     open: async (id) => {
       const root = fixtureRoots.find((entry) => entry.name === id);
-      if (!root || !canOpenElma(root)) throw new Error('Could not open Elma Chat for that Root.');
-      if (root.name === 'Grove' && !previewRefusedGrove) {
+      if (!root || !canOpen(root)) throw new Error(`Could not open ${surface} for that Root.`);
+      if (surface === 'Elma Chat' && root.name === 'Grove' && !previewRefusedGrove) {
         previewRefusedGrove = true;
         throw new Error('Grove is temporarily unavailable. Try again.');
       }
-      await openElma(root);
+      await openSurface(surface, root);
     },
-  };
+  });
 
   function quitTray() {
-    elmaWindows = [];
+    previewWindows = [];
     trayRunning = false;
   }
 
@@ -196,7 +207,7 @@
   ]);
 </script>
 
-<svelte:window onkeydown={handleElmaShortcut} />
+<svelte:window onkeydown={handleSurfaceShortcut} />
 
 {#if surface === 'Tray Menu'}
   <div class="native stack">
@@ -229,6 +240,9 @@
             {#if !trayShortcutAvailable}
               <p class="catalogue-message">Option+E unavailable for Elma Chat</p>
             {/if}
+            {#if !traySeqoyaShortcutAvailable}
+              <p class="catalogue-message">⌃⌥⇧⌘S unavailable for Seqoya Lab</p>
+            {/if}
             <details class="tray-roots" bind:open={rootsOpen}>
               <summary class="tray-command" bind:this={rootsButton} onkeydown={closeTrayOnEscape}>
                 Roots <span aria-hidden="true">›</span>
@@ -256,24 +270,26 @@
                   </button>
                 {/if}
                 {#if trayCatalogueState === 'available'}
-                  <details class="tray-roots" bind:open={elmaRootsOpen}>
-                    <summary class="tray-command" bind:this={elmaRootsButton} onkeydown={closeTrayOnEscape}>
-                      Open Elma Chat for Root <span aria-hidden="true">›</span>
-                    </summary>
-                    <div class="tray-menu roots-menu elma-roots-menu">
-                      {#each fixtureRoots as root (root.name)}
-                        <button
-                          class="tray-command"
-                          disabled={!canOpenElma(root)}
-                          onkeydown={closeTrayOnEscape}
-                          onclick={() => openElma(root)}
-                        >
-                          {root.name}{root.status ? ` — ${root.status}` : ''}{root.appProblem ? ` — ${root.appProblem}` : ''}
-                          {missingBackend(root) ? ' — ' + backendUnavailable : ''}
-                        </button>
-                      {/each}
-                    </div>
-                  </details>
+                  {#each previewSurfaces as name (name)}
+                    <details class="tray-roots" bind:open={surfaceMenus[name]}>
+                      <summary class="tray-command" bind:this={surfaceButtons[name]} onkeydown={closeTrayOnEscape}>
+                        Open {name} for Root <span aria-hidden="true">›</span>
+                      </summary>
+                      <div class="tray-menu roots-menu surface-roots-menu">
+                        {#each fixtureRoots as root (root.name)}
+                          <button
+                            class="tray-command"
+                            disabled={!canOpen(root)}
+                            onkeydown={closeTrayOnEscape}
+                            onclick={() => openSurface(name, root)}
+                          >
+                            {root.name}{root.status ? ` — ${root.status}` : ''}{root.appProblem ? ` — ${root.appProblem}` : ''}
+                            {missingBackend(root) ? ' — ' + backendUnavailable : ''}
+                          </button>
+                        {/each}
+                      </div>
+                    </details>
+                  {/each}
                 {/if}
               </div>
             </details>
@@ -283,29 +299,35 @@
       {/if}
     </div>
     <p class="small muted" role="status">{trayRunning ? trayFeedback : 'Arbol quit in this preview.'}</p>
-    {#each elmaWindows as window (window.root.name)}
+    {#each previewWindows as window (window.id)}
       <section
-        class="window elma-window"
-        aria-label={`Elma Chat in ${window.root.name}`}
+        class="window preview-window"
+        aria-label={`${window.surface} in ${window.root.name}`}
         tabindex="-1"
-        bind:this={elmaFrames[window.root.name]}
+        bind:this={previewFrames[window.id]}
       >
-        <div class="elma-content">
+        <div class="preview-content">
           {#if window.failed}
             <div class="titlebar">
-              <strong>Elma Chat · {window.root.name}</strong>
-              <button class="window-action" onclick={() => closeElma(window.root)}>Close</button>
+              <strong>{window.surface} · {window.root.name}</strong>
+              <button class="window-action" onclick={() => closeSurface(window.id)}>Close</button>
             </div>
             <div class="renderer-problem" role="status">
-              <span>The Elma Chat renderer could not be verified.</span>
+              <span>The {window.surface} renderer could not be verified.</span>
               <button class="window-action" onclick={() => (window.failed = false)}>Retry</button>
             </div>
-          {:else}
-            <ElmaFrame root={rendererRoot(window.root)} rootSelector={previewRootSelector}>
+          {:else if window.surface === 'Elma Chat'}
+            <ElmaFrame root={rendererRoot(window.root)} rootSelector={previewRootSelector(window.surface)}>
               {#snippet headerWindowControls()}
-                <button class="window-action" onclick={() => closeElma(window.root)}>Close</button>
+                <button class="window-action" onclick={() => closeSurface(window.id)}>Close</button>
               {/snippet}
             </ElmaFrame>
+          {:else}
+            <SeqoyaLab root={rendererRoot(window.root)} rootSelector={previewRootSelector(window.surface)}>
+              {#snippet headerWindowControls()}
+                <button class="window-action" onclick={() => closeSurface(window.id)}>Close</button>
+              {/snippet}
+            </SeqoyaLab>
           {/if}
         </div>
       </section>
@@ -404,10 +426,10 @@ repository: sample-repo</pre>
     max-width: 760px;
     margin: 24px auto;
   }
-  .native:has(.elma-window) {
+  .native:has(.preview-window) {
     max-width: 1120px;
   }
-  .elma-content {
+  .preview-content {
     height: 460px;
     position: relative;
   }
@@ -574,7 +596,7 @@ repository: sample-repo</pre>
     color: var(--muted);
   }
   @media (max-width: 700px) {
-    .elma-roots-menu {
+    .surface-roots-menu {
       position: static;
       width: auto;
       margin-block: 4px;
