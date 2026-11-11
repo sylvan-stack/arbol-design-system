@@ -13,7 +13,7 @@
   import DocumentView from '../patterns/DocumentView.svelte';
   const arbolMenuBarIcon = new URL('../assets/arbol-menu-bar.png', import.meta.url).href;
   type TrayCatalogueState = 'available' | 'loading' | 'empty' | 'unavailable';
-  type TrayRendererState = 'available' | 'missing' | 'load-failed';
+  type TrayRendererState = 'available' | 'load-failed';
   type FixtureRoot = { name: string; status?: string; appProblem?: string };
   type ElmaPreview = { root: FixtureRoot; failed: boolean };
   let {
@@ -23,6 +23,7 @@
     trayRunningBuild = '0',
     trayNewBuild = '',
     trayRendererState = 'available',
+    trayGroveBackendAvailable = true,
     trayShortcutAvailable = true,
   }: {
     surface?: string;
@@ -31,6 +32,7 @@
     trayRunningBuild?: string;
     trayNewBuild?: string;
     trayRendererState?: TrayRendererState;
+    trayGroveBackendAvailable?: boolean;
     trayShortcutAvailable?: boolean;
   } = $props();
   let feedback = $state('');
@@ -106,12 +108,14 @@
     trayButton?.focus();
   }
 
-  function missingElma(root: FixtureRoot) {
-    return trayRendererState === 'missing' && root.name === 'Grove';
+  const backendUnavailable = 'This Root has no runnable Arbol backend.';
+
+  function missingBackend(root: FixtureRoot) {
+    return !trayGroveBackendAvailable && root.name === 'Grove';
   }
 
   function canOpenElma(root: FixtureRoot) {
-    return trayCatalogueState === 'available' && !root.appProblem && !missingElma(root);
+    return trayCatalogueState === 'available' && !root.appProblem && !missingBackend(root);
   }
 
   function handleElmaShortcut(event: KeyboardEvent) {
@@ -124,7 +128,7 @@
     } else if (canOpenElma(currentRoot)) {
       void openElma(currentRoot);
     } else {
-      trayFeedback = `${currentRoot.name} — ${currentRoot.appProblem ?? 'Elma Chat has no available Build'}`;
+      trayFeedback = `${currentRoot.name} — ${currentRoot.appProblem ?? backendUnavailable}`;
     }
   }
 
@@ -166,7 +170,7 @@
         root: root.name,
         name: root.name,
         status: root.status === 'Preparing' ? 'preparing' : root.status ? 'failed' : 'working',
-        unavailable: root.appProblem ?? (missingElma(root) ? 'Elma Chat has no available Build.' : undefined),
+        unavailable: root.appProblem ?? (missingBackend(root) ? backendUnavailable : undefined),
       }));
     },
     open: async (id) => {
@@ -265,7 +269,7 @@
                           onclick={() => openElma(root)}
                         >
                           {root.name}{root.status ? ` — ${root.status}` : ''}{root.appProblem ? ` — ${root.appProblem}` : ''}
-                          {missingElma(root) ? ' — Elma Chat unavailable' : ''}
+                          {missingBackend(root) ? ' — ' + backendUnavailable : ''}
                         </button>
                       {/each}
                     </div>

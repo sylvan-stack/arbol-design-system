@@ -10,6 +10,7 @@ const meta = {
     trayRunningBuild: '3',
     trayNewBuild: '4',
     trayRendererState: 'available',
+    trayGroveBackendAvailable: true,
     trayShortcutAvailable: true,
   },
   argTypes: {
@@ -22,8 +23,12 @@ const meta = {
     },
     trayRendererState: {
       control: 'select',
-      options: ['available', 'missing', 'load-failed'],
-      description: 'Missing disables the Grove open action. Load-failed opens a native error with Retry.',
+      options: ['available', 'load-failed'],
+      description: 'Models a verification failure of the App’s shared Elma renderer. The window offers Retry.',
+    },
+    trayGroveBackendAvailable: {
+      control: 'boolean',
+      description: 'Disable to show a Root without a runnable backend in the tray and the Root dropdown.',
     },
     trayCatalogueState: { control: 'select', options: ['available', 'loading', 'empty', 'unavailable'] },
   },
