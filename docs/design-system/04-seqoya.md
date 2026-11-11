@@ -7,7 +7,15 @@ role: derived
 
 Seqoya Lab uses the same compact WorkspaceHeader as Elma Chat. It passes the Seqoya workspace identity and title to the component, which renders the mark, Trunk dropdown, theme and text size controls, and navigation control. Seqoya keeps its appearance for its own Root. The dropdown changes the Trunk for this window. New windows start with the tray’s default for their Root.
 
-The left navigation opens Intelligence Providers, Subscriptions and Usage. Intelligence Providers is the initial page. Each destination uses a page heading and a placeholder that says what will appear there. The **Pages / Seqoya / Dashboard / Lab Layout** story shows the layout with fictional Roots.
+The left navigation opens Intelligence Providers, Subscriptions and Usage. Intelligence Providers is the initial page. Intelligence Providers and Usage show placeholders in the native layout. The **Pages / Seqoya / Dashboard / Lab Layout** story shows the layout with fictional accounts.
+
+## Subscriptions
+
+The Subscriptions page lists all accounts the selected Root’s backend reports. Cards name the vendor family first and keep the Driver and Subscription identifier visible separately. This distinguishes z.ai and DeepSeek accounts served by Pi from a configured Intelligence Provider route. Each card shows the account label, sign-in state and authentication mode.
+
+Show saved usage windows with the recorded time and any reported reset times. An unknown percentage is unavailable; a missing report is “No saved usage.” Refresh rereads the stored accounts and usage. Show per-Driver failures alongside other Drivers’ results. Keep the previous snapshot visible with a warning when a refresh fails or the Root disconnects, and clear it if the Root changes. The page is read-only and handles no credentials.
+
+The **Pages / Seqoya / Subscriptions** stories show a complete listing, loading, empty, partial, unavailable, stale and disconnected states.
 
 ## Observed structure
 

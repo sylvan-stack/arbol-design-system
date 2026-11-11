@@ -55,6 +55,8 @@ arbol-design-system:scripts/check-elma-reading.mjs
 
 The catalog demonstrates visual composition and local interactions. It does not provide backend persistence, authentication, provider catalogs, file uploads, source synchronization, cross-window request resolution, durable draft storage, actual Git operations or production permission enforcement. Notification tests and tool actions are local previews. Avoid wiring a production side effect directly to a Storybook fixture callback.
 
+Seqoya’s SubscriptionList takes the public listing, connection and read state, and a Refresh callback. The renderer reads the Root’s existing account list on entry, explicit Refresh and reconnect while the page is open. The adapter discards replies from an older connection and clears the listing when the Root changes. Stories demonstrate the same page with fictional accounts and local refresh outcomes. The list never refreshes usage at a vendor or starts sign-in.
+
 The SourceInbox, ReviewWorkspace and successor timeline use bounded data to show the composition; the source archive preserves their full original implementation. Native stories preserve anatomy and semantics, not pixel-identical AppKit rendering. The Gmail surface is externally owned. The external dashboard UI was not present in the captured repository, and its story explicitly records that gap.
 
 The broad source-to-story map identifies dedicated replacements, consolidations, page compositions and historical test harnesses. “Consolidated” does not mean a byte-for-byte implementation of every previous behavior. Smaller glyphs, copy actions and layout helpers intentionally share successor primitives.

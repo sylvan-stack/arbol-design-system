@@ -20,6 +20,16 @@
     "fields": []
   },
   {
+    "id": "seqoya-subscriptions",
+    "workspace": "Seqoya",
+    "title": "Subscriptions",
+    "recipe": "subscriptions",
+    "description": "Accounts reported by this Root’s drivers.",
+    "entity": "",
+    "items": [],
+    "fields": []
+  },
+  {
     "id": "seqoya-brain-recipes",
     "workspace": "Seqoya",
     "title": "Brain Recipes",

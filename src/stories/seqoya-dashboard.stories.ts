@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/svelte-vite';
 import Component from '../pages/WorkspacePage.svelte';
 import SeqoyaLab from '../pages/SeqoyaLab.svelte';
+import { exampleListing } from '../fixtures/seqoya-subscriptions';
 const meta = {
   title: 'Pages/Seqoya/Dashboard',
   component: Component,
@@ -24,6 +25,7 @@ export const LabLayout: StoryObj<typeof SeqoyaLab> = {
     Component: SeqoyaLab,
     props: {
       trunk: 'trivial',
+      subscriptions: { connected: true, listing: exampleListing },
     },
   }),
 };

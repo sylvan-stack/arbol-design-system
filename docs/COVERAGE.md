@@ -2,6 +2,8 @@
 
 This catalog implements the successor design contracts with reusable Svelte components and fictional interactive fixtures. The original visual evidence remains available for fidelity decisions. Components, patterns, sections and pages have separate Storybook entries rather than only an application-sized demo.
 
+The catalog has 336 stories and 48 workspace page entries, including seven Subscriptions stories.
+
 ## Chapter map
 
 | Design System chapter | Catalog coverage |
@@ -9,7 +11,7 @@ This catalog implements the successor design contracts with reusable Svelte comp
 | Foundations | Themes, Typography, Spacing and shape, Semantic states, Entity registry, Motion and layers; global theme/density/text controls |
 | Components | Dedicated primitive stories; Collection, EntityEditor, EntitySummary, EntityCard, EntityReference, EntityPicker, RelationshipEditor, Modal, ConfirmAction, ActionPopover, AsyncFeedback, DocumentView, PermissionRequest, WorkspaceShell, PageHeader, DetailPane, Preferences |
 | Interactions | Editor validation/failure/partial/conflict/uncertain states; dirty dismissal; collection presentation/selection; permission decisions; keyboard navigation; scoped search; reduced motion |
-| Seqoya | All 17 documented destinations, account/provider section, ordered recipe editor, typed Blueprint editor, secret replacement, retrieval planning and event inspector |
+| Seqoya | All 17 documented legacy destinations plus the native Subscriptions page and its seven list states; account/provider section, ordered recipe editor, typed Blueprint editor, secret replacement, retrieval planning and event inspector |
 | Elma | Accepted First Sapling ElmaFrame (Root states, no chat list, cockpit/navigation/preferences); new and active conversation, Composer, Response/ResponseReader/ToolCall/SafeMarkdown (typed content, lifecycle, threshold, lazy detail, scroll following/Beacon/stops/offsets), PinnedMessage, TurnNavigator, ToolCall, AgentStatus, AskUserQuestion, permission request, attached context, history, session inspector, activity graph, artwork proposal, document panel and change walkthrough |
 | Willo | Human/agent stations, steward view, station densities, attention and Spotlight, notifications, Slack/Telegram/email source inboxes, signal-rule preview, runs and run detail |
 | Oaken | Timeline, Agenda, lane details, typed deadline field, Jira/Graft/MR collections, review workspace, compact panel; original full board and hunk review preserved live |
@@ -24,7 +26,7 @@ This catalog implements the successor design contracts with reusable Svelte comp
 | Modal focus/dismissal | Modal + EntityEditor stories; dirty-Escape and focus-containment browser checks |
 | Non-keyboard card/dropdown controls | Button-based entity titles, native Select/Combobox/MultiSelect and collection table/list semantics |
 | Blanket Enter-to-delete | ConfirmAction with Cancel-focused entry and ordinary button activation |
-| Provider load/save failures | Unknown/expired account examples, explicit AsyncFeedback states, shared editor failure stories |
+| Provider load/save failures | Subscriptions stories for partial Driver failure, unavailable and stale lists; unknown/expired account examples, explicit AsyncFeedback states, shared editor failure stories |
 | Multiple create/edit hosts | Shared EntityEditor; full-page Blueprint and ordered recipe editors |
 | Duplicate Graft/time forms | Shared Graft field schema, DateTimeInput and DeadlineField |
 | Modifier-only entity navigation | EntityReference ordinary click/Enter; separate ActionPopover |

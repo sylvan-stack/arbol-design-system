@@ -13,6 +13,8 @@
   import Tabs from '../components/Tabs.svelte';
   import Dashboard from '../sections/Dashboard.svelte';
   import ProviderSettings from '../sections/ProviderSettings.svelte';
+  import SubscriptionList from '../sections/SubscriptionList.svelte';
+  import { exampleListing } from '../fixtures/seqoya-subscriptions';
   import FeatureSettings from '../sections/FeatureSettings.svelte';
   import RecipeEditor from '../sections/RecipeEditor.svelte';
   import BlueprintEditor from '../sections/BlueprintEditor.svelte';
@@ -94,6 +96,8 @@
               />
             </div>{/if}
         </div>
+      {:else if page.recipe === 'subscriptions'}
+        <SubscriptionList view={{ connected: true, listing: exampleListing }} />
       {:else}<PageHeader title={page.title} description={page.description} />
         {#if page.recipe === 'dashboard'}<Dashboard />
         {:else if page.recipe === 'providers'}<ProviderSettings />

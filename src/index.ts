@@ -66,6 +66,8 @@ export { default as SecretsSettings } from './sections/SecretsSettings.svelte';
 export { default as SourceInbox } from './sections/SourceInbox.svelte';
 export { default as StationCollection } from './sections/StationCollection.svelte';
 export { default as StationSummary } from './sections/StationSummary.svelte';
+export { default as SubscriptionList } from './sections/SubscriptionList.svelte';
+export type { SubscriptionListing, SubscriptionRecord, SubscriptionView } from './sections/seqoya-subscriptions';
 export { default as SwimlaneDetails } from './sections/SwimlaneDetails.svelte';
 export { default as ThreadInspector } from './sections/ThreadInspector.svelte';
 export { default as TimelineBoard } from './sections/TimelineBoard.svelte';
