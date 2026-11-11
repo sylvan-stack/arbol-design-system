@@ -13,7 +13,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Start new version sits above Roots when a newer working Build is available. The preview uses a fictional Build and Roots. Clear the Build control to see the tray with no update.',
+          'The oak shows an exclamation badge when a newer working Build is available. Start new version sits above Roots. The preview uses a fictional Build and Roots. Clear the Build control to see the tray with no update.',
       },
     },
   },

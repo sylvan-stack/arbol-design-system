@@ -83,8 +83,14 @@
     <div class="menu-bar">
       {#if trayRunning}
         <details class="tray" bind:open={trayOpen}>
-          <summary aria-label="Arbol" title="Arbol" bind:this={trayButton} onkeydown={closeTrayOnEscape}>
+          <summary
+            aria-label={updateBuild ? `Arbol, Build ${updateBuild} available` : 'Arbol'}
+            title={updateBuild ? `Arbol, Build ${updateBuild} available` : 'Arbol'}
+            bind:this={trayButton}
+            onkeydown={closeTrayOnEscape}
+          >
             <span class="tray-icon" style:--tray-icon={`url("${arbolMenuBarIcon}")`} aria-hidden="true"></span>
+            {#if updateBuild}<span class="tray-badge" aria-hidden="true">!</span>{/if}
           </summary>
           <div class="tray-menu">
             {#if updateBuild}
@@ -279,6 +285,24 @@ repository: sample-repo</pre>
     height: 18px;
     mask: var(--tray-icon) center / contain no-repeat;
     background-color: currentColor;
+  }
+  .tray-badge {
+    position: absolute;
+    inset-block-start: 4px;
+    inset-inline-end: 5px;
+    display: grid;
+    place-items: center;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    color: var(--inset);
+    background: var(--text);
+    box-shadow: 0 0 0 1px var(--inset);
+    font: 700 8px / 1 system-ui;
+  }
+  .tray[open] .tray-badge {
+    color: var(--selected);
+    box-shadow: 0 0 0 1px var(--selected);
   }
   .tray-menu {
     position: absolute;

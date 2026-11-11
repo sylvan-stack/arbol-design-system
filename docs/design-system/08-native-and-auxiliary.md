@@ -20,7 +20,7 @@ arbol:app/Arbol/UISwitcherHotkeys.swift
 
 The Swift App shows the Arbol oak as an 18-point monochrome template in the macOS menu bar. The icon is labelled Arbol for assistive technology. It opens a native menu with **Roots** and **Quit**. Quit ends the App. The tray is the only surface shown at launch.
 
-When the Build registry offers a newer runnable working App Build, **Start new version** is the first tray item and shows the Build number. It starts that prepared Build. The current App keeps the tray until the replacement is ready to take it. A failed handoff leaves the current App available and shows the failure in the tray.
+When the Build registry offers a newer runnable working App Build, the oak shows a small exclamation badge at its upper right. The tooltip and accessibility label give the Build number. The badge updates with the tray closed. **Start new version** is the first tray item and shows the same Build number. It starts that prepared Build. The current App keeps the tray until the replacement is ready to take it. A failed handoff leaves the current App available and shows the failure in the tray.
 
 **Roots** opens a submenu of the retained Roots in catalogue order. Each row shows its display name. **Current** marks the catalogue's current Root. The checkmark shows the default for UIs. Selecting a compatible Root saves it as the default. **Use current Root** clears an explicit choice and follows the catalogue. Preparing and failed Roots show their state. Incompatible rows show the minimum App Build and are disabled. The submenu shows loading, empty and unavailable states. Reopening the tray refreshes the list.
 
