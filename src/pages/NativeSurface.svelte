@@ -9,19 +9,54 @@
   import Badge from '../components/Badge.svelte';
   import DocumentView from '../patterns/DocumentView.svelte';
   const arbolMenuBarIcon = new URL('../assets/arbol-menu-bar.png', import.meta.url).href;
-  let { surface = 'Go to Page' }: { surface?: string } = $props();
+  type TrayCatalogueState = 'available' | 'loading' | 'empty' | 'unavailable';
+  let {
+    surface = 'Go to Page',
+    trayCatalogueState = 'available',
+  }: {
+    surface?: string;
+    trayCatalogueState?: TrayCatalogueState;
+  } = $props();
   let feedback = $state('');
   let url = $state('');
   let trayOpen = $state(false);
   let trayRunning = $state(true);
   let trayButton = $state<HTMLElement>();
+  let rootsOpen = $state(false);
+  let rootsButton = $state<HTMLElement>();
+  let selectedRoot = $state<string>();
+  let rootFeedback = $state('');
+  const fixtureRoots = [
+    { name: 'Canopy', current: true },
+    { name: 'Grove' },
+    { name: 'Nursery', status: 'Preparing' },
+    { name: 'Orchard', status: 'Requires App Build 2', unavailable: true },
+  ];
+  const catalogueMessages = {
+    loading: 'Loading Roots…',
+    empty: 'No Roots available',
+    unavailable: 'Could not read Roots',
+  };
+  const defaultRoot = $derived(selectedRoot ?? fixtureRoots.find((root) => root.current)?.name);
 
   function closeTrayOnEscape(event: KeyboardEvent) {
-    if (event.key === 'Escape' && trayOpen) {
-      event.preventDefault();
+    if (event.key !== 'Escape' || !trayOpen) return;
+    event.preventDefault();
+    if (rootsOpen) {
+      rootsOpen = false;
+      rootsButton?.focus();
+    } else {
       trayOpen = false;
       trayButton?.focus();
     }
+  }
+
+  function chooseRoot(name?: string) {
+    selectedRoot = name;
+    rootFeedback = name ? `Default Root for UIs: ${name}` : 'Default for UIs follows the current Root.';
+    rootsOpen = false;
+    trayOpen = false;
+    trayButton?.focus();
   }
   let notices = $state([
     'Design review complete',
@@ -40,12 +75,40 @@
             <span class="tray-icon" style:--tray-icon={`url("${arbolMenuBarIcon}")`} aria-hidden="true"></span>
           </summary>
           <div class="tray-menu">
+            <details class="tray-roots" bind:open={rootsOpen}>
+              <summary class="tray-command" bind:this={rootsButton} onkeydown={closeTrayOnEscape}>
+                Roots <span aria-hidden="true">›</span>
+              </summary>
+              <div class="tray-menu roots-menu">
+                {#if trayCatalogueState === 'available'}
+                  {#each fixtureRoots as root (root.name)}
+                    <button
+                      class="tray-command"
+                      aria-pressed={defaultRoot === root.name}
+                      disabled={root.unavailable}
+                      onkeydown={closeTrayOnEscape}
+                      onclick={() => chooseRoot(root.name)}
+                    >
+                      <span class="root-check" aria-hidden="true">{defaultRoot === root.name ? '✓' : ''}</span>
+                      {root.name}{root.current ? ' — Current' : ''}{root.status ? ` — ${root.status}` : ''}
+                    </button>
+                  {/each}
+                {:else}
+                  <p class="catalogue-message">{catalogueMessages[trayCatalogueState]}</p>
+                {/if}
+                {#if selectedRoot}
+                  <button class="tray-command" onkeydown={closeTrayOnEscape} onclick={() => chooseRoot()}>
+                    Use current Root
+                  </button>
+                {/if}
+              </div>
+            </details>
             <button class="tray-command" onkeydown={closeTrayOnEscape} onclick={() => (trayRunning = false)}>Quit</button>
           </div>
         </details>
       {/if}
     </div>
-    <p class="small muted" role="status">{trayRunning ? '' : 'Arbol quit in this preview.'}</p>
+    <p class="small muted" role="status">{trayRunning ? rootFeedback : 'Arbol quit in this preview.'}</p>
   </div>
 {:else}
 <div class="native stack">
@@ -177,14 +240,20 @@ repository: sample-repo</pre>
     position: relative;
   }
   .tray summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  .tray summary::-webkit-details-marker {
+    display: none;
+  }
+  .tray > summary {
     display: grid;
     place-items: center;
     width: 28px;
     height: 26px;
-    list-style: none;
-    cursor: pointer;
   }
-  .tray[open] summary {
+  .tray[open] > summary,
+  .tray-roots[open] > summary {
     background: var(--selected);
   }
   .tray-icon {
@@ -205,8 +274,30 @@ repository: sample-repo</pre>
     background: var(--panel);
     box-shadow: var(--shadow);
   }
+  .tray-roots {
+    position: relative;
+  }
+  .tray-roots > summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .roots-menu {
+    inset-block-start: 0;
+    inset-inline-end: calc(100% + 4px);
+    width: min(220px, 54vw);
+  }
+  .root-check {
+    display: inline-block;
+    width: 1em;
+  }
+  .catalogue-message {
+    padding: 8px 12px;
+    color: var(--muted);
+  }
   .tray-command {
     width: 100%;
+    box-sizing: border-box;
     text-align: left;
     padding: 8px 12px;
     border: 0;
@@ -214,7 +305,10 @@ repository: sample-repo</pre>
     background: transparent;
     color: var(--text);
   }
-  .tray-command:hover {
+  .tray-command:hover:not(:disabled) {
     background: var(--selected);
+  }
+  .tray-command:disabled {
+    color: var(--muted);
   }
 </style>
