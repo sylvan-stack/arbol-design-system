@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { tick } from 'svelte';
+  import ElmaFrame from '../sections/ElmaFrame.svelte';
   import CommandPalette from '../patterns/CommandPalette.svelte';
   import EntityPicker from '../patterns/EntityPicker.svelte';
   import RelationshipEditor from '../patterns/RelationshipEditor.svelte';
@@ -10,18 +12,23 @@
   import DocumentView from '../patterns/DocumentView.svelte';
   const arbolMenuBarIcon = new URL('../assets/arbol-menu-bar.png', import.meta.url).href;
   type TrayCatalogueState = 'available' | 'loading' | 'empty' | 'unavailable';
+  type TrayRendererState = 'available' | 'missing' | 'load-failed';
+  type FixtureRoot = { name: string; status?: string; appProblem?: string };
+  type ElmaPreview = { root: FixtureRoot; failed: boolean };
   let {
     surface = 'Go to Page',
     trayCatalogueState = 'available',
     trayCurrentRoot,
     trayRunningBuild = '0',
     trayNewBuild = '',
+    trayRendererState = 'available',
   }: {
     surface?: string;
     trayCatalogueState?: TrayCatalogueState;
     trayCurrentRoot?: string;
     trayRunningBuild?: string;
     trayNewBuild?: string;
+    trayRendererState?: TrayRendererState;
   } = $props();
   let feedback = $state('');
   let url = $state('');
@@ -30,12 +37,16 @@
   let trayButton = $state<HTMLElement>();
   let rootsOpen = $state(false);
   let rootsButton = $state<HTMLElement>();
+  let elmaRootsOpen = $state(false);
+  let elmaRootsButton = $state<HTMLElement>();
+  let elmaWindows = $state<ElmaPreview[]>([]);
+  const elmaFrames: Record<string, HTMLElement> = {};
   let rootChoice = $state<string | null>();
   let trayFeedback = $state('');
   let startedBuild = $state('');
   const runningBuild = $derived(startedBuild || trayRunningBuild);
   const updateBuild = $derived(trayNewBuild !== runningBuild ? trayNewBuild : '');
-  const fixtureRoots = [
+  const fixtureRoots: FixtureRoot[] = [
     { name: 'Canopy' },
     { name: 'Grove' },
     { name: 'Nursery', status: 'Preparing' },
@@ -61,7 +72,10 @@
   function closeTrayOnEscape(event: KeyboardEvent) {
     if (event.key !== 'Escape' || !trayOpen) return;
     event.preventDefault();
-    if (rootsOpen) {
+    if (elmaRootsOpen) {
+      elmaRootsOpen = false;
+      elmaRootsButton?.focus();
+    } else if (rootsOpen) {
       rootsOpen = false;
       rootsButton?.focus();
     } else {
@@ -73,16 +87,61 @@
   function chooseRoot(name?: string) {
     rootChoice = name ?? null;
     trayFeedback = name ? `Current Root: ${name}` : 'Current Root follows the newest working Root.';
+    elmaRootsOpen = false;
     rootsOpen = false;
     trayOpen = false;
     trayButton?.focus();
   }
   function startNewVersion(build: string) {
     startedBuild = build;
+    elmaWindows = [];
     trayFeedback = `Started Build ${build} in this preview.`;
+    elmaRootsOpen = false;
     rootsOpen = false;
     trayOpen = false;
     trayButton?.focus();
+  }
+
+  function missingElma(root: FixtureRoot) {
+    return trayRendererState === 'missing' && root.name === 'Grove';
+  }
+
+  function canOpenElma(root: FixtureRoot) {
+    return trayCatalogueState === 'available' && !root.appProblem && !missingElma(root);
+  }
+
+  async function openElma(root: FixtureRoot) {
+    if (!canOpenElma(root)) return;
+    const window = elmaWindows.find((entry) => entry.root.name === root.name)
+      ?? { root, failed: trayRendererState === 'load-failed' };
+    elmaWindows = [window, ...elmaWindows.filter((entry) => entry.root.name !== root.name)];
+    elmaRootsOpen = false;
+    rootsOpen = false;
+    trayOpen = false;
+    trayFeedback = '';
+    await tick();
+    elmaFrames[root.name]?.focus();
+  }
+
+  async function closeElma(root: FixtureRoot) {
+    elmaWindows = elmaWindows.filter((entry) => entry.root.name !== root.name);
+    await tick();
+    const next = elmaWindows[0];
+    if (next) elmaFrames[next.root.name]?.focus();
+    else trayButton?.focus();
+  }
+
+  function rendererRoot(root: FixtureRoot) {
+    if (root.status === 'Preparing') return { name: root.name, status: 'preparing' };
+    if (root.status?.startsWith('Failed: ')) {
+      return { name: root.name, status: 'failed', failed: { reason: root.status.slice('Failed: '.length) } };
+    }
+    return { name: root.name, status: 'working' };
+  }
+
+  function quitTray() {
+    elmaWindows = [];
+    trayRunning = false;
   }
 
   let notices = $state([
@@ -117,6 +176,12 @@
                 Start new version <span class="small muted">Build {updateBuild}</span>
               </button>
             {/if}
+            <button
+              class="tray-command"
+              disabled={!canOpenElma(currentRoot)}
+              onkeydown={closeTrayOnEscape}
+              onclick={() => openElma(currentRoot)}
+            >Open Elma Chat</button>
             <details class="tray-roots" bind:open={rootsOpen}>
               <summary class="tray-command" bind:this={rootsButton} onkeydown={closeTrayOnEscape}>
                 Roots <span aria-hidden="true">›</span>
@@ -143,14 +208,57 @@
                     Use newest working Root
                   </button>
                 {/if}
+                {#if trayCatalogueState === 'available'}
+                  <details class="tray-roots" bind:open={elmaRootsOpen}>
+                    <summary class="tray-command" bind:this={elmaRootsButton} onkeydown={closeTrayOnEscape}>
+                      Open Elma Chat for Root <span aria-hidden="true">›</span>
+                    </summary>
+                    <div class="tray-menu roots-menu elma-roots-menu">
+                      {#each fixtureRoots as root (root.name)}
+                        <button
+                          class="tray-command"
+                          disabled={!canOpenElma(root)}
+                          onkeydown={closeTrayOnEscape}
+                          onclick={() => openElma(root)}
+                        >
+                          {root.name}{root.status ? ` — ${root.status}` : ''}{root.appProblem ? ` — ${root.appProblem}` : ''}
+                          {missingElma(root) ? ' — Elma Chat unavailable' : ''}
+                        </button>
+                      {/each}
+                    </div>
+                  </details>
+                {/if}
               </div>
             </details>
-            <button class="tray-command" onkeydown={closeTrayOnEscape} onclick={() => (trayRunning = false)}>Quit</button>
+            <button class="tray-command" onkeydown={closeTrayOnEscape} onclick={quitTray}>Quit</button>
           </div>
         </details>
       {/if}
     </div>
     <p class="small muted" role="status">{trayRunning ? trayFeedback : 'Arbol quit in this preview.'}</p>
+    {#each elmaWindows as window (window.root.name)}
+      <section
+        class="window elma-window"
+        aria-label={`Elma Chat in ${window.root.name}`}
+        tabindex="-1"
+        bind:this={elmaFrames[window.root.name]}
+      >
+        <div class="titlebar">
+          <strong>Elma Chat · {window.root.name}</strong>
+          <button class="window-action" onclick={() => closeElma(window.root)}>Close</button>
+        </div>
+        <div class="elma-content">
+          {#if window.failed}
+            <div class="renderer-problem" role="status">
+              <span>The Elma Chat renderer could not be verified.</span>
+              <button class="window-action" onclick={() => (window.failed = false)}>Retry</button>
+            </div>
+          {:else}
+            <ElmaFrame root={rendererRoot(window.root)} />
+          {/if}
+        </div>
+      </section>
+    {/each}
   </div>
 {:else}
 <div class="native stack">
@@ -244,6 +352,34 @@ repository: sample-repo</pre>
   .native {
     max-width: 760px;
     margin: 24px auto;
+  }
+  .native:has(.elma-window) {
+    max-width: 1120px;
+  }
+  .elma-content {
+    height: 460px;
+    position: relative;
+  }
+  .renderer-problem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: max-content;
+    max-width: calc(100% - 36px);
+    margin: 0 auto;
+    position: relative;
+    top: calc(100% - 62px);
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--inset);
+  }
+  .window-action {
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--panel);
+    color: var(--text);
   }
   .window {
     background: var(--panel);
@@ -385,6 +521,14 @@ repository: sample-repo</pre>
   }
   .tray-command:disabled {
     color: var(--muted);
+  }
+  @media (max-width: 700px) {
+    .elma-roots-menu {
+      position: static;
+      width: auto;
+      margin-block: 4px;
+      box-shadow: none;
+    }
   }
   @media (max-width: 520px) {
     .roots-menu {
