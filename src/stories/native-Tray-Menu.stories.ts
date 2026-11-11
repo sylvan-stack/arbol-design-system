@@ -36,7 +36,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Press Option+E with the preview focused to open or raise Elma Chat for the current Root. Roots offers an explicit open for a named Root. The header shows the current Root and running Build number. Start new version names the prepared Build and updates the header after the preview handoff. Close returns to the resident tray.',
+          'Press Option+E with the preview focused to open or raise Elma Chat for the current Root. Roots offers an explicit open for a named Root. The header shows the current Root and running Build number. Start new version names the prepared Build and updates the header after the preview handoff. Close returns to the resident tray. In the App, drag the passive Elma header to move its window. The Root dropdown and preferences keep their click actions.',
       },
     },
   },

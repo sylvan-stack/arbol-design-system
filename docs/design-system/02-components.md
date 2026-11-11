@@ -31,7 +31,7 @@ arbol:renderer/apps/seqoya/src/pages/settingsCrud.css
 
 When a host supplies a `rootSelector`, the Root name and chevron open an anchored dropdown. It marks this window’s Root, shows loading and empty results, and gives the reason for a disabled Root. Use Tab to reach the choices and Escape to dismiss and return to the Root trigger. Selecting another Root requests the same UI in that Root’s window. The original window retains its own Root. A refused open stays visible for retry. The tray controls the shared current Root for CLI commands and hotkeys.
 
-The shared header marks itself with `data-arbol-window-header`. A compatible AppKit host applies `data-arbol-native-controls` to activate the 96-point leading inset. The native preview fills that space with a browser Close action through `headerWindowControls`.
+The shared header marks itself with `data-arbol-window-header`. A compatible AppKit host applies `data-arbol-native-controls` to activate the 96-point leading inset. The native preview fills that space with a browser Close action through `headerWindowControls`. The header’s `data-arbol-window-drag` marker lets the native host move the window from passive header content. Buttons, links, inputs and popup content keep their own interactions. Mark a custom interactive region with `data-arbol-no-drag` to exclude it.
 
 ## Collection: one behavior, several presentations
 

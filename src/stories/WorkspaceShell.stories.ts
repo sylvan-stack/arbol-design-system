@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'The Root name opens an anchored dropdown. Canopy is the window’s Root, Nursery shows why it is unavailable, and Grove refuses the first open so it can be retried. The native Elma preview shows this header with window controls.',
+          'The Root name opens an anchored dropdown. Canopy is the window’s Root, Nursery shows why it is unavailable, and Grove refuses the first open so it can be retried. The native Elma preview shows the same passive drag surface with separate Root and window controls. AppKit handles window movement.',
       },
     },
   },
