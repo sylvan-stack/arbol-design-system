@@ -18,7 +18,7 @@ arbol:app/Arbol/UISwitcherHotkeys.swift
 
 ## Arbol menu bar
 
-The Swift App shows the Arbol oak as an 18-point monochrome template in the macOS menu bar. The icon is labelled Arbol for assistive technology. It opens a native menu with **Roots** and **Quit**. Quit ends the App. The tray is the only surface shown at launch.
+The Swift App shows the Arbol oak as an 18-point monochrome template in the macOS menu bar. The icon is labelled Arbol for assistive technology. It opens a native menu with **Open Elma Chat**, **Roots** and **Quit**. The per-user login launch adds the icon with the menu closed and keeps focus in the active application. Quit ends the resident App.
 
 The tray opens with two read-only rows above its actions. **Current Root** shows the catalogue’s effective selection by display name and updates after a selection, reset or catalogue read. The row shows “Loading…” during the first read, “None” when there is no working Root, and “Unavailable” when the catalogue cannot be read. If the current Root requires a newer App Build, show its name and the compatibility reason. **Running Build** shows the running App’s hexadecimal Build number, such as “Running Build 5”. A standalone preview shows Build 0. The row shows the replacement’s identity after a successful handoff.
 
@@ -26,7 +26,15 @@ When the Build registry offers a newer runnable working App Build, the oak shows
 
 **Roots** opens a submenu of retained Roots in catalogue order. A checkmark marks the same current Root as the header. Selecting a compatible working Root sets the shared current Root for new App opens, global shortcuts and CLI commands without an explicit Root. **Use newest working Root** clears the selection and restores automatic selection. Preparing, failed and App-incompatible Roots show their state or reason and are unavailable for selection. If the catalogue refuses a change, show its reason in the submenu. Reopening the tray refreshes the catalogue.
 
-The **Native adapters / Tray Menu** story uses the same oak image and fictional Roots. Selecting **Quit** removes the icon from the preview.
+**Open Elma Chat** opens the current Root. **Roots → Open Elma Chat for Root** opens a named compatible Root without changing the current Root. A preparing or failed Root can open when it has an available renderer. A Root that needs a newer App Build or has no available renderer shows the cause and has a disabled open action.
+
+### Root-bound Elma window
+
+An explicit open raises the existing window for that Root or creates one. The window keeps its Root when the current Root changes. AppKit supplies traffic lights, title dragging and resize edges, and the Elma frame supplies its own controls and Root heading. Save window geometry per Root and restore it within a reachable screen.
+
+Use a native status surface while the backend or renderer is loading. Show the cause and **Retry** if the renderer cannot load. When an updated renderer fails verification, keep the existing page usable while showing the failure. Preserve the renderer's recovery state on departure. Closing the final window leaves the tray available.
+
+The **Native adapters / Tray Menu** story uses the same oak and the maintained Elma frame with fictional Roots. Its controls show an unavailable renderer in the Roots submenu and a renderer load failure with Retry. The preview represents each Root window separately and keeps the tray available after closing it.
 
 ## Picker and panel inventory
 
