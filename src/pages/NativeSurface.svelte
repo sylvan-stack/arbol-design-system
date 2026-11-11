@@ -43,6 +43,7 @@
   let elmaRootsOpen = $state(false);
   let elmaRootsButton = $state<HTMLElement>();
   let elmaWindows = $state<ElmaPreview[]>([]);
+  let previewRefusedGrove = false;
   const elmaFrames: Record<string, HTMLElement> = {};
   let rootChoice = $state<string | null>();
   let trayFeedback = $state('');
@@ -171,6 +172,10 @@
     open: async (id) => {
       const root = fixtureRoots.find((entry) => entry.name === id);
       if (!root || !canOpenElma(root)) throw new Error('Could not open Elma Chat for that Root.');
+      if (root.name === 'Grove' && !previewRefusedGrove) {
+        previewRefusedGrove = true;
+        throw new Error('Grove is temporarily unavailable. Try again.');
+      }
       await openElma(root);
     },
   };
@@ -281,18 +286,22 @@
         tabindex="-1"
         bind:this={elmaFrames[window.root.name]}
       >
-        <div class="titlebar">
-          <strong>Elma Chat · {window.root.name}</strong>
-          <button class="window-action" onclick={() => closeElma(window.root)}>Close</button>
-        </div>
         <div class="elma-content">
           {#if window.failed}
+            <div class="titlebar">
+              <strong>Elma Chat · {window.root.name}</strong>
+              <button class="window-action" onclick={() => closeElma(window.root)}>Close</button>
+            </div>
             <div class="renderer-problem" role="status">
               <span>The Elma Chat renderer could not be verified.</span>
               <button class="window-action" onclick={() => (window.failed = false)}>Retry</button>
             </div>
           {:else}
-            <ElmaFrame root={rendererRoot(window.root)} rootSelector={previewRootSelector} />
+            <ElmaFrame root={rendererRoot(window.root)} rootSelector={previewRootSelector}>
+              {#snippet headerWindowControls()}
+                <button class="window-action" onclick={() => closeElma(window.root)}>Close</button>
+              {/snippet}
+            </ElmaFrame>
           {/if}
         </div>
       </section>
@@ -405,8 +414,8 @@ repository: sample-repo</pre>
     width: max-content;
     max-width: calc(100% - 36px);
     margin: 0 auto;
-    position: relative;
-    top: calc(100% - 62px);
+    position: absolute;
+    inset: auto 0 18px;
     padding: 8px 12px;
     border: 1px solid var(--border);
     border-radius: 8px;

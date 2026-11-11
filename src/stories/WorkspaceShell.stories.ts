@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Shared workspace header and Root selector. Canopy is the window’s Root. Grove refuses the first open so the same choice can be retried.',
+          'The Root name opens an anchored dropdown. Canopy is the window’s Root, Nursery shows why it is unavailable, and Grove refuses the first open so it can be retried. The native Elma preview shows this header with window controls.',
       },
     },
   },
