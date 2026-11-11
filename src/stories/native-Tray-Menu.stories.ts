@@ -8,11 +8,9 @@ const meta = {
     surface: 'Tray Menu',
     trayCatalogueState: 'available',
     trayRunningBuild: '3',
-    trayBuiltAt: '11 Nov 2026, 14:25:00',
     trayNewBuild: '4',
   },
   argTypes: {
-    trayBuiltAt: { control: 'text' },
     trayRunningBuild: { control: 'text' },
     trayNewBuild: { control: 'text' },
     trayCurrentRoot: {
@@ -25,7 +23,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'The header shows the running Build number and timestamp. Start new version names the prepared Build and updates the header after the preview handoff. Choose a working Root to make it current for the App and CLI. Use newest working Root returns to automatic selection.',
+          'The header shows the current Root and running Build number. Start new version names the prepared Build and updates the header after the preview handoff. Choose a working Root to make it current for the App and CLI. Use newest working Root returns to automatic selection.',
       },
     },
   },
