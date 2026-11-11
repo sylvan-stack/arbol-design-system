@@ -73,7 +73,7 @@ export { default as TurnNavigator } from './sections/TurnNavigator.svelte';
 export { THEMES, DEFAULT_THEME } from './themes';
 export { KINDS } from './entities';
 export type { EntityKind, EntityKindMeta } from './entities';
-export type { RecordItem, FieldSpec } from './types';
+export type { RecordItem, FieldSpec, WorkspaceRoot, WorkspaceRootChoice, WorkspaceRootSelector } from './types';
 
 export { default as ElmaFrame } from './sections/ElmaFrame.svelte';
 
