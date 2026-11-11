@@ -22,6 +22,7 @@
     trayRunningBuild = '0',
     trayNewBuild = '',
     trayRendererState = 'available',
+    trayShortcutAvailable = true,
   }: {
     surface?: string;
     trayCatalogueState?: TrayCatalogueState;
@@ -29,6 +30,7 @@
     trayRunningBuild?: string;
     trayNewBuild?: string;
     trayRendererState?: TrayRendererState;
+    trayShortcutAvailable?: boolean;
   } = $props();
   let feedback = $state('');
   let url = $state('');
@@ -110,6 +112,20 @@
     return trayCatalogueState === 'available' && !root.appProblem && !missingElma(root);
   }
 
+  function handleElmaShortcut(event: KeyboardEvent) {
+    if (surface !== 'Tray Menu' || !trayRunning || !trayShortcutAvailable || event.code !== 'KeyE'
+      || !event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    event.preventDefault();
+    if (event.repeat) return;
+    if (trayCatalogueState !== 'available') {
+      trayFeedback = catalogueMessages[trayCatalogueState];
+    } else if (canOpenElma(currentRoot)) {
+      void openElma(currentRoot);
+    } else {
+      trayFeedback = `${currentRoot.name} — ${currentRoot.appProblem ?? 'Elma Chat has no available Build'}`;
+    }
+  }
+
   async function openElma(root: FixtureRoot) {
     if (!canOpenElma(root)) return;
     const window = elmaWindows.find((entry) => entry.root.name === root.name)
@@ -151,9 +167,14 @@
   ]);
 </script>
 
+<svelte:window onkeydown={handleElmaShortcut} />
+
 {#if surface === 'Tray Menu'}
   <div class="native stack">
-    <p class="small muted">Browser preview of the Arbol menu bar</p>
+    <p class="small muted">
+      Browser preview of the Arbol menu bar.
+      {#if trayRunning && trayShortcutAvailable}Press <kbd>⌥E</kbd> to open Elma Chat.{/if}
+    </p>
     <div class="menu-bar">
       {#if trayRunning}
         <details class="tray" bind:open={trayOpen}>
@@ -176,12 +197,9 @@
                 Start new version <span class="small muted">Build {updateBuild}</span>
               </button>
             {/if}
-            <button
-              class="tray-command"
-              disabled={!canOpenElma(currentRoot)}
-              onkeydown={closeTrayOnEscape}
-              onclick={() => openElma(currentRoot)}
-            >Open Elma Chat</button>
+            {#if !trayShortcutAvailable}
+              <p class="catalogue-message">Option+E unavailable for Elma Chat</p>
+            {/if}
             <details class="tray-roots" bind:open={rootsOpen}>
               <summary class="tray-command" bind:this={rootsButton} onkeydown={closeTrayOnEscape}>
                 Roots <span aria-hidden="true">›</span>
