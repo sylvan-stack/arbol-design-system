@@ -13,7 +13,7 @@ Build four levels: tokens → accessible primitives → reusable interaction pat
 |---|---|
 | Foundations | Theme, typography, spacing, radius, elevation, motion, semantic state, icon registry |
 | Primitives | Button/IconButton, TextField, TextArea, Checkbox, Switch, Select/Combobox, Tabs, Badge, Meter, Tooltip, Divider |
-| Patterns | WorkspaceShell, PageHeader, Collection, EntitySummary, EntityPicker, EntityEditor, DetailPane, OverlayHost, ConfirmAction, AsyncFeedback, DocumentView, PermissionRequest |
+| Patterns | WorkspaceShell, WorkspaceHeader, PageHeader, Collection, EntitySummary, EntityPicker, EntityEditor, DetailPane, OverlayHost, ConfirmAction, AsyncFeedback, DocumentView, PermissionRequest |
 | Recipes | ProviderSettings, StationCollection, ConversationWorkspace, SourceInbox, TimelineBoard, TaskCollection, ReviewWorkspace |
 
 Existing shared code already provides buttons, cards, fields, dropdowns, tabs, entity components, markdown and a modal. It has no equivalent complete shared collection/editor contract. Consolidation should build on the useful vocabulary rather than keep all existing variations.
@@ -27,7 +27,7 @@ arbol:renderer/apps/seqoya/src/pages/settingsCrud.css
 
 ## Shared workspace header
 
-`WorkspaceShell` composes the window header, viewport and status area. Supply the UI identity and title through `headerLead` and surface controls through `headerExtras`. The shared header places the window’s Root and its state between these slots.
+`WorkspaceShell` composes `WorkspaceHeader`, the viewport and the status area. Elma Chat and Seqoya Lab use the same compact header layout, title typography, workspace glyph, Root selector, navigation control and traffic-light clearance. Supply the UI identity with `workspace` and `headerTitle`. Add surface actions with `headerExtras` and title details or editing with `headerTitleDetail` and `headerTitleEditor`.
 
 When a host supplies a `rootSelector`, the Root name and chevron open an anchored dropdown. It marks this window’s Root, shows loading and empty results, and gives the reason for a disabled Root. Use Tab to reach the choices and Escape to dismiss and return to the Root trigger. Selecting another Root requests the same UI in that Root’s window. The original window retains its own Root. A refused open stays visible for retry. The tray controls the shared current Root for CLI commands and hotkeys.
 

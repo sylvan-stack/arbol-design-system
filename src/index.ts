@@ -38,6 +38,7 @@ export { default as PageHeader } from './patterns/PageHeader.svelte';
 export { default as PermissionRequest } from './patterns/PermissionRequest.svelte';
 export { default as Preferences } from './patterns/Preferences.svelte';
 export { default as RelationshipEditor } from './patterns/RelationshipEditor.svelte';
+export { default as WorkspaceHeader } from './patterns/WorkspaceHeader.svelte';
 export { default as WorkspaceShell } from './patterns/WorkspaceShell.svelte';
 export { default as ActivityGraph } from './sections/ActivityGraph.svelte';
 export { default as AgentStatus } from './sections/AgentStatus.svelte';

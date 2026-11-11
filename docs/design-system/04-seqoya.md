@@ -5,7 +5,7 @@ role: derived
 
 ## First native layout
 
-The Seqoya Lab window uses WorkspaceShell. Its header contains the Seqoya mark, window title and shared Root dropdown. The dropdown opens or raises Seqoya Lab for the chosen Root. The originating window keeps its Root, and the tray controls the current Root for global shortcuts and CLI commands.
+Seqoya Lab uses the same compact WorkspaceHeader as Elma Chat. It passes the Seqoya workspace identity and title to the component, which renders the mark, Root dropdown and navigation control. The dropdown opens or raises Seqoya Lab for the chosen Root. The originating window keeps its Root, and the tray controls the current Root for global shortcuts and CLI commands.
 
 The left navigation opens Intelligence Providers, Subscriptions and Usage. Intelligence Providers is the initial page. Each destination uses a page heading and a placeholder that says what will appear there. The **Pages / Seqoya / Dashboard / Lab Layout** story shows the layout with fictional Roots.
 
