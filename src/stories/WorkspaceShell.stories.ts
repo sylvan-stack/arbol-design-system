@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Elma Chat and Seqoya Lab share this Trunk dropdown. The native Tray Menu story demonstrates a tray default and independent selections in both windows. AppKit handles window movement.',
+          'Elma Chat and Seqoya Lab share this header, including the Trunk, text size, theme and navigation controls. The native Tray Menu story shows both windows. AppKit handles window movement.',
       },
     },
   },
@@ -21,6 +21,7 @@ export const Default: Story = {
   args: {
     workspace: 'Seqoya',
     headerTitle: 'Seqoya Lab',
+    headerAppearance: 'enabled',
     trunk: 'trivial',
   },
   render: (args) => {

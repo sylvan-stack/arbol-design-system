@@ -5,6 +5,7 @@ const meta={title:'Sections/ElmaFrame',component:Component,tags:['autodocs'],arg
 export default meta;type Story=StoryObj<typeof meta>;
 export const Empty:Story={};
 export const Conversation: Story = {
+  parameters: { docs: { description: { story: 'The shared header adds the chat title and Elma’s reading width control. Text size and theme use the same controls as Seqoya Lab.' } } },
   args: {
     title: 'A fictional conversation', hasChat: true, total: 3, turn: 2, inputTokens: 9100, outputTokens: 2700,
     trunk: 'trivial',

@@ -5,7 +5,7 @@ role: derived
 
 ## First native layout
 
-Seqoya Lab uses the same compact WorkspaceHeader as Elma Chat. It passes the Seqoya workspace identity and title to the component, which renders the mark, Trunk dropdown and navigation control. The dropdown changes the Trunk for this window. New windows start with the tray’s default for their Root.
+Seqoya Lab uses the same compact WorkspaceHeader as Elma Chat. It passes the Seqoya workspace identity and title to the component, which renders the mark, Trunk dropdown, theme and text size controls, and navigation control. Seqoya keeps its appearance for its own Root. The dropdown changes the Trunk for this window. New windows start with the tray’s default for their Root.
 
 The left navigation opens Intelligence Providers, Subscriptions and Usage. Intelligence Providers is the initial page. Each destination uses a page heading and a placeholder that says what will appear there. The **Pages / Seqoya / Dashboard / Lab Layout** story shows the layout with fictional Roots.
 

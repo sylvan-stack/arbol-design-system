@@ -27,7 +27,7 @@ arbol:renderer/apps/seqoya/src/pages/settingsCrud.css
 
 ## Shared workspace header
 
-`WorkspaceShell` composes `WorkspaceHeader`, the viewport and the status area. Elma Chat and Seqoya Lab use the same compact header layout, title typography, workspace glyph, Trunk selector, navigation control and traffic-light clearance. Supply the UI identity with `workspace` and `headerTitle`. Add surface actions with `headerExtras` and title details or editing with `headerTitleDetail` and `headerTitleEditor`.
+`WorkspaceShell` composes `WorkspaceHeader`, the viewport and the status area. Elma Chat and Seqoya Lab use the same compact header layout, title typography, workspace glyph, Trunk selector, navigation control and traffic-light clearance. Supply the UI identity with `workspace` and `headerTitle`. Enable the shared theme and text size controls with `headerAppearance`. The shell applies the chosen theme and UI text size to the entire window. Use `headerExtras` for a surface-specific control such as Elma’s reading width; it sits before the common Trunk, appearance and navigation controls. Supply title details or editing with `headerTitleDetail` and `headerTitleEditor`.
 
 When the host supplies a `trunkSelector`, the selected Trunk opens an anchored dropdown of compatible Trunk code names. The list marks the window’s choice and shows loading, empty and refusal states. Use Tab to reach the choices and Escape to return to the trigger. Selecting a Trunk applies to new Exchanges in that window.
 
