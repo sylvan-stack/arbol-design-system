@@ -16,6 +16,12 @@ arbol:app/Arbol/ArbolApp.swift
 arbol:app/Arbol/UISwitcherHotkeys.swift
 -->
 
+## Arbol menu bar
+
+The first Swift App slice shows the Arbol oak as an 18-point monochrome template in the macOS menu bar. The icon is labelled Arbol for assistive technology. It opens a native menu with a single item, **Quit**, which ends the App. The tray is the only surface shown at launch.
+
+The **Native adapters / Tray Menu** story uses the same oak image and opens a one-item preview. Selecting **Quit** removes the icon from the preview. Root information and the default for UI opens follow BKD-3 in a later slice.
+
 ## Picker and panel inventory
 
 | Surface | Observed purpose | Proposed shared contract |

@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Browser specification of the native surface. Platform window behavior and services are outside Storybook. External UI gaps are explicitly marked.',
+          'The first Arbol menu-bar state. Open the oak icon to see Quit. Quit removes the icon from the preview.',
       },
     },
   },

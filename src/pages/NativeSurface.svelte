@@ -8,9 +8,21 @@
   import Button from '../components/Button.svelte';
   import Badge from '../components/Badge.svelte';
   import DocumentView from '../patterns/DocumentView.svelte';
+  const arbolMenuBarIcon = new URL('../assets/arbol-menu-bar.png', import.meta.url).href;
   let { surface = 'Go to Page' }: { surface?: string } = $props();
   let feedback = $state('');
   let url = $state('');
+  let trayOpen = $state(false);
+  let trayRunning = $state(true);
+  let trayButton = $state<HTMLElement>();
+
+  function closeTrayOnEscape(event: KeyboardEvent) {
+    if (event.key === 'Escape' && trayOpen) {
+      event.preventDefault();
+      trayOpen = false;
+      trayButton?.focus();
+    }
+  }
   let notices = $state([
     'Design review complete',
     'Permission needed: read files',
@@ -18,6 +30,24 @@
   ]);
 </script>
 
+{#if surface === 'Tray Menu'}
+  <div class="native stack">
+    <p class="small muted">Browser preview of the Arbol menu bar</p>
+    <div class="menu-bar">
+      {#if trayRunning}
+        <details class="tray" bind:open={trayOpen}>
+          <summary aria-label="Arbol" title="Arbol" bind:this={trayButton} onkeydown={closeTrayOnEscape}>
+            <span class="tray-icon" style:--tray-icon={`url("${arbolMenuBarIcon}")`} aria-hidden="true"></span>
+          </summary>
+          <div class="tray-menu">
+            <button class="tray-command" onkeydown={closeTrayOnEscape} onclick={() => (trayRunning = false)}>Quit</button>
+          </div>
+        </details>
+      {/if}
+    </div>
+    <p class="small muted" role="status">{trayRunning ? '' : 'Arbol quit in this preview.'}</p>
+  </div>
+{:else}
 <div class="native stack">
   <p class="eyebrow">Native adapter specification · Browser equivalent</p>
   <div class="window">
@@ -53,13 +83,6 @@
         />
       {:else if surface === 'Latest Chat Sessions'}<CommandPalette title="Latest chats" searchable={false} rows={Array.from({length:12},(_,i)=>({id:String(i),label:'Fictional chat '+(i+1),detail:'sample · claude/fictional/model-a · completed · '+(i+1)+(i?' minutes ago':' minute ago')}))} onselect={id=>feedback='Selected fictional chat '+(Number(id)+1)+'; native window activation is outside this browser fixture.'}/>
       {:else if surface === 'Permission Panel'}<PermissionRequest />
-      {:else if surface === 'Tray Menu'}<Badge
-          label="Core connected"
-          tone="success"
-        />{#each ['Go to page…', 'New chat', 'Show notifications', 'Build status', 'Restart services', 'Rebuild application', 'Open diagnostics', 'Quit Arbol'] as command}<button
-            class="tray-command"
-            onclick={() => (feedback = command + ' · Preview only')}>{command}</button
-          >{/each}
       {:else if surface === 'Notification Feed'}<div class="row spread">
           <h2>Notifications</h2>
           <Button label="Clear feed" onclick={() => (notices = [])} />
@@ -110,6 +133,7 @@ repository: sample-repo</pre>
     synchronization need a platform adapter.
   </p>
 </div>
+{/if}
 
 <style>
   .native {
@@ -140,7 +164,49 @@ repository: sample-repo</pre>
   .content {
     padding: 24px;
   }
+  .menu-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 28px;
+    border: 1px solid var(--border);
+    background: var(--inset);
+    color: var(--text);
+  }
+  .tray {
+    position: relative;
+  }
+  .tray summary {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 26px;
+    list-style: none;
+    cursor: pointer;
+  }
+  .tray[open] summary {
+    background: var(--selected);
+  }
+  .tray-icon {
+    display: block;
+    width: 18px;
+    height: 18px;
+    mask: var(--tray-icon) center / contain no-repeat;
+    background-color: currentColor;
+  }
+  .tray-menu {
+    position: absolute;
+    z-index: 1;
+    inset-inline-end: 0;
+    min-width: 110px;
+    padding: 4px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--panel);
+    box-shadow: var(--shadow);
+  }
   .tray-command {
+    width: 100%;
     text-align: left;
     padding: 8px 12px;
     border: 0;
