@@ -13,9 +13,11 @@
   let {
     surface = 'Go to Page',
     trayCatalogueState = 'available',
+    trayNewBuild = '',
   }: {
     surface?: string;
     trayCatalogueState?: TrayCatalogueState;
+    trayNewBuild?: string;
   } = $props();
   let feedback = $state('');
   let url = $state('');
@@ -25,7 +27,9 @@
   let rootsOpen = $state(false);
   let rootsButton = $state<HTMLElement>();
   let selectedRoot = $state<string>();
-  let rootFeedback = $state('');
+  let trayFeedback = $state('');
+  let startedBuild = $state('');
+  const updateBuild = $derived(trayNewBuild !== startedBuild ? trayNewBuild : '');
   const fixtureRoots = [
     { name: 'Canopy', current: true },
     { name: 'Grove' },
@@ -53,11 +57,19 @@
 
   function chooseRoot(name?: string) {
     selectedRoot = name;
-    rootFeedback = name ? `Default Root for UIs: ${name}` : 'Default for UIs follows the current Root.';
+    trayFeedback = name ? `Default Root for UIs: ${name}` : 'Default for UIs follows the current Root.';
     rootsOpen = false;
     trayOpen = false;
     trayButton?.focus();
   }
+  function startNewVersion(build: string) {
+    startedBuild = build;
+    trayFeedback = `Started Build ${build} in this preview.`;
+    rootsOpen = false;
+    trayOpen = false;
+    trayButton?.focus();
+  }
+
   let notices = $state([
     'Design review complete',
     'Permission needed: read files',
@@ -75,6 +87,11 @@
             <span class="tray-icon" style:--tray-icon={`url("${arbolMenuBarIcon}")`} aria-hidden="true"></span>
           </summary>
           <div class="tray-menu">
+            {#if updateBuild}
+              <button class="tray-command tray-update" onkeydown={closeTrayOnEscape} onclick={() => startNewVersion(updateBuild)}>
+                Start new version <span class="small muted">Build {updateBuild}</span>
+              </button>
+            {/if}
             <details class="tray-roots" bind:open={rootsOpen}>
               <summary class="tray-command" bind:this={rootsButton} onkeydown={closeTrayOnEscape}>
                 Roots <span aria-hidden="true">›</span>
@@ -108,7 +125,7 @@
         </details>
       {/if}
     </div>
-    <p class="small muted" role="status">{trayRunning ? rootFeedback : 'Arbol quit in this preview.'}</p>
+    <p class="small muted" role="status">{trayRunning ? trayFeedback : 'Arbol quit in this preview.'}</p>
   </div>
 {:else}
 <div class="native stack">
@@ -304,6 +321,12 @@ repository: sample-repo</pre>
     border-radius: 5px;
     background: transparent;
     color: var(--text);
+  }
+  .tray-update {
+    white-space: nowrap;
+  }
+  .tray-update span {
+    margin-inline-start: 8px;
   }
   .tray-command:hover:not(:disabled) {
     background: var(--selected);

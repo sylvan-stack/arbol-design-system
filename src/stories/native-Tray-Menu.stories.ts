@@ -4,15 +4,16 @@ const meta = {
   title: 'Native adapters/Tray Menu',
   component: Component,
   tags: ['autodocs'],
-  args: { surface: 'Tray Menu', trayCatalogueState: 'available' },
+  args: { surface: 'Tray Menu', trayCatalogueState: 'available', trayNewBuild: '10' },
   argTypes: {
+    trayNewBuild: { control: 'text' },
     trayCatalogueState: { control: 'select', options: ['available', 'loading', 'empty', 'unavailable'] },
   },
   parameters: {
     docs: {
       description: {
         component:
-          'Open the oak icon, then Roots to choose a fictional default Root for UIs. The Current label and default checkmark are independent. Quit removes the icon from the preview.',
+          'Start new version sits above Roots when a newer working Build is available. The preview uses a fictional Build and Roots. Clear the Build control to see the tray with no update.',
       },
     },
   },
