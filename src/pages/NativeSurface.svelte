@@ -15,7 +15,6 @@
     trayCatalogueState = 'available',
     trayCurrentRoot,
     trayRunningBuild = '0',
-    trayPackageVersion = '',
     trayNewBuild = '',
     trayBuiltAt = '',
   }: {
@@ -23,7 +22,6 @@
     trayCatalogueState?: TrayCatalogueState;
     trayCurrentRoot?: string;
     trayRunningBuild?: string;
-    trayPackageVersion?: string;
     trayNewBuild?: string;
     trayBuiltAt?: string;
   } = $props();
@@ -61,7 +59,7 @@
     empty: 'None',
     unavailable: 'Unavailable',
   }[trayCatalogueState]);
-  const appBuiltInfo = $derived(startedBuild ? '11 Nov 2026, 14:40:00' : trayBuiltAt || 'Unavailable');
+  const appBuiltInfo = $derived(startedBuild ? '11 Nov 2026, 14:40:00' : trayBuiltAt || 'Build time unavailable');
 
   function closeTrayOnEscape(event: KeyboardEvent) {
     if (event.key !== 'Escape' || !trayOpen) return;
@@ -115,8 +113,8 @@
           <div class="tray-menu">
             <div class="tray-info small">
               <div>Current Root: {currentRootInfo}</div>
-              <div>Running Build {runningBuild}{trayPackageVersion ? ` · v${trayPackageVersion}` : ''}</div>
-              <div>App built: {appBuiltInfo}</div>
+              <div>Running Build {runningBuild}</div>
+              <div>{appBuiltInfo}</div>
             </div>
             {#if updateBuild}
               <button class="tray-command tray-update" onkeydown={closeTrayOnEscape} onclick={() => startNewVersion(updateBuild)}>
