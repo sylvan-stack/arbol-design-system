@@ -25,6 +25,12 @@ arbol:renderer/packages/design-system/src/overlay/Modal.svelte
 arbol:renderer/apps/seqoya/src/pages/settingsCrud.css
 -->
 
+## Shared workspace header
+
+`WorkspaceShell` composes the window header, viewport and status area. Supply the UI identity and title through `headerLead` and surface controls through `headerExtras`. The shared header places the window’s Root and its state between these slots.
+
+When a host supplies a `rootSelector`, the Root name opens a dialog using the shared Button and Modal. The dialog marks this window’s Root, shows loading and empty results, and gives the reason for a disabled Root. Selecting another Root requests the same UI in that Root’s window. The original window retains its own Root. A refused open stays visible for retry. The tray controls the shared current Root for CLI commands and hotkeys.
+
 ## Collection: one behavior, several presentations
 
 **Use for:** repositories, organizations, providers, recipes, Quick Text, Living Topics, tasks, stations, runs, search results and operational records. Do not turn a conversation transcript or time-positioned board into a generic CRUD table.
