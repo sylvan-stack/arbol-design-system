@@ -19,6 +19,10 @@ const meta = {
     trayNewBuild: { control: 'text' },
     trayShortcutAvailable: { control: 'boolean', description: 'Models macOS accepting or refusing the shortcut.' },
     traySeqoyaShortcutAvailable: { control: 'boolean', description: 'Models macOS accepting or refusing Control+Option+Shift+Command+S.' },
+    traySelectionProblem: {
+      control: 'text',
+      description: 'Supply a catalogue refusal to show it on the Current Root row after a selection.',
+    },
     trayCurrentRoot: {
       control: 'text',
       description: 'Initial catalogue selection. Use Orchard to show a current Root that requires a newer App Build.',
@@ -30,7 +34,7 @@ const meta = {
     },
     trayGroveBackendAvailable: {
       control: 'boolean',
-      description: 'Disable to show a Root without a runnable backend in the tray and the Root dropdown.',
+      description: 'Disable to show a Root without a runnable backend in the window header dropdown.',
     },
     trayCatalogueState: { control: 'select', options: ['available', 'loading', 'empty', 'unavailable'] },
   },
@@ -38,7 +42,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Press Option+E with the preview focused to open or raise Elma Chat for the current Root. Press Control+Option+Shift+Command+S to open Seqoya Lab. Roots offers an explicit open for a named Root in either UI. The header shows the current Root and running Build number. Start new version names the prepared Build and updates the header after the preview handoff. Close returns to the resident tray. In the App, drag the passive shared header to move its window. The Root dropdown and preferences keep their click actions.',
+          'Press Option+E with the preview focused to open or raise Elma Chat for the current Root. Press Control+Option+Shift+Command+S to open Seqoya Lab. Roots lists available Roots and marks the current one. Use either window header to open that UI for another Root. The header shows the current Root and running Build number. Start new version names the prepared Build and updates the header after the preview handoff. Close returns to the resident tray. In the App, drag the passive shared header to move its window. The Root dropdown and preferences keep their click actions.',
       },
     },
   },

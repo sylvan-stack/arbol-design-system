@@ -24,9 +24,9 @@ The tray opens with two read-only rows above its actions. **Current Root** shows
 
 When the Build registry offers a newer runnable working App Build, the oak shows a small exclamation badge at its upper right. The tooltip and accessibility label give the Build number. The badge updates with the tray closed. **Start new version** is the first action below the information and shows the same Build number. It starts that prepared Build. The current App keeps the tray until the replacement is ready to take it. A failed handoff leaves the current App available and shows the failure in the tray.
 
-**Roots** opens a submenu of retained Roots in catalogue order. A checkmark marks the same current Root as the header. Selecting a compatible working Root sets the shared current Root for new App opens, global shortcuts and CLI commands without an explicit Root. **Use newest working Root** clears the selection and restores automatic selection. Preparing, failed and App-incompatible Roots show their state or reason and are unavailable for selection. If the catalogue refuses a change, show its reason in the submenu. Reopening the tray refreshes the catalogue.
+**Roots** lists only compatible working Roots by display name in catalogue order. A checkmark marks the current Root. Selecting a name sets the shared current Root for new App opens, global shortcuts and CLI commands without an explicit Root. When the catalogue is loading, unavailable or has no eligible Roots, disable the submenu. Catalogue and selection refusals appear on the **Current Root** row. Reopening the tray refreshes the catalogue. The CLI command `arbol-roots use --auto` restores automatic selection.
 
-Global **Option+E (⌥E)** opens or raises Elma Chat and **Control+Option+Shift+Command+S (⌃⌥⇧⌘S)** opens or raises Seqoya Lab for the current Root. Arbol refreshes the catalogue before opening and shows the cause in the tray when an open fails. When macOS refuses a shortcut, the tray identifies the unavailable binding. **Roots → Open Elma Chat for Root** and **Roots → Open Seqoya Lab for Root** open a named Root without changing the current Root. A preparing or failed Root can open when it has a runnable backend. A Root that needs a newer App Build or has no runnable backend shows the cause and has a disabled open action.
+Global **Option+E (⌥E)** opens or raises Elma Chat and **Control+Option+Shift+Command+S (⌃⌥⇧⌘S)** opens or raises Seqoya Lab for the current Root. Arbol refreshes the catalogue before opening and shows the cause in the tray when an open fails. When macOS refuses a shortcut, the tray identifies the unavailable binding. The window header opens or raises the same UI for another Root and shows reasons a target is unavailable.
 
 ### Root-bound windows
 
@@ -34,7 +34,7 @@ An explicit open raises the existing window for that UI and Root or creates one.
 
 Use a native status surface while the backend or renderer is loading. Show the cause and **Retry** if the renderer cannot load. When an updated renderer fails verification, keep the existing page usable while showing the failure. Preserve the renderer's recovery state on departure. Closing the final window leaves the tray available.
 
-The **Native adapters / Tray Menu** story uses the same oak, the maintained Elma frame and Seqoya Lab layout with fictional Roots. The browser preview handles both shortcuts while focused. Its controls show a Root without a runnable backend in the Roots submenu and, separately, a failure to verify the shared App renderer with Retry. The preview represents each Root window separately and keeps the tray available after closing it.
+The **Native adapters / Tray Menu** story uses the same oak, the maintained Elma frame and Seqoya Lab layout with fictional Roots. The browser preview handles both shortcuts while focused. Its controls show catalogue and selection refusals on the Current Root row, a Root without a runnable backend in the window header dropdown, and a renderer verification failure with Retry. The preview represents each Root window separately and keeps the tray available after closing it.
 
 ## Picker and panel inventory
 

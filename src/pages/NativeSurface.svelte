@@ -16,13 +16,13 @@
   type TrayCatalogueState = 'available' | 'loading' | 'empty' | 'unavailable';
   type TrayRendererState = 'available' | 'load-failed';
   type FixtureRoot = { name: string; status?: string; appProblem?: string };
-  const previewSurfaces = ['Elma Chat', 'Seqoya Lab'] as const;
-  type PreviewSurface = (typeof previewSurfaces)[number];
+  type PreviewSurface = 'Elma Chat' | 'Seqoya Lab';
   type PreviewWindow = { id: string; surface: PreviewSurface; root: FixtureRoot; failed: boolean };
   let {
     surface = 'Go to Page',
     trayCatalogueState = 'available',
     trayCurrentRoot,
+    traySelectionProblem = '',
     trayRunningBuild = '0',
     trayNewBuild = '',
     trayRendererState = 'available',
@@ -33,6 +33,7 @@
     surface?: string;
     trayCatalogueState?: TrayCatalogueState;
     trayCurrentRoot?: string;
+    traySelectionProblem?: string;
     trayRunningBuild?: string;
     trayNewBuild?: string;
     trayRendererState?: TrayRendererState;
@@ -47,12 +48,11 @@
   let trayButton = $state<HTMLElement>();
   let rootsOpen = $state(false);
   let rootsButton = $state<HTMLElement>();
-  let surfaceMenus = $state<Record<PreviewSurface, boolean>>({ 'Elma Chat': false, 'Seqoya Lab': false });
-  const surfaceButtons: Partial<Record<PreviewSurface, HTMLElement>> = {};
   let previewWindows = $state<PreviewWindow[]>([]);
   let previewRefusedGrove = false;
   const previewFrames: Record<string, HTMLElement> = {};
-  let rootChoice = $state<string | null>();
+  let rootChoice = $state<string>();
+  let selectionProblem = $state('');
   let trayFeedback = $state('');
   let startedBuild = $state('');
   const runningBuild = $derived(startedBuild || trayRunningBuild);
@@ -69,7 +69,8 @@
     empty: 'No Roots available',
     unavailable: 'Could not read Roots',
   };
-  const selectedRoot = $derived(rootChoice === undefined ? trayCurrentRoot : rootChoice);
+  const selectableRoots = fixtureRoots.filter((root) => !root.status && !root.appProblem);
+  const selectedRoot = $derived(rootChoice ?? trayCurrentRoot);
   const currentRoot = $derived(
     fixtureRoots.find((root) => root.name === selectedRoot && !root.status) ?? fixtureRoots[0],
   );
@@ -77,17 +78,13 @@
     available: currentRoot.appProblem ? `${currentRoot.name} — ${currentRoot.appProblem}` : currentRoot.name,
     loading: 'Loading…',
     empty: 'None',
-    unavailable: 'Unavailable',
+    unavailable: `Unavailable — ${catalogueMessages.unavailable}`,
   }[trayCatalogueState]);
 
   function closeTrayOnEscape(event: KeyboardEvent) {
     if (event.key !== 'Escape' || !trayOpen) return;
     event.preventDefault();
-    const openSurface = previewSurfaces.find((name) => surfaceMenus[name] && surfaceButtons[name]?.parentElement?.contains(event.target as Node));
-    if (openSurface) {
-      surfaceMenus[openSurface] = false;
-      surfaceButtons[openSurface]?.focus();
-    } else if (rootsOpen) {
+    if (rootsOpen) {
       rootsOpen = false;
       rootsButton?.focus();
     } else {
@@ -96,10 +93,10 @@
     }
   }
 
-  function chooseRoot(name?: string) {
-    rootChoice = name ?? null;
-    trayFeedback = name ? `Current Root: ${name}` : 'Current Root follows the newest working Root.';
-    surfaceMenus = { 'Elma Chat': false, 'Seqoya Lab': false };
+  function chooseRoot(name: string) {
+    selectionProblem = traySelectionProblem;
+    if (!selectionProblem) rootChoice = name;
+    trayFeedback = '';
     rootsOpen = false;
     trayOpen = false;
     trayButton?.focus();
@@ -108,7 +105,6 @@
     startedBuild = build;
     previewWindows = [];
     trayFeedback = `Started Build ${build} in this preview.`;
-    surfaceMenus = { 'Elma Chat': false, 'Seqoya Lab': false };
     rootsOpen = false;
     trayOpen = false;
     trayButton?.focus();
@@ -148,7 +144,6 @@
     const window = previewWindows.find((entry) => entry.id === id)
       ?? { id, surface, root, failed: trayRendererState === 'load-failed' };
     previewWindows = [window, ...previewWindows.filter((entry) => entry.id !== id)];
-    surfaceMenus = { 'Elma Chat': false, 'Seqoya Lab': false };
     rootsOpen = false;
     trayOpen = false;
     trayFeedback = '';
@@ -229,7 +224,7 @@
           </summary>
           <div class="tray-menu">
             <div class="tray-info small">
-              <div>Current Root: {currentRootInfo}</div>
+              <div>Current Root: {currentRootInfo}{trayCatalogueState === 'available' && selectionProblem ? ` — ${selectionProblem}` : ''}</div>
               <div>Running Build {runningBuild}</div>
             </div>
             {#if updateBuild}
@@ -243,56 +238,28 @@
             {#if !traySeqoyaShortcutAvailable}
               <p class="catalogue-message">⌃⌥⇧⌘S unavailable for Seqoya Lab</p>
             {/if}
-            <details class="tray-roots" bind:open={rootsOpen}>
-              <summary class="tray-command" bind:this={rootsButton} onkeydown={closeTrayOnEscape}>
-                Roots <span aria-hidden="true">›</span>
-              </summary>
-              <div class="tray-menu roots-menu">
-                {#if trayCatalogueState === 'available'}
-                  {#each fixtureRoots as root (root.name)}
+            {#if trayCatalogueState === 'available' && selectableRoots.length > 0}
+              <details class="tray-roots" bind:open={rootsOpen}>
+                <summary class="tray-command" bind:this={rootsButton} onkeydown={closeTrayOnEscape}>
+                  Roots <span aria-hidden="true">›</span>
+                </summary>
+                <div class="tray-menu roots-menu">
+                  {#each selectableRoots as root (root.name)}
                     <button
                       class="tray-command"
                       aria-pressed={currentRoot.name === root.name}
-                      disabled={Boolean(root.status || root.appProblem)}
                       onkeydown={closeTrayOnEscape}
                       onclick={() => chooseRoot(root.name)}
                     >
                       <span class="root-check" aria-hidden="true">{currentRoot.name === root.name ? '✓' : ''}</span>
-                      {root.name}{root.status ? ` — ${root.status}` : ''}{root.appProblem ? ` — ${root.appProblem}` : ''}
+                      {root.name}
                     </button>
                   {/each}
-                {:else}
-                  <p class="catalogue-message">{catalogueMessages[trayCatalogueState]}</p>
-                {/if}
-                {#if trayCatalogueState === 'available' || trayCatalogueState === 'empty'}
-                  <button class="tray-command" onkeydown={closeTrayOnEscape} onclick={() => chooseRoot()}>
-                    Use newest working Root
-                  </button>
-                {/if}
-                {#if trayCatalogueState === 'available'}
-                  {#each previewSurfaces as name (name)}
-                    <details class="tray-roots" bind:open={surfaceMenus[name]}>
-                      <summary class="tray-command" bind:this={surfaceButtons[name]} onkeydown={closeTrayOnEscape}>
-                        Open {name} for Root <span aria-hidden="true">›</span>
-                      </summary>
-                      <div class="tray-menu roots-menu surface-roots-menu">
-                        {#each fixtureRoots as root (root.name)}
-                          <button
-                            class="tray-command"
-                            disabled={!canOpen(root)}
-                            onkeydown={closeTrayOnEscape}
-                            onclick={() => openSurface(name, root)}
-                          >
-                            {root.name}{root.status ? ` — ${root.status}` : ''}{root.appProblem ? ` — ${root.appProblem}` : ''}
-                            {missingBackend(root) ? ' — ' + backendUnavailable : ''}
-                          </button>
-                        {/each}
-                      </div>
-                    </details>
-                  {/each}
-                {/if}
-              </div>
-            </details>
+                </div>
+              </details>
+            {:else}
+              <button class="tray-command" disabled>Roots</button>
+            {/if}
             <button class="tray-command" onkeydown={closeTrayOnEscape} onclick={quitTray}>Quit</button>
           </div>
         </details>
@@ -594,14 +561,6 @@ repository: sample-repo</pre>
   }
   .tray-command:disabled {
     color: var(--muted);
-  }
-  @media (max-width: 700px) {
-    .surface-roots-menu {
-      position: static;
-      width: auto;
-      margin-block: 4px;
-      box-shadow: none;
-    }
   }
   @media (max-width: 520px) {
     .roots-menu {
