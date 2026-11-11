@@ -1,6 +1,7 @@
 <script lang="ts">
   import { tick } from 'svelte';
   import ElmaFrame from '../sections/ElmaFrame.svelte';
+  import type { WorkspaceRootSelector } from '../types';
   import CommandPalette from '../patterns/CommandPalette.svelte';
   import EntityPicker from '../patterns/EntityPicker.svelte';
   import RelationshipEditor from '../patterns/RelationshipEditor.svelte';
@@ -148,12 +149,31 @@
   }
 
   function rendererRoot(root: FixtureRoot) {
-    if (root.status === 'Preparing') return { name: root.name, status: 'preparing' };
+    const identity = { root: root.name, name: root.name };
+    if (root.status === 'Preparing') return { ...identity, status: 'preparing' };
     if (root.status?.startsWith('Failed: ')) {
-      return { name: root.name, status: 'failed', failed: { reason: root.status.slice('Failed: '.length) } };
+      return { ...identity, status: 'failed', failed: { reason: root.status.slice('Failed: '.length) } };
     }
-    return { name: root.name, status: 'working' };
+    return { ...identity, status: 'working' };
   }
+
+  const previewRootSelector: WorkspaceRootSelector = {
+    load: async () => {
+      if (trayCatalogueState === 'empty') return [];
+      if (trayCatalogueState !== 'available') throw new Error(catalogueMessages[trayCatalogueState]);
+      return fixtureRoots.map((root) => ({
+        root: root.name,
+        name: root.name,
+        status: root.status === 'Preparing' ? 'preparing' : root.status ? 'failed' : 'working',
+        unavailable: root.appProblem ?? (missingElma(root) ? 'Elma Chat has no available Build.' : undefined),
+      }));
+    },
+    open: async (id) => {
+      const root = fixtureRoots.find((entry) => entry.name === id);
+      if (!root || !canOpenElma(root)) throw new Error('Could not open Elma Chat for that Root.');
+      await openElma(root);
+    },
+  };
 
   function quitTray() {
     elmaWindows = [];
@@ -272,7 +292,7 @@
               <button class="window-action" onclick={() => (window.failed = false)}>Retry</button>
             </div>
           {:else}
-            <ElmaFrame root={rendererRoot(window.root)} />
+            <ElmaFrame root={rendererRoot(window.root)} rootSelector={previewRootSelector} />
           {/if}
         </div>
       </section>
