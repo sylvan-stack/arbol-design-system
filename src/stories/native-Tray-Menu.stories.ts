@@ -13,9 +13,9 @@ const meta = {
   argTypes: {
     trayBuiltAt: { control: 'text' },
     trayNewBuild: { control: 'text' },
-    traySavedRoot: {
+    trayCurrentRoot: {
       control: 'text',
-      description: 'Initial saved Root. Use Orchard for an incompatible Root or a name outside the preview catalogue for a missing Root.',
+      description: 'Initial catalogue selection. Use Orchard to show a current Root that requires a newer App Build.',
     },
     trayCatalogueState: { control: 'select', options: ['available', 'loading', 'empty', 'unavailable'] },
   },
@@ -23,7 +23,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'The tray shows the catalogue’s current Root, the default for UIs, and the running App’s build time. Select a Root or choose Use current Root to update the default row. Start new version is the first action when a newer Build is available.',
+          'Choose a working Root to make it current for the App and CLI. Use newest working Root returns to automatic selection. The header and checkmark show the same Root. Start new version is the first action when a newer Build is available.',
       },
     },
   },

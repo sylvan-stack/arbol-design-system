@@ -13,13 +13,13 @@
   let {
     surface = 'Go to Page',
     trayCatalogueState = 'available',
-    traySavedRoot,
+    trayCurrentRoot,
     trayNewBuild = '',
     trayBuiltAt = '',
   }: {
     surface?: string;
     trayCatalogueState?: TrayCatalogueState;
-    traySavedRoot?: string;
+    trayCurrentRoot?: string;
     trayNewBuild?: string;
     trayBuiltAt?: string;
   } = $props();
@@ -35,31 +35,27 @@
   let startedBuild = $state('');
   const updateBuild = $derived(trayNewBuild !== startedBuild ? trayNewBuild : '');
   const fixtureRoots = [
-    { name: 'Canopy', current: true },
+    { name: 'Canopy' },
     { name: 'Grove' },
     { name: 'Nursery', status: 'Preparing' },
-    { name: 'Orchard', status: 'Requires App Build 2', unavailable: true },
+    { name: 'Orchard', appProblem: 'Requires App Build 2' },
+    { name: 'Meadow', status: 'Failed: could not open database' },
   ];
   const catalogueMessages = {
     loading: 'Loading Roots…',
     empty: 'No Roots available',
     unavailable: 'Could not read Roots',
   };
-  const currentRoot = fixtureRoots.find((root) => root.current)?.name;
-  const savedRoot = $derived(rootChoice === undefined ? traySavedRoot || undefined : rootChoice ?? undefined);
-  const defaultRoot = $derived(savedRoot ?? currentRoot);
+  const selectedRoot = $derived(rootChoice === undefined ? trayCurrentRoot : rootChoice);
+  const currentRoot = $derived(
+    fixtureRoots.find((root) => root.name === selectedRoot && !root.status) ?? fixtureRoots[0],
+  );
   const currentRootInfo = $derived({
-    available: currentRoot ?? 'None',
+    available: currentRoot.appProblem ? `${currentRoot.name} — ${currentRoot.appProblem}` : currentRoot.name,
     loading: 'Loading…',
     empty: 'None',
     unavailable: 'Unavailable',
   }[trayCatalogueState]);
-  const defaultRootInfo = $derived.by(() => {
-    if (trayCatalogueState === 'loading' || trayCatalogueState === 'unavailable') return currentRootInfo;
-    const root = trayCatalogueState === 'available' ? fixtureRoots.find(({ name }) => name === defaultRoot) : undefined;
-    if (root?.unavailable) return `${root.name} — ${root.status}`;
-    return root?.name ?? (savedRoot ? `${savedRoot} — Unavailable` : 'None');
-  });
   const appBuiltInfo = $derived(startedBuild ? '11 Nov 2026, 14:40:00' : trayBuiltAt || 'Unavailable');
 
   function closeTrayOnEscape(event: KeyboardEvent) {
@@ -76,7 +72,7 @@
 
   function chooseRoot(name?: string) {
     rootChoice = name ?? null;
-    trayFeedback = name ? `Default Root for UIs: ${name}` : 'Default for UIs follows the current Root.';
+    trayFeedback = name ? `Current Root: ${name}` : 'Current Root follows the newest working Root.';
     rootsOpen = false;
     trayOpen = false;
     trayButton?.focus();
@@ -114,7 +110,6 @@
           <div class="tray-menu">
             <div class="tray-info small">
               <div>Current Root: {currentRootInfo}</div>
-              <div>Default for UIs: {defaultRootInfo}</div>
               <div>App built: {appBuiltInfo}</div>
             </div>
             {#if updateBuild}
@@ -131,21 +126,21 @@
                   {#each fixtureRoots as root (root.name)}
                     <button
                       class="tray-command"
-                      aria-pressed={defaultRoot === root.name}
-                      disabled={root.unavailable}
+                      aria-pressed={currentRoot.name === root.name}
+                      disabled={Boolean(root.status || root.appProblem)}
                       onkeydown={closeTrayOnEscape}
                       onclick={() => chooseRoot(root.name)}
                     >
-                      <span class="root-check" aria-hidden="true">{defaultRoot === root.name ? '✓' : ''}</span>
-                      {root.name}{root.current ? ' — Current' : ''}{root.status ? ` — ${root.status}` : ''}
+                      <span class="root-check" aria-hidden="true">{currentRoot.name === root.name ? '✓' : ''}</span>
+                      {root.name}{root.status ? ` — ${root.status}` : ''}{root.appProblem ? ` — ${root.appProblem}` : ''}
                     </button>
                   {/each}
                 {:else}
                   <p class="catalogue-message">{catalogueMessages[trayCatalogueState]}</p>
                 {/if}
-                {#if savedRoot}
+                {#if trayCatalogueState === 'available' || trayCatalogueState === 'empty'}
                   <button class="tray-command" onkeydown={closeTrayOnEscape} onclick={() => chooseRoot()}>
-                    Use current Root
+                    Use newest working Root
                   </button>
                 {/if}
               </div>
