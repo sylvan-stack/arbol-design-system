@@ -1,3 +1,4 @@
+import { useArgs } from 'storybook/preview-api';
 import type { Meta, StoryObj } from '@storybook/svelte-vite';
 import Component from '../patterns/WorkspaceShell.svelte';
 const meta = {
@@ -9,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'The Root name opens an anchored dropdown. Canopy is the window’s Root, Nursery shows why it is unavailable, and Grove refuses the first open so it can be retried. Elma Chat and Seqoya Lab both render WorkspaceHeader with the same title, Root selector and navigation layout. AppKit handles window movement.',
+          'Elma Chat and Seqoya Lab share this Trunk dropdown. The native Tray Menu story demonstrates a tray default and independent selections in both windows. AppKit handles window movement.',
       },
     },
   },
@@ -20,25 +21,17 @@ export const Default: Story = {
   args: {
     workspace: 'Seqoya',
     headerTitle: 'Seqoya Lab',
-    root: { root: 'canopy', name: 'Canopy', status: 'working' },
+    trunk: 'trivial',
   },
   render: (args) => {
-    let refused = false;
+    const [, updateArgs] = useArgs();
     return {
       Component,
       props: {
         ...args,
-        rootSelector: {
-          load: async () => [
-            { root: 'canopy', name: 'Canopy', status: 'working' as const },
-            { root: 'grove', name: 'Grove', status: 'working' as const },
-            { root: 'nursery', name: 'Nursery', status: 'preparing' as const, unavailable: 'No renderer is available.' },
-          ],
-          open: async () => {
-            if (refused) return;
-            refused = true;
-            throw new Error('Grove is temporarily unavailable. Try again.');
-          },
+        trunkSelector: {
+          load: async () => ['trivial', 'research'],
+          select: async (trunk: string) => updateArgs({ trunk }),
         },
       },
     };

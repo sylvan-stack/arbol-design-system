@@ -22,14 +22,7 @@ export const LabLayout: StoryObj<typeof SeqoyaLab> = {
   render: () => ({
     Component: SeqoyaLab,
     props: {
-      root: { root: 'canopy', name: 'Canopy', status: 'working' },
-      rootSelector: {
-        load: async () => [
-          { root: 'canopy', name: 'Canopy', status: 'working' },
-          { root: 'grove', name: 'Grove', status: 'working' },
-        ],
-        open: async () => {},
-      },
+      trunk: 'trivial',
     },
   }),
 };

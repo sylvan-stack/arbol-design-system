@@ -27,9 +27,9 @@ arbol:renderer/apps/seqoya/src/pages/settingsCrud.css
 
 ## Shared workspace header
 
-`WorkspaceShell` composes `WorkspaceHeader`, the viewport and the status area. Elma Chat and Seqoya Lab use the same compact header layout, title typography, workspace glyph, Root selector, navigation control and traffic-light clearance. Supply the UI identity with `workspace` and `headerTitle`. Add surface actions with `headerExtras` and title details or editing with `headerTitleDetail` and `headerTitleEditor`.
+`WorkspaceShell` composes `WorkspaceHeader`, the viewport and the status area. Elma Chat and Seqoya Lab use the same compact header layout, title typography, workspace glyph, Trunk selector, navigation control and traffic-light clearance. Supply the UI identity with `workspace` and `headerTitle`. Add surface actions with `headerExtras` and title details or editing with `headerTitleDetail` and `headerTitleEditor`.
 
-When a host supplies a `rootSelector`, the Root name and chevron open an anchored dropdown. It marks this window’s Root, shows loading and empty results, and gives the reason for a disabled Root. Use Tab to reach the choices and Escape to dismiss and return to the Root trigger. Selecting another Root requests the same UI in that Root’s window. The original window retains its own Root. A refused open stays visible for retry. The tray controls the shared current Root for CLI commands and hotkeys.
+When the host supplies a `trunkSelector`, the selected Trunk opens an anchored dropdown of compatible Trunk code names. The list marks the window’s choice and shows loading, empty and refusal states. Use Tab to reach the choices and Escape to return to the trigger. Selecting a Trunk applies to new Exchanges in that window.
 
 The shared header marks itself with `data-arbol-window-header`. A compatible AppKit host applies `data-arbol-native-controls` to activate the 96-point leading inset. The native preview fills that space with a browser Close action through `headerWindowControls`. The header’s `data-arbol-window-drag` marker lets the native host move the window from passive header content. Buttons, links, inputs and popup content keep their own interactions. Mark a custom interactive region with `data-arbol-no-drag` to exclude it.
 

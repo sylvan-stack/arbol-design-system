@@ -10,7 +10,7 @@ const meta = {
     trayRunningBuild: '3',
     trayNewBuild: '4',
     trayRendererState: 'available',
-    trayGroveBackendAvailable: true,
+    trayBackendAvailable: true,
     trayShortcutAvailable: true,
     traySeqoyaShortcutAvailable: true,
   },
@@ -21,20 +21,20 @@ const meta = {
     traySeqoyaShortcutAvailable: { control: 'boolean', description: 'Models macOS accepting or refusing Option+Q.' },
     traySelectionProblem: {
       control: 'text',
-      description: 'Supply a catalogue refusal to show it on the Current Root row after a selection.',
+      description: 'Supply a catalogue refusal to show it on the Current Trunk row after a selection.',
     },
-    trayCurrentRoot: {
+    trayCurrentTrunk: {
       control: 'text',
-      description: 'Initial catalogue selection. Use Orchard to show a current Root that requires a newer App Build.',
+      description: 'Initial default Trunk. Use an unknown code to show an unavailable default.',
     },
     trayRendererState: {
       control: 'select',
       options: ['available', 'load-failed'],
       description: 'Models a verification failure of the App’s shared renderer. The window offers Retry.',
     },
-    trayGroveBackendAvailable: {
+    trayBackendAvailable: {
       control: 'boolean',
-      description: 'Disable to show a Root without a runnable backend in the window header dropdown.',
+      description: 'Disable to show a shortcut refusal when the current Root has no runnable backend.',
     },
     trayCatalogueState: { control: 'select', options: ['available', 'loading', 'empty', 'unavailable'] },
   },
@@ -42,7 +42,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Press Option+E with the preview focused to open or raise Elma Chat for the current Root. Press Option+Q to open Seqoya Lab. Roots lists available Roots and marks the current one. Use either window header to open that UI for another Root. The header shows the current Root and running Build number. Start new version names the prepared Build and updates the header after the preview handoff. Close returns to the resident tray. In the App, drag the passive shared header to move its window. The Root dropdown and preferences keep their click actions.',
+          'Press Option+E with the preview focused to open or raise Elma Chat for the current Root. Press Option+Q to open Seqoya Lab. Trunks lists available Trunks and marks the default for new windows. Each window header changes its own Trunk. The tray shows the default Trunk and running Build number. Start new version names the prepared Build and updates the header after the preview handoff. Close returns to the resident tray. In the App, drag the passive shared header to move its window. The Trunk dropdown and preferences keep their click actions.',
       },
     },
   },

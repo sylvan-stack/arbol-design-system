@@ -2,7 +2,7 @@
   import { tick } from 'svelte';
   import ElmaFrame from '../sections/ElmaFrame.svelte';
   import SeqoyaLab from './SeqoyaLab.svelte';
-  import type { WorkspaceRootSelector } from '../types';
+  import type { WorkspaceTrunkSelector } from '../types';
   import CommandPalette from '../patterns/CommandPalette.svelte';
   import EntityPicker from '../patterns/EntityPicker.svelte';
   import RelationshipEditor from '../patterns/RelationshipEditor.svelte';
@@ -15,29 +15,28 @@
   const arbolMenuBarIcon = new URL('../assets/arbol-menu-bar.png', import.meta.url).href;
   type TrayCatalogueState = 'available' | 'loading' | 'empty' | 'unavailable';
   type TrayRendererState = 'available' | 'load-failed';
-  type FixtureRoot = { name: string; status?: string; appProblem?: string };
   type PreviewSurface = 'Elma Chat' | 'Seqoya Lab';
-  type PreviewWindow = { id: string; surface: PreviewSurface; root: FixtureRoot; failed: boolean };
+  type PreviewWindow = { id: string; surface: PreviewSurface; trunk: string; failed: boolean };
   let {
     surface = 'Go to Page',
     trayCatalogueState = 'available',
-    trayCurrentRoot,
+    trayCurrentTrunk,
     traySelectionProblem = '',
     trayRunningBuild = '0',
     trayNewBuild = '',
     trayRendererState = 'available',
-    trayGroveBackendAvailable = true,
+    trayBackendAvailable = true,
     trayShortcutAvailable = true,
     traySeqoyaShortcutAvailable = true,
   }: {
     surface?: string;
     trayCatalogueState?: TrayCatalogueState;
-    trayCurrentRoot?: string;
+    trayCurrentTrunk?: string;
     traySelectionProblem?: string;
     trayRunningBuild?: string;
     trayNewBuild?: string;
     trayRendererState?: TrayRendererState;
-    trayGroveBackendAvailable?: boolean;
+    trayBackendAvailable?: boolean;
     trayShortcutAvailable?: boolean;
     traySeqoyaShortcutAvailable?: boolean;
   } = $props();
@@ -46,58 +45,48 @@
   let trayOpen = $state(false);
   let trayRunning = $state(true);
   let trayButton = $state<HTMLElement>();
-  let rootsOpen = $state(false);
-  let rootsButton = $state<HTMLElement>();
+  let trunksOpen = $state(false);
+  let trunksButton = $state<HTMLElement>();
   let previewWindows = $state<PreviewWindow[]>([]);
-  let previewRefusedGrove = false;
+  let previewRefusedResearch = false;
   const previewFrames: Record<string, HTMLElement> = {};
-  let rootChoice = $state<string>();
+  let trunkChoice = $state<string>();
   let selectionProblem = $state('');
   let trayFeedback = $state('');
   let startedBuild = $state('');
   const runningBuild = $derived(startedBuild || trayRunningBuild);
   const updateBuild = $derived(trayNewBuild !== runningBuild ? trayNewBuild : '');
-  const fixtureRoots: FixtureRoot[] = [
-    { name: 'Canopy' },
-    { name: 'Grove' },
-    { name: 'Nursery', status: 'Preparing' },
-    { name: 'Orchard', appProblem: 'Requires App Build 5' },
-    { name: 'Meadow', status: 'Failed: could not open database' },
-  ];
+  const fixtureTrunks = ['trivial', 'research'];
   const catalogueMessages = {
-    loading: 'Loading Roots…',
-    empty: 'No Roots available',
-    unavailable: 'Could not read Roots',
+    loading: 'Loading Trunks…',
+    empty: 'No compatible Trunks',
+    unavailable: 'Could not read Trunks',
   };
-  const selectableRoots = fixtureRoots.filter((root) => !root.status && !root.appProblem);
-  const selectedRoot = $derived(rootChoice ?? trayCurrentRoot);
-  const currentRoot = $derived(
-    fixtureRoots.find((root) => root.name === selectedRoot && !root.status) ?? fixtureRoots[0],
-  );
-  const currentRootInfo = $derived({
-    available: currentRoot.appProblem ? `${currentRoot.name} — ${currentRoot.appProblem}` : currentRoot.name,
+  const currentTrunk = $derived(trunkChoice ?? trayCurrentTrunk ?? 'trivial');
+  const currentTrunkInfo = $derived({
+    available: fixtureTrunks.includes(currentTrunk) ? currentTrunk : `${currentTrunk} — Unavailable`,
     loading: 'Loading…',
-    empty: 'None',
-    unavailable: `Unavailable — ${catalogueMessages.unavailable}`,
+    empty: 'None available',
+    unavailable: catalogueMessages.unavailable,
   }[trayCatalogueState]);
 
   function closeTrayOnEscape(event: KeyboardEvent) {
     if (event.key !== 'Escape' || !trayOpen) return;
     event.preventDefault();
-    if (rootsOpen) {
-      rootsOpen = false;
-      rootsButton?.focus();
+    if (trunksOpen) {
+      trunksOpen = false;
+      trunksButton?.focus();
     } else {
       trayOpen = false;
       trayButton?.focus();
     }
   }
 
-  function chooseRoot(name: string) {
+  function chooseTrunk(name: string) {
     selectionProblem = traySelectionProblem;
-    if (!selectionProblem) rootChoice = name;
+    if (!selectionProblem) trunkChoice = name;
     trayFeedback = '';
-    rootsOpen = false;
+    trunksOpen = false;
     trayOpen = false;
     trayButton?.focus();
   }
@@ -105,19 +94,9 @@
     startedBuild = build;
     previewWindows = [];
     trayFeedback = `Started Build ${build} in this preview.`;
-    rootsOpen = false;
+    trunksOpen = false;
     trayOpen = false;
     trayButton?.focus();
-  }
-
-  const backendUnavailable = 'This Root has no runnable Arbol backend.';
-
-  function missingBackend(root: FixtureRoot) {
-    return !trayGroveBackendAvailable && root.name === 'Grove';
-  }
-
-  function canOpen(root: FixtureRoot) {
-    return trayCatalogueState === 'available' && !root.appProblem && !missingBackend(root);
   }
 
   function handleSurfaceShortcut(event: KeyboardEvent) {
@@ -127,22 +106,16 @@
     if (!target) return;
     event.preventDefault();
     if (event.repeat) return;
-    if (trayCatalogueState !== 'available') {
-      trayFeedback = catalogueMessages[trayCatalogueState];
-    } else if (canOpen(currentRoot)) {
-      void openSurface(target, currentRoot);
-    } else {
-      trayFeedback = `${currentRoot.name} — ${currentRoot.appProblem ?? backendUnavailable}`;
-    }
+    if (trayBackendAvailable) void openSurface(target);
+    else trayFeedback = 'The current Root has no runnable Arbol backend.';
   }
 
-  async function openSurface(surface: PreviewSurface, root: FixtureRoot) {
-    if (!canOpen(root)) return;
-    const id = `${surface}:${root.name}`;
+  async function openSurface(surface: PreviewSurface) {
+    const id = surface;
     const window = previewWindows.find((entry) => entry.id === id)
-      ?? { id, surface, root, failed: trayRendererState === 'load-failed' };
+      ?? { id, surface, trunk: currentTrunk, failed: trayRendererState === 'load-failed' };
     previewWindows = [window, ...previewWindows.filter((entry) => entry.id !== id)];
-    rootsOpen = false;
+    trunksOpen = false;
     trayOpen = false;
     trayFeedback = '';
     await tick();
@@ -157,34 +130,18 @@
     else trayButton?.focus();
   }
 
-  function rendererRoot(root: FixtureRoot) {
-    const identity = { root: root.name, name: root.name };
-    if (root.status === 'Preparing') return { ...identity, status: 'preparing' };
-    if (root.status?.startsWith('Failed: ')) {
-      return { ...identity, status: 'failed', failed: { reason: root.status.slice('Failed: '.length) } };
-    }
-    return { ...identity, status: 'working' };
-  }
-
-  const previewRootSelector = (surface: PreviewSurface): WorkspaceRootSelector => ({
+  const previewTrunkSelector = (window: PreviewWindow): WorkspaceTrunkSelector => ({
     load: async () => {
       if (trayCatalogueState === 'empty') return [];
       if (trayCatalogueState !== 'available') throw new Error(catalogueMessages[trayCatalogueState]);
-      return fixtureRoots.map((root) => ({
-        root: root.name,
-        name: root.name,
-        status: root.status === 'Preparing' ? 'preparing' : root.status ? 'failed' : 'working',
-        unavailable: root.appProblem ?? (missingBackend(root) ? backendUnavailable : undefined),
-      }));
+      return fixtureTrunks;
     },
-    open: async (id) => {
-      const root = fixtureRoots.find((entry) => entry.name === id);
-      if (!root || !canOpen(root)) throw new Error(`Could not open ${surface} for that Root.`);
-      if (surface === 'Elma Chat' && root.name === 'Grove' && !previewRefusedGrove) {
-        previewRefusedGrove = true;
-        throw new Error('Grove is temporarily unavailable. Try again.');
+    select: async (code) => {
+      if (code === 'research' && !previewRefusedResearch) {
+        previewRefusedResearch = true;
+        throw new Error('Research is temporarily unavailable. Try again.');
       }
-      await openSurface(surface, root);
+      window.trunk = code;
     },
   });
 
@@ -223,7 +180,7 @@
           </summary>
           <div class="tray-menu">
             <div class="tray-info small">
-              <div>Current Root: {currentRootInfo}{trayCatalogueState === 'available' && selectionProblem ? ` — ${selectionProblem}` : ''}</div>
+              <div>Current Trunk: {currentTrunkInfo}{trayCatalogueState === 'available' && selectionProblem ? ` — ${selectionProblem}` : ''}</div>
               <div>Running Build {runningBuild}</div>
             </div>
             {#if updateBuild}
@@ -237,27 +194,27 @@
             {#if !traySeqoyaShortcutAvailable}
               <p class="catalogue-message">Option+Q unavailable for Seqoya Lab</p>
             {/if}
-            {#if trayCatalogueState === 'available' && selectableRoots.length > 0}
-              <details class="tray-roots" bind:open={rootsOpen}>
-                <summary class="tray-command" bind:this={rootsButton} onkeydown={closeTrayOnEscape}>
-                  Roots <span aria-hidden="true">›</span>
+            {#if trayCatalogueState === 'available' && fixtureTrunks.length > 0}
+              <details class="tray-trunks" bind:open={trunksOpen}>
+                <summary class="tray-command" bind:this={trunksButton} onkeydown={closeTrayOnEscape}>
+                  Trunks <span aria-hidden="true">›</span>
                 </summary>
-                <div class="tray-menu roots-menu">
-                  {#each selectableRoots as root (root.name)}
+                <div class="tray-menu trunks-menu">
+                  {#each fixtureTrunks as code (code)}
                     <button
                       class="tray-command"
-                      aria-pressed={currentRoot.name === root.name}
+                      aria-pressed={currentTrunk === code}
                       onkeydown={closeTrayOnEscape}
-                      onclick={() => chooseRoot(root.name)}
+                      onclick={() => chooseTrunk(code)}
                     >
-                      <span class="root-check" aria-hidden="true">{currentRoot.name === root.name ? '✓' : ''}</span>
-                      {root.name}
+                      <span class="trunk-check" aria-hidden="true">{currentTrunk === code ? '✓' : ''}</span>
+                      {code}
                     </button>
                   {/each}
                 </div>
               </details>
             {:else}
-              <button class="tray-command" disabled>Roots</button>
+              <button class="tray-command" disabled>Trunks</button>
             {/if}
             <button class="tray-command" onkeydown={closeTrayOnEscape} onclick={quitTray}>Quit</button>
           </div>
@@ -268,14 +225,14 @@
     {#each previewWindows as window (window.id)}
       <section
         class="window preview-window"
-        aria-label={`${window.surface} in ${window.root.name}`}
+        aria-label={window.surface}
         tabindex="-1"
         bind:this={previewFrames[window.id]}
       >
         <div class="preview-content">
           {#if window.failed}
             <div class="titlebar">
-              <strong>{window.surface} · {window.root.name}</strong>
+              <strong>{window.surface}</strong>
               <button class="window-action" onclick={() => closeSurface(window.id)}>Close</button>
             </div>
             <div class="renderer-problem" role="status">
@@ -283,13 +240,13 @@
               <button class="window-action" onclick={() => (window.failed = false)}>Retry</button>
             </div>
           {:else if window.surface === 'Elma Chat'}
-            <ElmaFrame root={rendererRoot(window.root)} rootSelector={previewRootSelector(window.surface)}>
+            <ElmaFrame trunk={window.trunk} trunkSelector={previewTrunkSelector(window)}>
               {#snippet headerWindowControls()}
                 <button class="window-action" onclick={() => closeSurface(window.id)}>Close</button>
               {/snippet}
             </ElmaFrame>
           {:else}
-            <SeqoyaLab root={rendererRoot(window.root)} rootSelector={previewRootSelector(window.surface)}>
+            <SeqoyaLab trunk={window.trunk} trunkSelector={previewTrunkSelector(window)}>
               {#snippet headerWindowControls()}
                 <button class="window-action" onclick={() => closeSurface(window.id)}>Close</button>
               {/snippet}
@@ -470,7 +427,7 @@ repository: sample-repo</pre>
     height: 26px;
   }
   .tray[open] > summary,
-  .tray-roots[open] > summary {
+  .tray-trunks[open] > summary {
     background: var(--selected);
   }
   .tray-icon {
@@ -518,20 +475,20 @@ repository: sample-repo</pre>
     color: var(--muted);
     white-space: nowrap;
   }
-  .tray-roots {
+  .tray-trunks {
     position: relative;
   }
-  .tray-roots > summary {
+  .tray-trunks > summary {
     display: flex;
     justify-content: space-between;
     gap: 12px;
   }
-  .roots-menu {
+  .trunks-menu {
     inset-block-start: 0;
     inset-inline-end: calc(100% + 4px);
     width: min(220px, 54vw);
   }
-  .root-check {
+  .trunk-check {
     display: inline-block;
     width: 1em;
   }
@@ -562,7 +519,7 @@ repository: sample-repo</pre>
     color: var(--muted);
   }
   @media (max-width: 520px) {
-    .roots-menu {
+    .trunks-menu {
       position: static;
       width: auto;
       margin-block: 4px;
