@@ -14,12 +14,16 @@
     surface = 'Go to Page',
     trayCatalogueState = 'available',
     trayCurrentRoot,
+    trayRunningBuild = '0',
+    trayPackageVersion = '',
     trayNewBuild = '',
     trayBuiltAt = '',
   }: {
     surface?: string;
     trayCatalogueState?: TrayCatalogueState;
     trayCurrentRoot?: string;
+    trayRunningBuild?: string;
+    trayPackageVersion?: string;
     trayNewBuild?: string;
     trayBuiltAt?: string;
   } = $props();
@@ -33,12 +37,13 @@
   let rootChoice = $state<string | null>();
   let trayFeedback = $state('');
   let startedBuild = $state('');
-  const updateBuild = $derived(trayNewBuild !== startedBuild ? trayNewBuild : '');
+  const runningBuild = $derived(startedBuild || trayRunningBuild);
+  const updateBuild = $derived(trayNewBuild !== runningBuild ? trayNewBuild : '');
   const fixtureRoots = [
     { name: 'Canopy' },
     { name: 'Grove' },
     { name: 'Nursery', status: 'Preparing' },
-    { name: 'Orchard', appProblem: 'Requires App Build 2' },
+    { name: 'Orchard', appProblem: 'Requires App Build 5' },
     { name: 'Meadow', status: 'Failed: could not open database' },
   ];
   const catalogueMessages = {
@@ -110,6 +115,7 @@
           <div class="tray-menu">
             <div class="tray-info small">
               <div>Current Root: {currentRootInfo}</div>
+              <div>Running Build {runningBuild}{trayPackageVersion ? ` · v${trayPackageVersion}` : ''}</div>
               <div>App built: {appBuiltInfo}</div>
             </div>
             {#if updateBuild}

@@ -7,11 +7,15 @@ const meta = {
   args: {
     surface: 'Tray Menu',
     trayCatalogueState: 'available',
+    trayRunningBuild: '3',
+    trayPackageVersion: '0.1.0',
     trayBuiltAt: '11 Nov 2026, 14:25:00',
-    trayNewBuild: '10',
+    trayNewBuild: '4',
   },
   argTypes: {
     trayBuiltAt: { control: 'text' },
+    trayRunningBuild: { control: 'text' },
+    trayPackageVersion: { control: 'text' },
     trayNewBuild: { control: 'text' },
     trayCurrentRoot: {
       control: 'text',
@@ -23,7 +27,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Choose a working Root to make it current for the App and CLI. Use newest working Root returns to automatic selection. The header and checkmark show the same Root. Start new version is the first action when a newer Build is available.',
+          'The header shows the running Build and package version. Start new version names the prepared Build and updates the header after the preview handoff. Choose a working Root to make it current for the App and CLI. Use newest working Root returns to automatic selection.',
       },
     },
   },
