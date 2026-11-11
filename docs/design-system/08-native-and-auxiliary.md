@@ -18,7 +18,7 @@ arbol:app/Arbol/UISwitcherHotkeys.swift
 
 ## Arbol menu bar
 
-The Swift App shows the Arbol oak as an 18-point monochrome template in the macOS menu bar. The icon is labelled Arbol for assistive technology. It opens a native menu with **Open Elma Chat**, **Roots** and **Quit**. The per-user login launch adds the icon with the menu closed and keeps focus in the active application. Quit ends the resident App.
+The Swift App shows the Arbol oak as an 18-point monochrome template in the macOS menu bar. The icon is labelled Arbol for assistive technology. It opens a native menu with **Roots** and **Quit**. The per-user login launch adds the icon with the menu closed and keeps focus in the active application. Quit ends the resident App.
 
 The tray opens with two read-only rows above its actions. **Current Root** shows the catalogue’s effective selection by display name and updates after a selection, reset or catalogue read. The row shows “Loading…” during the first read, “None” when there is no working Root, and “Unavailable” when the catalogue cannot be read. If the current Root requires a newer App Build, show its name and the compatibility reason. **Running Build** shows the running App’s hexadecimal Build number, such as “Running Build 5”. A standalone preview shows Build 0. The row shows the replacement’s identity after a successful handoff.
 
@@ -26,7 +26,7 @@ When the Build registry offers a newer runnable working App Build, the oak shows
 
 **Roots** opens a submenu of retained Roots in catalogue order. A checkmark marks the same current Root as the header. Selecting a compatible working Root sets the shared current Root for new App opens, global shortcuts and CLI commands without an explicit Root. **Use newest working Root** clears the selection and restores automatic selection. Preparing, failed and App-incompatible Roots show their state or reason and are unavailable for selection. If the catalogue refuses a change, show its reason in the submenu. Reopening the tray refreshes the catalogue.
 
-**Open Elma Chat** opens the current Root. **Roots → Open Elma Chat for Root** opens a named compatible Root without changing the current Root. A preparing or failed Root can open when it has an available renderer. A Root that needs a newer App Build or has no available renderer shows the cause and has a disabled open action.
+Global **Option+E (⌥E)** opens or raises Elma Chat for the current Root. Arbol refreshes the catalogue before opening and shows the cause in the tray when Elma is unavailable. If macOS refuses the shortcut registration, the tray shows “Option+E unavailable for Elma Chat”. The browser preview handles Option+E while focused. **Roots → Open Elma Chat for Root** opens a named compatible Root without changing the current Root. A preparing or failed Root can open when it has an available renderer. A Root that needs a newer App Build or has no available renderer shows the cause and has a disabled open action.
 
 ### Root-bound Elma window
 
