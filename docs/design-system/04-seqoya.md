@@ -15,6 +15,10 @@ The Subscriptions page lists all accounts the selected Root’s backend reports.
 
 Show saved usage windows with the recorded time and any reported reset times. An unknown percentage is unavailable; a missing report is “No saved usage.” Refresh rereads the stored accounts and usage. Show per-Driver failures alongside other Drivers’ results. Keep the previous snapshot visible with a warning when a refresh fails or the Root disconnects, and clear it if the Root changes. The page is read-only and handles no credentials.
 
+Signed-in DeepSeek and z.ai cards offer **Refresh usage**. DeepSeek shows the account balance with its currency. z.ai shows Coding Plan windows with reported percentages and resets. Keep the saved reading visible when an individual refresh fails and show the failure beside that card.
+
+The MiMo card labels its separate section **Arbol activity in this Root · Last 30 days**. It shows the number of recorded agent runs, the last run time, and the input and output token totals the runs reported. Zero runs, unreported token counts, and an unavailable read have different states. The console action opens Xiaomi's account page for account-wide usage.
+
 The **Pages / Seqoya / Subscriptions** stories show a complete listing, loading, empty, partial, unavailable, stale and disconnected states.
 
 ## Observed structure

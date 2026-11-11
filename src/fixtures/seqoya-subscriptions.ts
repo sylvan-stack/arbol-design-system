@@ -28,7 +28,13 @@ export const exampleListing: SubscriptionListing = {
     {
       driver: 'pi',
       subscriptions: [
-        { id: 'deepseek', label: 'DeepSeek', family: 'deepseek', auth: 'key', state: 'signed_out' },
+        {
+          id: 'deepseek', label: 'DeepSeek', family: 'deepseek', auth: 'key', state: 'signed_in',
+          lastUsage: {
+            fetchedAt: '2026-11-11T16:30:00Z', windows: [],
+            extra: { balances: [{ currency: 'USD', amount: '12.34' }], apiAvailable: true },
+          },
+        },
         {
           id: 'kimi-coding', label: 'Kimi Code', family: 'kimi-coding', auth: 'vendor_login',
           state: 'signed_in', lastUsage: {
@@ -37,14 +43,23 @@ export const exampleListing: SubscriptionListing = {
           },
         },
         {
-          id: 'zai', label: 'Coding Plan', family: 'zai', auth: 'key', state: 'needs_attention',
-          problem: { message: 'The provider rejected the saved credential.' },
+          id: 'zai', label: 'Coding Plan', family: 'zai', auth: 'key', state: 'signed_in',
+          lastUsage: {
+            fetchedAt: '2026-11-11T16:30:00Z',
+            windows: [
+              { label: 'Five hours', resource: 'tokens', usedPercent: 17, resetsAt: '2026-11-11T21:00:00Z' },
+              { label: 'Weekly', resource: 'tokens', usedPercent: 36, resetsAt: '2026-11-15T15:00:00Z' },
+            ],
+          },
         },
       ],
     },
     {
       driver: 'mimo',
-      subscriptions: [{ id: 'xiaomi', label: 'Xiaomi MiMo', family: 'xiaomi', auth: 'vendor_login', state: 'signing_in' }],
+      subscriptions: [{
+        id: 'xiaomi', label: 'Xiaomi MiMo', family: 'xiaomi', auth: 'vendor_login', state: 'signed_in',
+        activity: { runCount: 4, inputTokens: '28900', outputTokens: '3800', lastRunAt: '2026-11-11T15:45:00Z' },
+      }],
     },
   ],
 };
