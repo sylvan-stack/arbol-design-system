@@ -13,11 +13,13 @@
   let {
     surface = 'Go to Page',
     trayCatalogueState = 'available',
+    traySavedRoot,
     trayNewBuild = '',
     trayBuiltAt = '',
   }: {
     surface?: string;
     trayCatalogueState?: TrayCatalogueState;
+    traySavedRoot?: string;
     trayNewBuild?: string;
     trayBuiltAt?: string;
   } = $props();
@@ -28,7 +30,7 @@
   let trayButton = $state<HTMLElement>();
   let rootsOpen = $state(false);
   let rootsButton = $state<HTMLElement>();
-  let selectedRoot = $state<string>();
+  let rootChoice = $state<string | null>();
   let trayFeedback = $state('');
   let startedBuild = $state('');
   const updateBuild = $derived(trayNewBuild !== startedBuild ? trayNewBuild : '');
@@ -44,13 +46,20 @@
     unavailable: 'Could not read Roots',
   };
   const currentRoot = fixtureRoots.find((root) => root.current)?.name;
-  const defaultRoot = $derived(selectedRoot ?? currentRoot);
+  const savedRoot = $derived(rootChoice === undefined ? traySavedRoot || undefined : rootChoice ?? undefined);
+  const defaultRoot = $derived(savedRoot ?? currentRoot);
   const currentRootInfo = $derived({
     available: currentRoot ?? 'None',
     loading: 'Loading…',
     empty: 'None',
     unavailable: 'Unavailable',
   }[trayCatalogueState]);
+  const defaultRootInfo = $derived.by(() => {
+    if (trayCatalogueState === 'loading' || trayCatalogueState === 'unavailable') return currentRootInfo;
+    const root = trayCatalogueState === 'available' ? fixtureRoots.find(({ name }) => name === defaultRoot) : undefined;
+    if (root?.unavailable) return `${root.name} — ${root.status}`;
+    return root?.name ?? (savedRoot ? `${savedRoot} — Unavailable` : 'None');
+  });
   const appBuiltInfo = $derived(startedBuild ? '11 Nov 2026, 14:40:00' : trayBuiltAt || 'Unavailable');
 
   function closeTrayOnEscape(event: KeyboardEvent) {
@@ -66,7 +75,7 @@
   }
 
   function chooseRoot(name?: string) {
-    selectedRoot = name;
+    rootChoice = name ?? null;
     trayFeedback = name ? `Default Root for UIs: ${name}` : 'Default for UIs follows the current Root.';
     rootsOpen = false;
     trayOpen = false;
@@ -105,6 +114,7 @@
           <div class="tray-menu">
             <div class="tray-info small">
               <div>Current Root: {currentRootInfo}</div>
+              <div>Default for UIs: {defaultRootInfo}</div>
               <div>App built: {appBuiltInfo}</div>
             </div>
             {#if updateBuild}
@@ -133,7 +143,7 @@
                 {:else}
                   <p class="catalogue-message">{catalogueMessages[trayCatalogueState]}</p>
                 {/if}
-                {#if selectedRoot}
+                {#if savedRoot}
                   <button class="tray-command" onkeydown={closeTrayOnEscape} onclick={() => chooseRoot()}>
                     Use current Root
                   </button>

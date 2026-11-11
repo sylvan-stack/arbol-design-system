@@ -13,13 +13,17 @@ const meta = {
   argTypes: {
     trayBuiltAt: { control: 'text' },
     trayNewBuild: { control: 'text' },
+    traySavedRoot: {
+      control: 'text',
+      description: 'Initial saved Root. Use Orchard for an incompatible Root or a name outside the preview catalogue for a missing Root.',
+    },
     trayCatalogueState: { control: 'select', options: ['available', 'loading', 'empty', 'unavailable'] },
   },
   parameters: {
     docs: {
       description: {
         component:
-          'The tray starts with the current Root and the running App’s build time. Start new version is the first action when a newer Build is available. The controls show the loading, empty, and unavailable states with fictional data.',
+          'The tray shows the catalogue’s current Root, the default for UIs, and the running App’s build time. Select a Root or choose Use current Root to update the default row. Start new version is the first action when a newer Build is available.',
       },
     },
   },
