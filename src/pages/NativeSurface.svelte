@@ -14,10 +14,12 @@
     surface = 'Go to Page',
     trayCatalogueState = 'available',
     trayNewBuild = '',
+    trayBuiltAt = '',
   }: {
     surface?: string;
     trayCatalogueState?: TrayCatalogueState;
     trayNewBuild?: string;
+    trayBuiltAt?: string;
   } = $props();
   let feedback = $state('');
   let url = $state('');
@@ -41,7 +43,15 @@
     empty: 'No Roots available',
     unavailable: 'Could not read Roots',
   };
-  const defaultRoot = $derived(selectedRoot ?? fixtureRoots.find((root) => root.current)?.name);
+  const currentRoot = fixtureRoots.find((root) => root.current)?.name;
+  const defaultRoot = $derived(selectedRoot ?? currentRoot);
+  const currentRootInfo = $derived({
+    available: currentRoot ?? 'None',
+    loading: 'Loading…',
+    empty: 'None',
+    unavailable: 'Unavailable',
+  }[trayCatalogueState]);
+  const appBuiltInfo = $derived(startedBuild ? '11 Nov 2026, 14:40:00' : trayBuiltAt || 'Unavailable');
 
   function closeTrayOnEscape(event: KeyboardEvent) {
     if (event.key !== 'Escape' || !trayOpen) return;
@@ -93,6 +103,10 @@
             {#if updateBuild}<span class="tray-badge" aria-hidden="true">!</span>{/if}
           </summary>
           <div class="tray-menu">
+            <div class="tray-info small">
+              <div>Current Root: {currentRootInfo}</div>
+              <div>App built: {appBuiltInfo}</div>
+            </div>
             {#if updateBuild}
               <button class="tray-command tray-update" onkeydown={closeTrayOnEscape} onclick={() => startNewVersion(updateBuild)}>
                 Start new version <span class="small muted">Build {updateBuild}</span>
@@ -315,6 +329,15 @@ repository: sample-repo</pre>
     background: var(--panel);
     box-shadow: var(--shadow);
   }
+  .tray-info {
+    display: grid;
+    gap: 4px;
+    padding: 6px 12px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    white-space: nowrap;
+  }
   .tray-roots {
     position: relative;
   }
@@ -357,5 +380,13 @@ repository: sample-repo</pre>
   }
   .tray-command:disabled {
     color: var(--muted);
+  }
+  @media (max-width: 520px) {
+    .roots-menu {
+      position: static;
+      width: auto;
+      margin-block: 4px;
+      box-shadow: none;
+    }
   }
 </style>

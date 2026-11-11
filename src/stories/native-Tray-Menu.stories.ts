@@ -4,8 +4,14 @@ const meta = {
   title: 'Native adapters/Tray Menu',
   component: Component,
   tags: ['autodocs'],
-  args: { surface: 'Tray Menu', trayCatalogueState: 'available', trayNewBuild: '10' },
+  args: {
+    surface: 'Tray Menu',
+    trayCatalogueState: 'available',
+    trayBuiltAt: '11 Nov 2026, 14:25:00',
+    trayNewBuild: '10',
+  },
   argTypes: {
+    trayBuiltAt: { control: 'text' },
     trayNewBuild: { control: 'text' },
     trayCatalogueState: { control: 'select', options: ['available', 'loading', 'empty', 'unavailable'] },
   },
@@ -13,7 +19,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'The oak shows an exclamation badge when a newer working Build is available. Start new version sits above Roots. The preview uses a fictional Build and Roots. Clear the Build control to see the tray with no update.',
+          'The tray starts with the current Root and the running App’s build time. Start new version is the first action when a newer Build is available. The controls show the loading, empty, and unavailable states with fictional data.',
       },
     },
   },
