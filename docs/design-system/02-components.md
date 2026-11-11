@@ -29,7 +29,9 @@ arbol:renderer/apps/seqoya/src/pages/settingsCrud.css
 
 `WorkspaceShell` composes the window header, viewport and status area. Supply the UI identity and title through `headerLead` and surface controls through `headerExtras`. The shared header places the window’s Root and its state between these slots.
 
-When a host supplies a `rootSelector`, the Root name opens a dialog using the shared Button and Modal. The dialog marks this window’s Root, shows loading and empty results, and gives the reason for a disabled Root. Selecting another Root requests the same UI in that Root’s window. The original window retains its own Root. A refused open stays visible for retry. The tray controls the shared current Root for CLI commands and hotkeys.
+When a host supplies a `rootSelector`, the Root name and chevron open an anchored dropdown. It marks this window’s Root, shows loading and empty results, and gives the reason for a disabled Root. Use Tab to reach the choices and Escape to dismiss and return to the Root trigger. Selecting another Root requests the same UI in that Root’s window. The original window retains its own Root. A refused open stays visible for retry. The tray controls the shared current Root for CLI commands and hotkeys.
+
+The shared header marks itself with `data-arbol-window-header`. A compatible AppKit host applies `data-arbol-native-controls` to activate the 96-point leading inset. The native preview fills that space with a browser Close action through `headerWindowControls`.
 
 ## Collection: one behavior, several presentations
 

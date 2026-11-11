@@ -30,7 +30,7 @@ Global **Option+E (⌥E)** opens or raises Elma Chat for the current Root. Arbol
 
 ### Root-bound Elma window
 
-An explicit open raises the existing window for that Root or creates one. The window keeps its Root when the current Root changes. AppKit supplies traffic lights, title dragging and resize edges, and the Elma frame supplies its own controls and Root heading. Save window geometry per Root and restore it within a reachable screen.
+An explicit open raises the existing window for that Root or creates one. The window keeps its Root when the current Root changes. A verified renderer with the shared header uses full-size content beneath the native traffic lights, with a transparent title bar and hidden native title. The header reserves room for those controls and a drag area. Elma’s title, Root dropdown and preferences share the same row. Older or unavailable renderers retain ordinary title-bar clearance. AppKit continues to manage window actions and resize edges. Save window geometry per Root and restore it within a reachable screen.
 
 Use a native status surface while the backend or renderer is loading. Show the cause and **Retry** if the renderer cannot load. When an updated renderer fails verification, keep the existing page usable while showing the failure. Preserve the renderer's recovery state on departure. Closing the final window leaves the tray available.
 
