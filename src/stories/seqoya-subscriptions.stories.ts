@@ -23,6 +23,17 @@ const meta = {
           },
         } });
       },
+      onRenameSubscription: async (driver, account, label) => {
+        const view = args.view ?? loaded;
+        if (view.usageRequests?.[subscriptionKey(driver, account.id)]?.error) {
+          throw new Error('The Driver could not save this name. Your text is kept.');
+        }
+        updateArgs({ view: { ...view, listing: view.listing && { drivers: view.listing.drivers.map(entry =>
+          entry.driver !== driver ? entry : ({
+            ...entry, subscriptions: entry.subscriptions?.map(row => row.id === account.id ? { ...row, label } : row),
+          }),
+        ) } } });
+      },
       onOpenUsage: (_destination, driver, subscription) => updateArgs({ view: {
         ...(args.view ?? loaded), usageLinkErrors: { [subscriptionKey(driver, subscription)]: 'Opening this subscription’s usage requires the App.' },
       } }),

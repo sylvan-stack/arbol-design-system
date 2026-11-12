@@ -117,7 +117,7 @@
   .edit-name:disabled { color: var(--disabled); }
   @media (hover: none) { .edit-name { opacity: 1; } }
   .usage-actions { flex-wrap: wrap; }
-  .reset-section { gap: 8px; border-top: 1px solid var(--border); padding-top: 12px; }
+  .reset-section { margin-top: auto; gap: 8px; border-top: 1px solid var(--border); padding-top: 12px; }
   .metrics { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; margin: 0; }
   .metrics dt { color: var(--muted); }
   .metrics dd { margin: 0; text-align: end; font-variant-numeric: tabular-nums; }
