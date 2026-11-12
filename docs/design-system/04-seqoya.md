@@ -7,7 +7,7 @@ role: derived
 
 Seqoya Lab uses the same compact WorkspaceHeader as Elma Chat. It passes the Seqoya workspace identity and title to the component, which renders the mark, Trunk dropdown, theme and text size controls, and navigation control. Seqoya keeps its appearance for its own Root. The dropdown changes the Trunk for this window. New windows start with the tray’s default for their Root.
 
-Intelligence Providers is the native page. Its tabs are Subscriptions, Vigor and Routing, in that order. Subscriptions is selected at launch. Use the arrow keys, Home or End to move between tabs. Vigor and Routing show placeholders. The **Pages / Seqoya / Dashboard / Lab Layout** story shows the layout with fictional accounts.
+Intelligence Providers is the native page. Its tabs are Subscriptions, Vigor and Routing, in that order. Subscriptions is selected at launch. Use the arrow keys, Home or End to move between tabs. Routing has a placeholder. The **Pages / Seqoya / Dashboard / Lab Layout** story shows the layout with fictional accounts and Vigor results.
 
 ## Subscriptions
 
@@ -22,6 +22,12 @@ Signed-in DeepSeek and z.ai cards offer **Refresh usage**. DeepSeek shows the ac
 The MiMo card labels its separate section **Arbol activity in this Root · Last 30 days**. It shows the number of recorded agent runs, the last run time, and the input and output token totals the runs reported. Zero runs, unreported token counts, and an unavailable read have different states. The console action opens Xiaomi's account page for account-wide usage.
 
 The **Pages / Seqoya / Subscriptions** stories show a complete listing, loading, empty, partial, unavailable, stale and disconnected states.
+
+## Vigor
+
+Vigor shows the saved ranking for the window’s Root with the highest recorded score above the list. Keep unknown results visible with their reasons, and display a measured zero as a score. Each row identifies the account, score and record time. Show stale report age, predicted windows, exhaustion and the next reset or recovery with the projected score when available. The allowance disclosure shows the saved loss and contribution of each window.
+
+Read saved results on tab entry and Refresh. Keep the previous results visible with a warning when a reread fails. Show Driver failures alongside the results that arrived. The **Pages / Seqoya / Vigor** stories show the ranked list, loading, empty, partial and failed refresh states.
 
 ## Observed structure
 

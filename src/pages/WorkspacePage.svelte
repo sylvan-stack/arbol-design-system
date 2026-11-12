@@ -14,6 +14,7 @@
   import Dashboard from '../sections/Dashboard.svelte';
   import IntelligenceProviders from './IntelligenceProviders.svelte';
   import { exampleListing } from '../fixtures/seqoya-subscriptions';
+  import { exampleVigor } from '../fixtures/seqoya-vigor';
   import FeatureSettings from '../sections/FeatureSettings.svelte';
   import RecipeEditor from '../sections/RecipeEditor.svelte';
   import BlueprintEditor from '../sections/BlueprintEditor.svelte';
@@ -96,7 +97,7 @@
             </div>{/if}
         </div>
       {:else if page.recipe === 'providers'}
-        <IntelligenceProviders subscriptions={{ connected: true, listing: exampleListing }} />
+        <IntelligenceProviders subscriptions={{ connected: true, listing: exampleListing }} vigor={{ rollup: exampleVigor }} />
       {:else}<PageHeader title={page.title} description={page.description} />
         {#if page.recipe === 'dashboard'}<Dashboard />
         {:else if page.recipe === 'features'}<FeatureSettings />
