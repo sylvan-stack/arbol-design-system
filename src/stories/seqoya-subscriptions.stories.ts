@@ -63,7 +63,7 @@ const nextWindows: SubscriptionView = { ...loaded, listing: {
         { label: 'Five hours', next: 'projected', pendingStart: true, windowMinutes: 300,
           usedPercent: 0, remainingPercent: 100, outputTokensUsed: 0, outputTokensRemaining: 1_280_000 },
         { label: 'Seven days', next: 'projected', windowMinutes: 10_080,
-          resetsAt: new Date(Date.now() + 86_400_000).toISOString(), remainingMinutes: 1440,
+          resetsAt: (() => { const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1); tomorrow.setHours(9, 51, 0, 0); return tomorrow.toISOString(); })(), remainingMinutes: 1440,
           usedPercent: 0, remainingPercent: 100, outputTokensUsed: 0,
           outputTokensRemaining: 403_200, outputTokensPerHour: 16_800 },
       ] },
