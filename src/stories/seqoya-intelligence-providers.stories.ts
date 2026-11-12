@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Accounts own usage. Providers define how you work. Interactive successor composition using shared components. Services are represented by local fixture state.',
+          'The Intelligence Providers page opens on Subscriptions with sample accounts, followed by Vigor and Routing.',
       },
     },
   },

@@ -12,8 +12,7 @@
   import Button from '../components/Button.svelte';
   import Tabs from '../components/Tabs.svelte';
   import Dashboard from '../sections/Dashboard.svelte';
-  import ProviderSettings from '../sections/ProviderSettings.svelte';
-  import SubscriptionList from '../sections/SubscriptionList.svelte';
+  import IntelligenceProviders from './IntelligenceProviders.svelte';
   import { exampleListing } from '../fixtures/seqoya-subscriptions';
   import FeatureSettings from '../sections/FeatureSettings.svelte';
   import RecipeEditor from '../sections/RecipeEditor.svelte';
@@ -96,11 +95,10 @@
               />
             </div>{/if}
         </div>
-      {:else if page.recipe === 'subscriptions'}
-        <SubscriptionList view={{ connected: true, listing: exampleListing }} />
+      {:else if page.recipe === 'providers'}
+        <IntelligenceProviders subscriptions={{ connected: true, listing: exampleListing }} />
       {:else}<PageHeader title={page.title} description={page.description} />
         {#if page.recipe === 'dashboard'}<Dashboard />
-        {:else if page.recipe === 'providers'}<ProviderSettings />
         {:else if page.recipe === 'features'}<FeatureSettings />
         {:else if page.recipe === 'secrets'}<SecretsSettings />
         {:else if page.recipe === 'retrieval'}<RetrievalWorkspace />

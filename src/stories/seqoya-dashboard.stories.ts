@@ -20,7 +20,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: {} };
 export const LabLayout: StoryObj<typeof SeqoyaLab> = {
-  parameters: { docs: { description: { story: 'Seqoya uses the same Trunk, text size, theme and navigation controls as Elma. Preferences change this preview only.' } } },
+  parameters: { docs: { description: { story: 'The native Seqoya layout opens Intelligence Providers on Subscriptions with sample accounts. Vigor and Routing are the other tabs. Preferences change this preview only.' } } },
   render: () => ({
     Component: SeqoyaLab,
     props: {

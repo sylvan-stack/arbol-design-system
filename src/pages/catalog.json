@@ -14,17 +14,7 @@
     "workspace": "Seqoya",
     "title": "Intelligence Providers",
     "recipe": "providers",
-    "description": "Accounts own usage. Providers define how you work.",
-    "entity": "",
-    "items": [],
-    "fields": []
-  },
-  {
-    "id": "seqoya-subscriptions",
-    "workspace": "Seqoya",
-    "title": "Subscriptions",
-    "recipe": "subscriptions",
-    "description": "Accounts reported by this Root’s drivers.",
+    "description": "Subscriptions, Vigor and Routing.",
     "entity": "",
     "items": [],
     "fields": []
