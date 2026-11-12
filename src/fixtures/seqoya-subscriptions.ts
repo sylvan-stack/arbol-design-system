@@ -19,6 +19,10 @@ export const exampleListing: SubscriptionListing = {
       driver: 'codex',
       subscriptions: [{
         id: 'chatgpt', label: 'Project account', family: 'chatgpt', auth: 'vendor_login',
+        modelLabels: [
+          { model: 'Sample model A', performance: 'Top', cost: 'Expensive' },
+          { model: 'Sample model B', performance: 'Top', cost: 'Expensive' },
+        ],
         state: 'signed_in', lastUsage: {
           fetchedAt: '2026-11-11T15:30:00Z',
           windows: [{ label: 'Weekly', usedPercent: 100, limitReached: true, resetsAt: '2026-11-17T18:00:00Z' }],
@@ -30,6 +34,7 @@ export const exampleListing: SubscriptionListing = {
       subscriptions: [
         {
           id: 'deepseek', label: 'DeepSeek', family: 'deepseek', auth: 'key', state: 'signed_in',
+          modelLabels: [{ performance: 'Medium', cost: 'Cheap' }],
           lastUsage: {
             fetchedAt: '2026-11-11T16:30:00Z', windows: [],
             extra: { balances: [{ currency: 'USD', amount: '12.34' }], apiAvailable: true },

@@ -13,6 +13,8 @@ Intelligence Providers is the native page. Its tabs are Subscriptions, Vigor and
 
 The Subscriptions tab loads the accounts the selected Root’s backend reports when it opens. Cards name the vendor family first and keep the Driver and Subscription identifier visible separately. This distinguishes z.ai and DeepSeek accounts served by Pi from a configured Intelligence Provider route. Each card shows the account label, sign-in state and authentication mode.
 
+When the renderer supplies Performance and Cost tiers, show the default model first and give each additional classified model its own row. Show “Default model” when its name is unspecified. The labels describe the model on the account and come from the application’s fixed classifications.
+
 Show saved usage windows with the recorded time and any reported reset times. An unknown percentage is unavailable; a missing report is “No saved usage.” Refresh rereads the stored accounts and usage. Show per-Driver failures alongside other Drivers’ results. Keep the previous snapshot visible with a warning when a refresh fails or the Root disconnects, and clear it if the Root changes. The page is read-only and handles no credentials.
 
 Signed-in DeepSeek and z.ai cards offer **Refresh usage**. DeepSeek shows the account balance with its currency. z.ai shows Coding Plan windows with reported percentages and resets. Keep the saved reading visible when an individual refresh fails and show the failure beside that card.
