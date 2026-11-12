@@ -17,9 +17,9 @@ When the renderer supplies Performance and Cost tiers, show the default model fi
 
 Show saved usage windows with the recorded time and any reported reset times. An unknown percentage is unavailable; a missing report is “No saved usage.” Refresh rereads the stored accounts and usage. Show per-Driver failures alongside other Drivers’ results. Keep the previous snapshot visible with a warning when a refresh fails or the Root disconnects, and clear it if the Root changes. The page is read-only and handles no credentials.
 
-Signed-in DeepSeek and z.ai cards offer **Refresh usage**. DeepSeek shows the account balance with its currency. z.ai shows Coding Plan windows with reported percentages and resets. Keep the saved reading visible when an individual refresh fails and show the failure beside that card.
+Signed-in DeepSeek, z.ai and MiMo cards offer **Refresh usage**. DeepSeek shows the account balance with its currency. z.ai shows Coding Plan windows with reported percentages and resets. Keep the saved reading visible when an individual refresh fails and show the failure beside that card.
 
-The MiMo card labels its separate section **Arbol activity in this Root · Last 30 days**. It shows the number of recorded agent runs, the last run time, and the input and output token totals the runs reported. Zero runs, unreported token counts, and an unavailable read have different states. The console action opens Xiaomi's account page for account-wide usage.
+The MiMo and Pi ChatGPT cards label its separate section **Arbol activity in this Root · Last 30 days**. It shows the number of recorded agent runs, the last run time, and the input and output token totals the runs reported. Zero runs, unreported token counts, and an unavailable read have different states. Vendor actions open the Xiaomi console or ChatGPT Usage. MiMo shows exact remaining and total credits when known and a model-specific output-token estimate. Pi shows the dated dashboard reading, shared quota windows and the app cap when available. Missing or elapsed readings remain visible as issues.
 
 The **Pages / Seqoya / Subscriptions** stories show a complete listing, loading, empty, partial, unavailable, stale and disconnected states.
 
@@ -28,6 +28,8 @@ The **Pages / Seqoya / Subscriptions** stories show a complete listing, loading,
 Vigor shows a compact ranked list for the window’s Root. Each row shows the account, score and relevant status. Activate the row to expand its calculation. Show the stale report age, predicted windows, exhaustion and the next reset or recovery with the projected score when available. Substitute the saved used share and the remaining and total minutes into the loss formula. Use the saved calculation time. Show each weight multiplied by its loss and the sum capped at one. Older records may provide only the saved results.
 
 Label a provisional score Estimated and explain which data was used. For a balance estimate, substitute the balance and price into the token conversion and the estimated tokens into the score formula. Show zero for an exhausted account. Reserve Unavailable for an account known to be inactive. In the Pi ChatGPT and MiMo details, show the last 30 days of Arbol activity in this Root, including runs and reported token counts.
+
+Expanded rows reuse the allowance details. Show the dated calibration, reference model, assumptions and arithmetic for capacity estimates. These estimates are informational in Vigor. Keep the provider’s quota units visible and report what prevents a conversion when evidence is missing.
 
 Read saved results on tab entry and Refresh. Keep the previous results visible with a warning when a reread fails. Show Driver failures alongside the results that arrived. The **Pages / Seqoya / Vigor** stories show the ranked list, loading, empty, partial and failed refresh states.
 

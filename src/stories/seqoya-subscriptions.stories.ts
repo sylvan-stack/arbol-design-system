@@ -5,7 +5,34 @@ import SubscriptionList from '../sections/SubscriptionList.svelte';
 import { subscriptionKey, type SubscriptionView } from '../sections/seqoya-subscriptions';
 import { exampleListing } from '../fixtures/seqoya-subscriptions';
 
-const loaded: SubscriptionView = { connected: true, listing: exampleListing };
+const observedAt = '2026-11-11T15:45:00Z';
+const loaded: SubscriptionView = { connected: true, listing: {
+  drivers: exampleListing.drivers.map((entry) => {
+    if (entry.driver === 'pi') return { ...entry, subscriptions: [...entry.subscriptions ?? [], {
+      id: 'chatgpt', family: 'chatgpt', label: 'Sample ChatGPT', auth: 'vendor_login', state: 'signed_in',
+      activity: { runCount: 0 },
+      allowance: { quota: {
+        source: 'ChatGPT dashboard snapshot', observedAt, plan: 'ChatGPT Plus',
+        note: 'Pi can use up to 100% of the shared plan.',
+        windows: [{ label: 'Shared weekly quota', remainingPercent: 61, resetsAt: '2026-11-15T15:00:00Z' }],
+      } },
+    }] };
+    if (entry.driver !== 'mimo') return entry;
+    return { ...entry, subscriptions: entry.subscriptions?.map((account) => ({
+      ...account, allowance: {
+        quota: {
+          source: 'Xiaomi Token Plan', plan: 'Sample plan', observedAt,
+          credits: { total: '4000000000', remaining: '3600000000' },
+          windows: [{ label: 'Monthly quota', remainingPercent: 90, resetsAt: '2026-11-27T23:59:59Z' }],
+        },
+        capacity: {
+          total: 6666667, remaining: 6000000, model: 'Sample model', source: 'Published output rate',
+          calculation: '3,600,000,000 credits ÷ 600 credits per output token.',
+        },
+      },
+    })) };
+  }),
+} };
 const meta = {
   title: 'Pages/Seqoya/Subscriptions',
   component: SubscriptionList,
@@ -23,7 +50,9 @@ const meta = {
           },
         } });
       },
-      onOpenMiMo: () => updateArgs({ view: { ...(args.view ?? loaded), consoleError: 'Opening the console requires the App.' } }),
+      onOpenUsage: (destination) => updateArgs({ view: {
+        ...(args.view ?? loaded), usageLinkErrors: { [destination]: 'Opening vendor usage requires the App.' },
+      } }),
     };
     return { Component: SubscriptionList, props };
   },
@@ -45,6 +74,7 @@ export const Partial: Story = {
         ...driver,
         subscriptions: driver.subscriptions?.map((subscription) => ({
           ...subscription, activity: undefined, activityError: 'Could not read activity for this Root.',
+          allowance: { issues: ['No MiMo quota reading. Open the Xiaomi console.'] },
         })),
       };
     }),
