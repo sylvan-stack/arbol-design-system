@@ -25,7 +25,9 @@ The **Pages / Seqoya / Subscriptions** stories show a complete listing, loading,
 
 ## Vigor
 
-Vigor shows the saved ranking for the window’s Root with the highest recorded score above the list. Keep unknown results visible with their reasons, and display a measured zero as a score. Each row identifies the account, score and record time. Show stale report age, predicted windows, exhaustion and the next reset or recovery with the projected score when available. The allowance disclosure shows the saved loss and contribution of each window.
+Vigor shows a compact ranked list for the window’s Root. Each row shows the account, score and relevant status. Activate the row to expand its calculation. Show the stale report age, predicted windows, exhaustion and the next reset or recovery with the projected score when available. Include each window’s saved loss, weight and contribution.
+
+Label a provisional score Estimated and explain which data was used. For a balance estimate, show the estimated output tokens, the applied rate and the score formula. Show zero for an exhausted account. Reserve Unavailable for an account known to be inactive.
 
 Read saved results on tab entry and Refresh. Keep the previous results visible with a warning when a reread fails. Show Driver failures alongside the results that arrived. The **Pages / Seqoya / Vigor** stories show the ranked list, loading, empty, partial and failed refresh states.
 
