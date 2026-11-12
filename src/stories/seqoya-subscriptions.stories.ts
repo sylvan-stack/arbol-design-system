@@ -5,34 +5,7 @@ import SubscriptionList from '../sections/SubscriptionList.svelte';
 import { subscriptionKey, type SubscriptionView } from '../sections/seqoya-subscriptions';
 import { exampleListing } from '../fixtures/seqoya-subscriptions';
 
-const observedAt = '2026-11-11T15:45:00Z';
-const loaded: SubscriptionView = { connected: true, listing: {
-  drivers: exampleListing.drivers.map((entry) => {
-    if (entry.driver === 'pi') return { ...entry, subscriptions: [...entry.subscriptions ?? [], {
-      id: 'chatgpt', family: 'chatgpt', label: 'Sample ChatGPT', auth: 'vendor_login', state: 'signed_in',
-      activity: { runCount: 0 },
-      allowance: { quota: {
-        source: 'ChatGPT dashboard snapshot', observedAt, plan: 'ChatGPT Plus',
-        note: 'Pi can use up to 100% of the shared plan.',
-        windows: [{ label: 'Shared weekly quota', remainingPercent: 61, resetsAt: '2026-11-15T15:00:00Z' }],
-      } },
-    }] };
-    if (entry.driver !== 'mimo') return entry;
-    return { ...entry, subscriptions: entry.subscriptions?.map((account) => ({
-      ...account, allowance: {
-        quota: {
-          source: 'Xiaomi Token Plan', plan: 'Sample plan', observedAt,
-          credits: { total: '4000000000', remaining: '3600000000' },
-          windows: [{ label: 'Monthly quota', remainingPercent: 90, resetsAt: '2026-11-27T23:59:59Z' }],
-        },
-        capacity: {
-          total: 6666667, remaining: 6000000, model: 'Sample model', source: 'Published output rate',
-          calculation: '3,600,000,000 credits ÷ 600 credits per output token.',
-        },
-      },
-    })) };
-  }),
-} };
+const loaded: SubscriptionView = { connected: true, listing: exampleListing };
 const meta = {
   title: 'Pages/Seqoya/Subscriptions',
   component: SubscriptionList,
@@ -73,17 +46,28 @@ export const Partial: Story = {
       return {
         ...driver,
         subscriptions: driver.subscriptions?.map((subscription) => ({
-          ...subscription, activity: undefined, activityError: 'Could not read activity for this Root.',
+          ...subscription, metrics: undefined,
           allowance: { issues: ['No MiMo quota reading. Open the Xiaomi console.'] },
         })),
       };
     }),
   } } },
 };
+const ended: SubscriptionView = { ...loaded, listing: {
+  drivers: exampleListing.drivers.filter(({ driver }) => driver === 'mimo').map((driver) => ({
+    ...driver,
+    subscriptions: driver.subscriptions?.map((account) => ({
+      ...account,
+      metrics: { windows: (account.metrics?.windows ?? []).map((window) => ({
+        ...window, ended: true, remainingMinutes: 0, outputTokensPerHour: undefined,
+      })) },
+    })),
+  })),
+} };
 export const Unavailable: Story = {
   args: { view: { connected: true, error: 'The backend did not answer in time.' } },
 };
 export const Stale: Story = {
-  args: { view: { ...loaded, error: 'The backend did not answer in time.' } },
+  args: { view: { ...ended, error: 'The backend did not answer in time.' } },
 };
 export const Disconnected: Story = { args: { view: { ...loaded, connected: false } } };

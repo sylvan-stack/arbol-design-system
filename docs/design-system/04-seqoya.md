@@ -17,17 +17,13 @@ Intelligence Providers is the native page. Its tabs are Subscriptions, Vigor and
 
 ## Subscriptions
 
-The Subscriptions tab loads the accounts the selected Root’s backend reports when it opens. Cards name the vendor family first and keep the Driver and Subscription identifier visible separately. This distinguishes z.ai and DeepSeek accounts served by Pi from a configured Intelligence Provider route. Each card shows the account label, sign-in state and authentication mode.
+The Subscriptions tab loads the accounts reported by the selected Root. Each card identifies the vendor, account and sign-in state. Its body shows **Available limit resets** once, followed by one section per allowance window in end order. Show each known reset grant’s name and expiry beside the count. A confirmed zero is shown as zero and an unknown count is unavailable.
 
-When the renderer supplies Performance and Cost tiers, show the default model first and give each additional classified model its own row. Show “Default model” when its name is unspecified. The labels describe the model on the account and come from the application’s fixed classifications.
+Each window has rows for window length, reset time, time remaining, allowance expiry, usage percentages, output-token equivalents used and remaining, and remaining equivalents per hour. A terminal window labels the section and its metrics. An ended window keeps its dated reading and shows zero time remaining. The rate is unavailable after the window ends. Keep a confirmed zero distinct from an unavailable value and show Never for a confirmed non-expiring allowance. Each estimate names its reference model.
 
-Show saved usage windows with the recorded time and any reported reset times. An unknown percentage is unavailable; a missing report is “No saved usage.” Refresh rereads the stored accounts and usage. Show per-Driver failures alongside other Drivers’ results. Keep the previous snapshot visible with a warning when a refresh fails or the Root disconnects, and clear it if the Root changes. The page is read-only and handles no credentials.
+Ordinary Refresh rereads stored data. Show per-Driver failures alongside other accounts and preserve the last reading with a warning after a failed refresh or disconnect. Signed-in DeepSeek, z.ai and MiMo can explicitly refresh vendor usage. The Xiaomi console and ChatGPT Usage actions open the provider’s usage page.
 
-Signed-in DeepSeek, z.ai and MiMo cards offer **Refresh usage**. DeepSeek shows the account balance with its currency. z.ai shows Coding Plan windows with reported percentages and resets. Keep the saved reading visible when an individual refresh fails and show the failure beside that card.
-
-The MiMo and Pi ChatGPT cards label its separate section **Arbol activity in this Root · Last 30 days**. It shows the number of recorded agent runs, the last run time, and the input and output token totals the runs reported. Zero runs, unreported token counts, and an unavailable read have different states. Vendor actions open the Xiaomi console or ChatGPT Usage. MiMo shows exact remaining and total credits when known and a model-specific output-token estimate. Pi shows the dated dashboard reading, shared quota windows and the app cap when available. Missing or elapsed readings remain visible as issues.
-
-The **Pages / Seqoya / Subscriptions** stories show a complete listing, loading, empty, partial, unavailable, stale and disconnected states.
+The **Pages / Seqoya / Subscriptions** stories show reported, terminal and ended windows, known and unknown reset inventories, loading, empty, partial, unavailable, stale and disconnected states.
 
 ## Vigor
 
@@ -35,7 +31,7 @@ Vigor shows a compact ranked list for the window’s Root. Each row shows the ac
 
 Label a provisional score Estimated and explain which data was used. For a balance estimate, substitute the balance and price into the token conversion and the estimated tokens into the score formula. Show zero for an exhausted account. Reserve Unavailable for an account known to be inactive. In the Pi ChatGPT and MiMo details, show the last 30 days of Arbol activity in this Root, including runs and reported token counts.
 
-Expanded rows reuse the allowance details. Show the dated calibration, reference model, assumptions and arithmetic for capacity estimates. These estimates are informational in Vigor. Keep the provider’s quota units visible and report what prevents a conversion when evidence is missing.
+Expanded rows show saved allowance details. Show the dated calibration, reference model, assumptions and arithmetic for capacity estimates. These estimates are informational in Vigor. Keep the provider’s quota units visible and report what prevents a conversion when evidence is missing.
 
 Read saved results on tab entry and Refresh. Keep the previous results visible with a warning when a reread fails. Show Driver failures alongside the results that arrived. The **Pages / Seqoya / Vigor** stories show the ranked list, loading, empty, partial and failed refresh states.
 
