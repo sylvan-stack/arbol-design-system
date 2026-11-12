@@ -23,8 +23,8 @@ const meta = {
           },
         } });
       },
-      onOpenUsage: (destination) => updateArgs({ view: {
-        ...(args.view ?? loaded), usageLinkErrors: { [destination]: 'Opening vendor usage requires the App.' },
+      onOpenUsage: (_destination, driver, subscription) => updateArgs({ view: {
+        ...(args.view ?? loaded), usageLinkErrors: { [subscriptionKey(driver, subscription)]: 'Opening this subscription’s usage requires the App.' },
       } }),
     };
     return { Component: SubscriptionList, props };
@@ -53,21 +53,28 @@ export const Partial: Story = {
     }),
   } } },
 };
-const ended: SubscriptionView = { ...loaded, listing: {
+const nextWindows: SubscriptionView = { ...loaded, listing: {
   drivers: exampleListing.drivers.filter(({ driver }) => driver === 'mimo').map((driver) => ({
     ...driver,
     subscriptions: driver.subscriptions?.map((account) => ({
       ...account,
-      metrics: { windows: (account.metrics?.windows ?? []).map((window) => ({
-        ...window, ended: true, remainingMinutes: 0, outputTokensPerHour: undefined,
-      })) },
+      metrics: { windows: [
+        { label: 'Token Plan', next: 'awaitingRenewal', windowMinutes: 43_200 },
+        { label: 'Five hours', next: 'projected', pendingStart: true, windowMinutes: 300,
+          usedPercent: 0, remainingPercent: 100, outputTokensUsed: 0, outputTokensRemaining: 1_280_000 },
+        { label: 'Seven days', next: 'projected', windowMinutes: 10_080,
+          resetsAt: new Date(Date.now() + 86_400_000).toISOString(), remainingMinutes: 1440,
+          usedPercent: 0, remainingPercent: 100, outputTokensUsed: 0,
+          outputTokensRemaining: 403_200, outputTokensPerHour: 16_800 },
+      ] },
     })),
   })),
 } };
+export const NextAllowances: Story = { args: { view: nextWindows } };
 export const Unavailable: Story = {
   args: { view: { connected: true, error: 'The backend did not answer in time.' } },
 };
 export const Stale: Story = {
-  args: { view: { ...ended, error: 'The backend did not answer in time.' } },
+  args: { view: { ...loaded, error: 'The backend did not answer in time.' } },
 };
 export const Disconnected: Story = { args: { view: { ...loaded, connected: false } } };

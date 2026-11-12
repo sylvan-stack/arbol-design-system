@@ -13,17 +13,17 @@ This applies to the release governed by ARC-4 upon its acceptance. The existing 
 
 Seqoya Lab uses the same compact WorkspaceHeader as Elma Chat. It passes the Seqoya workspace identity and title to the component, which renders the mark, Trunk dropdown, theme and text size controls, and navigation control. Seqoya keeps its appearance for its own Root. The dropdown changes the Trunk for this window. New windows start with the tray’s default for their Root.
 
-Intelligence Providers is the native page. Its tabs are Subscriptions, Vigor and Routing, in that order. Subscriptions is selected at launch. Use the arrow keys, Home or End to move between tabs. Arbol appears in the macOS application switcher while a Seqoya Lab window is open. Routing has a placeholder. The **Pages / Seqoya / Dashboard / Lab Layout** story shows the layout with fictional accounts and Vigor results.
+Intelligence Providers is the native page. Its tabs are Subscriptions, Vigor and Routing, in that order. Subscriptions is selected at launch. Use the arrow keys, Home or End to move between tabs. The macOS app switcher shows Seqoya Lab while a Lab or subscription browser window is open. The native icon uses the archived Seqoya flask and seedling glyph from `heritage/renderer/apps/seqoya/src/SeqoyaGlyph.svelte`, exported as `src/assets/SeqoyaLab.png`. Routing has a placeholder. The **Pages / Seqoya / Dashboard / Lab Layout** story shows the layout with fictional accounts and Vigor results.
 
 ## Subscriptions
 
-The Subscriptions tab loads the accounts reported by the selected Root. Each card identifies the vendor, account and sign-in state. Its body shows one section per allowance window in end order. A positive **Available limit resets** count appears at the bottom with the known unexpired grants and their expiry times.
+The Subscriptions tab loads the accounts reported by the selected Root. Each card identifies the vendor and account. Its body shows one section per current or next allowance window in end order. A positive **Available limit resets** count appears at the bottom with the known unexpired grants and their expiry times.
 
-Each window has rows for window length, reset time, time remaining, allowance expiry, usage percentages, output-token equivalents used and remaining, and remaining equivalents per hour. A terminal window labels the section and its metrics. An elapsed window says Reset time passed or Allowance expired and retains its measured usage. It shows zero time remaining and the rate says Period closed. A window that starts with the next use labels its future timing. Subscriptions cards omit reading timestamps and format events on the current local day in 24-hour HH:mm. Keep a confirmed zero distinct from an unavailable value and show Never for a confirmed non-expiring allowance. Each estimate names its reference model.
+Each window shows its length, reset and expiration, time remaining, usage percentages, estimated output-token equivalents and remaining equivalents per hour when known. A passed window’s figures disappear. Show the projected next interval for known recurring resets, the next use state for a rolling reset, or a pending reading when the next grant is unknown. Current readings supersede estimates. Keep separate expiration dates where applicable. Use local HH:mm for today and k/M for token figures, for example ≈ 1.28M and ≈ 16.8k/hour. Keep estimate context on the figures.
 
-Ordinary Refresh rereads stored data. Show per-Driver failures alongside other accounts and preserve the last reading with a warning after a failed refresh or disconnect. Signed-in DeepSeek, z.ai and MiMo can explicitly refresh vendor usage. The Xiaomi console and ChatGPT Usage actions open the provider’s usage page.
+Ordinary Refresh rereads stored data. Show per-Driver failures alongside other accounts and preserve the last usable reading after a failed refresh or disconnect. Signed-in Codex, Kimi Code, DeepSeek, z.ai and MiMo can explicitly refresh vendor usage. Open ChatGPT Usage in the internal browser profile identified by the card’s Driver and Subscription ID. MiMo opens the Xiaomi console.
 
-The **Pages / Seqoya / Subscriptions** stories show reported, terminal and ended windows, known and unknown reset inventories, loading, empty, partial, unavailable, stale and disconnected states.
+The **Pages / Seqoya / Subscriptions** stories show current and next allowances, reset inventories, loading, empty, partial, unavailable, stale and disconnected states.
 
 ## Vigor
 
