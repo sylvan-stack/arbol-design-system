@@ -25,9 +25,9 @@ The **Pages / Seqoya / Subscriptions** stories show a complete listing, loading,
 
 ## Vigor
 
-Vigor shows a compact ranked list for the window’s Root. Each row shows the account, score and relevant status. Activate the row to expand its calculation. Show the stale report age, predicted windows, exhaustion and the next reset or recovery with the projected score when available. Include each window’s saved loss, weight and contribution.
+Vigor shows a compact ranked list for the window’s Root. Each row shows the account, score and relevant status. Activate the row to expand its calculation. Show the stale report age, predicted windows, exhaustion and the next reset or recovery with the projected score when available. Substitute the saved used share and the remaining and total minutes into the loss formula. Use the saved calculation time. Show each weight multiplied by its loss and the sum capped at one. Older records may provide only the saved results.
 
-Label a provisional score Estimated and explain which data was used. For a balance estimate, show the estimated output tokens, the applied rate and the score formula. Show zero for an exhausted account. Reserve Unavailable for an account known to be inactive.
+Label a provisional score Estimated and explain which data was used. For a balance estimate, substitute the balance and price into the token conversion and the estimated tokens into the score formula. Show zero for an exhausted account. Reserve Unavailable for an account known to be inactive. In the Pi ChatGPT and MiMo details, show the last 30 days of Arbol activity in this Root, including runs and reported token counts.
 
 Read saved results on tab entry and Refresh. Keep the previous results visible with a warning when a reread fails. Show Driver failures alongside the results that arrived. The **Pages / Seqoya / Vigor** stories show the ranked list, loading, empty, partial and failed refresh states.
 

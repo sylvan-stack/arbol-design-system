@@ -2,14 +2,17 @@ import type { VigorEntry, VigorRollup } from '../sections/seqoya-vigor';
 
 export const exampleVigor: VigorRollup & { subscriptions: VigorEntry[] } = {
   moment: '2026-11-12T09:10:00Z',
-  headline: { driver: 'codex', subscription: 'chatgpt', label: 'Project account', vigor: 0.42 },
+  headline: { driver: 'codex', subscription: 'chatgpt', label: 'Project account', vigor: 0.4230357142857143 },
   subscriptions: [
     {
       driver: 'codex', subscription: 'chatgpt', family: 'chatgpt', label: 'Project account',
       result: {
-        moment: '2026-11-12T09:09:00Z', vigor: 0.42, exhausted: false, predicted: false, stale: null, unknown: null,
-        nextChange: { at: '2026-11-12T12:00:00Z', vigor: 0.45 },
-        windows: [{ label: 'Weekly', loss: 0.42, weight: 1, contribution: 0.42, predicted: false, reason: null }],
+        moment: '2026-11-12T09:09:00Z', vigor: 0.4230357142857143, exhausted: false, predicted: false, stale: null, unknown: null,
+        nextChange: { at: '2026-11-12T12:00:00Z', vigor: 0 },
+        windows: [{
+          label: 'Weekly', usedPercent: 56, resetsAt: '2026-11-12T12:00:00Z', windowMinutes: 10080,
+          loss: 0.4230357142857143, weight: 1, contribution: 0.4230357142857143, predicted: false, reason: null,
+        }],
       },
     },
     {
@@ -17,8 +20,14 @@ export const exampleVigor: VigorRollup & { subscriptions: VigorEntry[] } = {
       result: null,
       estimate: {
         score: 0.25, reason: 'Estimate from the saved API balance.',
-        budget: { tokens: 1_000_000, currency: 'USD', rate: 1.2, referenceTokens: 1_000_000, ceiling: 0.5 },
+        budget: { amount: '1.20', tokens: 1_000_000, currency: 'USD', rate: 1.2, referenceTokens: 1_000_000, ceiling: 0.5 },
       },
+    },
+    {
+      driver: 'pi', subscription: 'chatgpt', family: 'chatgpt', label: 'ChatGPT',
+      result: null,
+      estimate: { score: 0.05, reason: 'Provisional score while usable allowance data is missing.' },
+      activity: { runCount: 2, inputTokens: '20000', outputTokens: '2500', lastRunAt: '2026-11-12T08:00:00Z' },
     },
     {
       driver: 'claude', subscription: 'anthropic', family: 'anthropic', label: 'Writing account',
@@ -31,7 +40,7 @@ export const exampleVigor: VigorRollup & { subscriptions: VigorEntry[] } = {
         ],
       },
     },
-    { driver: 'mimo', subscription: 'xiaomi', family: 'xiaomi', label: 'MiMo', result: null, unavailable: 'Signed out.' },
+    { driver: 'mimo', subscription: 'xiaomi', family: 'xiaomi', label: 'MiMo', result: null, unavailable: 'Signed out.', activity: { runCount: 0 } },
   ],
   failures: {},
 };
