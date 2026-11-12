@@ -5,7 +5,18 @@ role: derived
 
 ## Single-database release (ARC-4)
 
-Open one Seqoya Lab window for the installation. Subscriptions, saved Vigor and routing use the same installation and backend as Elma and the CLI. Show **Arbol activity · Last 30 days** without a Root label. Keep saved readings through a refused refresh; show maintenance, disconnect and unavailable readings separately. An empty installation can list signed-in subscriptions before it has any saved usage or Vigor. Keep provider details, tab navigation and status accessibility. Trunk selection belongs to starting an Exchange, not to subscription administration.
+Open one Seqoya Lab window for the installation through Option+Q. Subscriptions, saved Vigor and Routing use the same owner-only backend as Elma and the CLI. The header contains the Seqoya identity, theme, text size and navigation controls. Subscriptions is the landing tab. Show installation-wide account activity and **Arbol activity · Last 30 days**.
+
+Refresh reads saved account and Vigor data. Each supported usage action targets its Driver and Subscription explicitly. Match asynchronous responses to the current connection and the same account family and creation identity. Reconnect keeps saved readings visible, refreshes the installation account listing and prevents replies from an older connection from replacing current state. An empty installation can list signed-in subscriptions before any Vigor has been recorded. Show maintenance, unavailable database and missing readings distinctly. Optional allowance evidence uses the installation settings scope and the existing file and account-binding checks. ChatGPT usage windows preserve the real account’s existing isolated browser profile.
+
+The executable native tray preview raises one administration window. Elma supplies the compatible Trunk selector for new Exchanges.
+
+<!-- sources:
+arbol:@code/ui/elma/src/seqoya/App.svelte
+arbol-app:@code/Sources/ElmaAppChannel.swift
+arbol-app:@code/Sources/SeqoyaUsageEvidence.swift
+arbol-app:@code/Sources/SubscriptionUsageBrowser.swift
+-->
 
 This applies to the release governed by ARC-4 upon its acceptance. The existing Root-based descriptions below retain their original release scope.
 

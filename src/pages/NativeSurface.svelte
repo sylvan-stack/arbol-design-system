@@ -107,7 +107,7 @@
     event.preventDefault();
     if (event.repeat) return;
     if (trayBackendAvailable) void openSurface(target);
-    else trayFeedback = 'The current Root has no runnable Arbol backend.';
+    else trayFeedback = 'The installation backend is unavailable.';
   }
 
   async function openSurface(surface: PreviewSurface) {
@@ -246,7 +246,7 @@
               {/snippet}
             </ElmaFrame>
           {:else}
-            <SeqoyaLab trunk={window.trunk} trunkSelector={previewTrunkSelector(window)}>
+            <SeqoyaLab>
               {#snippet headerWindowControls()}
                 <button class="window-action" onclick={() => closeSurface(window.id)}>Close</button>
               {/snippet}

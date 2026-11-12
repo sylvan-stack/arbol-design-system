@@ -45,9 +45,9 @@ export const ComingBack={render:()=>({Component:ConversationFixture,props:{atten
 
 export const LatestSelectionFailure={render:()=>({Component:ConversationFixture,props:{latest:true,latestSelectionFailure:true}})} satisfies StoryObj<typeof ConversationFixture>;
 
-export const StaleChat={render:()=>({Component:ConversationFixture,props:{stale:true}})} satisfies StoryObj<typeof ConversationFixture>;
-export const StaleLatest={render:()=>({Component:ConversationFixture,props:{stale:true,latest:true}})} satisfies StoryObj<typeof ConversationFixture>;
-export const ReimportCopied={render:()=>({Component:ConversationFixture,props:{stale:true,reimportOutcome:'copied'}})} satisfies StoryObj<typeof ConversationFixture>;
-export const ReimportUncertain={render:()=>({Component:ConversationFixture,props:{stale:true,reimportOutcome:'uncertain'}})} satisfies StoryObj<typeof ConversationFixture>;
-export const ReimportRefused={render:()=>({Component:ConversationFixture,props:{stale:true,reimportOutcome:'refused'}})} satisfies StoryObj<typeof ConversationFixture>;
-export const ReimportWaiting={render:()=>({Component:ConversationFixture,props:{stale:true,reimportOutcome:'waiting'}})} satisfies StoryObj<typeof ConversationFixture>;
+export const DatabaseUnavailable={render:()=>({Component:ConversationFixture,props:{installationState:'unavailable'}})} satisfies StoryObj<typeof ConversationFixture>;
+export const SchemaIncompatible={render:()=>({Component:ConversationFixture,props:{installationState:'incompatible'}})} satisfies StoryObj<typeof ConversationFixture>;
+export const SchemaUninitialized={render:()=>({Component:ConversationFixture,props:{installationState:'uninitialized'}})} satisfies StoryObj<typeof ConversationFixture>;
+export const MaintenanceDraining={render:()=>({Component:ConversationFixture,props:{installationState:'draining'}})} satisfies StoryObj<typeof ConversationFixture>;
+export const MaintenanceExclusive={render:()=>({Component:ConversationFixture,props:{installationState:'exclusive'}})} satisfies StoryObj<typeof ConversationFixture>;
+export const BridgeIncompatible={render:()=>({Component:ConversationFixture,props:{installationState:'bridge-incompatible'}})} satisfies StoryObj<typeof ConversationFixture>;

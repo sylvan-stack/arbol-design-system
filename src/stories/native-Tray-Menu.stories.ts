@@ -34,7 +34,7 @@ const meta = {
     },
     trayBackendAvailable: {
       control: 'boolean',
-      description: 'Disable to show a shortcut refusal when the current Root has no runnable backend.',
+      description: 'Disable to show a shortcut refusal when the installation backend is unavailable.',
     },
     trayCatalogueState: { control: 'select', options: ['available', 'loading', 'empty', 'unavailable'] },
   },
@@ -42,7 +42,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Press Option+E with the preview focused to open or raise Elma Chat for the current Root. Press Option+Q to open Seqoya Lab. Trunks lists available Trunks and marks the default for new windows. Each window header changes its own Trunk. The tray shows the default Trunk and running Build number. Start new version names the prepared Build and updates the header after the preview handoff. Close returns to the resident tray. In the App, drag the passive shared header to move its window. The Trunk dropdown and preferences keep their click actions.',
+          'Press Option+E with the preview focused to open or raise the installation’s Elma Chat window. Press Option+Q to raise its single Seqoya Lab administration window. Trunks lists available Trunks and marks the default for new windows. Elma’s header chooses the Trunk for its next Exchange. Seqoya Lab has administration and appearance controls. The tray shows the default Trunk and running Build number. Start new version names the prepared Build and updates the header after the preview handoff. Close returns to the resident tray. In the App, drag the passive shared header to move its window. The Trunk dropdown and preferences keep their click actions.',
       },
     },
   },

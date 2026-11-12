@@ -5,7 +5,21 @@ role: derived
 
 ## Single-database release (ARC-4)
 
-Reuse one Elma window for the installation. Show the chat/workspace title without a Root label. Latest chats and external opens address a chat UUID or a workspace intent. Preserve the Draft before switching and wait for an unconfirmed send to resolve. Remove the stale-copy notice and **Bring over again** action. The Trunk picker applies to a new Exchange, including Send Again; it never changes a running Exchange or a pending retry. During maintenance, preserve visible saved content and editable Drafts where possible, explain a refused send and keep answers or stop available for accepted work while it drains.
+Reuse one Elma window for the installation and show the chat or workspace title. Latest chats and queued external opens address a chat UUID or an absolute workspace folder. Preserve the current Draft before switching and wait for an unconfirmed send to resolve. Chat, document and request generations reject late replies for a previous visible context.
+
+Bridge 2 observes the installation database, schema pair and maintenance state. An unsupported greeting shows a compatibility refusal before any request or subscription. Database unavailable, incompatible schema, uninitialized schema, draining maintenance and exclusive maintenance have separate visible states. Reconnect refreshes subscriptions while retaining saved content and editable Drafts where possible.
+
+The Trunk picker applies to the next Exchange, including Send Again. A pending request retains its Exchange UUID and captured Trunk across a lost reply, and receipt recovery resolves that same identity. Draft recovery, pending send records, the active-send pointer and a queued open survive native close and reopening in the installation renderer origin. Theme, text size and recent-chat conveniences use installation scope. During maintenance, refused sends keep their Draft text. Answers and stop remain available for accepted work while it drains.
+
+The maintained examples include database and maintenance refusal states, Bridge incompatibility, retained Drafts, latest chats and chat actions.
+
+<!-- sources:
+arbol:@code/ui/elma/src/bridge.ts
+arbol:@code/ui/elma/src/window.svelte.ts
+arbol:@code/ui/elma/src/drafts.svelte.ts
+arbol:@code/ui/elma/src/sending.svelte.ts
+arbol-app:@code/Sources/ElmaWindow.swift
+-->
 
 This applies to the release governed by ARC-4 upon its acceptance. The existing Root-based descriptions below retain their original release scope.
 

@@ -5,7 +5,18 @@ role: derived
 
 ## Single-database release (ARC-4)
 
-Use one installation backend and one reusable window each for Elma Chat and Seqoya Lab. Option+E and Option+Q raise those windows. Route a queued open to Elma by chat UUID or workspace intent after protecting its Draft; no Roots menu, Root names or per-Root routing. Keep the installation's compatible Trunk choices for new Exchanges, running Build and health status. Show maintenance, connection loss and Bridge incompatibility distinctly; reconnect to the same installation without silently restarting an Exchange. Preserve the native window, menu and accessibility conventions below.
+The resident App supervises one backend at the owner-only installation socket. It validates readiness against the launched process and socket peer, or attaches to an existing private endpoint. Retry and reconnect preserve the shared endpoint. Departure preserves each window’s recovery data and stops only the backend child owned by that App.
+
+Option+E raises the installation’s Elma Chat window and Option+Q raises its Seqoya Lab administration window. Titles and geometry belong to each surface. One Elma open queue carries chat UUIDs and workspace folders. The tray shows the installation default Trunk, compatible runnable choices, running Build and shortcut failures. Elma’s window-local choice applies to a new Exchange. Seqoya’s header provides administration and appearance controls.
+
+Each surface loads the signed renderer in its own installation origin with document-generation checks. Bridge 2 supplies database, schema and maintenance observations. The native account lookup checks the same installation greeting before opening an existing account-bound usage browser. The App’s resident lock, Build handoff, hotkey registration, private socket checks, renderer boundary and safe owned-child shutdown remain part of the native adapter.
+
+<!-- sources:
+arbol-app:@code/Sources/ArbolApp.swift
+arbol-app:@code/Sources/RootBackend.swift
+arbol-app:@code/Sources/RootSocket.swift
+arbol-app:@code/Sources/RendererBundle.swift
+-->
 
 This applies to the release governed by ARC-4 upon its acceptance. The existing Root-based descriptions below retain their original release scope.
 
