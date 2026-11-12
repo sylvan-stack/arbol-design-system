@@ -3,6 +3,12 @@ role: derived
 ---
 # Native and auxiliary surfaces
 
+## Single-database release (ARC-4)
+
+Use one installation backend and one reusable window each for Elma Chat and Seqoya Lab. Option+E and Option+Q raise those windows. Route a queued open to Elma by chat UUID or workspace intent after protecting its Draft; no Roots menu, Root names or per-Root routing. Keep the installation's compatible Trunk choices for new Exchanges, running Build and health status. Show maintenance, connection loss and Bridge incompatibility distinctly; reconnect to the same installation without silently restarting an Exchange. Preserve the native window, menu and accessibility conventions below.
+
+This applies to the release governed by ARC-4 upon its acceptance. The existing Root-based descriptions below retain their original release scope.
+
 ## Native shell and menus
 
 The four named apps share a Swift shell and WKWebView bridge, but have separate identities. Preserve window positioning, traffic-light clearance, dragging and keyboard integration as platform behavior. The tray has health/build information, open-dashboard, restart, rebuild/fix-build, older-build, naming/removal and quit operations. These operational tools should live in a System/Developer area in a smaller successor, not consume the main task interface.

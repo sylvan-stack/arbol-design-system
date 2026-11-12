@@ -3,6 +3,12 @@ role: derived
 ---
 # Seqoya Lab
 
+## Single-database release (ARC-4)
+
+Open one Seqoya Lab window for the installation. Subscriptions, saved Vigor and routing use the same installation and backend as Elma and the CLI. Show **Arbol activity · Last 30 days** without a Root label. Keep saved readings through a refused refresh; show maintenance, disconnect and unavailable readings separately. An empty installation can list signed-in subscriptions before it has any saved usage or Vigor. Keep provider details, tab navigation and status accessibility. Trunk selection belongs to starting an Exchange, not to subscription administration.
+
+This applies to the release governed by ARC-4 upon its acceptance. The existing Root-based descriptions below retain their original release scope.
+
 ## First native layout
 
 Seqoya Lab uses the same compact WorkspaceHeader as Elma Chat. It passes the Seqoya workspace identity and title to the component, which renders the mark, Trunk dropdown, theme and text size controls, and navigation control. Seqoya keeps its appearance for its own Root. The dropdown changes the Trunk for this window. New windows start with the tray’s default for their Root.

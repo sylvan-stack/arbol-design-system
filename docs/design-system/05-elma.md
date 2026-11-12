@@ -3,6 +3,12 @@ role: derived
 ---
 # Elma Chat
 
+## Single-database release (ARC-4)
+
+Reuse one Elma window for the installation. Show the chat/workspace title without a Root label. Latest chats and external opens address a chat UUID or a workspace intent. Preserve the Draft before switching and wait for an unconfirmed send to resolve. Remove the stale-copy notice and **Bring over again** action. The Trunk picker applies to a new Exchange, including Send Again; it never changes a running Exchange or a pending retry. During maintenance, preserve visible saved content and editable Drafts where possible, explain a refused send and keep answers or stop available for accepted work while it drains.
+
+This applies to the release governed by ARC-4 upon its acceptance. The existing Root-based descriptions below retain their original release scope.
+
 ## Observed composition
 
 Elma is a turn-oriented conversation workspace, not simply a scrolling messaging app. A navigation rail exposes repositories, turn-history controls, intelligence settings and Meta Cockpit. The main page combines context, the selected user message, assistant response, live state and composer. Turn and branch controls choose the visible path. A right pane shows a file/document or Thread Inspector; it may become fullscreen. Shared header/status chrome surrounds the workspace.
