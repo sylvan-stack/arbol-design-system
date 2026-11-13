@@ -81,7 +81,10 @@ const nextWindows: SubscriptionView = { ...loaded, listing: {
     })),
   })),
 } };
-export const NextAllowances: Story = { args: { view: nextWindows } };
+export const NextAllowances: Story = {
+  args: { view: nextWindows },
+  parameters: { docs: { description: { story: 'Hover or focus only a Time remaining value for its reset tooltip. Pending windows remain honest fictional states here; the production adapter starts a supported window with one minimal request and rereads provider usage.' } } },
+};
 export const Unavailable: Story = {
   args: { view: { connected: true, error: 'The backend did not answer in time.' } },
 };
