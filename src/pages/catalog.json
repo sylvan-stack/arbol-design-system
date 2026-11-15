@@ -159,16 +159,6 @@
     ]
   },
   {
-    "id": "seqoya-stewardship",
-    "workspace": "Seqoya",
-    "title": "Stewardship",
-    "recipe": "stewardship",
-    "description": "Activation rules, stewards and mandates with explicit authority.",
-    "entity": "",
-    "items": [],
-    "fields": []
-  },
-  {
     "id": "seqoya-blueprints",
     "workspace": "Seqoya",
     "title": "Blueprints",
@@ -540,17 +530,6 @@
     "title": "Agentic Stations",
     "recipe": "agentic-stations",
     "description": "Agent-origin work with the same execution and attention states.",
-    "entity": "run",
-    "items": [],
-    "fields": [],
-    "canCreate": false
-  },
-  {
-    "id": "willo-stewards",
-    "workspace": "Willo",
-    "title": "Stewards",
-    "recipe": "stewards",
-    "description": "Ongoing stewardship and its related chats.",
     "entity": "run",
     "items": [],
     "fields": [],

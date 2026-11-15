@@ -7,10 +7,7 @@
   import Collection from '../patterns/Collection.svelte';
   import ConfirmAction from '../patterns/ConfirmAction.svelte';
   import DocumentView from '../patterns/DocumentView.svelte';
-  import EntitySummary from '../patterns/EntitySummary.svelte';
-  import Badge from '../components/Badge.svelte';
   import Button from '../components/Button.svelte';
-  import Tabs from '../components/Tabs.svelte';
   import Dashboard from '../sections/Dashboard.svelte';
   import IntelligenceProviders from './IntelligenceProviders.svelte';
   import { exampleListing } from '../fixtures/seqoya-subscriptions';
@@ -35,7 +32,6 @@
   import SwimlaneDetails from '../sections/SwimlaneDetails.svelte';
   let { pageId = 'seqoya-dashboard' }: { pageId?: string } = $props();
   let current = $state(untrack(() => pageId));
-  let tab = $state('Activation Rules');
   let fullEditor = $state(false);
   let editorDirty = $state(false);
   let pendingDestination = $state<string | null>(null);
@@ -115,33 +111,6 @@
             </aside>
           </div>
         {:else if page.recipe === 'document'}<DocumentView />
-        {:else if page.recipe === 'stewardship'}<Tabs
-            label="Stewardship area"
-            items={['Activation Rules', 'Stewards', 'Mandates']}
-            bind:value={tab}
-          />
-          <div class="panel stack">
-            <h2>{tab}</h2>
-            <EntitySummary
-              title={tab === 'Activation Rules'
-                ? 'When a review is requested'
-                : tab === 'Stewards'
-                  ? 'Design steward'
-                  : 'Keep interactions consistent'}
-              subtitle={tab === 'Activation Rules'
-                ? 'Email signal → Design review'
-                : tab === 'Stewards'
-                  ? 'Mission: maintain shared design contracts'
-                  : 'Read source, analyze, report; request permission before external actions'}
-              kind="mandate"
-              status="Enabled"
-            />
-            <h3>Authority</h3>
-            <p class="muted">
-              Read repository and artifact sources. Produce an evidence-backed review.
-            </p>
-            <Badge label="No standing write permission" tone="warning" />
-          </div>
         {:else if page.recipe.startsWith('chat')}<ConversationWorkspace
             empty={page.recipe === 'chat-empty'}
             approval={page.recipe === 'chat-approval'}
@@ -149,11 +118,11 @@
         {:else if page.recipe === 'history'}<HistoryTree />
         {:else if page.recipe === 'inspector'}<ThreadInspector />
         {:else if page.recipe === 'review'}<ReviewWorkspace />
-        {:else if ['stations', 'agentic-stations', 'stewards', 'compact-stations'].includes(page.recipe)}<div
+        {:else if ['stations', 'agentic-stations', 'compact-stations'].includes(page.recipe)}<div
             class:split={page.recipe === 'stations'}
           >
             <StationCollection
-              agentic={page.recipe === 'agentic-stations' || page.recipe === 'stewards'}
+              agentic={page.recipe === 'agentic-stations'}
               compact={page.recipe === 'compact-stations'}
             />{#if page.recipe === 'stations'}<AttentionColumn />{/if}
           </div>
