@@ -317,7 +317,6 @@ repository: sample-repo</pre>
             onclick={() => (feedback = 'Diagnostic context prepared locally')}
           />
         </div>
-      {:else if surface === 'Steward Output'}<DocumentView title="Design steward · Latest output" />
       {:else if surface === 'Gmail Wrapper'}<div class="empty">
           <h2>Connected mail window</h2>
           <p class="muted">
