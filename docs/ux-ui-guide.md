@@ -374,8 +374,8 @@ Session before Elma acknowledges its response.
 
 **Stations** contains human-initiated Chat Sessions and standalone Drafts.
 **Agentic Stations** contains Chat Sessions whose recorded Initiator kind is
-`agent`, `delegate`, or `steward`. Missing legacy Initiator values are treated as
-human. The dedicated Stewards page remains available as a narrower view.
+`agent` or `delegate`. Missing legacy Initiator values are treated as
+human.
 
 Both station pages share cards, section grouping, pagination, current-page
 transcript search, title editing, context menus, and compact presentation.

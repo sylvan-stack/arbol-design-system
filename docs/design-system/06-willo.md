@@ -76,7 +76,7 @@ arbol:renderer/apps/willo/src/SignalRulesManagerModal.svelte
 
 Blueprint Runs lists invocations most recent first; Run Details displays run identity/status and paginated detail content. Use Collection + DetailPane with an explicit return path. A running invocation is an operation, not necessarily a chat; link its related chat without substituting one identity for the other.
 
-Proposed navigation groups: Work (Stations, Agentic, Stewards), Attention (Action Items, Spotlight), Sources (Slack, Telegram, Emails), History (Runs); notification settings move to a settings destination. These are design choices for the successor, not claims about the existing nav. Avoid showing empty unsupported integrations before setup; offer Connect sources in an intentional onboarding state.
+Proposed navigation groups: Work (Stations, Agentic), Attention (Action Items, Spotlight), Sources (Slack, Telegram, Emails), History (Runs); notification settings move to a settings destination. These are design choices for the successor, not claims about the existing nav. Avoid showing empty unsupported integrations before setup; offer Connect sources in an intentional onboarding state.
 
 <!-- sources:
 arbol:renderer/apps/willo/src/BlueprintRuns.svelte
