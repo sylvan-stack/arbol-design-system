@@ -17,11 +17,13 @@ Unresponsive, crashed and unavailable are distinct from the owner. Recovery expl
 
 Use named buttons, a labelled address draft and agent selector, ordinary keyboard navigation and visible focus. Page addresses and titles are absent from contract-1 ShellTab/ShellEvent; the address control is explicitly **Open address**, not a fabricated current URL. State refresh preserves that draft. Tab buttons use stable identities and expose the current selection.
 
+Foreground selection is distinct from ordinary pending work. While selecting, fence every tab-target action, including an otherwise eligible Take and Close tab; Close Window/native close remain independent. Consume the real active tab from every accepted versioned snapshot (the host sends it first), keep visual tab order separately and never infer selection from an unversioned reply. First/fallback native activation precedes publication. Ordinary background popups preserve an existing selection. The Selecting example starts with eligible Take and offers separate local selection/pending controls to show that ordinary pending alone does not disable Take.
+
 Controls wrap and scroll within their own 272-pixel native toolbar area so Take and close remain accessible with large text. The real page remains a live sibling native view beneath it. Pointer exclusion must remain transparent to presentation. The design component uses semantic theme, surface, focus and status tokens across all twelve catalog themes. The application shell uses the Redwood baseline and system font fallback without external assets. The platform owns native window controls.
 
 ## Maintained examples
 
-Components/BrowserControl includes Private, Interactive, SharedPrivate, AgentControl, TakingControl, Unresponsive, Crashed, Unavailable, NoAgents, BusyRefusal, RequestRefused, Loading, Empty, ConcurrentTabs, LongLabel and BrowserPage. The composed page demonstrates local Share/Return, explicit pending Take completion, recovery confirmation, close and independent tabs. Completion/reset buttons are labelled local preview controls; they are not production methods or test machinery.
+Components/BrowserControl includes Private, Selecting, SharedPrivate, AgentControl, TakingControl, Unresponsive, Crashed, Unavailable, NoAgents, BusyRefusal, RequestRefused, Loading, Empty, ConcurrentTabs, LongLabel and BrowserPage. The composed page demonstrates local Share/Return, explicit pending Take completion, recovery confirmation, close and independent tabs. Completion/reset buttons are labelled local preview controls; they are not production methods or test machinery.
 
 ## Native and production boundary
 

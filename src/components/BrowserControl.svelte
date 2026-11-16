@@ -14,6 +14,7 @@
   const controls = $derived(browserControls(model, recipient));
   const confirming = $derived(!!confirmation && confirmation.tab === controls.tab?.tab && confirmation.generation === controls.tab?.generation);
   function act(method: BrowserMethod, extra: BrowserControlAction['params'] = {}) {
+    if (model.selecting && method !== 'close_window') return;
     const target = controls.tab;
     onaction({ method, params: ['new_tab', 'close_window', 'select'].includes(method) ? extra :
       { tab: target?.tab, controlGeneration: target?.generation, ...extra } });
@@ -38,11 +39,12 @@
   <form class="row" onsubmit={(event) => { event.preventDefault(); if (controls.navigate) act('user_navigate', { url: address }); }}>
     <label for="{id}-address">Open address</label><input id="{id}-address" type="url" autocomplete="off" spellcheck="false" placeholder="https://example.com" bind:value={address} disabled={!controls.navigate} /><Button type="submit" label="Go" disabled={!controls.navigate} />
   </form>
-  <div class="row"><Button label="Back" disabled={!controls.navigate} onclick={() => act('back')} /><Button label="Forward" disabled={!controls.navigate} onclick={() => act('forward')} /><Button label="Reload" disabled={!controls.navigate} onclick={() => act('reload')} /><Button label="Close tab" disabled={!controls.connected || !controls.tab} onclick={() => act('close_tab')} /></div>
+  <div class="row"><Button label="Back" disabled={!controls.navigate} onclick={() => act('back')} /><Button label="Forward" disabled={!controls.navigate} onclick={() => act('forward')} /><Button label="Reload" disabled={!controls.navigate} onclick={() => act('reload')} /><Button label="Close tab" disabled={!controls.closeTab} onclick={() => act('close_tab')} /></div>
   <div class="row" role="status" aria-live="polite">
     <strong>{controls.owner}</strong>
     {#if controls.tab}<Badge label={controls.tab.pageAvailability} tone={controls.tab.pageAvailability === 'ready' ? 'success' : 'warning'} /><span>{controls.tab.handoff === 'taking' ? 'Taking control…' : controls.tab.inputReady ? 'Input ready' : 'Input unavailable'}</span>{/if}
     {#if model.connection !== 'ready'}<span>{model.connection === 'loading' ? 'Connecting to browser…' : 'Browser state unavailable'}</span>{/if}
+    {#if model.selecting}<span>Selecting tab…</span>{/if}
   </div>
   <div class="row">
     <label for="{id}-client">Agent</label><select id="{id}-client" value={recipient} onchange={(event) => (client = event.currentTarget.value)} disabled={!controls.available || !model.attachments.length} aria-describedby="{id}-privacy">

@@ -3,16 +3,17 @@
   import BrowserControl from '../components/BrowserControl.svelte';
   import Button from '../components/Button.svelte';
   import type { BrowserControlState, BrowserControlAction, BrowserTab } from '../sections/browser-control';
-  let { variant = 'private', controlsOnly = false }: { variant?: 'private' | 'shared' | 'agent' | 'taking' | 'unresponsive' | 'crashed' | 'unavailable' | 'no-agents' | 'busy' | 'error' | 'loading' | 'empty' | 'concurrent' | 'long-label'; controlsOnly?: boolean } = $props();
+  let { variant = 'private', controlsOnly = false }: { variant?: 'private' | 'shared' | 'agent' | 'taking' | 'unresponsive' | 'crashed' | 'unavailable' | 'no-agents' | 'busy' | 'error' | 'loading' | 'empty' | 'concurrent' | 'long-label' | 'selecting'; controlsOnly?: boolean } = $props();
   function example(): BrowserControlState {
     const attachments = [{ id: 'example-agent', label: 'Example agent' }, { id: 'example-observer', label: 'Example observer' }];
     const tab: BrowserTab = { tab: 'example-tab-1', generation: 1, controller: { kind: 'user' }, handoff: 'idle', inputReady: true, pageAvailability: 'ready', visibleTo: [] };
     if (variant !== 'private' && variant !== 'no-agents') tab.visibleTo = ['example-agent'];
-    if (['agent', 'long-label'].includes(variant)) tab.controller = { kind: 'agent', client: attachments[0].id, label: variant === 'long-label' ? 'Example agent with a long nonsecret display label for a narrow window' : attachments[0].label };
+    if (['agent', 'long-label', 'selecting'].includes(variant)) tab.controller = { kind: 'agent', client: attachments[0].id, label: variant === 'long-label' ? 'Example agent with a long nonsecret display label for a narrow window' : attachments[0].label };
     if (['unresponsive', 'crashed', 'unavailable'].includes(variant)) { tab.pageAvailability = variant as BrowserTab['pageAvailability']; tab.inputReady = false; }
     if (variant === 'taking') { tab.handoff = 'taking'; tab.pageAvailability = 'unavailable'; tab.inputReady = false; }
     const tabs = ['empty', 'loading'].includes(variant) ? [] : [tab];
     if (variant === 'concurrent') tabs.push({ ...tab, tab: 'example-tab-2', controller: { kind: 'agent', client: 'example-agent', label: 'Example agent' }, visibleTo: ['example-agent'] });
+    if (variant === 'selecting') tabs.push({ ...tab, tab: 'example-tab-2', controller: { kind: 'user' }, visibleTo: [] });
     return { tabs, selected: tabs[0]?.tab ?? '', attachments: variant === 'no-agents' ? [] : attachments,
       connection: variant === 'loading' ? 'loading' : 'ready',
       problem: variant === 'error' ? 'The request was refused. Read the current state before trying again.' : '' };
@@ -22,6 +23,7 @@
   let next = 2;
   let note = $state('A fictional unsaved note');
   let feedback = $state('');
+  let recovering = $state(false);
   const current = $derived(model.tabs.find(tab => tab.tab === model.selected));
   function action({ method, params }: BrowserControlAction) {
     const target = model.tabs.find(tab => tab.tab === params.tab);
@@ -32,9 +34,9 @@
       const tab: BrowserTab = { tab: `example-created-${next++}`, generation: 1, controller: { kind: 'user' }, handoff: 'idle', inputReady: true, pageAvailability: 'ready', visibleTo: [] };
       model.tabs.push(tab); model.selected = tab.tab; return;
     }
-    if (method === 'close_window') { model.tabs = []; model.selected = ''; model.connection = 'unavailable'; feedback = 'Local preview window closed.'; return; }
+    if (method === 'close_window') { model.tabs = []; model.selected = ''; model.pending = false; model.selecting = false; recovering = false; model.connection = 'unavailable'; feedback = 'Local preview window closed.'; return; }
     if (!target) return;
-    if (method === 'close_tab') { model.tabs = model.tabs.filter(tab => tab !== target); model.selected = model.tabs[0]?.tab ?? ''; return; }
+    if (method === 'close_tab') { model.tabs = model.tabs.filter(tab => tab.tab !== target.tab); model.selected = model.tabs[0]?.tab ?? ''; model.pending = false; recovering = false; return; }
     if (method === 'share' && params.client && target.controller.kind === 'user') { target.visibleTo = [...new Set([...target.visibleTo, params.client])]; return; }
     if (method === 'stop_sharing') {
       target.visibleTo = target.visibleTo.filter(id => id !== params.client);
@@ -51,6 +53,7 @@
       feedback = 'Local preview: the agent needs a fresh snapshot before page input.'; return;
     }
     if (method === 'recover') {
+      recovering = true;
       target.generation++; target.controller = { kind: 'user' }; target.inputReady = false;
       target.pageAvailability = 'unavailable'; model.pending = true; feedback = 'Local recovery pending. No interrupted action is replayed.'; return;
     }
@@ -58,9 +61,9 @@
   }
   function completeLocalTransition() {
     if (!current) return;
-    if (model.pending) note = '';
+    if (recovering) { note = ''; recovering = false; }
     current.handoff = 'idle'; current.inputReady = true; current.pageAvailability = 'ready'; model.pending = false;
-    feedback = 'Local preview transition completed under user control.';
+    feedback = 'Local preview transition completed.';
   }
 </script>
 
@@ -73,6 +76,11 @@
     {:else}<h2>No open tabs</h2><p>Use New tab when the browser is available.</p>{/if}
   </main>{/if}
   <div class="preview-controls">
+    {#if variant === 'selecting'}
+      <Button label="Begin local selection" disabled={model.selecting || model.pending || current?.handoff !== 'idle'} onclick={() => { model.selecting = true; feedback = 'Local selection pending: tab actions are fenced; Close window remains available.'; }} />
+      <Button label="Begin ordinary local pending" disabled={model.selecting || model.pending || current?.handoff !== 'idle'} onclick={() => { model.pending = true; feedback = 'Ordinary local pending: eligible Take and Close window remain available.'; }} />
+      {#if model.selecting}<Button label="Complete local selection" onclick={() => { model.selected = model.tabs[1]?.tab ?? model.selected; model.selecting = false; feedback = 'Local trusted selection synchronized.'; }} />{/if}
+    {/if}
     {#if current?.handoff === 'taking' || model.pending}<Button label="Complete local transition" onclick={completeLocalTransition} />{/if}
     {#if nativeBusy}<Button label="Finish local interaction" onclick={() => (nativeBusy = false)} />{/if}
     {#if model.connection === 'unavailable' || model.connection === 'loading'}<Button label="Reset local preview" onclick={() => { model = example(); model.connection = 'ready'; }} />{/if}

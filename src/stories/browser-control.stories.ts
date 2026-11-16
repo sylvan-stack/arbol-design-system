@@ -15,7 +15,7 @@ export const Private: Story = {};
 const preview = (variant: ComponentProps<typeof ArbolBrowser>['variant'], controlsOnly = true): StoryObj<typeof ArbolBrowser> => ({
   render: () => ({ Component: ArbolBrowser, props: { variant, controlsOnly } }),
 });
-export const Interactive = preview('private');
+export const Selecting = preview('selecting');
 export const SharedPrivate = preview('shared');
 export const AgentControl = preview('agent');
 export const TakingControl = preview('taking');

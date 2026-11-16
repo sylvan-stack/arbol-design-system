@@ -14,6 +14,7 @@ export interface BrowserControlState {
   attachments: { id: string; label: string }[];
   connection: 'loading' | 'ready' | 'unavailable';
   pending?: boolean;
+  selecting?: boolean;
   problem?: string;
 }
 export interface BrowserControlAction {
@@ -25,13 +26,14 @@ export function browserControls(state: BrowserControlState, client: string) {
   const tab = state.tabs.find(entry => entry.tab === state.selected);
   const connected = state.connection === 'ready';
   const idle = tab?.handoff === 'idle', user = tab?.controller.kind === 'user';
-  const available = connected && !state.pending;
+  const available = connected && !state.pending && !state.selecting;
   const recipient = state.attachments.some(entry => entry.id === client);
   return { tab, connected, available,
     navigate: available && !!user && !!idle,
     share: available && !!user && !!idle && recipient && !tab!.visibleTo.includes(client),
     returnControl: available && !!user && !!idle && recipient && tab!.visibleTo.includes(client) && tab!.inputReady && tab!.pageAvailability === 'ready',
-    take: connected && !!tab && !user && !!idle,
+    take: connected && !state.selecting && !!tab && !user && !!idle,
+    closeTab: connected && !state.selecting && !!tab,
     recover: available && !!user && !!idle && tab!.pageAvailability !== 'ready',
     owner: !tab ? 'No open tabs' : user ? 'You control this tab · Private' : `${tab.controller.kind === 'agent' ? tab.controller.label : ''} controls this tab`,
   };
