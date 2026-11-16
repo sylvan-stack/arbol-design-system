@@ -1,5 +1,16 @@
 [
   {
+    "id": "browser-control",
+    "workspace": "Browser",
+    "title": "Control",
+    "recipe": "browser-control",
+    "description": "Trusted tab ownership, private sharing, handoff and availability in a fictional local preview.",
+    "entity": "",
+    "items": [],
+    "fields": [],
+    "canCreate": false
+  },
+  {
     "id": "seqoya-dashboard",
     "workspace": "Seqoya",
     "title": "Dashboard",

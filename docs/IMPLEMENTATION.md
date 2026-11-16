@@ -51,6 +51,21 @@ arbol-design-system:scripts/check-elma-response.mjs
 arbol-design-system:scripts/check-elma-reading.mjs
 -->
 
+## Browser control
+
+BrowserControl is a controlled presentation of owner, privacy, sharing, Taking control and independent page availability. ArbolBrowser supplies explicitly fictional local preview interactions; WorkspacePage's browser-control recipe and Pages/Browser/Control reach that same maintained composition. Components/BrowserControl keeps the isolated states and direct composition independently available. Semantic tokens, visible keyboard focus, a labelled address draft and named per-client actions remain shared.
+
+The consuming arbol-browser host owns authenticated shell IPC, checked native shell/page creation, exact bindings, profile isolation, recipient privacy and native retirement. The preview's completion/reset controls are local examples only. They grant no production permission, enforce no native input boundary and supply no runtime health evidence. ABR-10/11/29 supply the remaining authoritative transitions, current-document health and signed host assembly; ABR-12 qualifies the integrated package. Paired pushed sources are distinct from native/runtime qualification. The browser consumer instruction points to this repository's maintained workflow.
+
+<!-- sources:
+arbol-design-system:@code/src/components/BrowserControl.svelte
+arbol-design-system:@code/src/sections/browser-control.ts
+arbol-design-system:@code/src/pages/ArbolBrowser.svelte
+arbol-design-system:@code/src/pages/WorkspacePage.svelte
+arbol-design-system:@code/src/stories/browser-control.stories.ts
+arbol-design-system:@code/src/stories/arbol-browser.stories.ts
+-->
+
 ## Boundaries to implement in an application
 
 The catalog demonstrates visual composition and local interactions. It does not provide backend persistence, authentication, provider catalogs, file uploads, source synchronization, cross-window request resolution, durable draft storage, actual Git operations or production permission enforcement. Notification tests and tool actions are local previews. Avoid wiring a production side effect directly to a Storybook fixture callback.

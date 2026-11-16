@@ -1,6 +1,10 @@
 export { default as AsyncFeedback } from './components/AsyncFeedback.svelte';
 export { default as Badge } from './components/Badge.svelte';
 export { default as Button } from './components/Button.svelte';
+export { default as BrowserControl } from './components/BrowserControl.svelte';
+export { default as ArbolBrowser } from './pages/ArbolBrowser.svelte';
+export { browserControls } from './sections/browser-control';
+export type { BrowserControlState, BrowserControlAction, BrowserTab, BrowserMethod } from './sections/browser-control';
 export { default as Card } from './components/Card.svelte';
 export { default as Checkbox } from './components/Checkbox.svelte';
 export { default as Combobox } from './components/Combobox.svelte';

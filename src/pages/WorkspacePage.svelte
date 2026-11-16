@@ -3,6 +3,7 @@
   import catalog from './catalog.json';
   import type { FieldSpec } from '../types';
   import WorkspaceShell from '../patterns/WorkspaceShell.svelte';
+  import ArbolBrowser from './ArbolBrowser.svelte';
   import PageHeader from '../patterns/PageHeader.svelte';
   import Collection from '../patterns/Collection.svelte';
   import ConfirmAction from '../patterns/ConfirmAction.svelte';
@@ -50,7 +51,9 @@
   );
 </script>
 
-{#if ['elma-new-chat','elma-conversation','elma-history'].includes(current)}
+{#if current === 'browser-control'}
+ <ArbolBrowser />
+{:else if ['elma-new-chat','elma-conversation','elma-history'].includes(current)}
  <ConversationWorkspace empty={current==='elma-new-chat'} history={current==='elma-history'}/>
 {:else}
 <WorkspaceShell
