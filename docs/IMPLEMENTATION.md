@@ -55,6 +55,8 @@ arbol-design-system:scripts/check-elma-reading.mjs
 
 BrowserControl is a controlled presentation of owner, privacy, sharing, Taking control and independent page availability. ArbolBrowser supplies explicitly fictional local preview interactions; WorkspacePage's browser-control recipe and Pages/Browser/Control reach that same maintained composition. Components/BrowserControl keeps the isolated states and direct composition independently available. Semantic tokens, visible keyboard focus, a labelled address draft and named per-client actions remain shared.
 
+BrowserProfiles composes the portable profile list and active-profile tab strip. The `browser-profiles` catalog route and the Browser Profile Navigation stories exercise the same component and CSS shipped by the local Browser preview. The design fixture keeps its example drafts local. The Browser applies live tab selection and profile session ownership in its host.
+
 The consuming arbol-browser host owns authenticated shell IPC, checked native shell/page creation, exact bindings, profile isolation, recipient privacy and native retirement. The preview's completion/reset controls are local examples only. They grant no production permission, enforce no native input boundary and supply no runtime health evidence. ABR-10/11/29 supply the remaining authoritative transitions, current-document health and signed host assembly; ABR-12 qualifies the integrated package. Paired pushed sources are distinct from native/runtime qualification. The browser consumer instruction points to this repository's maintained workflow.
 
 <!-- sources:

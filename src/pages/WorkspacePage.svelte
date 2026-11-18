@@ -4,6 +4,7 @@
   import type { FieldSpec } from '../types';
   import WorkspaceShell from '../patterns/WorkspaceShell.svelte';
   import ArbolBrowser from './ArbolBrowser.svelte';
+  import BrowserProfiles from './BrowserProfiles.svelte';
   import PageHeader from '../patterns/PageHeader.svelte';
   import Collection from '../patterns/Collection.svelte';
   import ConfirmAction from '../patterns/ConfirmAction.svelte';
@@ -53,6 +54,8 @@
 
 {#if current === 'browser-control'}
  <ArbolBrowser />
+{:else if current === 'browser-profiles'}
+ <BrowserProfiles />
 {:else if ['elma-new-chat','elma-conversation','elma-history'].includes(current)}
  <ConversationWorkspace empty={current==='elma-new-chat'} history={current==='elma-history'}/>
 {:else}

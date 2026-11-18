@@ -25,6 +25,12 @@ Controls wrap and scroll within their own 272-pixel native toolbar area so Take 
 
 Components/BrowserControl includes Private, Selecting, SharedPrivate, AgentControl, TakingControl, Unresponsive, Crashed, Unavailable, NoAgents, BusyRefusal, RequestRefused, Loading, Empty, ConcurrentTabs, LongLabel and BrowserPage. The composed page demonstrates local Share/Return, explicit pending Take completion, recovery confirmation, close and independent tabs. Completion/reset buttons are labelled local preview controls; they are not production methods or test machinery.
 
+## Profile and website tabs
+
+The local Browser preview shows the profile list on the left and tabs for the selected profile across the top. A profile row contains its saved display name and live tab count. At 960 pixels wide and 520 pixels high, it also shows the open website hostnames. Compact windows retain the profile name and count. The list and tab strip can scroll independently. Selecting a profile restores its own selected tab, or shows an empty page area with the address field available. New and close tab actions apply to the active profile. Profile and tab selection use named keyboard-focusable buttons with distinct current and focus states.
+
+BrowserProfiles provides two fictional identities on the same site, an ordinary profile and an empty profile. Switch among them to check that the tab strip and each page draft stay with their profile. The Browser preview and the design examples use the same navigation module and stylesheet. The Browser host owns Chromium sessions and validates the selected profile and tab before accepting a chrome action. The shell receives names, tab identities, and hostnames. The fictional page never signs in or reads actual browser state.
+
 ## Native and production boundary
 
 The browser source binds both shell and website WebContentsViews through checked native creation. Website pages start blocked, use sandbox/context isolation with Node disabled and use the profile website session. Shell uses a separate ephemeral session, restrictive CSP, a classic browser bundle and sandbox-compatible CommonJS preload. Actual sender WebContents, main frame, exact canonical bundled URL and current native window are checked before privileged request parameters. Authenticated handlers and the initial projection exist before shell loading/showing.
@@ -38,6 +44,10 @@ arbol-design-system:@code/src/components/BrowserControl.svelte
 arbol-design-system:@code/src/sections/browser-control.ts
 arbol-design-system:@code/src/pages/ArbolBrowser.svelte
 arbol-design-system:@code/src/stories/browser-control.stories.ts
+arbol-design-system:@code/src/components/browser-profile-navigation.mjs
+arbol-design-system:@code/src/pages/BrowserProfiles.svelte
+arbol-design-system:@code/src/stories/browser-profile-navigation.stories.ts
+arbol-browser:@code/src/demo/browser.cjs
 arbol-browser:@code/src/host/windows.ts
 arbol-browser:@code/src/host/shell-ipc.ts
 arbol-browser:@code/src/host/projections.ts

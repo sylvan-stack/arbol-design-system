@@ -3,6 +3,8 @@ export { default as Badge } from './components/Badge.svelte';
 export { default as Button } from './components/Button.svelte';
 export { default as BrowserControl } from './components/BrowserControl.svelte';
 export { default as ArbolBrowser } from './pages/ArbolBrowser.svelte';
+export { default as BrowserProfiles } from './pages/BrowserProfiles.svelte';
+export { mountProfileNavigation } from './components/browser-profile-navigation.mjs';
 export { browserControls } from './sections/browser-control';
 export type { BrowserControlState, BrowserControlAction, BrowserTab, BrowserMethod } from './sections/browser-control';
 export { default as Card } from './components/Card.svelte';

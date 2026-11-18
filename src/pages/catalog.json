@@ -11,6 +11,17 @@
     "canCreate": false
   },
   {
+    "id": "browser-profiles",
+    "workspace": "Browser",
+    "title": "Profiles",
+    "recipe": "browser-profiles",
+    "description": "Switch fictional profile sessions with independent tab strips and retained page drafts.",
+    "entity": "",
+    "items": [],
+    "fields": [],
+    "canCreate": false
+  },
+  {
     "id": "seqoya-dashboard",
     "workspace": "Seqoya",
     "title": "Dashboard",
