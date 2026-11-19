@@ -4,34 +4,44 @@
   import ElmaFrame from '../sections/ElmaFrame.svelte';
   import PinnedMessage from '../sections/PinnedMessage.svelte';
 
+  const prompt = 'What should we check before adding Markdown export to chat?';
   const phases = [
     {
-      id: 'intake', color: '#cba15e',
+      id: 'intake', label: 'Intake', color: '#cba15e',
       start: 'Reading the request and gathering the relevant chat context.',
       finish: 'The request is a design review for Markdown export.',
+      work: { contextSources: ['Pinned message'], classification: 'Design review' },
     },
     {
-      id: 'planning', color: '#9b93db',
+      id: 'planning', label: 'Planning', color: '#9b93db',
       start: 'Choosing which parts of the export to review.',
       finish: 'I’ll look at transcript order, formatting, and private details.',
+      work: { candidateChecks: ['Message order', 'Markdown formatting', 'Privacy'], approach: 'Review a sample transcript' },
     },
     {
-      id: 'execution', color: '#75b5d8',
+      id: 'execution', label: 'Execution', color: '#75b5d8',
       start: 'Walking through a sample conversation with tool activity and a final answer.',
       finish: 'Preserve message order and code fences. Let the user choose whether to include tool output.',
+      work: { examples: [
+        { input: 'Assistant reply with a fenced code block', check: 'Retain code fences and language' },
+        { input: 'Conversation containing tool output', check: 'Follow the export privacy setting' },
+      ] },
     },
     {
-      id: 'finalization', color: '#82be9c',
+      id: 'finalization', label: 'Finalization', color: '#82be9c',
       start: 'Reviewing the recommendation against the export request.',
       finish: 'The export checklist is ready to share.',
+      work: { review: 'Check against the original request', deliverable: 'Export checklist' },
     },
   ] as const;
 
   type Phase = (typeof phases)[number];
   type PhaseMessage = { phase: Phase['id']; boundary: 'start' | 'finish'; text: string };
-  type MockExchange = { currentPhase: Phase['id'] | null; messages: PhaseMessage[] };
+  type MockExchange = { id: string; prompt: string; currentPhase: Phase['id'] | null; messages: PhaseMessage[] };
+  type PhaseRun = { startedAt: string; finishedAt?: string; delaySeconds: number; work: Phase['work'] };
 
-  let exchange = $state<MockExchange>({ currentPhase: null, messages: [] });
+  let exchange = $state<MockExchange>({ id: '', prompt, currentPhase: null, messages: [] });
+  let phaseRuns = $state<Partial<Record<Phase['id'], PhaseRun>>>({});
   let transcript = $state<HTMLDivElement>();
   let timer: ReturnType<typeof setTimeout> | undefined;
   const running = $derived(exchange.currentPhase !== null);
@@ -48,10 +58,13 @@
 
   function startPhase(index: number) {
     const phase = phases[index];
+    const delaySeconds = 5 + Math.floor(Math.random() * 16);
+    const run = { startedAt: new Date().toISOString(), delaySeconds, work: phase.work };
+    phaseRuns[phase.id] = run;
     exchange.currentPhase = phase.id;
     appendMessage(phase, 'start');
-    const seconds = 5 + Math.floor(Math.random() * 16);
     timer = setTimeout(() => {
+      phaseRuns[phase.id] = { ...run, finishedAt: new Date().toISOString() };
       appendMessage(phase, 'finish');
       if (index + 1 < phases.length) {
         startPhase(index + 1);
@@ -59,12 +72,13 @@
         exchange.currentPhase = null;
         timer = undefined;
       }
-    }, seconds * 1000);
+    }, delaySeconds * 1000);
   }
 
   function replay() {
     if (exchange.currentPhase) return;
-    exchange.messages = [];
+    exchange = { id: crypto.randomUUID(), prompt, currentPhase: null, messages: [] };
+    phaseRuns = {};
     if (transcript) transcript.scrollTop = 0;
     startPhase(0);
   }
@@ -74,7 +88,7 @@
 
 <ElmaFrame title="Markdown export" trunk="steady" repository="Demo workspace" hasChat turn={1} total={1}
   working={running} fitted>
-  <PinnedMessage text="What should we check before adding Markdown export to chat?" />
+  <PinnedMessage text={prompt} />
 
   <!-- svelte-ignore a11y_no_noninteractive_tabindex (Keyboard users can scroll the phase transcript.) -->
   <div class="transcript" aria-label="Assistant response" role="region" tabindex="0" bind:this={transcript}>
