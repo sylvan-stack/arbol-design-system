@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onDestroy, tick } from 'svelte';
   import Button from '../components/Button.svelte';
-  import Modal from '../patterns/Modal.svelte';
   import ElmaFrame from '../sections/ElmaFrame.svelte';
   import PinnedMessage from '../sections/PinnedMessage.svelte';
 
@@ -40,12 +39,13 @@
   type PhaseMessage = { phase: Phase['id']; boundary: 'start' | 'finish'; text: string };
   type MockExchange = { id: string; prompt: string; currentPhase: Phase['id'] | null; messages: PhaseMessage[] };
   type PhaseRun = { startedAt: string; finishedAt?: string; delaySeconds: number; work: Phase['work'] };
-  type Structure = { label: string; json: string; open: boolean };
-  type Inspection = { exchangeId: string; exchangeStatus: string; phaseLabel: string; phaseStatus: string; structures: Structure[] };
+  type JsonObject = { [key: string]: JsonValue };
+  type JsonValue = null | boolean | number | string | JsonObject | readonly JsonValue[];
 
   let exchange = $state<MockExchange>({ id: '', prompt, currentPhase: null, messages: [] });
   let phaseRuns = $state<Partial<Record<Phase['id'], PhaseRun>>>({});
-  let inspection = $state<Inspection | null>(null);
+  let inspection = $state<JsonObject | null>(null);
+  let dialog = $state<HTMLDialogElement>();
   let transcript = $state<HTMLDivElement>();
   let timer: ReturnType<typeof setTimeout> | undefined;
   const running = $derived(exchange.currentPhase !== null);
@@ -87,27 +87,51 @@
     startPhase(0);
   }
 
-  function structure(label: string, value: MockExchange | PhaseRun): Structure {
-    const json = JSON.stringify(value, null, 2);
-    return { label, json, open: json.length <= 600 && json.split('\n').length <= 12 };
-  }
-
   function inspect(phase: Phase, target: HTMLElement) {
     const privateData = phaseRuns[phase.id];
     if (!privateData) return;
-    const active = phases.find((candidate) => candidate.id === exchange.currentPhase);
     target.focus({ preventScroll: true });
     inspection = {
-      exchangeId: exchange.id,
-      exchangeStatus: active ? 'Running · ' + active.label : 'Complete',
-      phaseLabel: phase.label,
-      phaseStatus: privateData.finishedAt ? 'Finished' : 'Running',
-      structures: [structure('Public Exchange data', exchange), structure('Private phase data', privateData)],
+      publicExchange: { ...$state.snapshot(exchange), status: running ? 'running' : 'complete' },
+      privatePhase: { phase: phase.label, status: privateData.finishedAt ? 'finished' : 'running', ...$state.snapshot(privateData) },
     };
   }
 
+  $effect(() => { dialog?.showModal(); });
   onDestroy(() => clearTimeout(timer));
 </script>
+
+{#snippet jsonKey(name: string | number)}
+  <span class="json-key">{JSON.stringify(name)}</span>{': '}
+{/snippet}
+
+{#snippet jsonNode(name: string | number, value: JsonValue, depth: number)}
+  {#if value !== null && typeof value === 'object'}
+    {@const entries = Object.entries(value) as [string, JsonValue][]}
+    {@const array = Array.isArray(value)}
+    {@const opening = array ? '[' : '{'}
+    {@const closing = array ? ']' : '}'}
+    {#if entries.length}
+      <details class="json-branch" open={depth === 0}>
+        <summary>
+          {@render jsonKey(name)}{opening}<span class="json-fold">…{closing}
+            <span class="json-count">({entries.length})</span>
+          </span>
+        </summary>
+        <div class="json-children">
+          {#each entries as [key, child] (key)}
+            {@render jsonNode(array ? Number(key) : key, child, depth + 1)}
+          {/each}
+        </div>
+        <div>{closing}</div>
+      </details>
+    {:else}
+      <div>{@render jsonKey(name)}{opening}{closing}</div>
+    {/if}
+  {:else}
+    <div>{@render jsonKey(name)}{JSON.stringify(value)}</div>
+  {/if}
+{/snippet}
 
 <ElmaFrame title="Markdown export" trunk="steady" repository="Demo workspace" hasChat turn={1} total={1}
   working={running} fitted>
@@ -144,20 +168,16 @@
   </div>
 
   {#if inspection}
-    <Modal title="Exchange details" initialFocus="header button" onclose={() => { inspection = null; }}>
-      <dl class="inspection-facts">
-        <div><dt>Exchange ID</dt><dd><code>{inspection.exchangeId}</code></dd></div>
-        <div><dt>Exchange status</dt><dd>{inspection.exchangeStatus}</dd></div>
-        <div><dt>Selected phase</dt><dd>{inspection.phaseLabel} · {inspection.phaseStatus}</dd></div>
-      </dl>
-      {#each inspection.structures as value (value.label)}
-        <details class="structure" open={value.open}>
-          <summary tabindex="0">{value.label}</summary>
-          <!-- svelte-ignore a11y_no_noninteractive_tabindex (Scrollable data stays keyboard reachable.) -->
-          <pre tabindex="0" role="region" aria-label={value.label}><code>{value.json}</code></pre>
-        </details>
-      {/each}
-    </Modal>
+    <dialog class="inspector" aria-label="Exchange phase data" bind:this={dialog}
+      onclose={() => { inspection = null; }}>
+      <button type="button" class="inspector-close" aria-label="Close inspector" onclick={() => dialog?.close()}>×</button>
+      <!-- svelte-ignore a11y_no_noninteractive_tabindex (Long data stays keyboard scrollable.) -->
+      <div class="json-data" tabindex="0" role="region" aria-label="Exchange and phase JSON">
+        {#each Object.entries(inspection) as [key, value] (key)}
+          {@render jsonNode(key, value, 0)}
+        {/each}
+      </div>
+    </dialog>
   {/if}
 </ElmaFrame>
 
@@ -170,7 +190,7 @@
   }
 
   .transcript { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding-block: 12px 24px; }
-  .transcript:focus-visible, .phase:focus-visible, .structure pre:focus-visible {
+  .transcript:focus-visible, .phase:focus-visible, .json-data:focus-visible {
     outline: 2px solid var(--focus);
     outline-offset: -2px;
   }
@@ -187,22 +207,44 @@
   .phase-text p { margin: 0; }
   .phase-text p + p { margin-top: 8px; }
 
-  .inspection-facts { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 0 0 16px; }
-  .inspection-facts dt { color: var(--muted); font-weight: 600; }
-  .inspection-facts dd { margin: 2px 0 0; overflow-wrap: anywhere; }
-  .structure { border-top: 1px solid var(--border); }
-  .structure summary { cursor: pointer; font-weight: 600; padding: 10px 0; }
-  .structure pre {
-    max-height: 32vh;
-    margin: 0 0 12px;
-    padding: 12px;
-    background: var(--inset);
+  .inspector {
+    width: min(560px, calc(100vw - 24px));
+    max-height: calc(100dvh - 24px);
+    margin: auto;
+    padding: 0;
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    overflow: auto;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-    font: calc(12px * var(--font-scale))/1.5 var(--font-mono);
+    box-shadow: var(--shadow);
   }
+
+  .inspector::backdrop { background: #08060555; }
+  .inspector-close {
+    position: absolute;
+    inset-block-start: 4px;
+    inset-inline-end: 4px;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    background: var(--panel);
+    color: var(--muted);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+  }
+  .inspector-close:hover { border-color: var(--border); color: var(--text); }
+  .json-data {
+    max-height: min(70dvh, calc(100dvh - 26px));
+    padding: 7px 32px 7px 9px;
+    overflow: auto;
+    overflow-wrap: anywhere;
+    font: calc(12px * var(--font-scale))/1.55 var(--font-mono);
+  }
+  .json-branch summary { cursor: pointer; }
+  .json-children { margin-inline-start: 5px; padding-inline-start: 10px; border-inline-start: 1px solid var(--border); }
+  .json-branch[open] > summary > .json-fold { display: none; }
+  .json-key { color: var(--link); }
+  .json-count { color: var(--muted); font-size: 0.9em; }
 
   @media (max-width: 600px) { .phase-text { padding-inline: 12px; } }
 </style>
