@@ -23,6 +23,12 @@ arbol-app:@code/Sources/ElmaWindow.swift
 
 This applies to the release governed by ARC-4 upon its acceptance. The existing Root-based descriptions below retain their original release scope.
 
+## Steady Exchange details
+
+Cmd-click or Cmd+Enter on a Steady response opens Exchange Details, including while the response is waiting for its first text. The subtle Execution tint accompanies Driver output. The popup can select any recorded phase, including phases whose work produces no transcript text. The Exchange Phases story uses the same popup with fictional records.
+
+The compact JSON tree keeps phase commands, arguments and configuration values exact. Long prompt text, system instructions, Cue Card context and command standard input display the first 1,000 Unicode characters followed by an ellipsis. Each collection retains its entries and can expand or collapse independently. The application supplies loading, empty, retry and live phase state.
+
 ## Observed composition
 
 Elma is a turn-oriented conversation workspace, not simply a scrolling messaging app. A navigation rail exposes repositories, turn-history controls, intelligence settings and Meta Cockpit. The main page combines context, the selected user message, assistant response, live state and composer. Turn and branch controls choose the visible path. A right pane shows a file/document or Thread Inspector; it may become fullscreen. Shared header/status chrome surrounds the workspace.

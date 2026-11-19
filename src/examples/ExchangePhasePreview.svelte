@@ -3,25 +3,43 @@
   import Button from '../components/Button.svelte';
   import ElmaFrame from '../sections/ElmaFrame.svelte';
   import PinnedMessage from '../sections/PinnedMessage.svelte';
+  import ExchangeDetails from '../sections/ExchangeDetails.svelte';
 
   const prompt = 'What should we check before adding Markdown export to chat?';
+  const systemPrompt = '## Glossary\n\nThe following terms are used in this conversation.\n\n### Export\n\n'
+    + 'An Export carries the selected conversation into a file that preserves its order and readable text. '.repeat(13);
+  const driver = '/demo/bin/arbol-codex-driver';
+  const workingDirectory = '/demo/workspace';
   const phases = [
     {
       id: 'intake', label: 'Intake', color: '#cba15e',
       start: 'Reading the request and gathering the relevant chat context.',
       finish: 'The request is a design review for Markdown export.',
       work: { contextSources: ['Pinned message'], classification: 'Design review' },
+      commands: [{ kind: 'subprocess', command: '/demo/bin/forester',
+        arguments: ['cues', 'prepare', '--overflow-file', '/demo/exchange/cues.md', '--exchange-json'],
+        workingDirectory, input: { message: prompt, earlierMessages: [] } }],
     },
     {
       id: 'planning', label: 'Planning', color: '#9b93db',
       start: 'Choosing which parts of the export to review.',
       finish: 'I’ll look at transcript order, formatting, and private details.',
       work: { candidateChecks: ['Message order', 'Markdown formatting', 'Privacy'], approach: 'Review a sample transcript' },
+      commands: [],
     },
     {
       id: 'execution', label: 'Execution', color: '#75b5d8',
       start: 'Walking through a sample conversation with tool activity and a final answer.',
       finish: 'Preserve message order and code fences. Let the user choose whether to include tool output.',
+      commands: [
+        { kind: 'subprocess', command: driver, arguments: ['info'], workingDirectory },
+        { kind: 'provider', command: driver,
+          arguments: ['run', '--control', '--request', '/demo/exchange/run-1.json'], workingDirectory,
+          parameters: { runId: 'example.1', workingDirectory, subscriptionId: 'chatgpt', model: 'gpt-5.6',
+            effort: 'medium', input: { role: 'user', text: prompt }, history: [], systemPrompt } },
+        { kind: 'tool', command: 'shell', parameters: { command: 'printf "%s" "' + 'literal '.repeat(135) + '"' },
+          runId: 'example.1', callId: 'example-tool' },
+      ],
       work: { examples: [
         { input: 'Assistant reply with a fenced code block', check: 'Retain code fences and language' },
         { input: 'Conversation containing tool output', check: 'Follow the export privacy setting' },
@@ -32,20 +50,20 @@
       start: 'Reviewing the recommendation against the export request.',
       finish: 'The export checklist is ready to share.',
       work: { review: 'Check against the original request', deliverable: 'Export checklist' },
+      commands: [],
     },
   ] as const;
 
   type Phase = (typeof phases)[number];
   type PhaseMessage = { phase: Phase['id']; boundary: 'start' | 'finish'; text: string };
-  type MockExchange = { id: string; prompt: string; currentPhase: Phase['id'] | null; messages: PhaseMessage[] };
-  type PhaseRun = { startedAt: string; finishedAt?: string; delaySeconds: number; work: Phase['work'] };
-  type JsonObject = { [key: string]: JsonValue };
-  type JsonValue = null | boolean | number | string | JsonObject | readonly JsonValue[];
+  type MockExchange = { id: string; prompt: string; currentPhase: Phase['id'] | null; messages: PhaseMessage[];
+    systemPrompt: string | null };
+  type PhaseRun = { startedAt: string; finishedAt?: string; delaySeconds: number; work: Phase['work'];
+    commands: Phase['commands']; systemPrompt?: string | null };
 
-  let exchange = $state<MockExchange>({ id: '', prompt, currentPhase: null, messages: [] });
+  let exchange = $state<MockExchange>({ id: '', prompt, currentPhase: null, messages: [], systemPrompt: null });
   let phaseRuns = $state<Partial<Record<Phase['id'], PhaseRun>>>({});
-  let inspection = $state<JsonObject | null>(null);
-  let dialog = $state<HTMLDialogElement>();
+  let inspection = $state<Record<string, unknown> | null>(null);
   let transcript = $state<HTMLDivElement>();
   let timer: ReturnType<typeof setTimeout> | undefined;
   const running = $derived(exchange.currentPhase !== null);
@@ -63,12 +81,15 @@
   function startPhase(index: number) {
     const phase = phases[index];
     const delaySeconds = 5 + Math.floor(Math.random() * 16);
-    const run = { startedAt: new Date().toISOString(), delaySeconds, work: phase.work };
+    const run: PhaseRun = { startedAt: new Date().toISOString(), delaySeconds, work: phase.work, commands: phase.commands,
+      ...(phase.id === 'intake' ? { systemPrompt: null } : {}) };
     phaseRuns[phase.id] = run;
     exchange.currentPhase = phase.id;
     appendMessage(phase, 'start');
     timer = setTimeout(() => {
-      phaseRuns[phase.id] = { ...run, finishedAt: new Date().toISOString() };
+      if (phase.id === 'intake') exchange.systemPrompt = systemPrompt;
+      phaseRuns[phase.id] = { ...run, finishedAt: new Date().toISOString(),
+        ...(phase.id === 'intake' ? { systemPrompt } : {}) };
       appendMessage(phase, 'finish');
       if (index + 1 < phases.length) {
         startPhase(index + 1);
@@ -81,7 +102,7 @@
 
   function replay() {
     if (exchange.currentPhase) return;
-    exchange = { id: crypto.randomUUID(), prompt, currentPhase: null, messages: [] };
+    exchange = { id: crypto.randomUUID(), prompt, currentPhase: null, messages: [], systemPrompt: null };
     phaseRuns = {};
     if (transcript) transcript.scrollTop = 0;
     startPhase(0);
@@ -97,41 +118,8 @@
     };
   }
 
-  $effect(() => { dialog?.showModal(); });
   onDestroy(() => clearTimeout(timer));
 </script>
-
-{#snippet jsonKey(name: string | number)}
-  <span class="json-key">{JSON.stringify(name)}</span>{': '}
-{/snippet}
-
-{#snippet jsonNode(name: string | number, value: JsonValue, depth: number)}
-  {#if value !== null && typeof value === 'object'}
-    {@const entries = Object.entries(value) as [string, JsonValue][]}
-    {@const array = Array.isArray(value)}
-    {@const opening = array ? '[' : '{'}
-    {@const closing = array ? ']' : '}'}
-    {#if entries.length}
-      <details class="json-branch" open={depth === 0}>
-        <summary>
-          {@render jsonKey(name)}{opening}<span class="json-fold">…{closing}
-            <span class="json-count">({entries.length})</span>
-          </span>
-        </summary>
-        <div class="json-children">
-          {#each entries as [key, child] (key)}
-            {@render jsonNode(array ? Number(key) : key, child, depth + 1)}
-          {/each}
-        </div>
-        <div>{closing}</div>
-      </details>
-    {:else}
-      <div>{@render jsonKey(name)}{opening}{closing}</div>
-    {/if}
-  {:else}
-    <div>{@render jsonKey(name)}{JSON.stringify(value)}</div>
-  {/if}
-{/snippet}
 
 <ElmaFrame title="Markdown export" trunk="steady" repository="Demo workspace" hasChat turn={1} total={1}
   working={running} fitted>
@@ -168,16 +156,7 @@
   </div>
 
   {#if inspection}
-    <dialog class="inspector" aria-label="Exchange phase data" bind:this={dialog}
-      onclose={() => { inspection = null; }}>
-      <button type="button" class="inspector-close" aria-label="Close inspector" onclick={() => dialog?.close()}>×</button>
-      <!-- svelte-ignore a11y_no_noninteractive_tabindex (Long data stays keyboard scrollable.) -->
-      <div class="json-data" tabindex="0" role="region" aria-label="Exchange and phase JSON">
-        {#each Object.entries(inspection) as [key, value] (key)}
-          {@render jsonNode(key, value, 0)}
-        {/each}
-      </div>
-    </dialog>
+    <ExchangeDetails data={inspection} onclose={() => { inspection = null; }} />
   {/if}
 </ElmaFrame>
 
@@ -190,7 +169,7 @@
   }
 
   .transcript { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding-block: 12px 24px; }
-  .transcript:focus-visible, .phase:focus-visible, .json-data:focus-visible {
+  .transcript:focus-visible, .phase:focus-visible {
     outline: 2px solid var(--focus);
     outline-offset: -2px;
   }
@@ -206,45 +185,6 @@
 
   .phase-text p { margin: 0; }
   .phase-text p + p { margin-top: 8px; }
-
-  .inspector {
-    width: min(560px, calc(100vw - 24px));
-    max-height: calc(100dvh - 24px);
-    margin: auto;
-    padding: 0;
-    background: var(--panel);
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    box-shadow: var(--shadow);
-  }
-
-  .inspector::backdrop { background: #08060555; }
-  .inspector-close {
-    position: absolute;
-    inset-block-start: 4px;
-    inset-inline-end: 4px;
-    width: 26px;
-    height: 26px;
-    padding: 0;
-    background: var(--panel);
-    color: var(--muted);
-    border: 1px solid transparent;
-    border-radius: var(--radius-sm);
-  }
-  .inspector-close:hover { border-color: var(--border); color: var(--text); }
-  .json-data {
-    max-height: min(70dvh, calc(100dvh - 26px));
-    padding: 7px 32px 7px 9px;
-    overflow: auto;
-    overflow-wrap: anywhere;
-    font: calc(12px * var(--font-scale))/1.55 var(--font-mono);
-  }
-  .json-branch summary { cursor: pointer; }
-  .json-children { margin-inline-start: 5px; padding-inline-start: 10px; border-inline-start: 1px solid var(--border); }
-  .json-branch[open] > summary > .json-fold { display: none; }
-  .json-key { color: var(--link); }
-  .json-count { color: var(--muted); font-size: 0.9em; }
 
   @media (max-width: 600px) { .phase-text { padding-inline: 12px; } }
 </style>
