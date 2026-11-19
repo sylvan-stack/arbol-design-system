@@ -76,7 +76,7 @@ arbol:renderer/apps/seqoya/src/pages/Monitoring.svelte
 | Chunks Viewer | Repository corpus records with current-page text filtering | Table + inspector, visibly scoped search |
 | Refresher | Open drift/freshness information and refresh operations | Issue collection + progress/detail |
 | Artifacts | Corpus file tree, rendered document/editing, refresh and context actions | Tree + shared DocumentView |
-| Retrieval | Embedding status/actions, RAPTOR planning/run controls, text and code search | Operation panels + result collection; costs/scope before a run |
+| Retrieval | Embedding status and actions, text and code search | Operation panels + result collection; costs/scope before a run |
 | Monitoring | Activity/history table and journal table; filters and detail payloads | Shared log-table/inspector recipe |
 
 These rows summarize actual page surfaces; they do not claim all remote operations currently succeed. Exact fields/actions and page-local styles are retained in the source archive.

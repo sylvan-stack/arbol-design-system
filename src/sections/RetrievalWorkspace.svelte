@@ -11,24 +11,14 @@
 </script>
 
 <div class="stack">
-  <div class="grid">
-    <div class="panel stack">
-      <h2>Embedding</h2>
-      <Meter label="Chunks embedded" value={72} />
-      <p class="small muted">4,210 pending chunks · arbol / current checkout</p>
-      <Button
-        label="Preview embedding plan"
-        onclick={() => (feedback = 'Sample plan: 4,210 chunks · No external job started')}
-      />
-    </div>
-    <div class="panel stack">
-      <h2>RAPTOR summary tree</h2>
-      <p class="muted">A searchable hierarchy of repository knowledge.</p>
-      <Button
-        label="Plan tree rebuild"
-        onclick={() => (feedback = 'Sample plan: 3 levels · Scope: arbol')}
-      />
-    </div>
+  <div class="panel stack">
+    <h2>Embedding</h2>
+    <Meter label="Chunks embedded" value={72} />
+    <p class="small muted">4,210 pending chunks · arbol / current checkout</p>
+    <Button
+      label="Preview embedding plan"
+      onclick={() => (feedback = 'Sample plan: 4,210 chunks · No external job started')}
+    />
   </div>
   <div class="panel stack">
     <Tabs label="Search type" items={['Text', 'Code']} bind:value={mode} /><TextField
