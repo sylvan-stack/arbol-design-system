@@ -2,7 +2,7 @@
 
 This catalog implements the successor design contracts with reusable Svelte components and fictional interactive fixtures. The original visual evidence remains available for fidelity decisions. Components, patterns, sections and pages have separate Storybook entries rather than only an application-sized demo.
 
-The catalog has 356 stories and 46 workspace page entries, including seven Subscriptions stories, five Vigor stories, sixteen Browser control states/compositions and the Browser catalog route.
+The catalog has 366 stories and 46 workspace page entries, including seven Subscriptions stories, five Vigor stories, sixteen Browser control states/compositions and the Browser catalog route.
 
 ## Chapter map
 
@@ -12,7 +12,7 @@ The catalog has 356 stories and 46 workspace page entries, including seven Subsc
 | Components | Dedicated primitive stories; Collection, EntityEditor, EntitySummary, EntityCard, EntityReference, EntityPicker, RelationshipEditor, Modal, ConfirmAction, ActionPopover, AsyncFeedback, DocumentView, PermissionRequest, WorkspaceShell, PageHeader, DetailPane, Preferences |
 | Interactions | Editor validation/failure/partial/conflict/uncertain states; dirty dismissal; collection presentation/selection; permission decisions; keyboard navigation; scoped search; reduced motion |
 | Seqoya | 16 of the 17 documented legacy destinations (Stewardship was removed), the native Intelligence Providers tabs, seven Subscriptions list states, five Vigor states, the ordered recipe editor, the typed Blueprint editor, secret replacement, retrieval planning and the event inspector |
-| Elma | Accepted First Sapling ElmaFrame (installation, maintenance and Bridge states, no chat list, cockpit/navigation/preferences); new and active conversation, Composer, Response/ResponseReader/ToolCall/SafeMarkdown (typed content, lifecycle, threshold, lazy detail, scroll following/Beacon/stops/offsets), PinnedMessage, TurnNavigator, ToolCall, AgentStatus, AskUserQuestion, permission request, attached context, history, session inspector, activity graph, artwork proposal, document panel and change walkthrough |
+| Elma | Accepted First Sapling ElmaFrame (installation, maintenance and Bridge states, no chat list, cockpit/navigation/preferences); new and active conversation, Composer, Response/ResponseReader/ToolCall/SafeMarkdown (typed content, lifecycle, threshold, lazy detail, scroll following/Beacon/stops/offsets), PinnedMessage, TurnNavigator, ToolCall, AgentStatus, AskUserQuestion, permission request, attached context, history, session inspector, activity graph, artwork proposal, document panel, change walkthrough and 20-option Phase Backgrounds gallery (preview) |
 | Willo | Recent Chat Sessions with loading, empty, retry and pagination states, station concepts, station densities, attention and Spotlight, notifications, Slack/Telegram/email source inboxes, signal-rule preview, runs and run detail |
 | Oaken | Timeline, Agenda, lane details, typed deadline field, Jira/Graft/MR collections, review workspace, compact panel; original full board and hunk review preserved live |
 | Native/auxiliary | Go to Page, Entity Search, Linked Entities, Repo Artifact Search, Quick Input, Latest Chats, permission panel, tray, notification feed, debug panel, detached document; explicit external Gmail/dashboard boundaries |

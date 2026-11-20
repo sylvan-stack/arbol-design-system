@@ -27,6 +27,8 @@ This applies to the release governed by ARC-4 upon its acceptance. The existing 
 
 Cmd-click or Cmd+Enter on a Steady response opens Exchange Details, including while the response is waiting for its first text. The subtle Execution tint accompanies Driver output. The popup can select any recorded phase, including phases whose work produces no transcript text. The Exchange Phases story uses the same popup with fictional records.
 
+The **Phase Backgrounds** Storybook story compares 20 candidate pattern sets across Intake, Planning, Execution and Finalization. Select any option to see its four backgrounds behind a fictional Elma transcript. The patterns are a design proposal for review in Storybook.
+
 The compact JSON tree keeps phase commands, arguments and configuration values exact. Long prompt text, system instructions, Cue Card context and command standard input display the first 1,000 Unicode characters followed by an ellipsis. Each collection retains its entries and can expand or collapse independently. The application supplies loading, empty, retry and live phase state.
 
 ## Observed composition
