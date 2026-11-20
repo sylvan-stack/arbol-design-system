@@ -15,14 +15,6 @@ const meta = {
     const [, updateArgs] = useArgs();
     const props: ComponentProps<typeof SubscriptionList> = {
       ...args, onRefresh: () => updateArgs({ view: loaded }),
-      onRefreshUsage: (driver, subscription) => {
-        const view = args.view ?? loaded;
-        updateArgs({ view: {
-          ...view, usageRequests: {
-            ...view.usageRequests, [subscriptionKey(driver, subscription)]: {},
-          },
-        } });
-      },
       onRenameSubscription: async (driver, account, label) => {
         const view = args.view ?? loaded;
         if (view.usageRequests?.[subscriptionKey(driver, account.id)]?.error) {
@@ -34,7 +26,7 @@ const meta = {
           }),
         ) } } });
       },
-      onOpenUsage: (_destination, driver, subscription) => updateArgs({ view: {
+      onOpenUsage: (driver, subscription) => updateArgs({ view: {
         ...(args.view ?? loaded), usageLinkErrors: { [subscriptionKey(driver, subscription)]: 'Opening this subscription’s usage requires the App.' },
       } }),
     };
