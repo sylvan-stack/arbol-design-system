@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/svelte-vite';
 import Component from '../pages/WilloStation.svelte';
+import WorkspacePage from '../pages/WorkspacePage.svelte';
 import { recentChatSessions } from '../fixtures/willo-chat-sessions';
 
 const meta = {
@@ -12,7 +13,9 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-export const Default: Story = {};
+export const Default = {
+  render: () => ({ Component: WorkspacePage, props: { pageId: 'willo-stations' } }),
+} satisfies StoryObj<typeof WorkspacePage>;
 export const Loading: Story = { args: { rows: [], loading: true } };
 export const Empty: Story = { args: { rows: [] } };
 export const Unavailable: Story = {

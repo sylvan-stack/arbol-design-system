@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/svelte-vite';
 import Component from '../sections/StationCollection.svelte';
+import { exampleStations } from '../fixtures/willo-chat-sessions';
 const meta = {
   title: 'Sections/StationCollection',
   component: Component,
   tags: ['autodocs'],
-  args: {},
+  args: { stations: exampleStations },
   parameters: {
     docs: {
       description: {

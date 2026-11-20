@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/svelte-vite';
 import Component from '../sections/StationSummary.svelte';
+import { exampleStation } from '../fixtures/willo-chat-sessions';
 const meta = {
   title: 'Sections/StationSummary',
   component: Component,
   tags: ['autodocs'],
-  args: {},
+  args: exampleStation,
   parameters: {
     docs: {
       description: {
@@ -26,4 +27,4 @@ export const Failure: Story = {
   args: { status: 'Failed', failure: 'Connection interrupted. Your work is preserved.' },
 };
 export const OpenInElma: Story = { args: { inElma: true } };
-export const Draft: Story = { args: { status: 'Draft', ongoing: false } };
+export const Draft: Story = { args: { status: 'Draft', ongoing: false, usage: 'Not sent · Local draft' } };

@@ -1,27 +1,32 @@
+<script module lang="ts">
+  export interface StationData {
+    title: string;
+    status?: string;
+    unread?: boolean;
+    ongoing?: boolean;
+    inElma?: boolean;
+    failure?: string;
+    preview?: string;
+    detail?: string;
+    activityAt?: string;
+    usage?: string;
+  }
+
+  const localTime = new Intl.DateTimeFormat(undefined, {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  });
+</script>
+
 <script lang="ts">
   import { untrack } from 'svelte';
   import Badge from '../components/Badge.svelte';
   import Button from '../components/Button.svelte';
   import TextField from '../components/TextField.svelte';
   let {
-    title = 'Reconstruct the design system',
-    status = 'Running',
-    unread = false,
-    ongoing = true,
-    inElma = false,
-    density = 'full',
-    failure = '',
-    preview = 'Inspecting the shared components and interaction contracts…',
-  }: {
-    title?: string;
-    status?: string;
-    unread?: boolean;
-    ongoing?: boolean;
-    inElma?: boolean;
-    density?: string;
-    failure?: string;
-    preview?: string;
-  } = $props();
+    title, status, unread = false, ongoing = false, inElma = false,
+    density = 'full', failure, preview, detail, activityAt, usage, readOnly = false,
+  }: StationData & { density?: string; readOnly?: boolean } = $props();
   let name = $state(untrack(() => title));
   let draft = $state(untrack(() => title));
   let editing = $state(false);
@@ -30,21 +35,26 @@
 
 <article class="station" class:compact={density !== 'full'}>
   <div class="stack" style="gap:10px">
-    <div class="row">
-      <Badge
-        label={status}
-        tone={status === 'Running'
-          ? 'working'
-          : status === 'Failed'
-            ? 'failure'
-            : status === 'Complete'
-              ? 'success'
-              : 'neutral'}
-      />{#if unread}<Badge label="Unread" />{/if}{#if ongoing}<span class="small muted"
-          >Ongoing</span
-        >{/if}{#if inElma}<span class="pill">Open in Elma</span>{/if}
-    </div>
-    {#if editing}<TextField label="Chat title" bind:value={draft} />
+    {#if status || unread || ongoing || inElma}
+      <div class="row">
+        {#if status}
+          <Badge
+            label={status}
+            tone={status === 'Running' ? 'working'
+              : status === 'Failed' ? 'failure'
+              : status === 'Complete' ? 'success' : 'neutral'}
+          />
+        {/if}
+        {#if unread}<Badge label="Unread" />{/if}
+        {#if ongoing}<span class="small muted">Ongoing</span>{/if}
+        {#if inElma}<span class="pill">Open in Elma</span>{/if}
+      </div>
+    {/if}
+
+    {#if readOnly}
+      <h3 class="title">{title}</h3>
+    {:else if editing}
+      <TextField label="Chat title" bind:value={draft} />
       <div class="row">
         <Button
           label="Save title"
@@ -53,30 +63,38 @@
             name = draft;
             editing = false;
           }}
-        /><Button
-          label="Cancel"
-          onclick={() => {
-            draft = name;
-            editing = false;
-          }}
         />
-      </div>{:else}<button class="title" onclick={() => (feedback = 'Opened in the local preview')}
-        >{name}</button
-      >{/if}{#if density !== 'minimal'}<p class="small muted">{failure || preview}</p>
-      <span class="small mono muted">arbol · Writing assistant · 4 min ago</span
-      >{/if}{#if density === 'full'}<hr class="rule" />
+        <Button label="Cancel" onclick={() => (editing = false)} />
+      </div>
+    {:else}
+      <button class="title" onclick={() => (feedback = 'Opened in the local preview')}>{name}</button>
+    {/if}
+
+    {#if density !== 'minimal'}
+      {#if failure || preview}<p class="small muted">{failure || preview}</p>{/if}
+      {#if detail || activityAt}
+        <span class="small mono muted">
+          {detail ?? ''}{#if detail && activityAt}{' · '}{/if}
+          {#if activityAt}<time datetime={activityAt}>{localTime.format(new Date(activityAt))}</time>{/if}
+        </span>
+      {/if}
+    {/if}
+
+    {#if density === 'full' && !readOnly}
+      <hr class="rule" />
       <div class="row spread">
-        <span class="small muted"
-          >{status === 'Draft' ? 'Not sent · Local draft' : '12.8k tokens · 3 tool calls'}</span
-        >
+        {#if usage}<span class="small muted">{usage}</span>{/if}
         <div class="row">
           <Button
             label={failure ? 'Retry' : 'Open chat'}
             onclick={() =>
               (feedback = failure ? 'Retry queued locally' : 'Opened in the local preview')}
-          /><Button label="Rename" tone="ghost" onclick={() => (editing = true)} />
+          />
+          <Button label="Rename" tone="ghost" onclick={() => (editing = true)} />
         </div>
-      </div>{/if}{#if feedback}<small role="status">{feedback}</small>{/if}
+      </div>
+    {/if}
+    {#if feedback}<small role="status">{feedback}</small>{/if}
   </div>
 </article>
 
@@ -87,6 +105,7 @@
     border-top: 2px solid var(--accent);
     border-radius: 12px;
     background: linear-gradient(130deg, var(--selected), transparent 55%), var(--panel);
+    overflow-wrap: anywhere;
   }
   .station.compact {
     padding: 12px;

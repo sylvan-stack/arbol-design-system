@@ -376,7 +376,7 @@ repository: sample-repo</pre>
     height: 460px;
     position: relative;
   }
-  .preview-content :global(.workspace.fitted.single-pane) {
+  .preview-content :global(.willo) {
     height: 100%;
   }
   .renderer-problem {

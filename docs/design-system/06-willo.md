@@ -5,9 +5,9 @@ role: derived
 
 ## Recent Chat Sessions
 
-The first Willo Station window uses the shared workspace header and a single, scrollable list. Open it from the Arbol tray or press Option+L. Control+Option+Shift+Command+W also opens or raises the window. Each row shows the title and a secondary activity time, in newest-activity order. The first line of the first message can supply a missing title. A saved Chat Session with neither shows “Untitled Chat Session”.
+The installed Willo Station window uses the maintained Stations composition with its shared workspace navigation, page header, Station Collection, Station Summary cards and attention column. Open it from the Arbol tray or press Option+L. Control+Option+Shift+Command+W also opens or raises the window. Each card shows the title and available summary metadata. Within each status group, cards retain newest-activity order. Search filters loaded Chat Sessions, and the Full, Compact and Minimal densities use the shared controls. The first line of the first message can supply a missing title. A saved Chat Session with neither shows “Untitled Chat Session”.
 
-The list includes saved, unarchived Chat Sessions, including the one open in Elma Chat. Load older appends the next page. The list distinguishes loading, empty and failed reads. Retry preserves the rows already shown until a successful read. Row content is read-only. The Storybook page uses fictional Chat Sessions.
+The list includes saved, unarchived Chat Sessions, including the one open in Elma Chat. Load older appends the next page. The list distinguishes loading, empty and failed reads. Retry preserves the rows already shown until a successful read. Card content is read-only. Stations is the active destination. The other destinations and attention services signal their unavailability. Storybook uses fictional Chat Sessions and also retains the full Stations reference with its preview controls.
 
 ## Observed purpose and structure
 

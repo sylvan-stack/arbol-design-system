@@ -25,8 +25,8 @@
   import ThreadInspector from '../sections/ThreadInspector.svelte';
   import ReviewWorkspace from '../sections/ReviewWorkspace.svelte';
   import StationCollection from '../sections/StationCollection.svelte';
-  import WilloStation from './WilloStation.svelte';
-  import { recentChatSessions } from '../fixtures/willo-chat-sessions';
+  import { willoDestinations } from './WilloStation.svelte';
+  import { exampleStations } from '../fixtures/willo-chat-sessions';
   import AttentionColumn from '../sections/AttentionColumn.svelte';
   import NotificationSettings from '../sections/NotificationSettings.svelte';
   import SourceInbox from '../sections/SourceInbox.svelte';
@@ -50,7 +50,8 @@
   let artifact = $state('Design System');
   const page = $derived(catalog.find((p) => p.id === current) || catalog[0]);
   const destinations = $derived(
-    catalog.filter((p) => p.workspace === page.workspace).map((p) => p.title),
+    page.workspace === 'Willo' ? willoDestinations
+      : catalog.filter((p) => p.workspace === page.workspace).map((p) => p.title),
   );
 </script>
 
@@ -58,8 +59,6 @@
  <ArbolBrowser />
 {:else if current === 'browser-profiles'}
  <BrowserProfiles />
-{:else if current === 'willo-stations'}
- <WilloStation rows={recentChatSessions} />
 {:else if ['elma-new-chat','elma-conversation','elma-history'].includes(current)}
  <ConversationWorkspace empty={current==='elma-new-chat'} history={current==='elma-history'}/>
 {:else}
@@ -128,11 +127,15 @@
         {:else if page.recipe === 'history'}<HistoryTree />
         {:else if page.recipe === 'inspector'}<ThreadInspector />
         {:else if page.recipe === 'review'}<ReviewWorkspace />
-        {:else if ['agentic-stations', 'compact-stations'].includes(page.recipe)}
-          <StationCollection
-            agentic={page.recipe === 'agentic-stations'}
-            compact={page.recipe === 'compact-stations'}
-          />
+        {:else if ['stations', 'agentic-stations', 'compact-stations'].includes(page.recipe)}
+          <div class:split={page.recipe === 'stations'}>
+            <StationCollection
+              stations={exampleStations}
+              agentic={page.recipe === 'agentic-stations'}
+              compact={page.recipe === 'compact-stations'}
+            />
+            {#if page.recipe === 'stations'}<AttentionColumn />{/if}
+          </div>
         {:else if page.recipe === 'attention' || page.recipe === 'spotlight'}<AttentionColumn
             mode={page.recipe === 'attention' ? 'actions' : 'spotlight'}
           />
