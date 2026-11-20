@@ -18,6 +18,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: {} };
+export const OtherChats: Story = {
+  args: { status: 'Complete', ongoing: false, condensed: true, readOnly: true, usage: undefined },
+};
 export const Compact: Story = { args: { density: 'compact' } };
 export const Minimal: Story = { args: { density: 'minimal' } };
 export const UnreadCompletion: Story = {
@@ -27,4 +30,4 @@ export const Failure: Story = {
   args: { status: 'Failed', failure: 'Connection interrupted. Your work is preserved.' },
 };
 export const OpenInElma: Story = { args: { inElma: true } };
-export const Draft: Story = { args: { status: 'Draft', ongoing: false, usage: 'Not sent · Local draft' } };
+export const Draft: Story = { args: { status: 'Draft', ongoing: false, usage: 'Not sent · Local Draft' } };

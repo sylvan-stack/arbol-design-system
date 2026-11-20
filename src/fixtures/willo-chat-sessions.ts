@@ -51,9 +51,18 @@ export const recentChatSessions: ChatSessionRow[] = [
     activityAt: '2026-11-20T08:41:00Z', status: 'Complete', drafted: true,
   },
   {
+    id: 'status-review', title: 'Review reconnect notifications',
+    activityAt: '2026-11-20T08:24:00Z', status: 'Complete', unread: true,
+    detail: 'arbol · Claude', preview: 'The reconnect checklist is ready for review.',
+  },
+  {
     id: 'renderer', title: 'Compare shared renderer assets',
     activityAt: '2026-11-19T15:26:00Z', status: 'Failed', ongoing: true,
     failure: 'The provider connection was interrupted.',
+  },
+  {
+    id: 'asset-audit', title: 'Document the bundled fonts',
+    activityAt: '2026-11-18T11:18:00Z', status: 'Complete', detail: 'arbol-design-system · Codex',
   },
   {
     id: 'untitled', title: 'Untitled Chat Session',
