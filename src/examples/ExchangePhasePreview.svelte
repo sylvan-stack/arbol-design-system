@@ -119,6 +119,14 @@
     };
   }
 
+  function inspectReadingArea(event: KeyboardEvent & { currentTarget: HTMLDivElement }) {
+    if (event.defaultPrevented || !event.metaKey || event.key !== 'Enter') return;
+    const phase = phases.find((item) => item.id === exchange.currentPhase) ?? transcriptGroups.at(-1)?.phase;
+    if (!phase) return;
+    event.preventDefault();
+    inspect(phase, event.currentTarget);
+  }
+
   onDestroy(() => clearTimeout(timer));
 </script>
 
@@ -126,11 +134,11 @@
   working={running} fitted>
   <PinnedMessage text={prompt} />
 
-  <!-- svelte-ignore a11y_no_noninteractive_tabindex (Keyboard users can scroll the phase transcript.) -->
-  <div class="transcript" aria-label="Assistant response" role="region" tabindex="0" bind:this={transcript}>
+  <!-- svelte-ignore a11y_no_noninteractive_tabindex, a11y_no_noninteractive_element_interactions (The transcript supports scrolling and Cmd+Enter.) -->
+  <div class="transcript" aria-label="Assistant response" role="region" tabindex="0" aria-keyshortcuts="Meta+Enter"\n    bind:this={transcript} onkeydown={inspectReadingArea}>
     {#each transcriptGroups as { phase, messages } (phase.id)}
       <!-- svelte-ignore a11y_no_noninteractive_tabindex, a11y_no_noninteractive_element_interactions (The transcript remains readable and a focused phase also supports Cmd+Enter.) -->
-      <div class="phase" data-phase={phase.id} data-exchange-phase={phase.id} role="group" tabindex="0"
+      <div class="phase phase-band" data-phase={phase.id} data-exchange-phase={phase.id} role="group" tabindex="0"
         aria-label={phase.label + ' phase'} aria-keyshortcuts="Meta+Enter"
         onclick={(event) => {
           if (!event.metaKey) return;
@@ -169,7 +177,7 @@
     border-top: 1px solid var(--border);
   }
 
-  .transcript { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding-block: 12px 24px; }
+  .transcript { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding-block: 12px 24px; background: var(--canvas); }
   .transcript:focus-visible, .phase:focus-visible {
     outline: 2px solid var(--focus);
     outline-offset: -2px;
