@@ -21,7 +21,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: {} };
 export const LabLayout: StoryObj<typeof SeqoyaLab> = {
-  parameters: { docs: { description: { story: 'The native Seqoya layout opens Intelligence Providers on Subscriptions with sample accounts. Vigor shows a sample ranking. Preferences change this preview only.' } } },
+  parameters: { docs: { description: { story: 'The native Seqoya layout starts the content pane with Subscriptions, Vigor and Routing. Select a tab to see its title in the sidebar insignia. Account data and appearance changes are local to this preview.' } } },
   render: () => ({
     Component: SeqoyaLab,
     props: {
