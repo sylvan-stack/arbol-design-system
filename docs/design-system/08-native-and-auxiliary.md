@@ -20,6 +20,14 @@ arbol-app:@code/Sources/RendererBundle.swift
 
 This applies to the release governed by ARC-4 upon its acceptance. The existing Root-based descriptions below retain their original release scope.
 
+## Elma Chat application icon
+
+macOS identifies Elma Chat with the original transparent green elm-leaf icon. It shares the outline of Elma’s workspace glyph and keeps its original native color and transparency. The signed Elma Chat bundle declares and packages `ElmaChat.icns`.
+
+The source is the `Elma Chat.app/Contents/Resources/ElmaChat.icns` resource from the retained `g6-origin-source14-20261004-r1` package. Its SHA-256 is `f74f8827c160bafb60909461aea31bb7e8ca4b0cb7e44e651712479189e12b78`. The maintained PNG is the original 1024-pixel representation extracted from that ICNS.
+
+![Original Elma Chat application icon](../../src/assets/ElmaChat.png)
+
 ## Native shell and menus
 
 The four named apps share a Swift shell and WKWebView bridge, but have separate identities. Preserve window positioning, traffic-light clearance, dragging and keyboard integration as platform behavior. The tray has health/build information, open-dashboard, restart, rebuild/fix-build, older-build, naming/removal and quit operations. These operational tools should live in a System/Developer area in a smaller successor, not consume the main task interface.
