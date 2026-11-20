@@ -3,7 +3,7 @@
   import ElmaFrame from '../sections/ElmaFrame.svelte';
   import SeqoyaLab from './SeqoyaLab.svelte';
   import WilloStation from './WilloStation.svelte';
-  import { recentChatSessions } from '../fixtures/willo-chat-sessions';
+  import { importedChatSessions, recentChatSessions } from '../fixtures/willo-chat-sessions';
   import type { WorkspaceTrunkSelector } from '../types';
   import CommandPalette from '../patterns/CommandPalette.svelte';
   import EntityPicker from '../patterns/EntityPicker.svelte';
@@ -261,7 +261,7 @@
               {/snippet}
             </ElmaFrame>
           {:else if window.surface === 'Willo Station'}
-            <WilloStation rows={recentChatSessions}>
+            <WilloStation rows={recentChatSessions} importedView={{ rows: importedChatSessions }}>
               {#snippet headerWindowControls()}
                 <button class="window-action" onclick={() => closeSurface(window.id)}>Close</button>
               {/snippet}

@@ -69,3 +69,18 @@ export const recentChatSessions: ChatSessionRow[] = [
     activityAt: '2026-11-18T10:02:00Z', status: 'Complete',
   },
 ];
+
+export const importedChatSessions: ChatSessionRow[] = [
+  {
+    id: 'import-codex-2', title: 'Review a renderer migration', activityAt: '2026-11-20T08:10:00Z',
+    status: 'Complete', harness: 'Codex', detail: 'arbol',
+  },
+  {
+    id: 'import-claude', title: 'Map the release checklist', activityAt: '2026-11-19T15:00:00Z',
+    status: 'Complete', harness: 'Claude Code', detail: 'release',
+  },
+  {
+    id: 'import-codex-1', title: 'Find the theme assets', activityAt: '2026-11-18T10:00:00Z',
+    status: 'Complete', harness: 'Codex',
+  },
+];

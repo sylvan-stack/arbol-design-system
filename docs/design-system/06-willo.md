@@ -3,11 +3,13 @@ role: derived
 ---
 # Willo Station
 
-## Recent Chat Sessions
+## Live Stations and Imported Chat Sessions
 
-The installed Willo Station window uses the maintained Stations composition with its shared workspace navigation, page header, Station Collection, and Station Summary cards. Open it from the Arbol tray or press Option+L. The navigation rail starts with the shared Willo Station Insignia, using the willow mark and watermark. Control+Option+Shift+Command+W also opens or raises the window. Stations uses a responsive card grid across the content pane, with smaller cards for Other chats. Each card leads with the Chat Session title, followed by state cues and available summary metadata. The leading edge marks running, failed, unread or drafted Chat Sessions. Within each group, Chat Sessions retain newest-activity order. The first line of the first message can supply a missing title. A saved Chat Session with neither shows “Untitled Chat Session”.
+Willo Station has two destinations in the navigation rail below the Willo Insignia. Live Stations opens by default. Its responsive card grid shows saved, unarchived Chat Sessions with the most recent activity first within Drafted, Running, Unread, Other on-going and Other chats. Other chats uses smaller cards.
 
-The list includes saved, unarchived Chat Sessions, including the one open in Elma Chat. Load older appends the next page. The list distinguishes loading, empty and failed reads. Retry preserves the rows already shown until a successful read. Card content is read-only. Stations is the active destination. The remaining unavailable destinations are disabled. Search, the density picker, Action Items and Spotlight are deferred in this release. The default Stations story uses the same page and cards with fictional Chat Sessions. The Collection and attention reference shows the broader design with preview controls.
+Imported Chat Sessions includes archived and unarchived imports. **Most recent** orders the cards across all harnesses. **By harness** gives each recorded harness its own group with newest activity first. Both views use the same cards and preserve the source harness label. The cards show the compact state line and activity age above a two-line title, with repository and route metadata below when recorded. The first line of the first message can supply a missing title, followed by “Untitled Chat Session” when neither is recorded.
+
+Both destinations show read-only cards. Load older reaches the next page, and a failed read retains the cards already visible. The page distinguishes loading, an empty collection and a failed read. Open Willo Station from the Arbol tray, with Option+L, or with Control+Option+Shift+Command+W. The default Stations story provides fictional Chat Sessions in both views. The Collection and attention reference shows the broader design with preview controls.
 
 ## Observed purpose and structure
 

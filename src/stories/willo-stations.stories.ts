@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/svelte-vite';
 import Component from '../pages/WilloStation.svelte';
 import WorkspacePage from '../pages/WorkspacePage.svelte';
-import { recentChatSessions } from '../fixtures/willo-chat-sessions';
+import { importedChatSessions, recentChatSessions } from '../fixtures/willo-chat-sessions';
 
 const meta = {
   title: 'Pages/Willo/Stations',
   component: Component,
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },
-  args: { rows: recentChatSessions },
+  args: { rows: recentChatSessions, importedView: { rows: importedChatSessions } },
 } satisfies Meta<typeof Component>;
 export default meta;
 
