@@ -53,20 +53,18 @@ export const exampleListing: SubscriptionListing = {
       subscriptions: [
         {
           id: 'minimax', label: 'MiniMax', family: 'minimax', auth: 'key', state: 'signed_in',
-          metrics: { windows: [], dashboard: { observedAt: read, rows: [
-            { label: 'Plan', value: 'No active M Plan' },
-            { label: 'Credit balance', value: '75 credits' },
-            { label: 'LLM tokens · Today', value: '12.4K' },
-            { label: 'Cache hit rate · Today', value: '18.2%' },
-          ] } },
+          metrics: { windows: [], balance: {
+            availableTokens: 16_000_000, usedTokens: 4_000_000, usedPercent: 20, paymentDate: '2026-11-10',
+            estimateBasis: 'Example output rate of $1 per million tokens. Starting balance estimated from the last payment.',
+          } },
         },
         {
           id: 'deepseek', label: 'DeepSeek', family: 'deepseek', auth: 'key', state: 'signed_in',
           modelLabels: [{ performance: 'Medium', cost: 'Cheap' }],
-          metrics: { windows: [
-            { label: 'API balance', resetsAt: null, outputTokensRemaining: 10_000_000,
-              model: 'Sample model', observedAt: read },
-          ] },
+          metrics: { windows: [], balance: {
+            availableTokens: 10_000_000,
+            estimateBasis: 'Example output rate of $1.20 per million tokens. The current balance is available while payment history is pending.',
+          } },
           lastUsage: {
             fetchedAt: '2026-11-11T16:30:00Z', windows: [],
             extra: { balances: [{ currency: 'USD', amount: '12.34' }], apiAvailable: true },
@@ -76,7 +74,9 @@ export const exampleListing: SubscriptionListing = {
           id: 'chatgpt', label: 'Sample ChatGPT', family: 'chatgpt', auth: 'vendor_login',
           state: 'signed_in', metrics: { windows: [{
             ...weekly, label: 'Shared weekly quota', source: 'ChatGPT dashboard snapshot',
-            usedPercent: 39, remainingPercent: 61,
+            usedPercent: 39, remainingPercent: 61, outputTokensUsed: 390_000,
+            outputTokensRemaining: 610_000, outputTokensPerHour: 5_398,
+            estimateBasis: 'Example workload from the same plan scaled by the current weekly share.',
           }] },
         },
         {

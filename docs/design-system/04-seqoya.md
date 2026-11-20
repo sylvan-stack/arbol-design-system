@@ -34,7 +34,9 @@ Each window shows its length, reset and expiration, time remaining, usage percen
 
 Ordinary Refresh rereads stored data. Show per-Driver failures alongside other accounts and preserve the last usable reading after a failed refresh or disconnect. Signed-in Codex, Kimi Code, DeepSeek, z.ai and MiMo can explicitly refresh vendor usage. Open ChatGPT Usage in the internal browser profile identified by the card’s Driver and Subscription ID. MiMo opens the Xiaomi console.
 
-A dated dashboard summary shows the reported plan status, balance in vendor credits, and activity figures with their measurement period. Show it even when the provider reports no allowance windows.
+Order the cards by driver and vendor family as Claude Code, Codex, Pi/ChatGPT, Kimi Code, z.ai, MiMo, DeepSeek and MiniMax. Other accounts keep their alphabetical fallback. Editing a display name does not change its provider position.
+
+DeepSeek and MiniMax API cards show used and available output-token estimates and a single progress bar since the latest successful balance top-up. The model rate and starting-balance assumptions are available on the estimate. Show the available-token estimate when payment history is missing. These cards have no timed allowance sections. For timed plans, calculate the token figures from the current share and applicable calibration or published credit conversion. Mark a figure unavailable when the necessary reading is missing.
 
 The **Pages / Seqoya / Subscriptions** stories show current and next allowances, reset inventories, loading, empty, partial, unavailable, stale and disconnected states.
 
