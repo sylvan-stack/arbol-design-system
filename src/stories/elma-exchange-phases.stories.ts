@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/svelte-vite';
+import ExchangePhasePatternGallery from '../examples/ExchangePhasePatternGallery.svelte';
 import ExchangePhasePreview from '../examples/ExchangePhasePreview.svelte';
 
 const meta = {
@@ -12,3 +13,8 @@ const meta = {
 
 export default meta;
 export const Preview: StoryObj<typeof meta> = {};
+
+export const PatternGallery: StoryObj<typeof meta> = {
+  name: 'Phase Backgrounds',
+  render: () => ({ Component: ExchangePhasePatternGallery }),
+};
