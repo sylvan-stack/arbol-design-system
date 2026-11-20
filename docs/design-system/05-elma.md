@@ -25,9 +25,9 @@ This applies to the release governed by ARC-4 upon its acceptance. The existing 
 
 ## Steady Exchange details
 
-Cmd-click or Cmd+Enter on a Steady response opens Exchange Details, including while the response is waiting for its first text. The subtle Execution tint accompanies Driver output. The popup can select any recorded phase, including phases whose work produces no transcript text. The Exchange Phases story uses the same popup with fictional records.
+Cmd-click on a Steady phase background opens Exchange Details at the selected phase. Cmd+Enter on the response opens the same popup, including while the response is waiting for its first text. The popup can select any recorded phase, including phases whose work produces no transcript text.
 
-The **Phase Backgrounds** Storybook story compares 20 candidate pattern sets across Intake, Planning, Execution and Finalization. Select any option to see its four backgrounds behind a fictional Elma transcript. The patterns are a design proposal for review in Storybook.
+Steady transcript content uses Ripples, a quiet static pattern with phase-specific spacing and a tint blended with the current canvas. Birch uses muted ochre for Intake, plum for Planning, slate blue for Execution and sage for Finalization. The phase bands span the chat canvas and retain the normal reading column and type. Intake findings, Driver output and the inference-end update use their respective phase backgrounds. A phase without transcript content creates no empty band. The timed **Exchange Phases** story demonstrates all four backgrounds. The **Phase Backgrounds** gallery preserves the 20 design proposals.
 
 The compact JSON tree keeps phase commands, arguments and configuration values exact. Long prompt text, system instructions, Cue Card context and command standard input display the first 1,000 Unicode characters followed by an ellipsis. Each collection retains its entries and can expand or collapse independently. The application supplies loading, empty, retry and live phase state.
 
