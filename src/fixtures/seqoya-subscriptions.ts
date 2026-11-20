@@ -52,6 +52,15 @@ export const exampleListing: SubscriptionListing = {
       driver: 'pi',
       subscriptions: [
         {
+          id: 'minimax', label: 'MiniMax', family: 'minimax', auth: 'key', state: 'signed_in',
+          metrics: { windows: [], dashboard: { observedAt: read, rows: [
+            { label: 'Plan', value: 'No active M Plan' },
+            { label: 'Credit balance', value: '75 credits' },
+            { label: 'LLM tokens · Today', value: '12.4K' },
+            { label: 'Cache hit rate · Today', value: '18.2%' },
+          ] } },
+        },
+        {
           id: 'deepseek', label: 'DeepSeek', family: 'deepseek', auth: 'key', state: 'signed_in',
           modelLabels: [{ performance: 'Medium', cost: 'Cheap' }],
           metrics: { windows: [

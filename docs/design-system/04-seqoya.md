@@ -34,6 +34,8 @@ Each window shows its length, reset and expiration, time remaining, usage percen
 
 Ordinary Refresh rereads stored data. Show per-Driver failures alongside other accounts and preserve the last usable reading after a failed refresh or disconnect. Signed-in Codex, Kimi Code, DeepSeek, z.ai and MiMo can explicitly refresh vendor usage. Open ChatGPT Usage in the internal browser profile identified by the card’s Driver and Subscription ID. MiMo opens the Xiaomi console.
 
+A dated dashboard summary shows the reported plan status, balance in vendor credits, and activity figures with their measurement period. Show it even when the provider reports no allowance windows.
+
 The **Pages / Seqoya / Subscriptions** stories show current and next allowances, reset inventories, loading, empty, partial, unavailable, stale and disconnected states.
 
 ## Vigor
