@@ -81,7 +81,7 @@
  max-width: none;
  padding-inline: 0;
 }
-.phase-backgrounds > * { grid-column: reading-start / reading-end; }
+.phase-backgrounds > :global(*) { grid-column: reading-start / reading-end; }
 .phase-backgrounds > .phase-band {
  display: grid;
  grid-column: full-start / full-end;

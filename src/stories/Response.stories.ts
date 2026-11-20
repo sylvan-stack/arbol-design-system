@@ -19,14 +19,15 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: {
+  phaseBackgrounds: true,
   intakeFindings: { glossaryTerms: ['Cue Card', 'Operational Artifact'], operationalArtifacts: ['Working in Sagas'] },
   inferenceEndedAt: '2026-10-27T09:30:11Z',
 } };
-export const Streaming: Story = { args: { streaming: true, intakeFindings: { glossaryTerms: [] } } };
+export const Streaming: Story = { args: { streaming: true, phaseBackgrounds: true, intakeFindings: { glossaryTerms: [] } } };
 export const UnknownFailure: Story = { args: { statusLabel:'Failed', error:{code:'__proto__',message:'A fictional future failure.'} } };
 export const Beacon: Story = { args: { showBeacon:true } };
 
-export const AgentQuestion: Story = {args:{streaming:true,statusLabel:'Waiting for your answer since 14:02',questions:[{id:'fictional-question',open:true,ask:{callId:'fictional-task',questions:[{id:'branch',multiple:false,question:'Which branch should I use?',options:[{label:'main',description:'Use the default branch'},{label:'work',description:'Use the work branch'}]}]},answer:{type:'answers',answers:{branch:['main']}}}]}};
+export const AgentQuestion: Story = {args:{streaming:true,phaseBackgrounds:true,statusLabel:'Waiting for your answer since 14:02',questions:[{id:'fictional-question',open:true,ask:{callId:'fictional-task',questions:[{id:'branch',multiple:false,question:'Which branch should I use?',options:[{label:'main',description:'Use the default branch'},{label:'work',description:'Use the work branch'}]}]},answer:{type:'answers',answers:{branch:['main']}}}]}};
 export const NotSaved: Story = {args:{streaming:true,statusLabel:'claude · fictional is working…',notes:['Not yet saved']}};
 export const Interrupted: Story = {args:{statusLabel:'Interrupted',notes:["Interrupted: the agent's process ended before the answer was finished. What had arrived is kept."]}};
 export const Stopping:Story={args:{streaming:true,statusLabel:'Stopping…'}};

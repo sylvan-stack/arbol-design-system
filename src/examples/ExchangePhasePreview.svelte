@@ -4,6 +4,7 @@
   import ElmaFrame from '../sections/ElmaFrame.svelte';
   import PinnedMessage from '../sections/PinnedMessage.svelte';
   import ExchangeDetails from '../sections/ExchangeDetails.svelte';
+  import '../styles/elma-phase-backgrounds.css';
 
   const prompt = 'What should we check before adding Markdown export to chat?';
   const systemPrompt = '## Glossary\n\nThe following terms are used in this conversation.\n\n### Export\n\n'
@@ -12,7 +13,7 @@
   const workingDirectory = '/demo/workspace';
   const phases = [
     {
-      id: 'intake', label: 'Intake', color: '#cba15e',
+      id: 'intake', label: 'Intake',
       start: 'Reading the request and gathering the relevant chat context.',
       finish: 'The request is a design review for Markdown export.',
       work: { contextSources: ['Pinned message'], classification: 'Design review' },
@@ -21,14 +22,14 @@
         workingDirectory, input: { message: prompt, earlierMessages: [] } }],
     },
     {
-      id: 'planning', label: 'Planning', color: '#9b93db',
+      id: 'planning', label: 'Planning',
       start: 'Choosing which parts of the export to review.',
       finish: 'I’ll look at transcript order, formatting, and private details.',
       work: { candidateChecks: ['Message order', 'Markdown formatting', 'Privacy'], approach: 'Review a sample transcript' },
       commands: [],
     },
     {
-      id: 'execution', label: 'Execution', color: '#75b5d8',
+      id: 'execution', label: 'Execution',
       start: 'Walking through a sample conversation with tool activity and a final answer.',
       finish: 'Preserve message order and code fences. Let the user choose whether to include tool output.',
       commands: [
@@ -46,7 +47,7 @@
       ] },
     },
     {
-      id: 'finalization', label: 'Finalization', color: '#82be9c',
+      id: 'finalization', label: 'Finalization',
       start: 'Reviewing the recommendation against the export request.',
       finish: 'The export checklist is ready to share.',
       work: { review: 'Check against the original request', deliverable: 'Export checklist' },
@@ -129,7 +130,7 @@
   <div class="transcript" aria-label="Assistant response" role="region" tabindex="0" bind:this={transcript}>
     {#each transcriptGroups as { phase, messages } (phase.id)}
       <!-- svelte-ignore a11y_no_noninteractive_tabindex, a11y_no_noninteractive_element_interactions (The transcript remains readable and a focused phase also supports Cmd+Enter.) -->
-      <div class="phase" data-phase={phase.id} style:--phase-color={phase.color} role="group" tabindex="0"
+      <div class="phase" data-phase={phase.id} data-exchange-phase={phase.id} role="group" tabindex="0"
         aria-label={phase.label + ' phase'} aria-keyshortcuts="Meta+Enter"
         onclick={(event) => {
           if (!event.metaKey) return;
@@ -173,7 +174,6 @@
     outline: 2px solid var(--focus);
     outline-offset: -2px;
   }
-  .phase { background: color-mix(in srgb, var(--phase-color) 6%, var(--canvas)); }
 
   .phase-text {
     max-width: var(--elma-reading-width, 720px);
