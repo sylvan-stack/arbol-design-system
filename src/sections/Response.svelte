@@ -78,7 +78,7 @@
 </article>
 <style>
 .response{--response-inset:24px;position:relative;width:100%;max-width:var(--elma-reading-width,720px);margin:0 auto;padding:20px var(--response-inset) 32px;min-width:0;font:calc(13.5px * var(--elma-content-scale,var(--font-scale)))/1.6 var(--font-ui);overflow-wrap:anywhere}.exchange-update{color:var(--muted);font-size:.85em;margin:6px 0;overflow-wrap:anywhere}.thinking{padding:10px 12px;margin:12px 0;color:var(--muted);background:var(--panel);border-left:2px solid var(--border)}.thinking h3{font:600 calc(11.5px * var(--font-scale))/1.5 var(--font-ui);margin:0 0 6px}.prose{margin:12px 0}.notice{color:var(--muted);font-size:.85em;margin:10px 0}.threshold{display:flex;align-items:center;gap:12px;color:var(--muted);font:calc(11.5px * var(--font-scale))/1.5 var(--font-ui);margin:24px 0 20px}.threshold:before,.threshold:after{content:'';height:1px;background:var(--border);flex:1}.status-row{display:flex;align-items:center;gap:12px;justify-content:flex-end;margin-top:16px}.exchange-status,.copy{font:calc(11.5px * var(--font-scale))/1.5 var(--font-ui);color:var(--muted)}.copy,.beacon{border:1px solid var(--border);background:var(--panel);border-radius:5px;padding:4px 8px;color:var(--link)}.beacon{position:sticky;bottom:12px;display:block;margin-left:auto;font:calc(11.5px * var(--font-scale))/1.5 var(--font-ui)}.failure-actions{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.failure-actions button{border:1px solid var(--border);background:var(--panel);color:var(--link);border-radius:5px;padding:6px 10px;font:inherit}.failure-actions button:disabled{opacity:.6}.failure{color:var(--failure);font-size:.9em}.children{border-left:2px solid var(--border);padding-left:12px;margin-top:12px}
-.phase-backgrounds {
+.response.phase-backgrounds {
  --response-columns: [full-start] minmax(var(--response-inset), 1fr)
   [reading-start] minmax(0, calc(var(--elma-reading-width, 720px) - 2 * var(--response-inset)))
   [reading-end] minmax(var(--response-inset), 1fr) [full-end];
@@ -86,6 +86,7 @@
  grid-template-columns: var(--response-columns);
  max-width: none;
  padding-inline: 0;
+ padding-block-start: 0;
 }
 .phase-backgrounds > :global(*) { grid-column: reading-start / reading-end; }
 .phase-backgrounds > .phase-band {
