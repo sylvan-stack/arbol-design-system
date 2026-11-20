@@ -2,6 +2,8 @@
   import { tick } from 'svelte';
   import ElmaFrame from '../sections/ElmaFrame.svelte';
   import SeqoyaLab from './SeqoyaLab.svelte';
+  import WilloStation from './WilloStation.svelte';
+  import { recentChatSessions } from '../fixtures/willo-chat-sessions';
   import type { WorkspaceTrunkSelector } from '../types';
   import CommandPalette from '../patterns/CommandPalette.svelte';
   import EntityPicker from '../patterns/EntityPicker.svelte';
@@ -15,7 +17,7 @@
   const arbolMenuBarIcon = new URL('../assets/arbol-menu-bar.png', import.meta.url).href;
   type TrayCatalogueState = 'available' | 'loading' | 'empty' | 'unavailable';
   type TrayRendererState = 'available' | 'load-failed';
-  type PreviewSurface = 'Elma Chat' | 'Seqoya Lab';
+  type PreviewSurface = 'Elma Chat' | 'Seqoya Lab' | 'Willo Station';
   type PreviewWindow = { id: string; surface: PreviewSurface; trunk: string; failed: boolean };
   let {
     surface = 'Go to Page',
@@ -28,6 +30,7 @@
     trayBackendAvailable = true,
     trayShortcutAvailable = true,
     traySeqoyaShortcutAvailable = true,
+    trayWilloShortcutAvailable = true,
   }: {
     surface?: string;
     trayCatalogueState?: TrayCatalogueState;
@@ -39,6 +42,7 @@
     trayBackendAvailable?: boolean;
     trayShortcutAvailable?: boolean;
     traySeqoyaShortcutAvailable?: boolean;
+    trayWilloShortcutAvailable?: boolean;
   } = $props();
   let feedback = $state('');
   let url = $state('');
@@ -102,10 +106,14 @@
   function handleSurfaceShortcut(event: KeyboardEvent) {
     if (surface !== 'Tray Menu' || !trayRunning || !event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
     const target = event.code === 'KeyE' && trayShortcutAvailable ? 'Elma Chat'
-      : event.code === 'KeyQ' && traySeqoyaShortcutAvailable ? 'Seqoya Lab' : undefined;
+      : event.code === 'KeyQ' && traySeqoyaShortcutAvailable ? 'Seqoya Lab'
+      : event.code === 'KeyL' && trayWilloShortcutAvailable ? 'Willo Station' : undefined;
     if (!target) return;
     event.preventDefault();
-    if (event.repeat) return;
+    if (!event.repeat) requestSurface(target);
+  }
+
+  function requestSurface(target: PreviewSurface) {
     if (trayBackendAvailable) void openSurface(target);
     else trayFeedback = 'The installation backend is unavailable.';
   }
@@ -165,6 +173,7 @@
       Browser preview of the Arbol menu bar.
       {#if trayRunning && trayShortcutAvailable}Press <kbd>⌥E</kbd> to open Elma Chat.{/if}
       {#if trayRunning && traySeqoyaShortcutAvailable}Press <kbd>⌥Q</kbd> to open Seqoya Lab.{/if}
+      {#if trayRunning && trayWilloShortcutAvailable}Press <kbd>⌥L</kbd> to open Willo Station.{/if}
     </p>
     <div class="menu-bar">
       {#if trayRunning}
@@ -194,6 +203,9 @@
             {#if !traySeqoyaShortcutAvailable}
               <p class="catalogue-message">Option+Q unavailable for Seqoya Lab</p>
             {/if}
+            {#if !trayWilloShortcutAvailable}
+              <p class="catalogue-message">Option+L unavailable for Willo Station</p>
+            {/if}
             {#if trayCatalogueState === 'available' && fixtureTrunks.length > 0}
               <details class="tray-trunks" bind:open={trunksOpen}>
                 <summary class="tray-command" bind:this={trunksButton} onkeydown={closeTrayOnEscape}>
@@ -216,6 +228,9 @@
             {:else}
               <button class="tray-command" disabled>Trunks</button>
             {/if}
+            <button class="tray-command" onkeydown={closeTrayOnEscape}
+              aria-keyshortcuts={trayWilloShortcutAvailable ? 'Alt+L' : undefined}
+              onclick={() => requestSurface('Willo Station')}>Willo Station</button>
             <button class="tray-command" onkeydown={closeTrayOnEscape} onclick={quitTray}>Quit</button>
           </div>
         </details>
@@ -245,6 +260,12 @@
                 <button class="window-action" onclick={() => closeSurface(window.id)}>Close</button>
               {/snippet}
             </ElmaFrame>
+          {:else if window.surface === 'Willo Station'}
+            <WilloStation rows={recentChatSessions}>
+              {#snippet headerWindowControls()}
+                <button class="window-action" onclick={() => closeSurface(window.id)}>Close</button>
+              {/snippet}
+            </WilloStation>
           {:else}
             <SeqoyaLab>
               {#snippet headerWindowControls()}
@@ -354,6 +375,9 @@ repository: sample-repo</pre>
   .preview-content {
     height: 460px;
     position: relative;
+  }
+  .preview-content :global(.workspace.fitted.single-pane) {
+    height: 100%;
   }
   .renderer-problem {
     display: flex;

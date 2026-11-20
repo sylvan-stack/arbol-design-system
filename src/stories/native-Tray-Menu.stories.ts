@@ -13,12 +13,14 @@ const meta = {
     trayBackendAvailable: true,
     trayShortcutAvailable: true,
     traySeqoyaShortcutAvailable: true,
+    trayWilloShortcutAvailable: true,
   },
   argTypes: {
     trayRunningBuild: { control: 'text' },
     trayNewBuild: { control: 'text' },
     trayShortcutAvailable: { control: 'boolean', description: 'Models macOS accepting or refusing the shortcut.' },
     traySeqoyaShortcutAvailable: { control: 'boolean', description: 'Models macOS accepting or refusing Option+Q.' },
+    trayWilloShortcutAvailable: { control: 'boolean', description: 'Models macOS accepting or refusing Option+L.' },
     traySelectionProblem: {
       control: 'text',
       description: 'Supply a catalogue refusal to show it on the Current Trunk row after a selection.',
@@ -42,7 +44,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Press Option+E with the preview focused to open or raise the installation’s Elma Chat window. Press Option+Q to raise its single Seqoya Lab administration window. Trunks lists available Trunks and marks the default for new windows. Elma’s header chooses the Trunk for its next Exchange. Seqoya Lab has administration and appearance controls. The tray shows the default Trunk and running Build number. Start new version names the prepared Build and updates the header after the preview handoff. Close returns to the resident tray. In the App, drag the passive shared header to move its window. The Trunk dropdown and preferences keep their click actions.',
+          'Press Option+E with the preview focused to open or raise the installation’s Elma Chat window. Press Option+Q to raise its single Seqoya Lab administration window. Press Option+L to open or raise the Willo Station preview. Trunks lists available Trunks and marks the default for new windows. Elma’s header chooses the Trunk for its next Exchange. Seqoya Lab has administration and appearance controls. The tray shows the default Trunk and running Build number. Start new version names the prepared Build and updates the header after the preview handoff. Close returns to the resident tray. In the App, drag the passive shared header to move its window. The Trunk dropdown and preferences keep their click actions.',
       },
     },
   },

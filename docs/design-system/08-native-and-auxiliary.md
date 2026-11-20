@@ -7,7 +7,7 @@ role: derived
 
 The resident App supervises one backend at the owner-only installation socket. It validates readiness against the launched process and socket peer, or attaches to an existing private endpoint. Retry and reconnect preserve the shared endpoint. Departure preserves each window’s recovery data and stops only the backend child owned by that App.
 
-Option+E raises the installation’s Elma Chat window and Option+Q raises its Seqoya Lab administration window. Titles and geometry belong to each surface. One Elma open queue carries chat UUIDs and workspace folders. The tray shows the installation default Trunk, compatible runnable choices, running Build and shortcut failures. Elma’s window-local choice applies to a new Exchange. Seqoya’s header provides administration and appearance controls.
+Option+E raises the installation’s Elma Chat window and Option+Q raises its Seqoya Lab administration window. Option+L or Control+Option+Shift+Command+W opens or raises Willo Station. Titles and geometry belong to each surface. One Elma open queue carries chat UUIDs and workspace folders. The tray shows the installation default Trunk, compatible runnable choices, running Build and shortcut failures. Elma’s window-local choice applies to a new Exchange. Seqoya’s header provides administration and appearance controls.
 
 Each surface loads the signed renderer in its own installation origin with document-generation checks. Bridge 2 supplies database, schema and maintenance observations. The native account lookup checks the same installation greeting before opening an existing account-bound usage browser. The App’s resident lock, Build handoff, hotkey registration, private socket checks, renderer boundary and safe owned-child shutdown remain part of the native adapter.
 
@@ -43,7 +43,7 @@ When the Build registry offers a newer runnable working App Build, the oak shows
 
 **Trunks** lists only compatible runnable Trunks by code name. A checkmark marks the default for new windows. The menu is disabled if the catalogue is loading or unavailable or has no eligible Trunks.
 
-Global **Option+E (⌥E)** opens or raises Elma Chat and **Option+Q (⌥Q)** opens or raises Seqoya Lab for the current Root. Arbol refreshes the catalogue before opening and shows the cause in the tray when an open fails. When macOS refuses a shortcut, the tray identifies the unavailable binding. The window header selects a Trunk for that window.
+Global **Option+E (⌥E)** opens or raises Elma Chat and **Option+Q (⌥Q)** opens or raises Seqoya Lab for the current Root. Arbol refreshes the catalogue before opening and shows the cause in the tray when an open fails. When macOS refuses a shortcut, the tray identifies the unavailable binding. For Willo Station, each binding is registered independently. The window header selects a Trunk for that window.
 
 ### Root-bound windows
 

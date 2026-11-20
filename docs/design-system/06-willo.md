@@ -5,7 +5,7 @@ role: derived
 
 ## Recent Chat Sessions
 
-The first Willo Station window uses the shared workspace header and a single, scrollable list. Open it from the Arbol tray or with Control+Option+Shift+Command+W. Each row shows the title and a secondary activity time, in newest-activity order. The first line of the first message can supply a missing title. A saved Chat Session with neither shows “Untitled Chat Session”.
+The first Willo Station window uses the shared workspace header and a single, scrollable list. Open it from the Arbol tray or press Option+L. Control+Option+Shift+Command+W also opens or raises the window. Each row shows the title and a secondary activity time, in newest-activity order. The first line of the first message can supply a missing title. A saved Chat Session with neither shows “Untitled Chat Session”.
 
 The list includes saved, unarchived Chat Sessions, including the one open in Elma Chat. Load older appends the next page. The list distinguishes loading, empty and failed reads. Retry preserves the rows already shown until a successful read. Row content is read-only. The Storybook page uses fictional Chat Sessions.
 
