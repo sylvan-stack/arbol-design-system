@@ -6,7 +6,7 @@ const meta = {
   title: 'Sections/Response',
   component: Component,
   tags: ['autodocs'],
-  args: {blocks:ELMA_RESPONSE_FIXTURE,acceptedAt:'2026-10-27T09:30:00Z',startedAt:'2026-10-27T09:30:02Z',endedAt:'2026-10-27T09:30:12Z'},
+  args: {blocks:ELMA_RESPONSE_FIXTURE,startedAt:'2026-10-27T09:30:02Z',endedAt:'2026-10-27T09:30:12Z'},
   parameters: {
     docs: {
       description: {
@@ -20,6 +20,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: {
   phaseBackgrounds: true,
+  foresterHooks: { 'session-start': 1, 'user-prompt-submit': 1, 'pre-tool-use': 3, 'post-tool-use': 3 },
   intakeFindings: { glossaryTerms: ['Cue Card', 'Operational Artifact'], operationalArtifacts: ['Working in Sagas'] },
   inferenceEndedAt: '2026-10-27T09:30:11Z',
 } };

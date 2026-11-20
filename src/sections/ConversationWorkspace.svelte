@@ -148,7 +148,6 @@
       identity={'fictional:' + current}
       response={{
         blocks: ELMA_RESPONSE_FIXTURE,
-        acceptedAt: '2026-10-27T09:30:00Z',
         startedAt: '2026-10-27T09:30:02Z',
         endedAt: '2026-10-27T09:30:12Z',
         ...(failed?{statusLabel:'Failed',error:{code:'rate_limited',message:'Fictional quota reached',retryAfterSeconds:3600},onretry:()=>failureAction='Retry selected in fixture; no agent was started.',oncontinue:()=>failureAction='Continue selected in fixture; no message was sent.'}:{}),
