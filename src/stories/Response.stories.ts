@@ -18,8 +18,11 @@ const meta = {
 } satisfies Meta<typeof Component>;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Default: Story = { args: {} };
-export const Streaming: Story = { args: { streaming: true } };
+export const Default: Story = { args: {
+  intakeFindings: { glossaryTerms: ['Cue Card', 'Operational Artifact'], operationalArtifacts: ['Working in Sagas'] },
+  inferenceEndedAt: '2026-10-27T09:30:11Z',
+} };
+export const Streaming: Story = { args: { streaming: true, intakeFindings: { glossaryTerms: [] } } };
 export const UnknownFailure: Story = { args: { statusLabel:'Failed', error:{code:'__proto__',message:'A fictional future failure.'} } };
 export const Beacon: Story = { args: { showBeacon:true } };
 
