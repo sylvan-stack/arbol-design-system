@@ -47,6 +47,7 @@
     current="Stations"
     {destinations}
     disabledDestinations={inactiveDestinations}
+    insignia={{ label: 'Station', hue: 104 }}
     {headerWindowControls}
     navigationFooter={false}
     status={null}

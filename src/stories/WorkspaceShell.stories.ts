@@ -22,6 +22,7 @@ export const Default: Story = {
     workspace: 'Seqoya',
     headerTitle: 'Seqoya Lab',
     headerAppearance: 'enabled',
+    insignia: { label: 'Lab' },
     trunk: 'trivial',
   },
   render: (args) => {
