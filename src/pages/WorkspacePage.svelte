@@ -25,6 +25,8 @@
   import ThreadInspector from '../sections/ThreadInspector.svelte';
   import ReviewWorkspace from '../sections/ReviewWorkspace.svelte';
   import StationCollection from '../sections/StationCollection.svelte';
+  import WilloStation from './WilloStation.svelte';
+  import { recentChatSessions } from '../fixtures/willo-chat-sessions';
   import AttentionColumn from '../sections/AttentionColumn.svelte';
   import NotificationSettings from '../sections/NotificationSettings.svelte';
   import SourceInbox from '../sections/SourceInbox.svelte';
@@ -56,6 +58,8 @@
  <ArbolBrowser />
 {:else if current === 'browser-profiles'}
  <BrowserProfiles />
+{:else if current === 'willo-stations'}
+ <WilloStation rows={recentChatSessions} />
 {:else if ['elma-new-chat','elma-conversation','elma-history'].includes(current)}
  <ConversationWorkspace empty={current==='elma-new-chat'} history={current==='elma-history'}/>
 {:else}
@@ -124,14 +128,11 @@
         {:else if page.recipe === 'history'}<HistoryTree />
         {:else if page.recipe === 'inspector'}<ThreadInspector />
         {:else if page.recipe === 'review'}<ReviewWorkspace />
-        {:else if ['stations', 'agentic-stations', 'compact-stations'].includes(page.recipe)}<div
-            class:split={page.recipe === 'stations'}
-          >
-            <StationCollection
-              agentic={page.recipe === 'agentic-stations'}
-              compact={page.recipe === 'compact-stations'}
-            />{#if page.recipe === 'stations'}<AttentionColumn />{/if}
-          </div>
+        {:else if ['agentic-stations', 'compact-stations'].includes(page.recipe)}
+          <StationCollection
+            agentic={page.recipe === 'agentic-stations'}
+            compact={page.recipe === 'compact-stations'}
+          />
         {:else if page.recipe === 'attention' || page.recipe === 'spotlight'}<AttentionColumn
             mode={page.recipe === 'attention' ? 'actions' : 'spotlight'}
           />

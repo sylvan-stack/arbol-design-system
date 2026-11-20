@@ -538,10 +538,10 @@
   {
     "id": "willo-stations",
     "workspace": "Willo",
-    "title": "Stations",
-    "recipe": "stations",
-    "description": "Human chats and saved drafts, organized by attention.",
-    "entity": "run",
+    "title": "Recent Chat Sessions",
+    "recipe": "recent-chat-sessions",
+    "description": "Saved Chat Sessions ordered by latest activity.",
+    "entity": "",
     "items": [],
     "fields": [],
     "canCreate": false

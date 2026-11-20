@@ -3,6 +3,12 @@ role: derived
 ---
 # Willo Station
 
+## Recent Chat Sessions
+
+The first Willo Station window uses the shared workspace header and a single, scrollable list. Open it from the Arbol tray or with Control+Option+Shift+Command+W. Each row shows the title and a secondary activity time, in newest-activity order. The first line of the first message can supply a missing title. A saved Chat Session with neither shows “Untitled Chat Session”.
+
+The list includes saved, unarchived Chat Sessions, including the one open in Elma Chat. Load older appends the next page. The list distinguishes loading, empty and failed reads. Retry preserves the rows already shown until a successful read. Row content is read-only. The Storybook page uses fictional Chat Sessions.
+
 ## Observed purpose and structure
 
 Willo is the attention and communications workspace. Current navigation offers Stations, Agentic Stations, Stewards, Comunicados, Slack, Telegram, conditionally Emails, and Blueprint Runs; selecting a run opens Run Details. This is materially broader than an event monitor. Native Go to Page is a separate list and omits Telegram in the inspected checkout—an example of navigation registries drifting apart.
