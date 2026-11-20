@@ -19,7 +19,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: {} };
 export const OtherChats: Story = {
-  args: { status: 'Complete', ongoing: false, condensed: true, readOnly: true, usage: undefined },
+  args: { status: 'Complete', ongoing: false, condensed: true, readOnly: true, usage: undefined,
+    title: 'A longer Chat Session title wraps inside the condensed card while the activity time stays above it',
+    detail: 'arbol · Codex · gpt-6.1', activityAt: '2026-11-20T08:41:00Z' },
 };
 export const Compact: Story = { args: { density: 'compact' } };
 export const Minimal: Story = { args: { density: 'minimal' } };
