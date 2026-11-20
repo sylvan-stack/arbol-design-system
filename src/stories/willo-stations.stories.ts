@@ -15,6 +15,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: {} };
 export const Interactive = {
+  name: 'Collection and attention reference',
   render: () => ({ Component: WorkspacePage, props: { pageId: 'willo-stations' } }),
 } satisfies StoryObj<typeof WorkspacePage>;
 export const Loading: Story = { args: { rows: [], loading: true } };
