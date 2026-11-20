@@ -3,11 +3,13 @@ import Component from '../sections/ElmaFrame.svelte';
 import ConversationFixture from '../sections/ConversationWorkspace.svelte';
 const meta={title:'Sections/ElmaFrame',component:Component,tags:['autodocs'],args:{repositories:[{name:'sylvan-stack',folder:'/fictional/readonly'},{name:'sample',folder:'/fictional/readonly/sample'}],route:{driver:'claude',subscription:'fictional',model:'model-a',effort:'high'},routes:[{driver:'claude',subscription:'fictional'}]}} satisfies Meta<typeof Component>;
 export default meta;type Story=StoryObj<typeof meta>;
-export const Empty:Story={};
+export const Empty: Story = {
+  parameters: { docs: { description: { story: 'The left Insignia identifies a new chat with the Elma leaf and New Chat.' } } },
+};
 export const Conversation: Story = {
-  parameters: { docs: { description: { story: 'The shared header adds the chat title and Elma’s reading width control. Text size and theme use the same controls as Seqoya Lab.' } } },
+  parameters: { docs: { description: { story: 'The left Insignia wraps the chat title and shows the selected turn below it. The shared header adds Elma’s reading width control alongside text size and theme.' } } },
   args: {
-    title: 'A fictional conversation', hasChat: true, total: 3, turn: 2, inputTokens: 9100, outputTokens: 2700,
+    title: 'How should we organize the field notes from our woodland survey?', hasChat: true, total: 3, turn: 2, inputTokens: 9100, outputTokens: 2700,
     trunk: 'trivial',
   },
 };
