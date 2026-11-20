@@ -135,7 +135,8 @@
   <PinnedMessage text={prompt} />
 
   <!-- svelte-ignore a11y_no_noninteractive_tabindex, a11y_no_noninteractive_element_interactions (The transcript supports scrolling and Cmd+Enter.) -->
-  <div class="transcript" aria-label="Assistant response" role="region" tabindex="0" aria-keyshortcuts="Meta+Enter"\n    bind:this={transcript} onkeydown={inspectReadingArea}>
+  <div class="transcript" aria-label="Assistant response" role="region" tabindex="0" aria-keyshortcuts="Meta+Enter"
+    bind:this={transcript} onkeydown={inspectReadingArea}>
     {#each transcriptGroups as { phase, messages } (phase.id)}
       <!-- svelte-ignore a11y_no_noninteractive_tabindex, a11y_no_noninteractive_element_interactions (The transcript remains readable and a focused phase also supports Cmd+Enter.) -->
       <div class="phase phase-band" data-phase={phase.id} data-exchange-phase={phase.id} role="group" tabindex="0"
