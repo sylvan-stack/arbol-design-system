@@ -20,6 +20,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = { args: {
   phaseBackgrounds: true,
+  blocks: [
+    { id: 'shell-read', kind: 'tool', tool: { id: 'shell-read', name: 'shell', label: 'Read README.md',
+      state: 'Complete', input: { command: 'cd fictional && cat README.md | head -20' } } },
+    ...ELMA_RESPONSE_FIXTURE,
+  ],
   foresterHooks: { 'session-start': 1, 'user-prompt-submit': 1, 'pre-tool-use': 3, 'post-tool-use': 3 },
   intakeFindings: { glossaryTerms: ['Cue Card', 'Operational Artifact'], operationalArtifacts: ['Working in Sagas'] },
   inferenceEndedAt: '2026-10-27T09:30:11Z',

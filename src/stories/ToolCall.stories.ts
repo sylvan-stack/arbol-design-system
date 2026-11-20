@@ -16,7 +16,14 @@ const meta = {
 } satisfies Meta<typeof Component>;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Default: Story = { args: {} };
+export const Default: Story = {
+  args: {
+    name: 'shell',
+    label: 'Read README.md',
+    input: { command: 'cd fictional && cat README.md | head -20' },
+    result: 'Fictional project notes',
+  },
+};
 export const Running: Story = { args: { state: 'Running' } };
 export const Failed: Story = { args: { state: 'Failed' } };
 export const Expanded: Story = { args: { expanded: true } };
