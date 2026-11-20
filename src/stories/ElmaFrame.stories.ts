@@ -29,6 +29,7 @@ export const RenameFailure={render:()=>({Component:ConversationFixture,props:{re
 export const ArchiveWaiting={render:()=>({Component:ConversationFixture,props:{archiveRunning:true}})} satisfies StoryObj<typeof ConversationFixture>;
 export const ArchiveFailure={render:()=>({Component:ConversationFixture,props:{archiveFailure:true}})} satisfies StoryObj<typeof ConversationFixture>;
 
+export const ArchivedChats={render:()=>({Component:ConversationFixture,props:{archiveLibrary:true,failed:true}})} satisfies StoryObj<typeof ConversationFixture>;
 export const LatestChats={render:()=>({Component:ConversationFixture,props:{latest:true}})} satisfies StoryObj<typeof ConversationFixture>;
 export const LatestEmpty={render:()=>({Component:ConversationFixture,props:{latest:true,latestEmpty:true}})} satisfies StoryObj<typeof ConversationFixture>;
 export const LatestLoading={render:()=>({Component:ConversationFixture,props:{latest:true,latestLoading:true}})} satisfies StoryObj<typeof ConversationFixture>;
