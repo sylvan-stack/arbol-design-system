@@ -1,6 +1,7 @@
 <script lang="ts">
   import { untrack } from 'svelte';
   import Composer from '../sections/Composer.svelte';
+  import ElmaStatus from '../sections/ElmaStatus.svelte';
   let {
     empty = false,
     value = '',
@@ -26,6 +27,7 @@
     expanded = $state(false),
     receipt = $state('');
   let edge = $state('');
+  const route = { driver: 'claude', subscription: 'fictional', model: 'model-a', effort: 'high' };
   let conflict=$state(untrack(()=>changed?{mine:'My fictional changes',theirs:'A fictional edit from another window'}:null));
   let recovery=$state<string|null>(untrack(()=>recover?'Fictional unsaved text from this window':null));
   let savingPaste=$state(untrack(()=>pasting)),queued=$state(false);
@@ -50,17 +52,22 @@
     onKeepMine={()=>conflict=null}
     onTakeTheirs={()=>{text=conflict?.theirs??text;conflict=null;}}
     repository="sample"
-    route={{ driver: 'claude', subscription: 'fictional', model: 'model-a', effort: 'high' }}
+    {route}
     bind:value={text}
     bind:expanded
     status={status||(savingPaste?'Saving pasted text…':readOnly ? 'Loading Draft…' : busy ? 'Waiting for the backend…' : '')}
-    onTop={() => (edge = 'top')}
-    onBottom={() => (edge = 'bottom')}
     onsend={send}
   />
   {#if savingPaste}<button onclick={finishPaste}>Complete fictional paste save</button>{/if}
   {#if receipt}<p role="status">Fictional message received: {receipt}</p>{/if}
   {#if edge}<p role="status">Scroll requested: {edge}</p>{/if}
+  <footer>
+    <ElmaStatus repository="sample" {route} actions={!empty && (!expanded || busy) ? {
+      busy,
+      onStartMessage: () => (expanded = true),
+      onScrollToEdge: (target) => (edge = target),
+    } : undefined} />
+  </footer>
 </div>
 
 <style>
@@ -74,5 +81,13 @@
     padding: 24px;
     max-width: 720px;
     margin: auto;
+  }
+  footer {
+    display: flex;
+    min-height: 40px;
+    padding: 6px 12px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font: 11px var(--font-mono);
   }
 </style>

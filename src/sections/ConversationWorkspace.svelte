@@ -117,6 +117,10 @@
 <svelte:window onkeydown={keys} />
 <ElmaFrame
   fitted
+  statusActions={shown && !imported && !composerOpen ? {
+    onStartMessage: () => (composerOpen = true),
+    onScrollToEdge: reader ? (edge) => reader?.scrollToEdge(edge) : undefined,
+  } : undefined}
   title={shown ? storedTitle||Array.from((messages[0]??'').split('\n')[0]).slice(0,80).join('')||'New Chat' : 'New Chat'}
   placeholder={shown&&!storedTitle}
   onrename={startRename}
@@ -198,8 +202,6 @@
     context={shown?'chat:'+current:'new:'+repository}
     bind:value={draft}
     bind:expanded={composerOpen}
-    onTop={() => reader?.scrollToEdge('top')}
-    onBottom={() => reader?.scrollToEdge('bottom')}
     onsend={(text) => {
       if (installationState !== 'ready') { actionNotice = installationMessages[installationState]; return; }
       messages = [...messages, text];
