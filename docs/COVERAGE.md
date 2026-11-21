@@ -16,7 +16,7 @@ The catalog has 366 stories and 46 workspace page entries, including seven Subsc
 | Willo | Recent Chat Sessions with loading, empty, retry and pagination states, station concepts, station densities, attention and Spotlight, notifications, Slack/Telegram/email source inboxes, signal-rule preview, runs and run detail |
 | Oaken | Timeline, Agenda, lane details, typed deadline field, Jira/Graft/MR collections, review workspace, compact panel; original full board and hunk review preserved live |
 | Native/auxiliary | Go to Page, Entity Search, Linked Entities, Repo Artifact Search, Quick Input, Latest Chats, permission panel, tray, notification feed, debug panel, detached document; explicit external Gmail/dashboard boundaries |
-| [Browser control](design-system/browser-control.md) | BrowserControl, its controlled state model, sixteen isolated/interactive/native-boundary states and the ArbolBrowser page. Browser Profile Navigation adds multiple accounts, compact layout and the Browser Profiles page through the browser-profiles catalog route. |
+| [Browser control](design-system/browser-control.md) | BrowserControl, its controlled state model, sixteen isolated/interactive/native-boundary states and the ArbolBrowser page with Copy and Cut suppression. Browser Profile Navigation adds multiple accounts, compact layout and the Browser Profiles page through the browser-profiles catalog route. |
 | Audit/decisions | Improvements recorded in IMPLEMENTATION.md; related cases listed below |
 | Reconstruction/evidence | Full chapter, original tokens, all source hashes, archive, captures, extracted source and 213-entry source-to-story map |
 

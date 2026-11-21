@@ -67,7 +67,8 @@
   }
 </script>
 
-<section class="browser-preview" aria-label="Arbol Browser local design preview">
+<section class="browser-preview" aria-label="Arbol Browser local design preview"
+  oncopycapture={(event) => event.preventDefault()} oncutcapture={(event) => event.preventDefault()}>
   <p class="boundary">Local design preview · Fictional data. Native input exclusion, IPC authentication, page health and profile storage are supplied by the production host.</p>
   <BrowserControl state={model} onaction={action} />
   {#if !controlsOnly}<main class="page" aria-label="Fictional page surface">

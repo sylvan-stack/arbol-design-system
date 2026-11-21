@@ -29,4 +29,8 @@ export const Loading = preview('loading');
 export const Empty = preview('empty');
 export const ConcurrentTabs = preview('concurrent', false);
 export const LongLabel = preview('long-label');
-export const BrowserPage = preview('private', false);
+export const BrowserPage = {
+  ...preview('private', false),
+  parameters: { docs: { description: { story:
+    'Copy and Cut are unavailable throughout the preview. Cut leaves the selected note text in place. Paste and ordinary editing remain available.' } } },
+} satisfies StoryObj<typeof ArbolBrowser>;

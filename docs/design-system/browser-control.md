@@ -23,6 +23,8 @@ Controls wrap and scroll within their own 272-pixel native toolbar area so Take 
 
 ## Maintained examples
 
+The BrowserPage preview suppresses ordinary Copy and Cut in its shell and fictional page. Cut leaves selected note text in place. Paste and normal editing remain available. The production Browser disables the native Edit commands and guards writes to the macOS general clipboard.
+
 Components/BrowserControl includes Private, Selecting, SharedPrivate, AgentControl, TakingControl, Unresponsive, Crashed, Unavailable, NoAgents, BusyRefusal, RequestRefused, Loading, Empty, ConcurrentTabs, LongLabel and BrowserPage. The composed page demonstrates local Share/Return, explicit pending Take completion, recovery confirmation, close and independent tabs. Completion/reset buttons are labelled local preview controls; they are not production methods or test machinery.
 
 ## Profile and website tabs
