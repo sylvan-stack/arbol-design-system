@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/svelte-vite';
+import { action } from 'storybook/actions';
 import Component from '../sections/StationSummary.svelte';
 import { exampleStation } from '../fixtures/willo-chat-sessions';
 const meta = {
@@ -32,4 +33,7 @@ export const Failure: Story = {
   args: { status: 'Failed', failure: 'Connection interrupted. Your work is preserved.' },
 };
 export const OpenInElma: Story = { args: { inElma: true } };
+export const OpensElma: Story = {
+  args: { readOnly: true, onOpen: action('Open Chat Session in Elma') },
+};
 export const Draft: Story = { args: { status: 'Draft', ongoing: false, usage: 'Not sent · Local Draft' } };

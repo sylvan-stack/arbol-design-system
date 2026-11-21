@@ -9,7 +9,9 @@ Willo Station has two destinations in the navigation rail below the Willo Insign
 
 Imported Chat Sessions includes archived and unarchived imports. **Most recent** orders the cards across all harnesses. **By harness** gives each recorded harness its own group with newest activity first. Both views use the same cards and preserve the source harness label. The cards show the compact state line and activity age above a two-line title, with repository and route metadata below when recorded. The first line of the first message can supply a missing title, followed by “Untitled Chat Session” when neither is recorded.
 
-Both destinations show read-only cards. Load older reaches the next page, and a failed read retains the cards already visible. The page distinguishes loading, an empty collection and a failed read. Open Willo Station from the Arbol tray, with Option+L, or with Control+Option+Shift+Command+W. The default Stations story provides fictional Chat Sessions in both views. The Collection and attention reference shows the broader design with preview controls.
+Click anywhere on a card in either destination, or focus it and press Enter or Space, to open that Chat Session in Elma Chat. Elma saves the current Draft before switching and opens imported transcripts in read-only mode. Willo shows a message if it cannot open the Elma app and keeps the card available to try again.
+
+Load older reaches the next page, and a failed read retains the cards already visible. The page distinguishes loading, an empty collection and a failed read. Open Willo Station from the Arbol tray, with Option+L, or with Control+Option+Shift+Command+W. The default Stations story reports fictional card selections in Storybook Actions. The Collection and attention reference shows the broader design with preview controls.
 
 ## Observed purpose and structure
 

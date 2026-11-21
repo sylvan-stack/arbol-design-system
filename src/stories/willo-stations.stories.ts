@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/svelte-vite';
+import { action } from 'storybook/actions';
 import Component from '../pages/WilloStation.svelte';
 import WorkspacePage from '../pages/WorkspacePage.svelte';
 import { importedChatSessions, recentChatSessions } from '../fixtures/willo-chat-sessions';
@@ -8,7 +9,11 @@ const meta = {
   component: Component,
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },
-  args: { rows: recentChatSessions, importedView: { rows: importedChatSessions } },
+  args: {
+    rows: recentChatSessions,
+    importedView: { rows: importedChatSessions },
+    onOpenChat: action('Open Chat Session in Elma'),
+  },
 } satisfies Meta<typeof Component>;
 export default meta;
 
@@ -27,3 +32,6 @@ export const OlderPageUnavailable: Story = {
   args: { problem: 'Could not load older Chat Sessions.', onRetry: () => {} },
 };
 export const MoreAvailable: Story = { args: { more: true, onLoadOlder: () => {} } };
+export const ElmaUnavailable: Story = {
+  args: { openProblem: 'Could not open the installed Elma Chat app.' },
+};
