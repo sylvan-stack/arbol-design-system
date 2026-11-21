@@ -114,7 +114,7 @@
     if (!privateData) return;
     target.focus({ preventScroll: true });
     inspection = {
-      publicExchange: { ...$state.snapshot(exchange), status: running ? 'running' : 'complete' },
+      publicExchange: { workingDirectory, ...$state.snapshot(exchange), status: running ? 'running' : 'complete' },
       privatePhase: { phase: phase.label, status: privateData.finishedAt ? 'finished' : 'running', ...$state.snapshot(privateData) },
     };
   }

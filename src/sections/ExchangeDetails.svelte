@@ -40,6 +40,7 @@
 
   function textPayload(path: Path): boolean {
     const [section, key, index, member, field, item, property] = path;
+    if (section === 'publicExchange' && key === 'workingDirectory') return false;
     if (section !== 'privatePhase' || key !== 'commands') return true;
     const commands = object(data?.privatePhase)?.commands;
     const command = Array.isArray(commands) && typeof index === 'number' ? object(commands[index]) : undefined;
