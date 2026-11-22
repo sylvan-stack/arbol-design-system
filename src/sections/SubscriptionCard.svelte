@@ -22,11 +22,9 @@
   const name = $derived(subscriptionName(driver, subscription));
   const metrics = $derived(subscription.metrics);
   const resets = $derived(metrics?.limitResets);
-  const deepseek = $derived(subscription.family === 'deepseek');
-  const payAsYouGo = $derived(driver === 'pi' && (deepseek || subscription.family === 'minimax'));
-  const provider = $derived(subscription.id === subscription.family && subscriptionProviderOrder.has(key)
+  const payAsYouGo = $derived(driver === 'pi' && ['deepseek', 'minimax'].includes(subscription.family));
+  const provider = $derived(subscriptionProviderOrder.has(subscriptionKey(driver, subscription.family))
     ? subscriptionVendor(driver, subscription.family) : undefined);
-  const request = $derived(view.usageRequests?.[key]);
 
   function startEdit() {
     editing = subscription;
@@ -72,7 +70,8 @@
     {:else}
       <p class="small muted">No saved API balance.</p>
     {/if}
-  {:else}
+  {/if}
+  {#if !payAsYouGo || metrics?.windows.length}
     {#each sortAllowanceWindows(metrics?.windows ?? []) as window}
       <SubscriptionAllowance {window} />
     {:else}
@@ -81,9 +80,6 @@
   {/if}
 
   {#each metrics?.issues ?? [] as issue}<p class="small warning">{issue}</p>{/each}
-  {#if deepseek && subscription.lastUsage?.extra?.apiAvailable === false}
-    <p class="small warning">The balance is insufficient for API calls.</p>
-  {/if}
   {#if provider && onOpenUsage}
     <div class="row usage-actions">
       <Button label={'Open in ' + provider} tone="ghost" busy={view.usageOpening === key}
@@ -91,7 +87,6 @@
         onclick={() => onOpenUsage?.(driver, subscription.id)} />
     </div>
   {/if}
-  {#if request?.error}<p class="small warning" role="status">{request.error}</p>{/if}
   {#if view.usageLinkErrors?.[key]}<p class="small warning" role="status">{view.usageLinkErrors[key]}</p>{/if}
 
   {#if resets?.count !== undefined && resets.count > 0}

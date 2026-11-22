@@ -40,17 +40,21 @@ export const Default: Story = {};
 export const Loading: Story = { args: { view: { connected: true, loading: true } } };
 export const Empty: Story = { args: { view: { connected: true, listing: { drivers: [] } } } };
 export const Partial: Story = {
-  args: { view: { connected: true, usageRequests: {
-    [subscriptionKey('pi', 'deepseek')]: { error: 'DeepSeek could not be reached. The saved balance is shown.' },
-  }, listing: {
+  args: { view: { connected: true, listing: {
     drivers: exampleListing.drivers.map((driver) => {
       if (driver.driver === 'codex') return { driver: 'codex', error: { message: 'The driver did not answer in time.' } };
+      if (driver.driver === 'pi') return {
+        ...driver,
+        subscriptions: driver.subscriptions?.map((subscription) => subscription.family !== 'deepseek' ? subscription : {
+          ...subscription, metrics: { ...subscription.metrics, windows: [],
+            issues: ['The DeepSeek dashboard could not be reached. The last Browser balance is shown.'] },
+        }),
+      };
       if (driver.driver !== 'mimo') return driver;
       return {
         ...driver,
         subscriptions: driver.subscriptions?.map((subscription) => ({
-          ...subscription, metrics: undefined,
-          allowance: { issues: ['No MiMo quota reading. Open the Xiaomi console.'] },
+          ...subscription, metrics: { windows: [], issues: ['This subscription has no matching Arbol Browser profile.'] },
         })),
       };
     }),
@@ -75,7 +79,7 @@ const nextWindows: SubscriptionView = { ...loaded, listing: {
 } };
 export const NextAllowances: Story = {
   args: { view: nextWindows },
-  parameters: { docs: { description: { story: 'Hover or focus only a Time remaining value for its reset tooltip. Pending windows remain honest fictional states here; the production adapter starts a supported window with one minimal request and rereads provider usage.' } } },
+  parameters: { docs: { description: { story: 'Hover or focus a Time remaining value for its reset tooltip. A five-hour window can stay pending until ordinary use starts it and a dashboard refresh reports the new window.' } } },
 };
 export const Unavailable: Story = {
   args: { view: { connected: true, error: 'The backend did not answer in time.' } },
