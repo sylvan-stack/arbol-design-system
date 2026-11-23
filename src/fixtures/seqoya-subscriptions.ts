@@ -36,7 +36,7 @@ export const exampleListing: SubscriptionListing = {
         ],
         state: 'signed_in', metrics: {
           windows: [{
-            ...weekly, usedPercent: 100, remainingPercent: 0, outputTokensUsed: 800_000,
+            ...weekly, usedPercent: 100, remainingPercent: 0, outputTokensTotal: 800_000, outputTokensUsed: 800_000,
             outputTokensRemaining: 0, outputTokensPerHour: 0, model: 'Sample model A',
           }],
           limitResets: { count: 1, observedAt: read, entries: [

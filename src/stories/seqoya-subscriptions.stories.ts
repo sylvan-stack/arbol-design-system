@@ -11,6 +11,9 @@ const meta = {
   component: SubscriptionList,
   tags: ['autodocs'],
   args: { view: loaded },
+  parameters: { docs: { description: { component:
+    'Each timed allowance shows its full estimated total in millions. The exhausted sample weekly allowance still shows 0.80M. API balances have no window total.',
+  } } },
   render: (args) => {
     const [, updateArgs] = useArgs();
     const props: ComponentProps<typeof SubscriptionList> = {

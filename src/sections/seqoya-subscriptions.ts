@@ -55,6 +55,7 @@ export interface SubscriptionWindow {
   remainingMinutes?: number;
   usedPercent?: number;
   remainingPercent?: number;
+  outputTokensTotal?: number;
   outputTokensUsed?: number;
   outputTokensRemaining?: number;
   outputTokensPerHour?: number;
@@ -92,6 +93,28 @@ export type RenameSubscription = (
 ) => Promise<void>;
 
 export type AllowanceWindowType = '5h' | 'week' | 'month' | 'other';
+
+const tokenMillions = new Intl.NumberFormat(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+export function allowanceTokenTotal(window: SubscriptionWindow): number | undefined {
+  if (window.next === 'awaitingRenewal') return undefined;
+  const { outputTokensTotal, outputTokensUsed, outputTokensRemaining } = window;
+  if (validTokenCount(outputTokensTotal)) return outputTokensTotal;
+  if (!validTokenCount(outputTokensUsed) || !validTokenCount(outputTokensRemaining)) return undefined;
+  const total = outputTokensUsed + outputTokensRemaining;
+  return validTokenCount(total) ? total : undefined;
+}
+
+function validTokenCount(value: number | undefined): value is number {
+  return value !== undefined && Number.isFinite(value) && value >= 0;
+}
+
+export function formatAllowanceTokenTotal(tokens: number | undefined): string {
+  if (tokens === undefined) return 'Unavailable';
+  const millions = tokens / 1_000_000;
+  if (millions > 0 && millions < 0.01) return '< ' + tokenMillions.format(0.01) + 'M';
+  return '≈ ' + tokenMillions.format(millions) + 'M';
+}
 
 export function allowanceWindowType(window: SubscriptionWindow): AllowanceWindowType {
   if (window.windowMinutes === 300) return '5h';

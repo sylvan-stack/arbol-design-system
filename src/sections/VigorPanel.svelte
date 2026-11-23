@@ -3,6 +3,7 @@
   import Modal from '../patterns/Modal.svelte';
   import Notice from '../patterns/Notice.svelte';
   import VigorEtcEditor from './VigorEtcEditor.svelte';
+  import { formatAllowanceTokenTotal } from './seqoya-subscriptions';
   import { formatVigorNumber, formatVigorTokens } from './seqoya-vigor-format';
   import {
     defaultVigorSettings, isVigorSettings, quotaDashRules, vigorCurrencies, vigorFactors, vigorPriorityRows,
@@ -314,6 +315,10 @@
                           <Button label="Edit forecast" onclick={() => (editingForecast = row.key)} />
                         </div>
                       {/if}
+                      <dl class="window-total small">
+                        <dt>Total tokens per window</dt>
+                        <dd>{formatAllowanceTokenTotal(row.totalTokens)}</dd>
+                      </dl>
                       {@render breakdown(row.current, row.weekly === true)}
                       {#if row.next}
                         <strong>Next available · {timestamp.format(windowEnd)}</strong>
@@ -437,6 +442,9 @@
   .dash:hover { text-decoration: underline; }
   .dash.marked { color: var(--success); font-weight: 750; }
   .calculation { contain: inline-size; gap: var(--space-3); }
+  .window-total { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; }
+  .window-total dt { color: var(--muted); }
+  .window-total dd { margin: 0; font-variant-numeric: tabular-nums; }
   .price-basis { gap: var(--space-1); }
   .breakdown th, .breakdown td { padding: var(--space-2); }
   .breakdown code { color: var(--muted); }

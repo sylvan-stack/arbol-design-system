@@ -15,6 +15,8 @@ Below the bar, show Time remaining as a plain label. Only the value is the hover
 
 Read each subscription’s metrics from its confirmed Arbol Browser profile. The dashboard shortcut uses the same subscription ID and profile as refresh. A failed dashboard refresh shows its issue on the affected card and keeps the last reading while the binding still matches. A five-hour window that starts on use stays pending until the dashboard confirms ordinary use has started it. When a dashboard supplies both an API balance and plan windows, show both on the card.
 
+Show **Total tokens per window** below Time remaining for each timed allowance. Use the calibrated full output-token-equivalent capacity or, for older records, the sum of known used and remaining equivalents for that window. Show the estimated total in millions, including for values below a million, and retain the estimate’s basis. Show Unavailable when the current or projected total is unknown. API balance sections omit this row.
+
 Kimi's reported quota ratios and normalized limits do not encode token counts in thousands or millions. The earlier calls conversion is invalid. Calibrate a reference output capacity from recorded model output and quota-share movement in the same reset window, preserving both observations, identity, model and substituted arithmetic. Label quantities as estimates and expose their basis with the figures.
 
 Sources: maintained InlineRename and Tooltip; the original provider quota windows; Kimi's [quota schema](https://www.kimi.com/code/docs/en/kimi-code-cli/reference/server-api.html) and [credit rules](https://www.kimi.com/en/help/membership/membership-update-rules).

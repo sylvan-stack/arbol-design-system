@@ -17,6 +17,8 @@ The formula header shows `Vigor = a₁ × D + a₂ × T + a₃ × Q + a₄ × L 
 
 Configure formula saves the raw weights, scales and loss currency for the installation. Each coefficient divides its raw weight by the sum of weights. Weights must be nonnegative with a positive sum. Both scales must be positive. The starting scales are 400,000 output-token equivalents and USD 6. Use defaults restores the draft values. Save applies changes, and Cancel or Escape closes the editor.
 
+Expanded details show **Total tokens per window** for the selected allowance in millions, using the same full output-token-equivalent estimate as its Subscription card. Display the total beside the calculation for reference. The formula uses the available balance for its token factor.
+
 Potential loss multiplies the selected window’s remaining equivalents by its matching saved reference token cost estimate. The calculation details show the rate per million with two decimal places, its saved price and allowance derivation, and the arithmetic from the row’s available equivalents to the estimated loss. Weekly rates from the Subscription card use 52/12 weeks per month as their price basis. Fractional readouts use two decimal places. Token counts in the table, calculations and pricing basis use the same K/M notation. Calculations and editable settings retain full precision. The monetary factor requires a matching currency. A missing factor contributes zero and stays visibly unavailable in the breakdown.
 
 An active weekly window can be marked or dismissed locally. The choice applies to that Subscription and window end. Automatically mark when an available reset with known weekly scope expires during the current window or during the first half of the next. Show the reason on the control.
