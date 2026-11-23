@@ -33,6 +33,7 @@
   const variableFormula = 'Vigor = ' + vigorFactors.map(({ coefficient, variable }) => `${coefficient} × ${variable}`).join(' + ');
   const score = new Intl.NumberFormat(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const number = new Intl.NumberFormat(undefined, { maximumFractionDigits: 4 });
+  const millions = new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 });
   const timestamp = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' });
 
   function configure() {
@@ -82,8 +83,19 @@
     toggle(key);
   }
 
-  function money(amount: number, currency: string) {
-    return new Intl.NumberFormat(undefined, { style: 'currency', currency }).format(amount);
+  function money(amount: number, currency: string, maximumFractionDigits = 2) {
+    return new Intl.NumberFormat(undefined, { style: 'currency', currency, maximumFractionDigits }).format(amount);
+  }
+
+  function timeLeft(hours: number) {
+    const minutes = Math.max(0, Math.floor(hours * 60));
+    if (minutes >= 1_440) return `${Math.floor(minutes / 1_440)}d ${Math.floor(minutes / 60) % 24}h`;
+    return minutes > 0 ? `${Math.floor(minutes / 60)}h ${minutes % 60}m` : '<1m';
+  }
+
+  function tokenMillions(tokens: number) {
+    if (tokens > 0 && tokens < 10_000) return '<0.01M';
+    return millions.format(tokens / 1_000_000) + 'M';
   }
 
   function saveForecast(key: string, forecast?: MonthlyEtcForecast) {
@@ -146,10 +158,15 @@
       {/each}
     </tbody>
   </table>
-  {#if calculation.loss}
-    <p class="small muted" title={calculation.loss.basis}>
-      Estimated loss = available equivalents ÷ 1,000,000 × {money(calculation.loss.perMillion, calculation.loss.currency)}.
-    </p>
+  {#if calculation.loss && calculation.tokens !== undefined}
+    <div class="stack price-basis">
+      <strong>Estimated token cost · {money(calculation.loss.perMillion, calculation.loss.currency, 6)} per million</strong>
+      <p class="small muted">{calculation.loss.basis}</p>
+      <p class="small">Estimated loss =
+        <code>{number.format(calculation.tokens)} ÷ 1,000,000 × {money(calculation.loss.perMillion, calculation.loss.currency, 6)}
+          ≈ {money(calculation.loss.amount, calculation.loss.currency)}</code>
+      </p>
+    </div>
   {/if}
   {#if calculation.partial}
     <p class="small muted">Unavailable factors contribute zero.{#if calculation.loss && calculation.loss.currency !== settings.lossCurrency} The monetary factor uses {settings.lossCurrency}.{/if}</p>
@@ -184,13 +201,15 @@
 
   {#if rows?.length}
     <div class="table-scroll">
-      <table aria-label="Subscriptions ranked by Vigor">
+      <table class="ranking" aria-label="Subscriptions ranked by Vigor">
         <thead>
           <tr>
             <th scope="col">Subscription</th>
             <th scope="col">Quota Dash</th>
-            <th scope="col" class="numeric">Potential weekly loss</th>
-            <th scope="col" class="numeric">User score</th>
+            <th scope="col" class="numeric">User Score</th>
+            <th scope="col" class="numeric">Time Left</th>
+            <th scope="col" class="numeric">Potential Weekly Loss</th>
+            <th scope="col" class="numeric" title="Available output-token equivalents in millions">Available Tokens</th>
             <th scope="col" class="numeric">Vigor</th>
           </tr>
         </thead>
@@ -213,7 +232,7 @@
                     aria-label={`Quota Dash for ${row.name}`}
                     title={row.reason ?? (row.matches?.length ? row.matches.map(describeMatch).join('\n') : 'Mark the current weekly window as Quota Dash')}
                     onclick={() => mark(row.key, { windowEnd, marked: !row.dash })}>
-                    {row.dash ? 'On' : 'Off'}
+                    {row.dash ? 'Dash activated!' : 'Off'}
                   </button>
                   {#if row.reason}
                     <small>{row.dash ? 'Manual' : 'Dismissed'}</small>
@@ -224,18 +243,23 @@
                   <span class="muted" title="Active weekly allowance unavailable">—</span>
                 {/if}
               </td>
+              <td class="numeric">{row.userScore === undefined ? '—' : score.format(row.userScore)}</td>
+              <td class="numeric">{row.current === undefined ? '—' : timeLeft(row.current.hoursLeft)}</td>
               <td class="numeric">
-                {#if row.current?.loss}
-                  <span title={`Estimated from remaining weekly equivalents. ${row.current.loss.basis}`}>
-                    ≈{money(row.current.loss.amount, row.current.loss.currency)}
-                  </span>
+                {#if row.current?.loss?.currency === settings.lossCurrency}
+                  <span title={`Estimated potential loss in ${settings.lossCurrency}`}>
+                    ≈{money(row.current.loss.amount, settings.lossCurrency)}</span>
+                {:else if row.current?.loss}
+                  <span class="muted" title={`Estimate is in ${row.current.loss.currency}. The configured currency is ${settings.lossCurrency}.`}>—</span>
                 {:else}
                   <span class="muted" title="Weekly allowance or reference cost unavailable">—</span>
                 {/if}
               </td>
-              <td class="numeric">{row.userScore === undefined ? '—' : score.format(row.userScore)}</td>
+              <td class="numeric">
+                {row.current?.tokens === undefined ? '—' : tokenMillions(row.current.tokens)}
+              </td>
               <td class="numeric vigor">
-                {row.current === undefined ? '—' : score.format(row.current.score)}
+                <span class="vigor-score">{row.current === undefined ? '—' : score.format(row.current.score)}</span>
                 {#if row.resetReady}<small>Reset ready</small>{/if}
                 {#if row.next && windowEnd !== undefined}
                   <small title={row.next.partial ? 'Some projection inputs are unavailable.' : undefined}>
@@ -247,7 +271,7 @@
             </tr>
             {#if open}
               <tr class="detail" id={detailsId}>
-                <td colspan="5">
+                <td colspan="7">
                   {#if row.current && windowEnd !== undefined}
                     <div class="stack calculation">
                       <div class="row spread">
@@ -358,20 +382,24 @@
   .formula { padding-block: var(--space-2); font-weight: 650; }
   .table-scroll {
     overflow-x: auto;
+    inline-size: fit-content;
+    max-inline-size: 100%;
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     background: var(--panel);
   }
   table { width: 100%; border-collapse: collapse; }
+  .ranking { inline-size: max-content; }
+  .ranking > thead th, .ranking > tbody > .overview > td { white-space: nowrap; }
   th, td { padding: var(--space-3) var(--space-4); text-align: start; }
   thead th { color: var(--muted); font-size: .85em; }
   tbody th { font-weight: 650; }
   tbody tr { border-top: 1px solid var(--border); }
   .numeric { text-align: end; font-variant-numeric: tabular-nums; }
-  .vigor { font-weight: 750; }
+  .vigor-score { font-size: 1.25em; font-weight: 750; }
   .vigor small { display: block; margin-top: 2px; color: var(--muted); font-weight: 600; }
   .vigor small time { display: block; }
-  .dash-cell small { display: block; margin-top: 4px; color: var(--muted); }
+  .dash-cell small { display: block; max-inline-size: 18ch; margin-top: 4px; color: var(--muted); white-space: normal; }
   .dash-reasons ul { margin-block: 0; padding-inline-start: var(--space-4); }
   .monthly-etc { padding-block: var(--space-2); }
   .overview, .disclosure, .dash { cursor: pointer; }
@@ -386,21 +414,24 @@
     color: var(--text);
     font: inherit;
     text-align: start;
+    max-inline-size: 34ch;
+    overflow-wrap: anywhere;
   }
   .disclosure span { display: inline-block; color: var(--accent); font-size: 1.2em; line-height: 1; }
   .disclosure span.open { transform: rotate(90deg); }
   .dash {
-    min-width: 3em;
     min-height: 28px;
-    padding: 2px var(--space-2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
+    padding: 2px 0;
+    border: 0;
     background: transparent;
-    color: var(--muted);
+    color: var(--text);
+    font: inherit;
+    font-weight: 400;
   }
-  .dash:hover { border-color: var(--muted); }
-  .dash.marked { background: var(--selected); border-color: var(--accent); color: var(--text); font-weight: 700; }
-  .calculation { gap: var(--space-3); }
+  .dash:hover { text-decoration: underline; }
+  .dash.marked { color: var(--success); font-weight: 750; }
+  .calculation { contain: inline-size; gap: var(--space-3); }
+  .price-basis { gap: var(--space-1); }
   .breakdown th, .breakdown td { padding: var(--space-2); }
   .breakdown code { color: var(--muted); }
   .arithmetic { display: grid; gap: var(--space-1); }

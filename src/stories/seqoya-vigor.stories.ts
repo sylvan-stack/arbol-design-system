@@ -11,7 +11,10 @@ const account: SubscriptionRecord = {
   metrics: {
     windows: [{ label: 'Weekly', windowMinutes: 10_080, resetsAt, outputTokensRemaining: 180_000 }],
     price: { label: 'ChatGPT Pro 200', amount: 200, currency: 'USD', months: 1, source: 'list' },
-    estimatedTokenCost: { window: 'Weekly', perMillion: 20, currency: 'USD', basis: 'Fictional reference token cost.' },
+    estimatedTokenCost: {
+      window: 'Weekly', perMillion: 200 / (52 / 12), currency: 'USD',
+      basis: 'Fictional monthly charge of 200 USD ÷ (1,000,000 weekly output-token equivalents × 52/12) × 1 million. The weekly calibration uses 400,000 observed equivalents ÷ 40% of the weekly quota.',
+    },
     limitResets: { count: 1, entries: [{ label: 'Full reset', expiresAt: '2026-11-25T12:00:00Z' }] },
   },
 };
@@ -29,7 +32,7 @@ const exampleView: VigorPriorityView = {
     { driver: 'claude', subscriptions: [
       writing,
       { ...writing, id: 'review', label: 'Review account', userScore: 0.4,
-        metrics: { ...writing.metrics, windows: [{ label: 'Weekly', windowMinutes: 10_080, resetsAt,
+        metrics: { ...writing.metrics, windows: [{ label: 'Weekly', windowMinutes: 10_080, resetsAt: '2026-11-23T19:30:00Z',
           outputTokensUsed: 1_000_000, outputTokensRemaining: 0, remainingPercent: 0 }] } },
     ] },
     { driver: 'pi', subscriptions: [
@@ -44,7 +47,7 @@ const meta = {
   tags: ['autodocs'],
   args: { view: exampleView },
   parameters: { docs: { description: { component:
-    'The weekly ranking follows docs/design-system/seqoya-vigor.md. Expand a calculation, configure automatic thresholds or review the next renewal of an exhausted fictional account.',
+    'The weekly ranking follows docs/design-system/seqoya-vigor.md. Compare content-sized weekly columns, expand a priced account to trace the token-cost estimate, or configure thresholds.',
   } } },
 } satisfies Meta<typeof VigorPanel>;
 export default meta;
