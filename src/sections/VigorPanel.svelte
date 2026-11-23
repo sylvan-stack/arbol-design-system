@@ -118,11 +118,14 @@
     return `${label} · ≈${money(match.value, settings.lossCurrency)} ≥ ${money(match.threshold, settings.lossCurrency)}`;
   }
 
-  function values(calculation: VigorCalculation) {
-    const { dash, hoursLeft, tokens, loss, userScore } = calculation;
+  function values(calculation: VigorCalculation, weekly: boolean) {
+    const { dash, hoursLeft, windowHours, tokens, loss, userScore } = calculation;
+    const time = hoursLeft === undefined ? 'Unavailable'
+      : windowHours === undefined ? `${formatVigorNumber(hoursLeft)} h left · duration unavailable`
+      : `${formatVigorNumber(hoursLeft)} h left of ${formatVigorNumber(windowHours)} h`;
     return [
-      dash ? 'On (1)' : 'Off (0)',
-      `${formatVigorNumber(hoursLeft)} h left of 168 h`,
+      weekly ? (dash ? 'On (1)' : 'Off (0)') : 'Weekly windows only (0)',
+      time,
       tokens === undefined ? 'Unavailable' : `${formatVigorTokens(tokens)} equivalents · scale ${formatVigorTokens(settings.tokenScale)}`,
       loss === undefined ? 'Unavailable' : `≈${money(loss.amount, loss.currency)} · scale ${money(settings.lossScale, settings.lossCurrency)}`,
       formatVigorNumber(userScore),
@@ -135,8 +138,8 @@
   }
 </script>
 
-{#snippet breakdown(calculation: VigorCalculation)}
-  {@const inputs = values(calculation)}
+{#snippet breakdown(calculation: VigorCalculation, weekly: boolean)}
+  {@const inputs = values(calculation, weekly)}
   <table class="breakdown" aria-label="Vigor calculation inputs">
     <thead><tr><th scope="col">Input</th><th scope="col">Value</th><th scope="col" class="numeric">Factor</th><th scope="col" class="numeric">Weight</th><th scope="col" class="numeric">Contribution</th></tr></thead>
     <tbody>
@@ -168,7 +171,7 @@
   <p class="arithmetic">
     <code>{arithmetic(calculation)} ≈ {formatVigorNumber(calculation.sum)}</code>
     {#if calculation.exhausted}
-      <span>Vigor = <strong>0</strong> while the weekly quota is exhausted.</span>
+      <span>Vigor = <strong>0</strong> while the allowance is exhausted.</span>
     {:else}
       <span>Vigor ≈ <strong>{formatVigorNumber(calculation.score)}</strong></span>
     {/if}
@@ -202,7 +205,7 @@
             <th scope="col">Quota Dash</th>
             <th scope="col" class="numeric">User Score</th>
             <th scope="col" class="numeric">Time Left</th>
-            <th scope="col" class="numeric">Potential Weekly Loss</th>
+            <th scope="col" class="numeric">Potential Loss</th>
             <th scope="col" class="numeric" title="Available output-token equivalents in thousands (K) or millions (M)">Available Tokens</th>
             <th scope="col" class="numeric">Vigor</th>
           </tr>
@@ -217,11 +220,15 @@
               <th scope="row">
                 <button class="disclosure" type="button" aria-expanded={open}
                   aria-controls={open ? detailsId : undefined} onclick={() => toggle(row.key)}>
-                  <span class:open aria-hidden="true">›</span>{row.name}
+                  <span class="chevron" class:open aria-hidden="true">›</span>
+                  <span>
+                    {row.name}
+                    {#if row.windowLabel}<small class="window-label">{row.windowLabel}</small>{/if}
+                  </span>
                 </button>
               </th>
               <td class="dash-cell">
-                {#if windowEnd !== undefined}
+                {#if row.weekly && windowEnd !== undefined}
                   <button type="button" class="dash" class:marked={row.dash} aria-pressed={row.dash}
                     aria-label={`Quota Dash for ${row.name}`}
                     title={row.reason ?? (row.matches?.length ? row.matches.map(describeMatch).join('\n') : 'Mark the current weekly window as Quota Dash')}
@@ -234,11 +241,11 @@
                     <small>{row.matches.map(shortRule).join(' · ')}</small>
                   {/if}
                 {:else}
-                  <span class="muted" title="Active weekly allowance unavailable">—</span>
+                  <span class="muted" title="Quota Dash applies to weekly windows">—</span>
                 {/if}
               </td>
               <td class="numeric">{row.userScore === undefined ? '—' : score.format(row.userScore)}</td>
-              <td class="numeric">{row.current === undefined ? '—' : timeLeft(row.current.hoursLeft)}</td>
+              <td class="numeric">{row.current?.hoursLeft === undefined ? '—' : timeLeft(row.current.hoursLeft)}</td>
               <td class="numeric">
                 {#if row.current?.loss?.currency === settings.lossCurrency}
                   <span title={`Estimated potential loss in ${settings.lossCurrency}`}>
@@ -246,7 +253,7 @@
                 {:else if row.current?.loss}
                   <span class="muted" title={`Estimate is in ${row.current.loss.currency}. The configured currency is ${settings.lossCurrency}.`}>—</span>
                 {:else}
-                  <span class="muted" title="Weekly allowance or reference cost unavailable">—</span>
+                  <span class="muted" title="Available equivalents or matching reference cost unavailable">—</span>
                 {/if}
               </td>
               <td class="numeric">
@@ -269,8 +276,12 @@
                   {#if row.current && windowEnd !== undefined}
                     <div class="stack calculation">
                       <div class="row spread">
-                        <strong>Current weekly window</strong>
-                        <span class="small muted">Renews <time datetime={new Date(windowEnd).toISOString()}>{timestamp.format(windowEnd)}</time></span>
+                        <strong>{row.windowLabel}</strong>
+                        <span class="small muted">
+                          {row.expires ? 'Expires' : 'Renews'}
+                          {row.approximate ? ' around ' : ' '}
+                          <time datetime={new Date(windowEnd).toISOString()}>{timestamp.format(windowEnd)}</time>
+                        </span>
                       </div>
                       {#if row.reason || row.matches?.length}
                         <div class="stack dash-reasons">
@@ -282,7 +293,7 @@
                           {/if}
                         </div>
                       {/if}
-                      {#if settings.dashThresholds?.projectedEtc !== undefined || row.monthlyForecast}
+                      {#if row.weekly && (settings.dashThresholds?.projectedEtc !== undefined || row.monthlyForecast)}
                         <div class="row spread monthly-etc">
                           <div>
                             <strong>Projected monthly ETC</strong>
@@ -303,15 +314,15 @@
                           <Button label="Edit forecast" onclick={() => (editingForecast = row.key)} />
                         </div>
                       {/if}
-                      {@render breakdown(row.current)}
+                      {@render breakdown(row.current, row.weekly === true)}
                       {#if row.next}
                         <strong>Next available · {timestamp.format(windowEnd)}</strong>
-                        <p class="small muted">Projected at the scheduled weekly renewal.</p>
-                        {@render breakdown(row.next)}
+                        <p class="small muted">Projected at the scheduled renewal.</p>
+                        {@render breakdown(row.next, row.weekly === true)}
                       {/if}
                     </div>
                   {:else}
-                    <p class="muted">Current weekly allowance unavailable.</p>
+                    <p class="muted">{row.status ?? 'Current timed allowance unavailable.'}</p>
                   {/if}
                 </td>
               </tr>
@@ -411,8 +422,9 @@
     max-inline-size: 34ch;
     overflow-wrap: anywhere;
   }
-  .disclosure span { display: inline-block; color: var(--accent); font-size: 1.2em; line-height: 1; }
-  .disclosure span.open { transform: rotate(90deg); }
+  .chevron { color: var(--accent); font-size: 1.2em; line-height: 1; }
+  .chevron.open { transform: rotate(90deg); }
+  .window-label { display: block; color: var(--muted); font-weight: 400; }
   .dash {
     min-height: 28px;
     padding: 2px 0;

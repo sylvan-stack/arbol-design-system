@@ -1,7 +1,7 @@
 import {
   allowanceWindowType, defaultSubscriptionUserScore, isSubscriptionUserScore, subscriptionKey,
   subscriptionName, subscriptionVendor, type EstimatedTokenCost, type SubscriptionListing,
-  type SubscriptionRecord,
+  type SubscriptionRecord, type SubscriptionWindow,
 } from './seqoya-subscriptions';
 import type { VigorView } from './seqoya-vigor';
 
@@ -13,7 +13,7 @@ export const vigorFactors = [
   { key: 'dash', variable: 'D', coefficient: 'a₁', label: 'Quota Dash' },
   { key: 'time', variable: 'T', coefficient: 'a₂', label: 'Time urgency' },
   { key: 'tokens', variable: 'Q', coefficient: 'a₃', label: 'Available equivalents' },
-  { key: 'loss', variable: 'L', coefficient: 'a₄', label: 'Potential weekly quota loss' },
+  { key: 'loss', variable: 'L', coefficient: 'a₄', label: 'Potential quota loss' },
   { key: 'user', variable: 'U', coefficient: 'a₅', label: 'User score' },
 ] as const;
 
@@ -105,7 +105,8 @@ type Loss = { amount: number; currency: VigorCurrency; perMillion: number; basis
 
 export interface VigorCalculation {
   dash: boolean;
-  hoursLeft: number;
+  hoursLeft?: number;
+  windowHours?: number;
   tokens?: number;
   loss?: Loss;
   userScore: number;
@@ -120,6 +121,11 @@ interface PriorityRow {
   key: string;
   name: string;
   windowEnd?: number;
+  windowLabel?: string;
+  weekly?: boolean;
+  expires?: boolean;
+  approximate?: boolean;
+  status?: string;
   dash: boolean;
   reason?: string;
   matches?: QuotaDashMatch[];
@@ -157,7 +163,8 @@ function saturate(value: number, scale: number): number {
 function calculate(
   settings: VigorSettings,
   dash: boolean,
-  hoursLeft: number,
+  hoursLeft: number | undefined,
+  windowHours: number | undefined,
   tokens: number | undefined,
   rate: VigorEstimatedTokenCost | undefined,
   userScore: number,
@@ -166,7 +173,8 @@ function calculate(
   const loss = potentialLoss(tokens, rate);
   const factors: Record<Factor, number | undefined> = {
     dash: Number(dash),
-    time: 1 - Math.min(weeklyHours, Math.max(0, hoursLeft)) / weeklyHours,
+    time: hoursLeft === undefined || windowHours === undefined ? undefined
+      : 1 - Math.min(windowHours, Math.max(0, hoursLeft)) / windowHours,
     tokens: tokens === undefined ? undefined : saturate(tokens, settings.tokenScale),
     loss: loss && loss.currency === settings.lossCurrency ? saturate(loss.amount, settings.lossScale) : undefined,
     user: userScore,
@@ -178,7 +186,7 @@ function calculate(
     return { factor, weight, contribution: weight * (factor ?? 0) };
   });
   const sum = terms.reduce((total, term) => total + term.contribution, 0);
-  return { dash, hoursLeft, tokens, loss, userScore, terms, sum, score: exhausted ? 0 : sum, exhausted,
+  return { dash, hoursLeft, windowHours, tokens, loss, userScore, terms, sum, score: exhausted ? 0 : sum, exhausted,
     partial: terms.some(term => term.weight > 0 && term.factor === undefined) };
 }
 
@@ -210,6 +218,27 @@ function thresholdMatches(
   });
 }
 
+function scheduledTime(value: string | number | null | undefined): number {
+  const time = typeof value === 'string' ? Date.parse(value) : NaN;
+  return Number.isFinite(time) ? time : Infinity;
+}
+
+function activeAllowance(windows: SubscriptionWindow[], now: number, pricedWindow?: string) {
+  const active = windows.flatMap(window => {
+    if (window.next || window.pendingStart) return [];
+    const reset = scheduledTime(window.resetsAt);
+    const expiry = scheduledTime(window.expiresAt);
+    const end = Math.min(reset, expiry);
+    if (!Number.isFinite(end) || end <= now) return [];
+    return [{ window, end, expires: window.terminal === true || expiry <= reset, type: allowanceWindowType(window) }];
+  });
+  const priced = active.find(({ window }) => window.label === pricedWindow);
+  if (priced?.type === 'week') return priced;
+  return active.find(({ type }) => type === 'week') ?? priced
+    ?? active.find(({ window }) => window.label === 'Monthly, Kimi Code' || window.label === 'Token Plan')
+    ?? active.find(({ type }) => type === 'month') ?? active[0];
+}
+
 function priorityRow(
   driver: string, account: SubscriptionRecord, now: number, choices: QuotaDashChoices,
   settings: VigorSettings, forecasts: MonthlyEtcForecasts,
@@ -220,18 +249,21 @@ function priorityRow(
   const monthlyForecast = forecasts[key];
   const projectedEtc = projectedMonthlyEtc(monthlyForecast, now);
   const base = { key, name, dash: false, userScore, monthlyForecast, projectedEtc };
-  if (account.state !== 'signed_in' || account.metrics?.balance) return base;
+  if (account.metrics?.balance || (driver === 'pi' && ['deepseek', 'minimax'].includes(account.family))) {
+    return { ...base, status: 'Pay-as-you-go API scoring is postponed.' };
+  }
+  if (account.state !== 'signed_in') return { ...base, status: 'Subscription sign-in required.' };
 
   const price = account.metrics?.estimatedTokenCost;
-  const weekly = account.metrics?.windows.filter(window => allowanceWindowType(window) === 'week'
-    && !window.next && !window.pendingStart && Date.parse(window.resetsAt ?? '') > now) ?? [];
-  const window = weekly.find(window => window.label === price?.window) ?? weekly[0];
-  if (!window) return base;
+  const selected = activeAllowance(account.metrics?.windows ?? [], now, price?.window);
+  if (!selected) return base;
 
-  const windowEnd = Date.parse(window.resetsAt ?? '');
+  const { window, end: windowEnd, expires, type } = selected;
+  const weekly = type === 'week';
+  const windowHours = nonnegative(window.windowMinutes) && window.windowMinutes > 0 ? window.windowMinutes / 60 : undefined;
   const rate = price?.window === window.label ? price : undefined;
-  const choice = choices[key]?.windowEnd === windowEnd ? choices[key] : undefined;
-  const deadlines = eligibleResetDeadlines(driver, account, now);
+  const choice = weekly && choices[key]?.windowEnd === windowEnd ? choices[key] : undefined;
+  const deadlines = weekly ? eligibleResetDeadlines(driver, account, now) : [];
   const deadline = Math.min(...deadlines);
   const exhausted = window.outputTokensRemaining === 0 || window.remainingPercent === 0 || window.usedPercent === 100;
   const tokens = exhausted ? 0 : nonnegative(window.outputTokensRemaining) ? window.outputTokensRemaining : undefined;
@@ -243,7 +275,7 @@ function priorityRow(
       ? tokens / (tokens + window.outputTokensUsed) : undefined;
   const loss = potentialLoss(tokens, rate);
   const matches: QuotaDashMatch[] = deadline <= windowEnd + week / 2 ? [{ kind: 'reset', deadline }] : [];
-  if ((remainingShare ?? 0) > 0 || (tokens ?? 0) > 0) {
+  if (weekly && ((remainingShare ?? 0) > 0 || (tokens ?? 0) > 0)) {
     matches.push(...thresholdMatches(settings.dashThresholds, remainingShare, hoursLeft,
       loss?.currency === settings.lossCurrency ? loss.amount : undefined,
       monthlyForecast?.currency === settings.lossCurrency ? projectedEtc : undefined));
@@ -251,15 +283,16 @@ function priorityRow(
   const dash = choice?.marked ?? (matches.length > 0);
   const reason = choice ? (choice.marked ? 'Marked manually for this weekly window.' : 'Dismissed for this weekly window.') : undefined;
   const resetReady = exhausted && dash && deadlines.length > 0;
-  const current = calculate(settings, dash, hoursLeft, tokens, rate, userScore, exhausted && !resetReady);
+  const current = calculate(settings, dash, hoursLeft, windowHours, tokens, rate, userScore, exhausted && !resetReady);
 
   let next: VigorCalculation | undefined;
-  if (exhausted) {
+  if (exhausted && !expires) {
     const full = nonnegative(window.outputTokensUsed) && window.outputTokensUsed > 0 ? window.outputTokensUsed : undefined;
     const nextDash = deadlines.some(expiry => expiry > windowEnd && expiry <= windowEnd + week * 1.5);
-    next = calculate(settings, nextDash, weeklyHours, full, rate, userScore);
+    next = calculate(settings, nextDash, windowHours, windowHours, full, rate, userScore);
   }
-  return { ...base, windowEnd, dash, reason, matches, resetReady, current, next };
+  return { ...base, windowEnd, windowLabel: window.label, approximate: window.approximateReset, weekly, expires,
+    dash, reason, matches, resetReady, current, next };
 }
 
 export function vigorPriorityRows(

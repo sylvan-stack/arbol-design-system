@@ -26,6 +26,35 @@ const writing: SubscriptionRecord = {
     limitResets: undefined,
   },
 };
+const kimi = {
+  id: 'kimi-coding', family: 'kimi-coding', label: 'Kimi Code', auth: 'vendor_login', state: 'signed_in',
+  metrics: {
+    windows: [
+      { label: 'Five hours', windowMinutes: 300, resetsAt: '2026-11-23T15:00:00Z', outputTokensRemaining: 160_000 },
+      { label: 'Monthly, Kimi Code', windowMinutes: 43_200, resetsAt, expiresAt: resetsAt, terminal: true,
+        outputTokensUsed: 2_000_000, outputTokensRemaining: 2_000_000 },
+    ],
+    estimatedTokenCost: {
+      window: 'Monthly, Kimi Code', perMillion: 20, currency: 'USD',
+      basis: 'Fictional monthly charge of 80 USD ÷ 4M monthly output-token equivalents × 1M.',
+    },
+  },
+} satisfies SubscriptionRecord;
+const mimo = {
+  id: 'xiaomi', family: 'xiaomi', label: 'Xiaomi MiMo', auth: 'api_key', state: 'signed_in',
+  metrics: {
+    windows: [{ label: 'Token Plan', windowMinutes: 43_200, resetsAt: '2026-11-27T23:59:59Z',
+      terminal: true, outputTokensUsed: 3_000_000, outputTokensRemaining: 60_000_000 }],
+    estimatedTokenCost: {
+      window: 'Token Plan', perMillion: 30 / 63, currency: 'USD',
+      basis: 'Fictional monthly charge of 30 USD ÷ 63M monthly output-token equivalents × 1M.',
+    },
+  },
+} satisfies SubscriptionRecord;
+const api: SubscriptionRecord = {
+  id: 'deepseek', family: 'deepseek', label: 'DeepSeek', auth: 'api_key', state: 'signed_in',
+  metrics: { windows: [], balance: { availableTokens: 2_000_000, estimateBasis: 'Fictional API balance.' } },
+};
 const exampleView: VigorPriorityView = {
   priority: { now, listing: { drivers: [
     { driver: 'codex', subscriptions: [account] },
@@ -35,9 +64,8 @@ const exampleView: VigorPriorityView = {
         metrics: { ...writing.metrics, windows: [{ label: 'Weekly', windowMinutes: 10_080, resetsAt: '2026-11-23T19:30:00Z',
           outputTokensUsed: 1_000_000, outputTokensRemaining: 0, remainingPercent: 0 }] } },
     ] },
-    { driver: 'pi', subscriptions: [
-      { id: 'another', family: 'kimi-coding', label: 'Research account', auth: 'vendor_login', state: 'signed_in' },
-    ] },
+    { driver: 'pi', subscriptions: [kimi, api] },
+    { driver: 'mimo', subscriptions: [mimo] },
   ] } },
 };
 
@@ -47,13 +75,31 @@ const meta = {
   tags: ['autodocs'],
   args: { view: exampleView },
   parameters: { docs: { description: { component:
-    'The weekly ranking follows docs/design-system/seqoya-vigor.md. Compare content-sized weekly columns, expand a priced account to trace the token-cost estimate, or configure thresholds.',
+    'The ranking follows docs/design-system/seqoya-vigor.md. Compare weekly subscriptions with Kimi Code and MiMo, and expand a row to trace its window and reference cost.',
   } } },
 } satisfies Meta<typeof VigorPanel>;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+export const TimedAllowanceDetails: Story = {
+  args: { view: { priority: { now, listing: { drivers: [
+    { driver: 'pi', subscriptions: [{
+      ...kimi, label: 'Kimi Code without price',
+      metrics: { windows: kimi.metrics.windows.map(window => window.label === 'Monthly, Kimi Code'
+        ? { ...window, outputTokensUsed: 4_000_000, outputTokensRemaining: 0 } : window) },
+    }, {
+      ...kimi, id: 'priced-timed', family: 'example', label: 'Priced short allowance',
+      metrics: { windows: kimi.metrics.windows.map(window => window.label === 'Monthly, Kimi Code'
+        ? { ...window, label: 'Monthly' } : window),
+        estimatedTokenCost: { window: 'Five hours', perMillion: 2, currency: 'USD', basis: 'Fictional short-window reference rate.' } },
+    }] },
+    { driver: 'mimo', subscriptions: [{
+      ...mimo, label: 'MiMo without duration',
+      metrics: { windows: mimo.metrics.windows.map(window => ({ ...window, windowMinutes: undefined })) },
+    }] },
+  ] } } } },
+};
 export const AutomaticRules: Story = {
   args: { view: { ...exampleView, priority: {
     ...exampleView.priority, now,
