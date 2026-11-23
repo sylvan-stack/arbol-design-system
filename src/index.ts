@@ -87,6 +87,7 @@ export type { EntityKind, EntityKindMeta } from './entities';
 export type { RecordItem, FieldSpec, WorkspaceRoot, WorkspaceRootChoice, WorkspaceRootSelector } from './types';
 
 export { default as ElmaFrame } from './sections/ElmaFrame.svelte';
+export { default as MetaCockpit } from './sections/MetaCockpit.svelte';
 
 export { default as SafeMarkdown } from './components/SafeMarkdown.svelte';
 

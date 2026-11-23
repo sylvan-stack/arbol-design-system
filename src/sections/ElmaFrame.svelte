@@ -3,6 +3,7 @@
   import WorkspaceGlyph from '../components/WorkspaceGlyph.svelte';
   import WorkspaceShell from '../patterns/WorkspaceShell.svelte';
   import ElmaStatus, { type ElmaStatusActions } from './ElmaStatus.svelte';
+  import MetaCockpit from './MetaCockpit.svelte';
   import { importToolLabel, type ElmaImport, type ElmaRoute } from './elma-types';
   import {signInCommand} from './elma-response';
   import InlineRename from '../patterns/InlineRename.svelte';
@@ -58,7 +59,11 @@
         {#if imported}<p class="turn-count">Imported from {importToolLabel(imported.tool)}</p>{/if}
       </div>
     </div>
-    {#if hasChat}<div class="cockpit"><button disabled={!onongoing||metadataBusy} onclick={onongoing}>{ongoing?'○ Ongoing':'○ Not ongoing'}</button><span>∑ {(inputTokens+outputTokens).toLocaleString()} ↑{inputTokens.toLocaleString()} ↓{outputTokens.toLocaleString()}</span></div>{/if}
+    {#if hasChat}
+      {#key titleIdentity}
+        <MetaCockpit {ongoing} {working} {inputTokens} {outputTokens} busy={metadataBusy} ontoggle={onongoing} />
+      {/key}
+    {/if}
     <button class="group" aria-expanded={repoOpen} onclick={()=>repoOpen=!repoOpen}><span>Repositories</span><span aria-hidden="true">{repoOpen?'−':'+'}</span></button>
     {#if repoOpen}{#each repositories.slice(0,9) as repo,i}<button class="nav-row" disabled={!onrepository} onclick={()=>onrepository?.(repo.folder)}><span>{repo.name}</span><kbd>⌘{i+1}</kbd></button>{/each}<button class="nav-row" disabled={!onother} onclick={onother}><span>Other…</span><kbd>⌘0</kbd></button>{/if}
     <div class="history-heading">History{total?' · '+total+' turns':''}</div>
@@ -139,6 +144,6 @@
   font-variant-numeric: tabular-nums;
 }
 .reading-width{font-size:calc(11.5px * var(--font-scale));min-height:28px;background:var(--inset);color:var(--text);border:1px solid var(--border);border-radius:5px;padding:2px 5px}
-.account-problem{color:var(--warning);font-size:calc(11.5px * var(--font-scale));overflow-wrap:anywhere}.cockpit,.history-heading{color:var(--muted);font-size:calc(11.5px * var(--font-scale))}.cockpit{display:flex;flex-direction:column;gap:4px;margin:12px 0}.cockpit button{border:1px solid var(--border);border-radius:20px;background:var(--inset);color:var(--text);padding:4px 8px;align-self:start}.group,.nav-row{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;text-align:left;min-height:30px;background:transparent;border:0;color:var(--text);padding:4px 0}.group{font-size:calc(11.5px * var(--font-scale));color:var(--muted);font-weight:700;margin-top:12px;text-transform:uppercase}.nav-row span{overflow-wrap:anywhere;min-width:0}.nav-row kbd{white-space:nowrap;flex-shrink:0;color:var(--muted)}.history-heading{border-top:1px solid var(--border);padding-top:12px;margin-top:12px;text-transform:uppercase}.empty{margin:auto;padding:32px;color:var(--muted)}
+.account-problem{color:var(--warning);font-size:calc(11.5px * var(--font-scale));overflow-wrap:anywhere}.history-heading{color:var(--muted);font-size:calc(11.5px * var(--font-scale))}.group,.nav-row{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;text-align:left;min-height:30px;background:transparent;border:0;color:var(--text);padding:4px 0}.group{font-size:calc(11.5px * var(--font-scale));color:var(--muted);font-weight:700;margin-top:12px;text-transform:uppercase}.nav-row span{overflow-wrap:anywhere;min-width:0}.nav-row kbd{white-space:nowrap;flex-shrink:0;color:var(--muted)}.history-heading{border-top:1px solid var(--border);padding-top:12px;margin-top:12px;text-transform:uppercase}.empty{margin:auto;padding:32px;color:var(--muted)}
 @media(max-width:800px){.reading-width{display:none}}
 </style>

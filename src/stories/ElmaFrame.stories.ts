@@ -7,9 +7,9 @@ export const Empty: Story = {
   parameters: { docs: { description: { story: 'The left Insignia identifies a new chat with the Elma leaf and New Chat.' } } },
 };
 export const Conversation: Story = {
-  parameters: { docs: { description: { story: 'The left Insignia wraps the chat title and shows the selected turn below it. The shared header adds Elma’s reading width control alongside text size and theme.' } } },
+  parameters: { docs: { description: { story: 'The left Insignia wraps the chat title and shows the selected turn below it. The Meta Cockpit shows the ongoing mark and compact chat-wide usage.' } } },
   args: {
-    title: 'How should we organize the field notes from our woodland survey?', hasChat: true, total: 3, turn: 2, inputTokens: 9100, outputTokens: 2700,
+    title: 'How should we organize the field notes from our woodland survey?', hasChat: true, total: 3, turn: 2, ongoing: true, inputTokens: 28_411_508, outputTokens: 156_492,
     trunk: 'trivial',
   },
 };

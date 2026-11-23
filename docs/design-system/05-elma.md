@@ -62,6 +62,20 @@ arbol-design-system:src/patterns/WorkspaceShell.svelte
 arbol-design-system:src/stories/ElmaFrame.stories.ts
 -->
 
+## Meta Cockpit
+
+The cockpit sits below the Insignia when a chat exists. Its Ongoing pill uses a filled mark and selected colors when on, and an outlined mark when off. It exposes the pressed state to assistive technology and is disabled while the adapter is saving metadata. Option+0 uses the same action as the button.
+
+Usage shows three aligned rows for Total tokens, Input and Output. Counts use compact, locale-aware numerals, with exact values on hover and for screen readers. Chat totals cover the whole chat, even when an older turn is selected. While Elma is working, the input and output rows can show estimated tokens per second from successive usage readings. Sampling starts fresh when the chat changes or work begins, and only positive growth is shown. The usage rows are omitted when the chat is idle and has no recorded tokens.
+
+The isolated MetaCockpit stories show million-scale counts, no usage, saving the ongoing mark, and working. ElmaFrame and the conversation pages use the same component with fictional chat data. The application supplies the recorded usage and owns ongoing changes.
+
+<!-- sources:
+arbol-design-system:src/sections/MetaCockpit.svelte
+arbol-design-system:src/sections/ElmaFrame.svelte
+arbol-design-system:src/stories/MetaCockpit.stories.ts
+-->
+
 ## Accepted Exchange navigation
 
 PinnedMessage keeps the prompt at three lines until See more, retains its own expanded scroll area, and offers Copy prompt with a truthful copy result. TurnNavigator uses the one-based place among unreplaced Exchanges and the chat's full count, with the compact ‹n/N› counter opening history. HistoryTree's accepted mode is a newest-first list, digit shortcuts and Search of loaded prompts; older pages load explicitly in12-Exchange batches through the application. A separate AdvancedRootProposal story preserves the wider branching discussion without enabling branches in First Sapling.

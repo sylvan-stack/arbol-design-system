@@ -22,7 +22,7 @@ npm test
 
 `npm run preview` serves the static build locally. If Chromium is already installed as Google Chrome, use `PLAYWRIGHT_CHANNEL=chrome npm test` instead of installing another browser.
 
-The catalog contains **338 stories**, **77 reusable components/patterns/sections**, and **45 page examples**.
+The catalog contains **375 stories**, **80 reusable components/patterns/sections**, and **47 page examples**.
 
 ## What is included
 

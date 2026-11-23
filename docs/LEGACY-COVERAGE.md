@@ -72,7 +72,7 @@ The immutable archive and hash manifest preserve exact source. Interactive legac
 | [renderer/apps/elma/src/chat/branching/TrashIcon.svelte](../heritage/renderer/apps/elma/src/chat/branching/TrashIcon.svelte) | `components-iconbutton--default` | Consolidated identity or action glyph |
 | [renderer/apps/elma/src/nav/FolderGlyph.svelte](../heritage/renderer/apps/elma/src/nav/FolderGlyph.svelte) | `components-workspaceglyph--default` | Consolidated identity or action glyph |
 | [renderer/apps/elma/src/nav/HotkeyRow.svelte](../heritage/renderer/apps/elma/src/nav/HotkeyRow.svelte) | `components-kbdhint--default` | Consolidated behavior or related composition |
-| [renderer/apps/elma/src/nav/MetaCockpit.svelte](../heritage/renderer/apps/elma/src/nav/MetaCockpit.svelte) | `sections-threadinspector--default` | Consolidated behavior or related composition |
+| [renderer/apps/elma/src/nav/MetaCockpit.svelte](../heritage/renderer/apps/elma/src/nav/MetaCockpit.svelte) | `sections-metacockpit--large-totals` | Dedicated successor section |
 | [renderer/apps/elma/src/nav/NavKeys.svelte](../heritage/renderer/apps/elma/src/nav/NavKeys.svelte) | `components-kbdhint--default` | Consolidated behavior or related composition |
 | [renderer/apps/elma/src/nav/NavSep.svelte](../heritage/renderer/apps/elma/src/nav/NavSep.svelte) | `components-divider--default` | Consolidated behavior or related composition |
 | [renderer/apps/elma/src/nav/NavigationPanel.svelte](../heritage/renderer/apps/elma/src/nav/NavigationPanel.svelte) | `patterns-workspaceshell--default` | Consolidated behavior or related composition |
