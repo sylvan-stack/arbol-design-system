@@ -91,6 +91,7 @@ export const exampleListing: SubscriptionListing = {
         },
         {
           id: 'zai', label: 'Coding Plan', family: 'zai', auth: 'key', state: 'signed_in',
+          modelLabels: [{ performance: 'Low', cost: 'Moderate' }],
           metrics: { windows: [
             { label: 'Five hours', windowMinutes: 300, usedPercent: 17, remainingPercent: 83, observedAt: read },
             { ...weekly, usedPercent: 36, remainingPercent: 64 },
