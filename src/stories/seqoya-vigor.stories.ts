@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/svelte-vite';
 import VigorPanel from '../sections/VigorPanel.svelte';
 import type { SubscriptionRecord } from '../sections/seqoya-subscriptions';
-import type { VigorPriorityView } from '../sections/seqoya-vigor-priority';
+import { defaultVigorSettings, type VigorPriorityView } from '../sections/seqoya-vigor-priority';
 
 const now = Date.parse('2026-11-23T12:00:00Z');
 const resetsAt = '2026-11-26T12:00:00Z';
@@ -19,7 +19,7 @@ const writing: SubscriptionRecord = {
   ...account, id: 'writing', family: 'anthropic', label: 'Writing account', userScore: 0.85,
   metrics: {
     ...account.metrics,
-    windows: [{ label: 'Weekly', windowMinutes: 10_080, resetsAt, outputTokensRemaining: 640_000 }],
+    windows: [{ label: 'Weekly', windowMinutes: 10_080, resetsAt, outputTokensUsed: 360_000, outputTokensRemaining: 640_000 }],
     limitResets: undefined,
   },
 };
@@ -44,13 +44,25 @@ const meta = {
   tags: ['autodocs'],
   args: { view: exampleView },
   parameters: { docs: { description: { component:
-    'The weekly ranking follows docs/design-system/seqoya-vigor.md. Expand a calculation, edit the formula or review the next renewal of an exhausted fictional account.',
+    'The weekly ranking follows docs/design-system/seqoya-vigor.md. Expand a calculation, configure automatic thresholds or review the next renewal of an exhausted fictional account.',
   } } },
 } satisfies Meta<typeof VigorPanel>;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+export const AutomaticRules: Story = {
+  args: { view: { ...exampleView, priority: {
+    ...exampleView.priority, now,
+    settings: { ...defaultVigorSettings, dashThresholds: { requiredPace: 1.4, potentialLoss: 10, projectedEtc: 40 } },
+    monthlyForecasts: {
+      [JSON.stringify(['claude', 'writing', null])]: {
+        start: Date.parse('2026-11-01T00:00:00Z'), end: Date.parse('2026-12-01T00:00:00Z'),
+        charge: 80, currency: 'USD', used: 250_000, expected: 750_000, recordedAt: now,
+      },
+    },
+  } } },
+};
 export const Loading: Story = { args: { view: { loading: true } } };
 export const Empty: Story = { args: { view: { priority: { now, listing: { drivers: [] } } } } };
 export const Partial: Story = {

@@ -21,11 +21,34 @@ type Factor = (typeof vigorFactors)[number]['key'];
 export type VigorCurrency = EstimatedTokenCost['currency'];
 export const vigorCurrencies = ['USD', 'EUR', 'CNY'] as const satisfies readonly VigorCurrency[];
 
+export const quotaDashRules = [
+  { key: 'requiredPace', label: 'Weekly required pace', short: 'Required pace' },
+  { key: 'potentialLoss', label: 'Potential weekly loss', short: 'Potential loss' },
+  { key: 'projectedEtc', label: 'Projected monthly ETC', short: 'Monthly ETC' },
+] as const;
+
+type DashMetric = (typeof quotaDashRules)[number]['key'];
+type DashThresholds = Partial<Record<DashMetric, number>>;
+export type QuotaDashMatch = { kind: 'reset'; deadline: number } | { kind: DashMetric; value: number; threshold: number };
+
+export interface MonthlyEtcForecast {
+  start: number;
+  end: number;
+  charge: number;
+  currency: VigorCurrency;
+  used: number;
+  expected: number;
+  recordedAt: number;
+}
+
+export type MonthlyEtcForecasts = Record<string, MonthlyEtcForecast>;
+
 export interface VigorSettings {
   weights: Record<Factor, number>;
   tokenScale: number;
   lossScale: number;
   lossCurrency: VigorCurrency;
+  dashThresholds?: DashThresholds;
 }
 
 export const defaultVigorSettings: VigorSettings = {
@@ -39,10 +62,22 @@ function nonnegative(value: unknown): value is number {
   return typeof value === 'number' && Number.isFinite(value) && value >= 0;
 }
 
+export function isMonthlyEtcForecast(value: unknown): value is MonthlyEtcForecast {
+  if (!value || typeof value !== 'object') return false;
+  const { start, end, charge, currency, used, expected, recordedAt } = value as Partial<MonthlyEtcForecast>;
+  return nonnegative(start) && nonnegative(end) && end > start && end <= 8.64e15
+    && nonnegative(recordedAt) && start <= recordedAt && recordedAt < end
+    && nonnegative(charge) && currency !== undefined && vigorCurrencies.includes(currency)
+    && nonnegative(used) && nonnegative(expected) && Number.isFinite(used + expected);
+}
+
 export function isVigorSettings(value: unknown): value is VigorSettings {
   if (!value || typeof value !== 'object') return false;
-  const { weights, tokenScale, lossScale, lossCurrency } = value as Partial<VigorSettings>;
+  const { weights, tokenScale, lossScale, lossCurrency, dashThresholds } = value as Partial<VigorSettings>;
   if (!weights || typeof weights !== 'object' || !vigorFactors.every(({ key }) => nonnegative(weights[key]))) return false;
+  if (dashThresholds !== undefined && (!dashThresholds || typeof dashThresholds !== 'object'
+    || Array.isArray(dashThresholds)
+    || !quotaDashRules.every(({ key }) => dashThresholds[key] === undefined || nonnegative(dashThresholds[key])))) return false;
   const total = vigorFactors.reduce((sum, { key }) => sum + weights[key], 0);
   return total > 0 && Number.isFinite(total)
     && nonnegative(tokenScale) && tokenScale > 0 && nonnegative(lossScale) && lossScale > 0
@@ -60,6 +95,8 @@ export interface VigorPriorityView extends VigorView {
     setChoice?: (key: string, choice: QuotaDashChoice) => void;
     settings?: VigorSettings;
     setSettings?: (settings: VigorSettings) => void;
+    monthlyForecasts?: MonthlyEtcForecasts;
+    setMonthlyForecast?: (key: string, forecast?: MonthlyEtcForecast) => void;
   };
 }
 
@@ -84,6 +121,9 @@ interface PriorityRow {
   windowEnd?: number;
   dash: boolean;
   reason?: string;
+  matches?: QuotaDashMatch[];
+  monthlyForecast?: MonthlyEtcForecast;
+  projectedEtc?: number;
   userScore?: number;
   resetReady?: boolean;
   current?: VigorCalculation;
@@ -141,11 +181,44 @@ function calculate(
     partial: terms.some(term => term.weight > 0 && term.factor === undefined) };
 }
 
-function priorityRow(driver: string, account: SubscriptionRecord, now: number, choices: QuotaDashChoices, settings: VigorSettings): PriorityRow {
+function projectedMonthlyEtc(forecast: MonthlyEtcForecast | undefined, now: number): number | undefined {
+  if (!forecast || now < forecast.recordedAt || now >= forecast.end) return undefined;
+  const total = forecast.used + forecast.expected;
+  if (total === 0) return forecast.charge > 0 ? Infinity : undefined;
+  const cost = forecast.charge / total * 1_000_000;
+  return Number.isFinite(cost) ? cost : undefined;
+}
+
+function thresholdMatches(
+  thresholds: DashThresholds | undefined,
+  remainingShare: number | undefined,
+  hoursLeft: number,
+  potentialLoss: number | undefined,
+  projectedEtc: number | undefined,
+): QuotaDashMatch[] {
+  if (!thresholds) return [];
+  const values: Record<DashMetric, number | undefined> = {
+    requiredPace: remainingShare === undefined ? undefined : remainingShare * weeklyHours / hoursLeft,
+    potentialLoss,
+    projectedEtc,
+  };
+  return quotaDashRules.flatMap(({ key }) => {
+    const value = values[key];
+    const threshold = thresholds[key];
+    return value !== undefined && threshold !== undefined && value >= threshold ? [{ kind: key, value, threshold }] : [];
+  });
+}
+
+function priorityRow(
+  driver: string, account: SubscriptionRecord, now: number, choices: QuotaDashChoices,
+  settings: VigorSettings, forecasts: MonthlyEtcForecasts,
+): PriorityRow {
   const key = JSON.stringify([driver, account.id, account.createdAt ?? null]);
   const name = subscriptionName(driver, account);
   const userScore = isSubscriptionUserScore(account.userScore) ? account.userScore : defaultSubscriptionUserScore;
-  const base = { key, name, dash: false, userScore };
+  const monthlyForecast = forecasts[key];
+  const projectedEtc = projectedMonthlyEtc(monthlyForecast, now);
+  const base = { key, name, dash: false, userScore, monthlyForecast, projectedEtc };
   if (account.state !== 'signed_in' || account.metrics?.balance) return base;
 
   const price = account.metrics?.estimatedTokenCost;
@@ -159,14 +232,25 @@ function priorityRow(driver: string, account: SubscriptionRecord, now: number, c
   const choice = choices[key]?.windowEnd === windowEnd ? choices[key] : undefined;
   const deadlines = eligibleResetDeadlines(driver, account, now);
   const deadline = Math.min(...deadlines);
-  const automatic = deadline <= windowEnd + week / 2;
-  const dash = choice?.marked ?? automatic;
-  const reason = choice ? (choice.marked ? 'Marked manually for this weekly window.' : 'Dismissed for this weekly window.')
-    : automatic ? 'A weekly reset expires ' + new Date(deadline).toLocaleString() + '.' : undefined;
   const exhausted = window.outputTokensRemaining === 0 || window.remainingPercent === 0 || window.usedPercent === 100;
   const tokens = exhausted ? 0 : nonnegative(window.outputTokensRemaining) ? window.outputTokensRemaining : undefined;
+  const hoursLeft = (windowEnd - now) / hour;
+  const remainingShare = exhausted ? 0
+    : nonnegative(window.remainingPercent) && window.remainingPercent <= 100 ? window.remainingPercent / 100
+    : nonnegative(window.usedPercent) && window.usedPercent <= 100 ? 1 - window.usedPercent / 100
+    : tokens !== undefined && nonnegative(window.outputTokensUsed) && Number.isFinite(tokens + window.outputTokensUsed)
+      ? tokens / (tokens + window.outputTokensUsed) : undefined;
+  const loss = potentialLoss(tokens, rate);
+  const matches: QuotaDashMatch[] = deadline <= windowEnd + week / 2 ? [{ kind: 'reset', deadline }] : [];
+  if ((remainingShare ?? 0) > 0 || (tokens ?? 0) > 0) {
+    matches.push(...thresholdMatches(settings.dashThresholds, remainingShare, hoursLeft,
+      loss?.currency === settings.lossCurrency ? loss.amount : undefined,
+      monthlyForecast?.currency === settings.lossCurrency ? projectedEtc : undefined));
+  }
+  const dash = choice?.marked ?? (matches.length > 0);
+  const reason = choice ? (choice.marked ? 'Marked manually for this weekly window.' : 'Dismissed for this weekly window.') : undefined;
   const resetReady = exhausted && dash && deadlines.length > 0;
-  const current = calculate(settings, dash, (windowEnd - now) / hour, tokens, rate, userScore, exhausted && !resetReady);
+  const current = calculate(settings, dash, hoursLeft, tokens, rate, userScore, exhausted && !resetReady);
 
   let next: VigorCalculation | undefined;
   if (exhausted) {
@@ -174,15 +258,17 @@ function priorityRow(driver: string, account: SubscriptionRecord, now: number, c
     const nextDash = deadlines.some(expiry => expiry > windowEnd && expiry <= windowEnd + week * 1.5);
     next = calculate(settings, nextDash, weeklyHours, full, rate, userScore);
   }
-  return { ...base, windowEnd, dash, reason, resetReady, current, next };
+  return { ...base, windowEnd, dash, reason, matches, resetReady, current, next };
 }
 
-export function vigorPriorityRows(view: VigorPriorityView, choices: QuotaDashChoices, settings: VigorSettings): PriorityRow[] | undefined {
+export function vigorPriorityRows(
+  view: VigorPriorityView, choices: QuotaDashChoices, settings: VigorSettings, monthlyForecasts: MonthlyEtcForecasts,
+): PriorityRow[] | undefined {
   const { listing, now } = view.priority ?? { now: Date.now() };
   if (!listing) return view.rollup?.subscriptions.map(entry => ({
     key: subscriptionKey(entry.driver, entry.subscription), name: entry.label || subscriptionVendor(entry.driver, entry.family), dash: false,
   }));
   return listing.drivers.flatMap(({ driver, subscriptions }) =>
-    (subscriptions ?? []).map(account => priorityRow(driver, account, now, choices, settings)))
+    (subscriptions ?? []).map(account => priorityRow(driver, account, now, choices, settings, monthlyForecasts)))
     .sort((left, right) => (right.current?.score ?? -1) - (left.current?.score ?? -1) || left.name.localeCompare(right.name));
 }
