@@ -29,7 +29,8 @@ const exampleView: VigorPriorityView = {
     { driver: 'claude', subscriptions: [
       writing,
       { ...writing, id: 'review', label: 'Review account', userScore: 0.4,
-        metrics: { ...writing.metrics, windows: [{ label: 'Weekly', windowMinutes: 10_080, resetsAt, outputTokensRemaining: 0 }] } },
+        metrics: { ...writing.metrics, windows: [{ label: 'Weekly', windowMinutes: 10_080, resetsAt,
+          outputTokensUsed: 1_000_000, outputTokensRemaining: 0, remainingPercent: 0 }] } },
     ] },
     { driver: 'pi', subscriptions: [
       { id: 'another', family: 'kimi-coding', label: 'Research account', auth: 'vendor_login', state: 'signed_in' },
@@ -43,7 +44,7 @@ const meta = {
   tags: ['autodocs'],
   args: { view: exampleView },
   parameters: { docs: { description: { component:
-    'The minimal ranking follows docs/design-system/seqoya-vigor.md. Toggle a Quota Dash for a fictional weekly window.',
+    'The weekly ranking follows docs/design-system/seqoya-vigor.md. Expand a calculation, edit the formula or review the next renewal of an exhausted fictional account.',
   } } },
 } satisfies Meta<typeof VigorPanel>;
 export default meta;

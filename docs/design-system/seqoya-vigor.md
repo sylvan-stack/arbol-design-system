@@ -3,10 +3,22 @@ role: derived
 ---
 # Seqoya Vigor
 
-Vigor shows one ranked row per Subscription with Quota Dash, potential weekly loss, user score and resulting Vigor. Refresh retains the last readable list while readings update. Missing weekly inputs stay visible as unavailable. The saved Radar result follows SGM-1.
+Vigor uses the current weekly allowance window. The formula header shows `Vigor = a₁ × D + a₂ × T + a₃ × Q + a₄ × L + a₅ × U`. The list shows Subscription identity, Quota Dash, potential weekly loss, user score and resulting Vigor. Activate the row or its disclosure control to show the current weekly deadline, raw inputs, factors, normalized weights, contributions and arithmetic. Keep the previous rows visible during refresh. The saved Radar result follows SGM-1.
 
-An active weekly window can be marked or dismissed locally. The choice applies to that Subscription and window end. Automatically mark when an available reset with known weekly scope expires during the current window or during the first half of the next. A later expiry leaves the next window eligible when it opens. Show the reason on the control. Unused-quota thresholds are configurable in a later version.
+| Variable | Factor | Default weight |
+| --- | --- | ---: |
+| D | Quota Dash is 1 when marked and 0 otherwise. | 51 |
+| T | Time urgency is 1 minus hours left divided by the full 168 hours, bounded to 0–1. | 20 |
+| Q | Available weekly equivalents divided by available equivalents plus the token scale. | 12 |
+| L | Potential weekly quota loss divided by potential loss plus the loss scale, in the configured currency. | 10 |
+| U | Saved user score on a 0–1 scale with a neutral 0.5 default. | 7 |
 
-Potential weekly loss multiplies remaining output-token equivalents by the matching saved weekly token cost. Mark it as estimated. Today's reference inherits the pricing assumptions of the Subscription card. Rank monetary amounts together when their currency is the same. Normalize comparable loss by the highest visible amount. The mean of normalized loss and the user score contributes up to 0.49. Quota Dash adds 0.51, placing a marked active weekly window above unmarked windows. Missing comparable loss contributes zero to the ranking while its display remains unavailable. Use the saved user score or the neutral 0.5 default.
+Configure formula saves the raw weights, scales and loss currency for the installation. Each coefficient divides its raw weight by the sum of weights. Weights must be nonnegative with a positive sum. Both scales must be positive. The starting scales are 400,000 output-token equivalents and USD 6. Use defaults restores the draft values. Save applies changes, and Cancel or Escape closes the editor.
 
-The **Pages / Seqoya / Vigor** story uses fictional accounts and shows automatic and manual marks, zero and missing loss, and loading and refresh failure states.
+Potential loss multiplies remaining weekly equivalents by the matching saved reference token cost estimate. The monetary factor requires a matching currency. A missing factor contributes zero and stays visibly unavailable in the breakdown.
+
+An active weekly window can be marked or dismissed locally. The choice applies to that Subscription and window end. Automatically mark when an available reset with known weekly scope expires during the current window or during the first half of the next. Show the reason on the control.
+
+An exhausted weekly window scores zero unless it is marked Quota Dash and a known eligible reset is usable. Its Next available score projects the same formula at the scheduled weekly renewal, using a fresh weekly window, the estimated full weekly quota and corresponding potential loss, and any automatic mark that still qualifies at the projected time. Show the projected inputs and arithmetic in the expanded row. Manual marks apply to their selected window.
+
+The **Pages / Seqoya / Vigor** story uses fictional accounts and supports disclosure, scoring settings and manual marks. It includes automatic marks, an exhausted row with a renewal projection, missing data and refresh failure.

@@ -5,7 +5,49 @@ import {
 } from './seqoya-subscriptions';
 import type { VigorView } from './seqoya-vigor';
 
-const week = 7 * 24 * 60 * 60_000;
+const hour = 60 * 60_000;
+const weeklyHours = 7 * 24;
+const week = weeklyHours * hour;
+
+export const vigorFactors = [
+  { key: 'dash', variable: 'D', coefficient: 'a₁', label: 'Quota Dash' },
+  { key: 'time', variable: 'T', coefficient: 'a₂', label: 'Time urgency' },
+  { key: 'tokens', variable: 'Q', coefficient: 'a₃', label: 'Available equivalents' },
+  { key: 'loss', variable: 'L', coefficient: 'a₄', label: 'Potential weekly quota loss' },
+  { key: 'user', variable: 'U', coefficient: 'a₅', label: 'User score' },
+] as const;
+
+type Factor = (typeof vigorFactors)[number]['key'];
+export type VigorCurrency = EstimatedTokenCost['currency'];
+export const vigorCurrencies = ['USD', 'EUR', 'CNY'] as const satisfies readonly VigorCurrency[];
+
+export interface VigorSettings {
+  weights: Record<Factor, number>;
+  tokenScale: number;
+  lossScale: number;
+  lossCurrency: VigorCurrency;
+}
+
+export const defaultVigorSettings: VigorSettings = {
+  weights: { dash: 51, time: 20, tokens: 12, loss: 10, user: 7 },
+  tokenScale: 400_000,
+  lossScale: 6,
+  lossCurrency: 'USD',
+};
+
+function nonnegative(value: unknown): value is number {
+  return typeof value === 'number' && Number.isFinite(value) && value >= 0;
+}
+
+export function isVigorSettings(value: unknown): value is VigorSettings {
+  if (!value || typeof value !== 'object') return false;
+  const { weights, tokenScale, lossScale, lossCurrency } = value as Partial<VigorSettings>;
+  if (!weights || typeof weights !== 'object' || !vigorFactors.every(({ key }) => nonnegative(weights[key]))) return false;
+  const total = vigorFactors.reduce((sum, { key }) => sum + weights[key], 0);
+  return total > 0 && Number.isFinite(total)
+    && nonnegative(tokenScale) && tokenScale > 0 && nonnegative(lossScale) && lossScale > 0
+    && lossCurrency !== undefined && vigorCurrencies.includes(lossCurrency);
+}
 
 export type QuotaDashChoice = { windowEnd: number; marked: boolean };
 export type QuotaDashChoices = Record<string, QuotaDashChoice>;
@@ -16,11 +58,25 @@ export interface VigorPriorityView extends VigorView {
     now: number;
     choices?: QuotaDashChoices;
     setChoice?: (key: string, choice: QuotaDashChoice) => void;
+    settings?: VigorSettings;
+    setSettings?: (settings: VigorSettings) => void;
   };
 }
 
-type Currency = EstimatedTokenCost['currency'];
-type Loss = { amount: number; currency: Currency; basis: string };
+type Loss = { amount: number; currency: VigorCurrency; perMillion: number; basis: string };
+
+export interface VigorCalculation {
+  dash: boolean;
+  hoursLeft: number;
+  tokens?: number;
+  loss?: Loss;
+  userScore: number;
+  terms: { factor?: number; weight: number; contribution: number }[];
+  partial: boolean;
+  sum: number;
+  score: number;
+  exhausted: boolean;
+}
 
 interface PriorityRow {
   key: string;
@@ -28,65 +84,105 @@ interface PriorityRow {
   windowEnd?: number;
   dash: boolean;
   reason?: string;
-  loss?: Loss;
   userScore?: number;
-  score?: number;
+  resetReady?: boolean;
+  current?: VigorCalculation;
+  next?: VigorCalculation;
 }
 
-function automaticDeadline(driver: string, account: SubscriptionRecord, now: number, end: number) {
+function eligibleResetDeadlines(driver: string, account: SubscriptionRecord, now: number): number[] {
   const metrics = account.metrics;
   const inventory = metrics?.limitResets;
-  if (inventory?.count === 0) return undefined;
-  const deadlines = inventory?.entries.flatMap(grant => {
+  if (inventory?.count === 0) return [];
+  return inventory?.entries.flatMap(grant => {
     const coversWeek = driver === 'claude' && /^weekly reset$/i.test(grant.label)
       || driver === 'codex' && /^full reset$/i.test(grant.label)
         && /^ChatGPT (Plus|Pro)( |$)/.test(metrics?.price?.label ?? '');
-    const expires = typeof grant.expiresAt === 'string' ? Date.parse(grant.expiresAt) : NaN;
-    return coversWeek && !grant.expired && expires > now && expires <= end + week / 2
-      ? [expires] : [];
+    const expires = grant.expiresAt === 0 ? Infinity : Date.parse(grant.expiresAt ?? '');
+    return coversWeek && !grant.expired && expires > now ? [expires] : [];
   }) ?? [];
-  return deadlines.length ? Math.min(...deadlines) : undefined;
 }
 
-function priorityRow(driver: string, account: SubscriptionRecord, now: number, choices: QuotaDashChoices): PriorityRow {
+function potentialLoss(tokens: number | undefined, rate: EstimatedTokenCost | undefined): Loss | undefined {
+  if (tokens === undefined || !rate || !nonnegative(rate.perMillion)) return undefined;
+  const amount = tokens / 1_000_000 * rate.perMillion;
+  return Number.isFinite(amount) ? { amount, currency: rate.currency, perMillion: rate.perMillion, basis: rate.basis } : undefined;
+}
+
+function saturate(value: number, scale: number): number {
+  return 1 / (1 + scale / value);
+}
+
+function calculate(
+  settings: VigorSettings,
+  dash: boolean,
+  hoursLeft: number,
+  tokens: number | undefined,
+  rate: EstimatedTokenCost | undefined,
+  userScore: number,
+  exhausted = false,
+): VigorCalculation {
+  const loss = potentialLoss(tokens, rate);
+  const factors: Record<Factor, number | undefined> = {
+    dash: Number(dash),
+    time: 1 - Math.min(weeklyHours, Math.max(0, hoursLeft)) / weeklyHours,
+    tokens: tokens === undefined ? undefined : saturate(tokens, settings.tokenScale),
+    loss: loss && loss.currency === settings.lossCurrency ? saturate(loss.amount, settings.lossScale) : undefined,
+    user: userScore,
+  };
+  const totalWeight = vigorFactors.reduce((sum, { key }) => sum + settings.weights[key], 0);
+  const terms = vigorFactors.map(({ key }) => {
+    const weight = settings.weights[key] / totalWeight;
+    const factor = factors[key];
+    return { factor, weight, contribution: weight * (factor ?? 0) };
+  });
+  const sum = terms.reduce((total, term) => total + term.contribution, 0);
+  return { dash, hoursLeft, tokens, loss, userScore, terms, sum, score: exhausted ? 0 : sum, exhausted,
+    partial: terms.some(term => term.weight > 0 && term.factor === undefined) };
+}
+
+function priorityRow(driver: string, account: SubscriptionRecord, now: number, choices: QuotaDashChoices, settings: VigorSettings): PriorityRow {
   const key = JSON.stringify([driver, account.id, account.createdAt ?? null]);
   const name = subscriptionName(driver, account);
   const userScore = isSubscriptionUserScore(account.userScore) ? account.userScore : defaultSubscriptionUserScore;
-  if (account.state !== 'signed_in' || account.metrics?.balance) return { key, name, dash: false, userScore };
-  const rate = account.metrics?.estimatedTokenCost;
+  const base = { key, name, dash: false, userScore };
+  if (account.state !== 'signed_in' || account.metrics?.balance) return base;
+
+  const price = account.metrics?.estimatedTokenCost;
   const weekly = account.metrics?.windows.filter(window => allowanceWindowType(window) === 'week'
     && !window.next && !window.pendingStart && Date.parse(window.resetsAt ?? '') > now) ?? [];
-  const window = weekly.find(window => window.label === rate?.window) ?? weekly[0];
-  if (!window) return { key, name, dash: false, userScore };
+  const window = weekly.find(window => window.label === price?.window) ?? weekly[0];
+  if (!window) return base;
 
   const windowEnd = Date.parse(window.resetsAt ?? '');
+  const rate = price?.window === window.label ? price : undefined;
   const choice = choices[key]?.windowEnd === windowEnd ? choices[key] : undefined;
-  const deadline = automaticDeadline(driver, account, now, windowEnd);
-  const dash = choice?.marked ?? (deadline !== undefined);
+  const deadlines = eligibleResetDeadlines(driver, account, now);
+  const deadline = Math.min(...deadlines);
+  const automatic = deadline <= windowEnd + week / 2;
+  const dash = choice?.marked ?? automatic;
   const reason = choice ? (choice.marked ? 'Marked manually for this weekly window.' : 'Dismissed for this weekly window.')
-    : deadline === undefined ? undefined : 'A weekly reset expires ' + new Date(deadline).toLocaleString() + '.';
-  const remaining = window.outputTokensRemaining;
-  const amount = rate && rate.window === window.label && remaining !== undefined && remaining >= 0
-    && rate.perMillion >= 0 ? remaining * rate.perMillion / 1_000_000 : undefined;
-  const loss = rate && amount !== undefined && Number.isFinite(amount)
-    ? { amount, currency: rate.currency, basis: rate.basis } : undefined;
+    : automatic ? 'A weekly reset expires ' + new Date(deadline).toLocaleString() + '.' : undefined;
+  const exhausted = window.outputTokensRemaining === 0 || window.remainingPercent === 0 || window.usedPercent === 100;
+  const tokens = exhausted ? 0 : nonnegative(window.outputTokensRemaining) ? window.outputTokensRemaining : undefined;
+  const resetReady = exhausted && dash && deadlines.length > 0;
+  const current = calculate(settings, dash, (windowEnd - now) / hour, tokens, rate, userScore, exhausted && !resetReady);
 
-  return { key, name, windowEnd, dash, reason, loss, userScore };
+  let next: VigorCalculation | undefined;
+  if (exhausted) {
+    const full = nonnegative(window.outputTokensUsed) && window.outputTokensUsed > 0 ? window.outputTokensUsed : undefined;
+    const nextDash = deadlines.some(expiry => expiry > windowEnd && expiry <= windowEnd + week * 1.5);
+    next = calculate(settings, nextDash, weeklyHours, full, rate, userScore);
+  }
+  return { ...base, windowEnd, dash, reason, resetReady, current, next };
 }
 
-export function vigorPriorityRows(view: VigorPriorityView, choices: QuotaDashChoices): PriorityRow[] | undefined {
+export function vigorPriorityRows(view: VigorPriorityView, choices: QuotaDashChoices, settings: VigorSettings): PriorityRow[] | undefined {
   const { listing, now } = view.priority ?? { now: Date.now() };
   if (!listing) return view.rollup?.subscriptions.map(entry => ({
     key: subscriptionKey(entry.driver, entry.subscription), name: entry.label || subscriptionVendor(entry.driver, entry.family), dash: false,
   }));
-  const rows = listing.drivers.flatMap(({ driver, subscriptions }) =>
-    (subscriptions ?? []).map(account => priorityRow(driver, account, now, choices)));
-  const currencies = new Set(rows.flatMap(row => row.loss ? [row.loss.currency] : []));
-  const maxLoss = currencies.size === 1 ? Math.max(0, ...rows.map(row => row.loss?.amount ?? 0)) : 0;
-  for (const row of rows) {
-    if (row.windowEnd === undefined || row.userScore === undefined) continue;
-    const lossFactor = maxLoss > 0 ? (row.loss?.amount ?? 0) / maxLoss : 0;
-    row.score = (row.dash ? 0.51 : 0) + 0.49 * (lossFactor + row.userScore) / 2;
-  }
-  return rows.sort((left, right) => (right.score ?? -1) - (left.score ?? -1) || left.name.localeCompare(right.name));
+  return listing.drivers.flatMap(({ driver, subscriptions }) =>
+    (subscriptions ?? []).map(account => priorityRow(driver, account, now, choices, settings)))
+    .sort((left, right) => (right.current?.score ?? -1) - (left.current?.score ?? -1) || left.name.localeCompare(right.name));
 }
