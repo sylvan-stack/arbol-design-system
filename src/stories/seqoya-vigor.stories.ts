@@ -13,7 +13,7 @@ const account: SubscriptionRecord = {
     price: { label: 'ChatGPT Pro 200', amount: 200, currency: 'USD', months: 1, source: 'list' },
     estimatedTokenCost: {
       window: 'Weekly', perMillion: 200 / (52 / 12), currency: 'USD',
-      basis: 'Fictional monthly charge of 200 USD ÷ (1,000,000 weekly output-token equivalents × 52/12) × 1 million. The weekly calibration uses 400,000 observed equivalents ÷ 40% of the weekly quota.',
+      basis: 'Fictional monthly charge of 200 USD ÷ (1M weekly output-token equivalents × 52/12) × 1M. The weekly calibration uses 400K observed equivalents ÷ 40% of the weekly quota.',
     },
     limitResets: { count: 1, entries: [{ label: 'Full reset', expiresAt: '2026-11-25T12:00:00Z' }] },
   },

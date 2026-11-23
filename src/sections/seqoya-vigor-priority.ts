@@ -19,6 +19,7 @@ export const vigorFactors = [
 
 type Factor = (typeof vigorFactors)[number]['key'];
 export type VigorCurrency = EstimatedTokenCost['currency'];
+export type VigorEstimatedTokenCost = EstimatedTokenCost & { compactBasis?: string };
 export const vigorCurrencies = ['USD', 'EUR', 'CNY'] as const satisfies readonly VigorCurrency[];
 
 export const quotaDashRules = [
@@ -143,10 +144,10 @@ function eligibleResetDeadlines(driver: string, account: SubscriptionRecord, now
   }) ?? [];
 }
 
-function potentialLoss(tokens: number | undefined, rate: EstimatedTokenCost | undefined): Loss | undefined {
+function potentialLoss(tokens: number | undefined, rate: VigorEstimatedTokenCost | undefined): Loss | undefined {
   if (tokens === undefined || !rate || !nonnegative(rate.perMillion)) return undefined;
   const amount = tokens / 1_000_000 * rate.perMillion;
-  return Number.isFinite(amount) ? { amount, currency: rate.currency, perMillion: rate.perMillion, basis: rate.basis } : undefined;
+  return Number.isFinite(amount) ? { amount, currency: rate.currency, perMillion: rate.perMillion, basis: rate.compactBasis ?? rate.basis } : undefined;
 }
 
 function saturate(value: number, scale: number): number {
@@ -158,7 +159,7 @@ function calculate(
   dash: boolean,
   hoursLeft: number,
   tokens: number | undefined,
-  rate: EstimatedTokenCost | undefined,
+  rate: VigorEstimatedTokenCost | undefined,
   userScore: number,
   exhausted = false,
 ): VigorCalculation {

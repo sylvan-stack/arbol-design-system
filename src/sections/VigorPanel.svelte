@@ -3,6 +3,7 @@
   import Modal from '../patterns/Modal.svelte';
   import Notice from '../patterns/Notice.svelte';
   import VigorEtcEditor from './VigorEtcEditor.svelte';
+  import { formatVigorNumber, formatVigorTokens } from './seqoya-vigor-format';
   import {
     defaultVigorSettings, isVigorSettings, quotaDashRules, vigorCurrencies, vigorFactors, vigorPriorityRows,
     type MonthlyEtcForecast, type MonthlyEtcForecasts, type QuotaDashMatch,
@@ -32,8 +33,6 @@
     source + ' · ' + reason), ...(view.accountIssues ?? [])])]);
   const variableFormula = 'Vigor = ' + vigorFactors.map(({ coefficient, variable }) => `${coefficient} × ${variable}`).join(' + ');
   const score = new Intl.NumberFormat(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const number = new Intl.NumberFormat(undefined, { maximumFractionDigits: 4 });
-  const millions = new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 });
   const timestamp = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' });
 
   function configure() {
@@ -83,19 +82,14 @@
     toggle(key);
   }
 
-  function money(amount: number, currency: string, maximumFractionDigits = 2) {
-    return new Intl.NumberFormat(undefined, { style: 'currency', currency, maximumFractionDigits }).format(amount);
+  function money(amount: number, currency: string) {
+    return new Intl.NumberFormat(undefined, { style: 'currency', currency, maximumFractionDigits: 2 }).format(amount);
   }
 
   function timeLeft(hours: number) {
     const minutes = Math.max(0, Math.floor(hours * 60));
     if (minutes >= 1_440) return `${Math.floor(minutes / 1_440)}d ${Math.floor(minutes / 60) % 24}h`;
     return minutes > 0 ? `${Math.floor(minutes / 60)}h ${minutes % 60}m` : '<1m';
-  }
-
-  function tokenMillions(tokens: number) {
-    if (tokens > 0 && tokens < 10_000) return '<0.01M';
-    return millions.format(tokens / 1_000_000) + 'M';
   }
 
   function saveForecast(key: string, forecast?: MonthlyEtcForecast) {
@@ -116,7 +110,7 @@
     if (match.kind === 'reset') return 'Weekly reset expires ' + timestamp.format(match.deadline);
     const label = quotaDashRules.find(rule => rule.key === match.kind)?.label;
     if (match.kind === 'requiredPace') {
-      return `${label} · weekly Mach ${number.format(match.value)} ≥ weekly Mach ${number.format(match.threshold)}`;
+      return `${label} · weekly Mach ${formatVigorNumber(match.value)} ≥ weekly Mach ${formatVigorNumber(match.threshold)}`;
     }
     if (match.kind === 'projectedEtc') {
       return `${label} · ${etcLabel(match.value, settings.lossCurrency)} ≥ ${etcLabel(match.threshold, settings.lossCurrency)}`;
@@ -128,16 +122,16 @@
     const { dash, hoursLeft, tokens, loss, userScore } = calculation;
     return [
       dash ? 'On (1)' : 'Off (0)',
-      `${number.format(hoursLeft)} h left of 168 h`,
-      tokens === undefined ? 'Unavailable' : `${number.format(tokens)} equivalents · scale ${number.format(settings.tokenScale)}`,
+      `${formatVigorNumber(hoursLeft)} h left of 168 h`,
+      tokens === undefined ? 'Unavailable' : `${formatVigorTokens(tokens)} equivalents · scale ${formatVigorTokens(settings.tokenScale)}`,
       loss === undefined ? 'Unavailable' : `≈${money(loss.amount, loss.currency)} · scale ${money(settings.lossScale, settings.lossCurrency)}`,
-      number.format(userScore),
+      formatVigorNumber(userScore),
     ];
   }
 
   function arithmetic(calculation: VigorCalculation) {
     return calculation.terms.map(({ weight, factor }) =>
-      `${number.format(weight)} × ${number.format(factor ?? 0)}`).join(' + ');
+      `${formatVigorNumber(weight)} × ${formatVigorNumber(factor ?? 0)}`).join(' + ');
   }
 </script>
 
@@ -151,19 +145,19 @@
         <tr>
           <th scope="row">{metric.label} <code>({metric.variable})</code></th>
           <td>{inputs[index]}</td>
-          <td class="numeric">{term.factor === undefined ? 'Unavailable' : number.format(term.factor)}</td>
-          <td class="numeric">{number.format(term.weight)}</td>
-          <td class="numeric">{number.format(term.contribution)}</td>
+          <td class="numeric">{term.factor === undefined ? 'Unavailable' : formatVigorNumber(term.factor)}</td>
+          <td class="numeric">{formatVigorNumber(term.weight)}</td>
+          <td class="numeric">{formatVigorNumber(term.contribution)}</td>
         </tr>
       {/each}
     </tbody>
   </table>
   {#if calculation.loss && calculation.tokens !== undefined}
     <div class="stack price-basis">
-      <strong>Estimated token cost · {money(calculation.loss.perMillion, calculation.loss.currency, 6)} per million</strong>
+      <strong>Estimated token cost · {money(calculation.loss.perMillion, calculation.loss.currency)} per million</strong>
       <p class="small muted">{calculation.loss.basis}</p>
       <p class="small">Estimated loss =
-        <code>{number.format(calculation.tokens)} ÷ 1,000,000 × {money(calculation.loss.perMillion, calculation.loss.currency, 6)}
+        <code>{formatVigorTokens(calculation.tokens)} ÷ 1M × {money(calculation.loss.perMillion, calculation.loss.currency)}
           ≈ {money(calculation.loss.amount, calculation.loss.currency)}</code>
       </p>
     </div>
@@ -172,11 +166,11 @@
     <p class="small muted">Unavailable factors contribute zero.{#if calculation.loss && calculation.loss.currency !== settings.lossCurrency} The monetary factor uses {settings.lossCurrency}.{/if}</p>
   {/if}
   <p class="arithmetic">
-    <code>{arithmetic(calculation)} ≈ {number.format(calculation.sum)}</code>
+    <code>{arithmetic(calculation)} ≈ {formatVigorNumber(calculation.sum)}</code>
     {#if calculation.exhausted}
       <span>Vigor = <strong>0</strong> while the weekly quota is exhausted.</span>
     {:else}
-      <span>Vigor ≈ <strong>{number.format(calculation.score)}</strong></span>
+      <span>Vigor ≈ <strong>{formatVigorNumber(calculation.score)}</strong></span>
     {/if}
   </p>
 {/snippet}
@@ -209,7 +203,7 @@
             <th scope="col" class="numeric">User Score</th>
             <th scope="col" class="numeric">Time Left</th>
             <th scope="col" class="numeric">Potential Weekly Loss</th>
-            <th scope="col" class="numeric" title="Available output-token equivalents in millions">Available Tokens</th>
+            <th scope="col" class="numeric" title="Available output-token equivalents in thousands (K) or millions (M)">Available Tokens</th>
             <th scope="col" class="numeric">Vigor</th>
           </tr>
         </thead>
@@ -256,7 +250,7 @@
                 {/if}
               </td>
               <td class="numeric">
-                {row.current?.tokens === undefined ? '—' : tokenMillions(row.current.tokens)}
+                {row.current?.tokens === undefined ? '—' : formatVigorTokens(row.current.tokens)}
               </td>
               <td class="numeric vigor">
                 <span class="vigor-score">{row.current === undefined ? '—' : score.format(row.current.score)}</span>
@@ -299,7 +293,7 @@
                               </p>
                               <p class="small muted">
                                 {money(row.monthlyForecast.charge, row.monthlyForecast.currency)} ÷
-                                ({number.format(row.monthlyForecast.used)} used + {number.format(row.monthlyForecast.expected)} expected) × 1,000,000
+                                ({formatVigorTokens(row.monthlyForecast.used)} used + {formatVigorTokens(row.monthlyForecast.expected)} expected) × 1M
                                 · saved {timestamp.format(row.monthlyForecast.recordedAt)}
                               </p>
                             {:else}
