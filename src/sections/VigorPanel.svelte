@@ -1,199 +1,120 @@
 <script lang="ts">
-  import Badge from '../components/Badge.svelte';
-  import AllowanceMetrics from './AllowanceMetrics.svelte';
   import Button from '../components/Button.svelte';
   import Notice from '../patterns/Notice.svelte';
-  import { formatSubscriptionTime, subscriptionKey, subscriptionVendor } from './seqoya-subscriptions';
-  import { displayedVigor, type VigorEntry, type VigorView } from './seqoya-vigor';
+  import { vigorPriorityRows, type QuotaDashChoice, type QuotaDashChoices, type VigorPriorityView } from './seqoya-vigor-priority';
 
-  let { view = {}, onRefresh }: { view?: VigorView; onRefresh?: () => void } = $props();
-  const rollup = $derived(view.rollup);
-  const entries = $derived<VigorEntry[] | undefined>(view.entries ?? rollup?.subscriptions);
-  const failures = $derived(Object.entries(rollup?.failures ?? {}));
-  const score = new Intl.NumberFormat(undefined, { maximumFractionDigits: 3 });
-  const share = new Intl.NumberFormat(undefined, { style: 'percent', maximumFractionDigits: 1 });
-  const integer = new Intl.NumberFormat(undefined, { maximumFractionDigits: 0 });
+  let { view = {}, onRefresh }: { view?: VigorPriorityView; onRefresh?: () => void } = $props();
+  let previewChoices = $state<QuotaDashChoices>({});
+  let saveProblem = $state('');
+  const rows = $derived(vigorPriorityRows(view, view.priority?.choices ?? previewChoices));
+  const issues = $derived([...new Set([...Object.entries(view.rollup?.failures ?? {}).map(([source, reason]) =>
+    source + ' · ' + reason), ...(view.accountIssues ?? [])])]);
+  const score = new Intl.NumberFormat(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-  function reportAge(minutes: number) {
-    const rounded = Math.round(minutes);
-    const hours = Math.floor(rounded / 60);
-    return hours ? hours + ' h ' + rounded % 60 + ' min' : rounded + ' min';
+  function mark(key: string, choice: QuotaDashChoice) {
+    saveProblem = '';
+    try {
+      if (view.priority?.setChoice) view.priority.setChoice(key, choice);
+      else previewChoices[key] = choice;
+    } catch {
+      saveProblem = 'Could not save the Quota Dash choice.';
+    }
   }
 
-  function minutesUntil(reset: string | null | undefined, moment: string) {
-    const minutes = reset ? (Date.parse(reset) - Date.parse(moment)) / 60_000 : NaN;
-    return Number.isFinite(minutes) ? Math.max(0, minutes) : undefined;
+  function money(amount: number, currency: string) {
+    return new Intl.NumberFormat(undefined, { style: 'currency', currency }).format(amount);
   }
 </script>
 
 <section class="stack" aria-label="Subscriptions Vigor">
-  <div class="row spread">
-    <p class="small muted">
-      {#if rollup}Read <time datetime={rollup.moment}>{formatSubscriptionTime(rollup.moment)}</time>{/if}
-    </p>
+  <div class="toolbar">
     <Button label="Refresh" busy={view.loading} disabled={!onRefresh} onclick={onRefresh}
-      title="Reread saved Vigor and account data" />
+      title="Reread subscription usage and account data" />
   </div>
-
   {#if view.loading}
-    <Notice message={entries?.length ? 'Refreshing Vigor…' : 'Loading Vigor…'} />
-  {:else if view.error}
-    <Notice role="alert" tone="warning"
-      message={(rollup ? 'Showing the last saved results. ' : '') + view.error} />
+    <Notice message={rows?.length ? 'Refreshing Vigor…' : 'Loading Vigor…'} />
   {/if}
-
-  {#each failures as [source, reason] (source)}
-    <Notice tone="warning" message={source + ' · ' + reason} />
-  {/each}
-  {#each view.accountIssues ?? [] as issue}
+  {#if view.error}<Notice role="alert" tone="warning" message={view.error} />{/if}
+  {#if saveProblem}<Notice role="alert" tone="warning" message={saveProblem} />{/if}
+  {#each issues as issue (issue)}
     <Notice tone="warning" message={issue} />
   {/each}
 
-  {#if entries?.length}
-    <ol class="ranked" aria-label="Subscriptions ranked by Vigor">
-      {#each entries as entry (subscriptionKey(entry.driver, entry.subscription))}
-        {@const { driver, subscription, family, label, result, estimate, unavailable, activity, activityError } = entry}
-        {@const vendor = subscriptionVendor(driver, family)}
-        {@const value = displayedVigor(entry)}
-        <li>
-          <details>
-            <summary>
-              <span class="identity">
-                <strong>{vendor}</strong>
-                <span class="small muted">{#if label !== vendor}{label} · {/if}<code>{driver}/{subscription}</code></span>
-              </span>
-              {#if !unavailable}
-                {#if result?.exhausted || estimate?.exhausted}<Badge label="Exhausted" tone="warning" />{/if}
-                {#if estimate}<Badge label="Estimated" />{/if}
-                {#if result?.predicted}<Badge label="Predicted" />{/if}
-                {#if result?.stale}<Badge label="Stale" tone="warning" />{/if}
-              {/if}
-              <span class="score">{value === null ? 'Unavailable' : score.format(value)}</span>
-            </summary>
-            <div class="stack details">
-              {#if unavailable}
-                <p>{unavailable}</p>
-              {:else}
-                {#if estimate?.budget}
-                  {@const { amount, tokens, currency, rate, referenceTokens, ceiling } = estimate.budget}
-                  <p>Estimated output tokens = ({amount} {currency} ÷ {rate} {currency}) × 1,000,000 ≈ <strong>{integer.format(tokens)}</strong></p>
-                  <p class="small muted">DeepSeek Flash peak output rate per million tokens.</p>
-                  <p>Vigor = {ceiling} × {integer.format(tokens)} ÷ ({integer.format(tokens)} + {integer.format(referenceTokens)}) ≈ <strong>{score.format(estimate.score)}</strong></p>
-                {:else if estimate}
-                  <p>Vigor = <strong>{score.format(estimate.score)}</strong> · {estimate.reason}</p>
-                {/if}
-                {#if result?.vigor === null && result.unknown}<p class="muted">{result.unknown}</p>{/if}
-                {#if result?.stale}<p class="small muted">Usage report is {reportAge(result.stale.reportAgeMinutes)} old.</p>{/if}
-                {#if result?.nextChange}
-                  <p>{result.exhausted ? 'Recovery' : 'Next reset'}
-                    <time datetime={result.nextChange.at}>{formatSubscriptionTime(result.nextChange.at)}</time>
-                    {#if result.nextChange.vigor !== null} · projected Vigor {score.format(result.nextChange.vigor)}{/if}
-                  </p>
-                {/if}
-                {#if result?.windows.length}
-                  <ul class="windows">
-                    {#each result.windows as window}
-                      {@const minutesLeft = minutesUntil(window.resetsAt, result.moment)}
-                      <li>
-                        <strong>{window.label}</strong>
-                        {#if window.predicted}<span class="small muted"> · Predicted</span>{/if}
-                        {#if window.loss !== null}
-                          {#if window.reached}
-                            <p class="small">Loss = 0 · limit reached</p>
-                          {:else if window.usedPercent != null && minutesLeft !== undefined && window.windowMinutes}
-                            <p class="small">Loss = max(0, 1 − {share.format(window.usedPercent / 100)} − {score.format(minutesLeft)} min ÷ {score.format(window.windowMinutes)} min) ≈ {score.format(window.loss)}</p>
-                          {:else}
-                            <p class="small">Saved loss {score.format(window.loss)}</p>
-                          {/if}
-                        {/if}
-                        {#if window.contribution !== null && window.weight != null && window.loss !== null}
-                          <p class="small muted">Contribution = {score.format(window.loss)} × {score.format(window.weight)} ≈ {score.format(window.contribution)}</p>
-                        {:else if window.contribution !== null}
-                          <p class="small muted">Saved contribution {score.format(window.contribution)}</p>
-                        {/if}
-                        {#if window.reason}<p class="small muted">{window.reason}</p>{/if}
-                      </li>
-                    {/each}
-                  </ul>
-                {:else if !estimate && !result}
-                  <p class="muted">No Vigor record yet.</p>
-                {/if}
-                {#if !estimate && result?.vigor != null}
-                  {@const terms = result.windows.flatMap((window) => window.contribution === null ? [] : [score.format(window.contribution)])}
-                  {#if result.exhausted}
-                    <p>Vigor = <strong>0</strong> · inference limit reached</p>
-                  {:else if terms.length}
-                    <p>Vigor = min(1, {terms.join(' + ')}) ≈ <strong>{score.format(result.vigor)}</strong></p>
-                  {:else}
-                    <p>Saved Vigor = <strong>{score.format(result.vigor)}</strong></p>
-                  {/if}
-                {/if}
-              {/if}
-              {#if entry.allowance}<AllowanceMetrics view={entry.allowance} />{/if}
-              {#if activity || activityError}
-                <p class="small muted">Arbol activity in this installation · Last 30 days</p>
-                {#if activity}
-                  <p>{integer.format(activity.runCount)} {activity.runCount === 1 ? 'run' : 'runs'} recorded</p>
-                  {#if activity.runCount}
-                    <p class="small">Input tokens {activity.inputTokens ?? 'unavailable'} · Output tokens {activity.outputTokens ?? 'unavailable'}</p>
-                    {#if activity.lastRunAt}
-                      <p class="small muted">Last run <time datetime={activity.lastRunAt}>{formatSubscriptionTime(activity.lastRunAt)}</time></p>
-                    {/if}
-                  {/if}
+  {#if rows?.length}
+    <div class="table-scroll">
+      <table aria-label="Subscriptions ranked by Vigor">
+        <thead>
+          <tr>
+            <th scope="col">Subscription</th>
+            <th scope="col">Quota Dash</th>
+            <th scope="col" class="numeric">Potential weekly loss</th>
+            <th scope="col" class="numeric">User score</th>
+            <th scope="col" class="numeric">Vigor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each rows as row (row.key)}
+            {@const windowEnd = row.windowEnd}
+            <tr>
+              <th scope="row">{row.name}</th>
+              <td>
+                {#if windowEnd !== undefined}
+                  <button type="button" class:marked={row.dash} aria-pressed={row.dash}
+                    aria-label={`Quota Dash for ${row.name}`}
+                    title={row.reason ?? 'Mark the current weekly window as Quota Dash'}
+                    onclick={() => mark(row.key, { windowEnd, marked: !row.dash })}>
+                    {row.dash ? 'On' : 'Off'}
+                  </button>
                 {:else}
-                  <p class="small muted">{activityError}</p>
+                  <span class="muted" title="Active weekly allowance unavailable">—</span>
                 {/if}
-              {/if}
-            </div>
-          </details>
-        </li>
-      {/each}
-    </ol>
-  {:else if entries && !failures.length}
-    <p class="muted">No subscriptions found.</p>
+              </td>
+              <td class="numeric">
+                {#if row.loss}
+                  <span title={`Estimated from remaining weekly equivalents. ${row.loss.basis}`}>
+                    ≈{money(row.loss.amount, row.loss.currency)}
+                  </span>
+                {:else}
+                  <span class="muted" title="Weekly allowance or reference cost unavailable">—</span>
+                {/if}
+              </td>
+              <td class="numeric">{row.userScore === undefined ? '—' : score.format(row.userScore)}</td>
+              <td class="numeric vigor">{row.score === undefined ? '—' : score.format(row.score)}</td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    </div>
+  {:else if !view.loading && !view.error}
+    <p class="muted">No subscriptions to rank.</p>
   {/if}
 </section>
 
 <style>
-  .ranked {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    border-top: 1px solid var(--border);
+  .toolbar { display: flex; justify-content: flex-end; }
+  .table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--panel);
   }
-  .ranked > li { border-bottom: 1px solid var(--border); }
-  summary {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 8px;
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: var(--space-3) var(--space-4); text-align: start; }
+  thead th { color: var(--muted); font-size: .85em; }
+  tbody th { font-weight: 650; }
+  tbody tr { border-top: 1px solid var(--border); }
+  .numeric { text-align: end; font-variant-numeric: tabular-nums; }
+  .vigor { font-weight: 750; }
+  td button {
+    min-width: 3em;
+    min-height: 28px;
+    padding: 2px var(--space-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--muted);
     cursor: pointer;
-    list-style: none;
   }
-  summary::-webkit-details-marker { display: none; }
-  summary::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-right: 1px solid var(--muted);
-    border-bottom: 1px solid var(--muted);
-    transform: rotate(-45deg);
-  }
-  details[open] > summary::before { transform: rotate(45deg); }
-  summary:hover { background: var(--inset); }
-  .identity {
-    flex: 1;
-    display: grid;
-    gap: 2px;
-    min-width: min(140px, 100%);
-    overflow-wrap: anywhere;
-  }
-  .score {
-    margin-inline-start: auto;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-  }
-  .details { gap: 8px; padding: 0 8px 12px 22px; }
-  .windows { display: grid; gap: 8px; margin: 0; padding-inline-start: 18px; }
+  td button:hover { border-color: var(--muted); }
+  td button.marked { background: var(--selected); border-color: var(--accent); color: var(--text); font-weight: 700; }
 </style>
