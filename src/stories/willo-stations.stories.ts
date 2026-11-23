@@ -13,6 +13,7 @@ const meta = {
     rows: recentChatSessions,
     importedView: { rows: importedChatSessions },
     onOpenChat: action('Open Chat Session in Elma'),
+    onSaveLabel: action('Save Chat Session label'),
   },
 } satisfies Meta<typeof Component>;
 export default meta;

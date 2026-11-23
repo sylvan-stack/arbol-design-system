@@ -1,4 +1,6 @@
 <script module lang="ts">
+  import type { StationLabel as Label } from './StationLabel.svelte';
+
   export interface StationData {
     title: string;
     status?: string;
@@ -12,6 +14,7 @@
     harness?: string;
     activityAt?: string;
     usage?: string;
+    label?: Label;
   }
 
   const localTime = new Intl.DateTimeFormat(undefined, {
@@ -34,21 +37,25 @@
   import { untrack } from 'svelte';
   import Button from '../components/Button.svelte';
   import TextField from '../components/TextField.svelte';
+  import Modal from '../patterns/Modal.svelte';
+  import StationLabel, { stationLabels, stationLabelNames } from './StationLabel.svelte';
   let {
     title, status, drafted = false, unread = false, ongoing = false, inElma = false,
     density = 'full', condensed = false, failure, preview, detail, harness, activityAt, usage,
-    readOnly = false, now = Date.now(), onOpen,
+    readOnly = false, now = Date.now(), label, onOpen, onPickLabel,
   }: StationData & {
     density?: string;
     condensed?: boolean;
     readOnly?: boolean;
     now?: number;
     onOpen?: () => void;
+    onPickLabel?: (label: Label) => void;
   } = $props();
   let name = $state(untrack(() => title));
   let draft = $state(untrack(() => title));
   let editing = $state(false);
   let feedback = $state('');
+  let pickingLabel = $state(false);
   const stateLabel = $derived(
     status === 'Running' ? 'Responding'
       : status === 'Failed' ? 'Error'
@@ -57,17 +64,44 @@
       : status && (status !== 'Complete' || harness) ? status : harness ? 'Imported' : 'Idle',
   );
   const metadata = $derived([harness, detail].filter(Boolean).join(' · '));
+
+  function openLabelPicker(event: MouseEvent) {
+    (event.currentTarget as HTMLButtonElement).focus();
+    pickingLabel = true;
+  }
+
+  function activateCard(event: MouseEvent) {
+    if (event.altKey && label && onPickLabel) {
+      openLabelPicker(event);
+      return;
+    }
+    onOpen?.();
+  }
 </script>
 
 <article class="station" class:condensed class:compact={density === 'compact'}
   class:minimal={density === 'minimal'} class:running={status === 'Running'}
   class:has-draft={drafted || status === 'Draft'} class:unread class:in-elma={inElma}
   class:failed={status === 'Failed'} class:interrupted={status === 'Interrupted'}>
+  {#if readOnly && onOpen}
+    <button type="button" class="open-chat" aria-label={`Open ${title} in Elma Chat`} onclick={activateCard}></button>
+  {/if}
   <div class="card-topline">
+    {#if label}
+      {#if onPickLabel}
+        <button type="button" class="label-control" aria-haspopup="dialog"
+          aria-label={`Change label for ${title} (${stationLabelNames[label]})`}
+          title={`Change label (${stationLabelNames[label]})`} onclick={openLabelPicker}>
+          <StationLabel {label} />
+        </button>
+      {:else}
+        <StationLabel {label} />
+      {/if}
+    {/if}
     <span class="state">
       <span class="state-dot" aria-hidden="true"></span>{stateLabel}
     </span>
-    {#if ongoing}<span class="cue" title="Ongoing"><span aria-hidden="true">★</span><span class="sr-only">Ongoing</span></span>{/if}
+    {#if ongoing}<span class="cue">Ongoing</span>{/if}
     {#if drafted && stateLabel !== 'Draft ready'}
       <span class="cue" title="Draft ready"><span aria-hidden="true">✎</span><span class="sr-only">Draft ready</span></span>
     {/if}
@@ -121,10 +155,25 @@
     </div>
   {/if}
   {#if feedback}<small role="status">{feedback}</small>{/if}
-  {#if readOnly && onOpen}
-    <button type="button" class="open-chat" aria-label={`Open ${title} in Elma Chat`} onclick={onOpen}></button>
-  {/if}
 </article>
+
+{#if pickingLabel && label && onPickLabel}
+  <Modal title="Change Chat Session label" description={title} width={420}
+    initialFocus={'[aria-pressed="true"]'} onclose={() => (pickingLabel = false)}>
+    <div class="label-options">
+      {#each stationLabels as choice (choice)}
+        <button type="button" class="label-option" aria-pressed={label === choice}
+          onclick={() => {
+            if (choice !== label) onPickLabel?.(choice);
+            pickingLabel = false;
+          }}>
+          <StationLabel label={choice} />
+          {stationLabelNames[choice]}
+        </button>
+      {/each}
+    </div>
+  </Modal>
+{/if}
 
 <style>
   .station {
@@ -155,6 +204,7 @@
   .open-chat {
     position: absolute;
     inset: 0;
+    z-index: 1;
     cursor: pointer;
     background: transparent;
     border: 0;
@@ -162,6 +212,41 @@
   }
   .open-chat:hover { box-shadow: inset 0 0 0 1px var(--accent); }
   .open-chat:focus-visible { outline-offset: -3px; }
+  .label-control {
+    display: inline-grid;
+    place-items: center;
+    position: relative;
+    z-index: 2;
+    width: 24px;
+    height: 24px;
+    margin-block: -5px;
+    margin-inline: -5px -3px;
+    padding: 0;
+    cursor: pointer;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: transparent;
+  }
+  .label-control:hover { background: var(--inset); }
+  .label-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(145px, 100%), 1fr));
+    gap: 8px;
+  }
+  .label-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: var(--control-height);
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--inset);
+    color: var(--text);
+    text-align: start;
+  }
+  .label-option:hover { border-color: var(--muted); }
+  .label-option[aria-pressed='true'] { background: var(--selected); border-color: var(--accent); }
   .station.has-draft { --state-rail: var(--muted); }
   .station.unread { --state-rail: var(--success); --state-color: var(--success); }
   .station.running {

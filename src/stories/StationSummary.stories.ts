@@ -6,7 +6,7 @@ const meta = {
   title: 'Sections/StationSummary',
   component: Component,
   tags: ['autodocs'],
-  args: exampleStation,
+  args: { ...exampleStation, label: 'pentagon' },
   parameters: {
     docs: {
       description: {
@@ -34,6 +34,10 @@ export const Failure: Story = {
 };
 export const OpenInElma: Story = { args: { inElma: true } };
 export const OpensElma: Story = {
-  args: { readOnly: true, onOpen: action('Open Chat Session in Elma') },
+  args: {
+    readOnly: true,
+    onOpen: action('Open Chat Session in Elma'),
+    onPickLabel: action('Change Chat Session label'),
+  },
 };
 export const Draft: Story = { args: { status: 'Draft', ongoing: false, usage: 'Not sent · Local Draft' } };

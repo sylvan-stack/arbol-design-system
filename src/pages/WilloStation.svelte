@@ -21,11 +21,13 @@
 
 <script lang="ts">
   import type { Snippet } from 'svelte';
+  import { SvelteMap } from 'svelte/reactivity';
   import Button from '../components/Button.svelte';
   import Notice from '../patterns/Notice.svelte';
   import Tabs from '../components/Tabs.svelte';
   import WorkspaceShell from '../patterns/WorkspaceShell.svelte';
   import StationCollection from '../sections/StationCollection.svelte';
+  import type { StationLabel } from '../sections/StationLabel.svelte';
 
   let {
     rows = [],
@@ -38,6 +40,7 @@
     importedView = {},
     onTabChange,
     onOpenChat,
+    onSaveLabel,
     openProblem = '',
     headerWindowControls,
   }: StationView & {
@@ -45,13 +48,30 @@
     importedView?: StationView;
     onTabChange?: (tab: WilloTab) => void;
     onOpenChat?: (chat: string) => void;
+    onSaveLabel?: (chat: string, label: StationLabel) => void;
     openProblem?: string;
     headerWindowControls?: Snippet;
   } = $props();
 
   let order = $state('Most recent');
+  let labelProblem = $state('');
+  const labels = new SvelteMap<string, StationLabel>();
   const imported = $derived(tab === 'Imported Chat Sessions');
   const view = $derived(imported ? importedView : { rows, loading, more, problem, onRetry, onLoadOlder });
+  const stations = $derived((view.rows ?? []).map(row => {
+    const label = labels.get(row.id);
+    return label === undefined ? row : { ...row, label };
+  }));
+
+  function chooseLabel(chat: string, label: StationLabel) {
+    labels.set(chat, label);
+    labelProblem = '';
+    try {
+      onSaveLabel?.(chat, label);
+    } catch {
+      labelProblem = 'The label changed in this window. Willo couldn’t save it.';
+    }
+  }
 
   function select(destination: string) {
     if (destination === tab || (destination !== 'Live Stations' && destination !== 'Imported Chat Sessions')) return;
@@ -80,7 +100,10 @@
       {#if openProblem}
         <div class="open-problem"><Notice message={openProblem} tone="warning" role="alert" /></div>
       {/if}
-      <StationCollection stations={view.rows ?? []} readOnly showControls={false} {onOpenChat}
+      {#if labelProblem}
+        <Notice message={labelProblem} tone="warning" role="alert" />
+      {/if}
+      <StationCollection {stations} readOnly showControls={false} {onOpenChat} onPickLabel={chooseLabel}
         groupBy={imported ? (order === 'By harness' ? 'harness' : 'recent') : 'status'} />
 
       {#if view.problem}

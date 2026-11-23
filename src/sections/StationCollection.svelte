@@ -6,13 +6,14 @@
 
 <script lang="ts">
   import { onMount, untrack } from 'svelte';
+  import { defaultStationLabel, type StationLabel } from './StationLabel.svelte';
   import StationSummary from './StationSummary.svelte';
   import TextField from '../components/TextField.svelte';
   import Tabs from '../components/Tabs.svelte';
 
   let {
     stations, agentic = false, compact = false, readOnly = false, showControls = true,
-    groupBy = 'status', onOpenChat,
+    groupBy = 'status', onOpenChat, onPickLabel,
   }: {
     stations: StationEntry[];
     agentic?: boolean;
@@ -21,6 +22,7 @@
     showControls?: boolean;
     groupBy?: 'status' | 'recent' | 'harness';
     onOpenChat?: (chat: string) => void;
+    onPickLabel?: (chat: string, label: StationLabel) => void;
   } = $props();
   let query = $state('');
   let density = $state(untrack(() => (compact ? 'Compact' : 'Full')));
@@ -80,7 +82,9 @@
         <div class="cards" class:full={visibleDensity === 'Full'} class:condensed>
           {#each entries as station (station.id)}
             <StationSummary {...station} density={visibleDensity.toLowerCase()} {condensed} {readOnly} {now}
-              onOpen={onOpenChat && (() => onOpenChat?.(station.id))} />
+              label={station.label ?? defaultStationLabel(station.id)}
+              onOpen={onOpenChat && (() => onOpenChat?.(station.id))}
+              onPickLabel={onPickLabel && (label => onPickLabel?.(station.id, label))} />
           {/each}
         </div>
       </section>
