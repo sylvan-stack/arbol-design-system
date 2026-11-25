@@ -6,9 +6,10 @@
   type Tab = { id: number; site: string; note: string };
   type Profile = { id: string; name: string; selected: number | null; tabs: Tab[] };
   type Request = { type: string; value?: string | number; profile: string; tab: number | null };
+  let { presentation = 'preview' }: { presentation?: 'preview' | 'signed' } = $props();
 
-  let frame: HTMLDivElement;
-  let fixture: HTMLElement;
+  let frame = $state<HTMLDivElement>();
+  let fixture = $state<HTMLElement>();
   let profiles = $state<Profile[]>([
     { id: 'default', name: 'Default', selected: 1, tabs: [{ id: 1, site: 'library.example', note: '' }] },
     { id: 'studio', name: 'Studio account', selected: 2, tabs: [
@@ -21,12 +22,17 @@
     { id: 'empty', name: 'Research', selected: null, tabs: [] },
   ]);
   let selected = $state('studio');
+  let requested = $state('studio');
+  let profileName = $state('');
+  let profileStatus = $state('');
+  let showProfiles = $state(false);
   let active = $derived(profiles.find(profile => profile.id === selected)!);
   let tab = $derived(active.tabs.find(item => item.id === active.selected));
   let nextTab = 4;
   let revision = 0;
 
   onMount(() => {
+    if (presentation === 'signed' || !frame || !fixture) return;
     const navigation = mountProfileNavigation(frame, { onAction });
     navigation.page.append(fixture);
     function publish() {
@@ -67,17 +73,65 @@
     }
     publish();
   });
+
+  function createProfile(event: SubmitEvent) {
+    event.preventDefault();
+    const id = profileName.trim();
+    if (!/^[a-z](?:[a-z0-9-]{0,62}[a-z0-9])?$/.test(id) || /^seqoya-[0-9a-f]{32}$/.test(id)) {
+      profileStatus = 'Use lowercase letters, numbers and hyphens.';
+      return;
+    }
+    if (profiles.some(profile => profile.id === id)) { profileStatus = 'That profile already exists.'; return; }
+    profiles.push({ id, name: id, selected: null, tabs: [] });
+    requested = id;
+    profileName = '';
+    profileStatus = 'Profile created.';
+  }
 </script>
 
-<div class="profile-example" bind:this={frame}></div>
-<section class="fictional-profile-page" bind:this={fixture} hidden={!tab} aria-label="Fictional website">
+{#if presentation === 'signed'}
+  <div class="profile-example">
+    <div class="signed-profiles">
+      <button type="button" aria-expanded={showProfiles} aria-controls="signed-profiles" onclick={() => showProfiles = !showProfiles}>Profiles</button>
+      <span>{active.name}</span>
+      <div class="signed-panel" id="signed-profiles" hidden={!showProfiles}>
+        <label>Browser profile
+          <select bind:value={requested}>
+            {#each profiles as profile (profile.id)}
+              <option value={profile.id}>{profile.name}{profile.id === selected ? ' (current)' : ''}</option>
+            {/each}
+          </select>
+        </label>
+        <button type="button" disabled={requested === selected} onclick={() => { selected = requested; profileStatus = 'Profile window opened.'; }}>Open profile</button>
+        <form onsubmit={createProfile}>
+          <label>New profile name <input bind:value={profileName} maxlength="64" required /></label>
+          <button type="submit">Create profile</button>
+        </form>
+        <span role="status">{profileStatus}</span>
+      </div>
+      <div class="signed-tabs" aria-label="Open tabs">
+        {#each active.tabs as item (item.id)}
+          <button type="button" aria-pressed={active.selected === item.id} onclick={() => active.selected = item.id}>{item.site}</button>
+        {/each}
+      </div>
+    </div>
+    {@render page()}
+  </div>
+{:else}
+  <div class="profile-example" bind:this={frame}></div>
+  <section bind:this={fixture} hidden={!tab} aria-label="Fictional website">{@render page()}</section>
+{/if}
+
+{#snippet page()}
+<div class="fictional-profile-page">
   {#if tab}
     <h2>{tab.site || 'New tab'}</h2>
     <label>Fictional page draft
       <textarea bind:value={tab.note} rows="3"></textarea>
     </label>
   {/if}
-</section>
+</div>
+{/snippet}
 
 <style>
   .profile-example { border: 1px solid var(--border); border-radius: var(--radius-md); }
@@ -86,4 +140,10 @@
   label { display: grid; max-width: 360px; gap: 6px; }
   textarea { padding: 8px; color: var(--text); background: var(--canvas); border: 1px solid var(--border); border-radius: var(--radius-md); }
   textarea:focus-visible { outline: 2px solid var(--focus); }
+  .signed-profiles { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 12px; }
+  .signed-panel, .signed-tabs, form { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
+  .signed-panel, .signed-tabs { flex-basis: 100%; }
+  .signed-panel[hidden] { display: none; }
+  button, input, select { padding: 6px 8px; color: var(--text); background: var(--canvas); border: 1px solid var(--border); border-radius: var(--radius-md); }
+  button[aria-pressed='true'], :is(button, input, select):focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 </style>

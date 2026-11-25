@@ -33,6 +33,8 @@ The local Browser preview shows the profile list on the left and tabs for the se
 
 BrowserProfiles provides two fictional identities on the same site, an ordinary profile and an empty profile. Switch among them to check that the tab strip and each page draft stay with their profile. The Browser preview and the design examples use the same navigation module and stylesheet. The Browser host owns Chromium sessions and validates the selected profile and tab before accepting a chrome action. The shell receives names, tab identities, and hostnames. The fictional page never signs in or reads actual browser state.
 
+In the signed Browser, use **Profiles** to choose an existing profile and **Open profile** to open its own window. An existing window keeps the tabs it already has open. **Create profile** creates a separate empty profile and selects it in the picker. The Signed Browser story demonstrates the workflow with fictional tabs and local page drafts.
+
 ## Native and production boundary
 
 The browser source binds both shell and website WebContentsViews through checked native creation. Website pages start blocked, use sandbox/context isolation with Node disabled and use the profile website session. Shell uses a separate ephemeral session, restrictive CSP, a classic browser bundle and sandbox-compatible CommonJS preload. Actual sender WebContents, main frame, exact canonical bundled URL and current native window are checked before privileged request parameters. Authenticated handlers and the initial projection exist before shell loading/showing.
