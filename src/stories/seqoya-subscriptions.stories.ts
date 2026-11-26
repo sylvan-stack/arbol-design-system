@@ -44,6 +44,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+const codexAccount = exampleListing.drivers.find(({ driver }) => driver === 'codex')!.subscriptions![0];
+const codexKey = subscriptionKey('codex', codexAccount.id);
+
+export const OpeningUsage: Story = { args: { view: { ...loaded, usageOpening: codexKey } } };
+export const OpenedUsage: Story = { args: { view: { ...loaded, usageOpened: {
+  key: codexKey, createdAt: codexAccount.createdAt, family: codexAccount.family,
+} } } };
+
 export const Loading: Story = { args: { view: { connected: true, loading: true } } };
 export const Empty: Story = { args: { view: { connected: true, listing: { drivers: [] } } } };
 export const Partial: Story = {

@@ -32,13 +32,13 @@ The Subscriptions tab loads the accounts reported by the selected Root. Each car
 
 Each window shows its length, reset and expiration, time remaining, usage percentages, estimated output-token equivalents and remaining equivalents per hour when known. A passed window’s figures disappear. Show the projected next interval for known recurring resets, the next use state for a rolling reset, or a pending reading when the next grant is unknown. Current readings supersede estimates. Show the allowance expiry only when it is known or applies to a terminal allowance; retain the unknown DeepSeek API expiry. All date/time values use local 24-hour time without a timezone or year: HH:mm today, Tomorrow HH:mm tomorrow, and D MMM, HH:mm otherwise. Use k/M for token figures, for example ≈ 1.28M and ≈ 16.8k/hour. Keep estimate context on the figures.
 
-The Subscriptions page has one Refresh action. It rereads stored accounts and refreshes the configured Browser dashboards. Keep the last usable reading after a failure or disconnect. Each supported card has an Open in provider button, which shows the usage page in that subscription’s existing Arbol Browser profile. Show a pending state while opening and report an opening failure on its own card.
+The Subscriptions page has one Refresh action. It rereads stored accounts and refreshes the configured Browser dashboards. Keep the last usable reading after a failure or disconnect. Each supported card has an Open in provider button, which shows the usage page in that subscription’s existing Arbol Browser profile. Label the pending action “Verifying and opening…”. Confirm a verified handoff with “Opened in Arbol Browser.” on the same card. Report a failure on its own card.
 
 Order the cards by driver and vendor family as Claude Code, Codex, Pi/ChatGPT, Kimi Code, z.ai, MiMo, DeepSeek and MiniMax. Other accounts keep their alphabetical fallback. Editing a display name does not change its provider position.
 
 DeepSeek and MiniMax API cards show used and available output-token estimates and a single progress bar since the latest successful balance top-up. The model rate and starting-balance assumptions are available on the estimate. Show the available-token estimate when payment history is missing. These cards have no timed allowance sections. For timed plans, calculate the token figures from the current share and applicable calibration or published credit conversion. Mark a figure unavailable when the necessary reading is missing.
 
-The **Pages / Seqoya / Subscriptions** stories show current and next allowances, reset inventories, loading, empty, partial, unavailable, stale and disconnected states.
+The **Pages / Seqoya / Subscriptions** stories show current and next allowances, reset inventories, loading, empty, partial, unavailable, stale and disconnected states, and the pending and completed Browser handoff.
 
 ## Vigor
 

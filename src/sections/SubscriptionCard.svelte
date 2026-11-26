@@ -125,10 +125,14 @@
   {#each metrics?.issues ?? [] as issue}<p class="small warning">{issue}</p>{/each}
   {#if provider && onOpenUsage}
     <div class="row usage-actions">
-      <Button label={'Open in ' + provider} tone="ghost" busy={view.usageOpening === key}
+      <Button label={view.usageOpening === key ? 'Verifying and opening…' : 'Open in ' + provider} tone="ghost" busy={view.usageOpening === key}
         disabled={!view.connected || (!!view.usageOpening && view.usageOpening !== key)}
         onclick={() => onOpenUsage?.(driver, subscription.id)} />
     </div>
+  {/if}
+  {#if provider && view.usageOpened?.key === key && view.usageOpened.createdAt === subscription.createdAt
+    && view.usageOpened.family === subscription.family && subscription.state === 'signed_in'}
+    <p class="small muted" role="status">Opened in Arbol Browser.</p>
   {/if}
   {#if view.usageLinkErrors?.[key]}<p class="small warning" role="status">{view.usageLinkErrors[key]}</p>{/if}
 
