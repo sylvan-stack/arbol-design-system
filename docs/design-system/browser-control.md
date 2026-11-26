@@ -33,7 +33,13 @@ The local Browser preview shows the profile list on the left and tabs for the se
 
 BrowserProfiles provides two fictional identities on the same site, an ordinary profile and an empty profile. Switch among them to check that the tab strip and each page draft stay with their profile. The Browser preview and the design examples use the same navigation module and stylesheet. The Browser host owns Chromium sessions and validates the selected profile and tab before accepting a chrome action. The shell receives names, tab identities, and hostnames. The fictional page never signs in or reads actual browser state.
 
-In the signed Browser, use **Profiles** to choose an existing profile and **Open profile** to open its own window. An existing window keeps the tabs it already has open. **Create profile** creates a separate empty profile and selects it in the picker. The Signed Browser story demonstrates the workflow with fictional tabs and local page drafts. A profile whose earlier session still holds its owner lock is shown as unavailable and cannot be selected. The fictional Archive profile demonstrates this state, while other profiles remain available.
+In the signed Browser, use **Profiles** to choose an existing profile and **Open profile** to switch the visible window to that profile. Opening the visible profile again reuses its window. **Create profile** creates a separate empty profile and selects it in the picker. The Signed Browser story demonstrates the workflow with fictional tabs and local page drafts. A profile whose earlier session still holds its owner lock is shown as unavailable and cannot be selected. The fictional Archive profile demonstrates this state, while other profiles remain available.
+
+## One visible profile window
+
+Switching from the signed Browser hides the previous window while keeping its selected tab, drafts and sign-ins. An agent attachment leaves the visible profile alone. An ordinary open leaves a focused or busy Browser window in place until its owner switches profiles.
+
+The Signed Browser story shows one changing window with the same artwork as macOS. The forest-green tile contains a cream globe and a warm navigation arrow. The maintained PNG is an export of the artwork in the signed app icon.
 
 ## Native and production boundary
 

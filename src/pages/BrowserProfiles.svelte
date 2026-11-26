@@ -6,6 +6,7 @@
   type Tab = { id: number; site: string; note: string };
   type Profile = { id: string; name: string; selected: number | null; tabs: Tab[]; unavailable?: true };
   type Request = { type: string; value?: string | number; profile: string; tab: number | null };
+  const browserIcon = new URL('../assets/ArbolBrowser.png', import.meta.url).href;
   let { presentation = 'preview' }: { presentation?: 'preview' | 'signed' } = $props();
 
   let frame = $state<HTMLDivElement>();
@@ -92,7 +93,8 @@
 </script>
 
 {#if presentation === 'signed'}
-  <div class="profile-example">
+  <section class="profile-example" aria-label="Arbol Browser window">
+    <header class="browser-title"><img src={browserIcon} alt="" width="28" height="28" /> Arbol Browser</header>
     <div class="signed-profiles">
       <button type="button" aria-expanded={showProfiles} aria-controls="signed-profiles" onclick={() => showProfiles = !showProfiles}>Profiles</button>
       <span>{active.name}</span>
@@ -104,7 +106,7 @@
             {/each}
           </select>
         </label>
-        <button type="button" disabled={!destination || destination.unavailable || requested === selected} onclick={() => { if (!destination || destination.unavailable) return; selected = destination.id; profileStatus = 'Profile window opened.'; }}>Open profile</button>
+        <button type="button" disabled={!destination || destination.unavailable || requested === selected} onclick={() => { if (!destination || destination.unavailable) return; selected = destination.id; profileStatus = 'Profile switched.'; }}>Open profile</button>
         <form onsubmit={createProfile}>
           <label>New profile name <input bind:value={profileName} maxlength="64" required /></label>
           <button type="submit">Create profile</button>
@@ -118,7 +120,7 @@
       </div>
     </div>
     {@render page()}
-  </div>
+  </section>
 {:else}
   <div class="profile-example" bind:this={frame}></div>
   <section bind:this={fixture} hidden={!tab} aria-label="Fictional website">{@render page()}</section>
@@ -137,6 +139,15 @@
 
 <style>
   .profile-example { border: 1px solid var(--border); border-radius: var(--radius-md); }
+  .browser-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
   .fictional-profile-page { padding: 24px; }
   h2 { margin: 0 0 16px; font-size: 18px; }
   label { display: grid; max-width: 360px; gap: 6px; }
