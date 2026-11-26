@@ -22,6 +22,7 @@ export interface SubscriptionRecord {
   allowance?: AllowanceView;
   metrics?: SubscriptionMetrics;
   modelLabels?: SubscriptionModelLabels;
+  userScore?: number;
   problem?: { message: string };
   activity?: SubscriptionActivity;
   activityError?: string;
@@ -70,6 +71,9 @@ export interface SubscriptionWindow {
 
 export interface SubscriptionMetrics {
   issues?: string[];
+  price?: SubscriptionPrice;
+  estimatedTokenCost?: EstimatedTokenCost;
+  tokenCostUnavailableReason?: string;
   windows: SubscriptionWindow[];
   balance?: SubscriptionBalance;
   passedBoundaries?: number[];
@@ -78,6 +82,22 @@ export interface SubscriptionMetrics {
     observedAt?: string;
     entries: { label: string; expiresAt?: string | 0; expired?: boolean }[];
   };
+}
+
+export interface EstimatedTokenCost {
+  perMillion: number;
+  currency: 'USD' | 'CNY' | 'EUR';
+  basis: string;
+  window?: string;
+  windowsPerMonth?: number;
+}
+
+export interface SubscriptionPrice {
+  label: string;
+  amount: number;
+  currency: EstimatedTokenCost['currency'];
+  months: number;
+  source: 'payment' | 'list';
 }
 
 export interface SubscriptionBalance {
@@ -91,6 +111,12 @@ export interface SubscriptionBalance {
 export type RenameSubscription = (
   driver: string, account: SubscriptionRecord, name: string,
 ) => Promise<void>;
+
+export const defaultSubscriptionUserScore = 0.5;
+
+export function isSubscriptionUserScore(value: unknown): value is number {
+  return typeof value === 'number' && value >= 0 && value <= 1;
+}
 
 export type AllowanceWindowType = '5h' | 'week' | 'month' | 'other';
 
@@ -190,6 +216,7 @@ export interface SubscriptionListing {
 
 export interface SubscriptionView {
   connected: boolean;
+  saveUserScore?: (driver: string, account: SubscriptionRecord, score: number) => void;
   loading?: boolean;
   listing?: SubscriptionListing;
   error?: string;

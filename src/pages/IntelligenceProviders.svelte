@@ -2,7 +2,7 @@
   export const providerTabInsignia: Record<string, string> = {
     Subscriptions: 'Providers Subscriptions Metrics',
     Vigor: 'Subscriptions Vigor Pressure',
-    Routing: 'Subscription and Model routing',
+    'Brain Recipe Routing': 'Subscription and Model routing',
   };
   const providerTabs = Object.keys(providerTabInsignia);
 </script>
@@ -38,7 +38,7 @@
       {:else if tab === 'Vigor'}
         <VigorPanel view={vigor} onRefresh={onRefreshVigor} />
       {:else}
-        <div class="panel"><p class="muted">Routing controls will appear here.</p></div>
+        <div class="panel"><p class="muted">Brain Recipe Routing controls will appear here.</p></div>
       {/if}
     {/snippet}
   </Tabs>

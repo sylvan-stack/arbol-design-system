@@ -13,6 +13,8 @@ npm run storybook
 
 Open **http://localhost:6006**. Browse individual components, shared patterns, reusable sections, complete pages, native surface specifications and original design evidence. The toolbar switches all twelve themes, density and text size. All data is fictional; actions change local preview state.
 
+The local preview serves the checkout's `storybook-static/` directory.
+
 ```sh
 npm run check
 npm run build
@@ -20,7 +22,11 @@ npx playwright install chromium
 npm test
 ```
 
-`npm run preview` serves the static build locally. If Chromium is already installed as Google Chrome, use `PLAYWRIGHT_CHANNEL=chrome npm test` instead of installing another browser.
+Start that preview with `npm run preview`. If Chromium is already installed as Google Chrome, use `PLAYWRIGHT_CHANNEL=chrome npm test` instead of installing another browser.
+
+To retain a standalone Storybook bundle, set `build_dir` to a new private
+`~/Builds/sylvan-stack/arbol-design-system/<run-id>/storybook` path and run
+`npm run build -- --output-dir "$build_dir"`.
 
 The catalog contains **375 stories**, **80 reusable components/patterns/sections**, and **47 page examples**.
 

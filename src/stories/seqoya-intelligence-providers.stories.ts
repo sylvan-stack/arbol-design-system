@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'The Intelligence Providers page opens on Subscriptions with sample accounts, followed by Vigor and Routing.',
+          'The Intelligence Providers page opens on Subscriptions with sample accounts, followed by Vigor and Brain Recipe Routing.',
       },
     },
   },

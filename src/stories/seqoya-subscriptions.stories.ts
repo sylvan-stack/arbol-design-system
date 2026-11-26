@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/svelte-vite';
 import { useArgs } from 'storybook/preview-api';
 import type { ComponentProps } from 'svelte';
 import SubscriptionList from '../sections/SubscriptionList.svelte';
-import { subscriptionKey, type SubscriptionView } from '../sections/seqoya-subscriptions';
+import { subscriptionKey, type SubscriptionRecord, type SubscriptionView } from '../sections/seqoya-subscriptions';
 import { exampleListing } from '../fixtures/seqoya-subscriptions';
 
 const loaded: SubscriptionView = { connected: true, listing: exampleListing };
@@ -16,18 +16,22 @@ const meta = {
   } } },
   render: (args) => {
     const [, updateArgs] = useArgs();
+    const view = args.view ?? loaded;
+    function updateAccount(driver: string, account: SubscriptionRecord, edit: Pick<Partial<SubscriptionRecord>, 'label' | 'userScore'>) {
+      updateArgs({ view: { ...view, listing: view.listing && { drivers: view.listing.drivers.map(entry =>
+        entry.driver !== driver ? entry : ({
+          ...entry, subscriptions: entry.subscriptions?.map(row => row.id === account.id ? { ...row, ...edit } : row),
+        }),
+      ) } } });
+    }
     const props: ComponentProps<typeof SubscriptionList> = {
       ...args, onRefresh: () => updateArgs({ view: loaded }),
+      view: { ...view, saveUserScore: (driver, account, userScore) => updateAccount(driver, account, { userScore }) },
       onRenameSubscription: async (driver, account, label) => {
-        const view = args.view ?? loaded;
         if (view.usageRequests?.[subscriptionKey(driver, account.id)]?.error) {
           throw new Error('The Driver could not save this name. Your text is kept.');
         }
-        updateArgs({ view: { ...view, listing: view.listing && { drivers: view.listing.drivers.map(entry =>
-          entry.driver !== driver ? entry : ({
-            ...entry, subscriptions: entry.subscriptions?.map(row => row.id === account.id ? { ...row, label } : row),
-          }),
-        ) } } });
+        updateAccount(driver, account, { label });
       },
       onOpenUsage: (driver, subscription) => updateArgs({ view: {
         ...(args.view ?? loaded), usageLinkErrors: { [subscriptionKey(driver, subscription)]: 'Opening this subscription’s usage requires the App.' },
