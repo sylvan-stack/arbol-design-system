@@ -34,6 +34,8 @@ Each window shows its length, reset and expiration, time remaining, usage percen
 
 The Subscriptions page has one Refresh action. It rereads stored accounts and refreshes the configured Browser dashboards. Keep the last usable reading after a failure or disconnect. Each supported card has an Open in provider button, which shows the usage page in that subscription’s existing Arbol Browser profile. Label the pending action “Verifying and opening…”. Confirm a verified handoff with “Opened in Arbol Browser.” on the same card. Report a failure on its own card.
 
+On an explicit subscription open, the App can present the Browser profile controls while Chromium starts. Reuse a visible Browser window. The verified Chromium window takes over after the App hides its startup window, with website navigation still gated by the subscription identity.
+
 Order the cards by driver and vendor family as Claude Code, Codex, Pi/ChatGPT, Kimi Code, z.ai, MiMo, DeepSeek and MiniMax. Other accounts keep their alphabetical fallback. Editing a display name does not change its provider position.
 
 DeepSeek and MiniMax API cards show used and available output-token estimates and a single progress bar since the latest successful balance top-up. The model rate and starting-balance assumptions are available on the estimate. Show the available-token estimate when payment history is missing. These cards have no timed allowance sections. For timed plans, calculate the token figures from the current share and applicable calibration or published credit conversion. Mark a figure unavailable when the necessary reading is missing.

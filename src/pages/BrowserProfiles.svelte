@@ -7,7 +7,7 @@
   type Profile = { id: string; name: string; selected: number | null; tabs: Tab[]; unavailable?: true };
   type Request = { type: string; value?: string | number; profile: string; tab: number | null };
   const browserIcon = new URL('../assets/ArbolBrowser.png', import.meta.url).href;
-  let { presentation = 'preview' }: { presentation?: 'preview' | 'signed' } = $props();
+  let { presentation = 'preview' }: { presentation?: 'preview' | 'signed' | 'starting' } = $props();
 
   let frame = $state<HTMLDivElement>();
   let fixture = $state<HTMLElement>();
@@ -35,7 +35,7 @@
   let revision = 0;
 
   onMount(() => {
-    if (presentation === 'signed' || !frame || !fixture) return;
+    if (presentation !== 'preview' || !frame || !fixture) return;
     const navigation = mountProfileNavigation(frame, { onAction });
     navigation.page.append(fixture);
     function publish() {
@@ -92,7 +92,23 @@
   }
 </script>
 
-{#if presentation === 'signed'}
+{#if presentation === 'starting'}
+  <section class="profile-example" aria-label="Arbol Browser window">
+    <header class="browser-title"><img src={browserIcon} alt="" width="28" height="28" /> Arbol Browser</header>
+    <div class="signed-profiles">
+      <label>Profile
+        <select bind:value={requested}>
+          {#each profiles as profile (profile.id)}
+            <option value={profile.id} disabled={profile.unavailable}>{profile.name}</option>
+          {/each}
+        </select>
+      </label>
+      <button type="button" disabled={!destination || destination.unavailable || !!profileStatus}
+        onclick={() => { if (destination) profileStatus = `Opening ${destination.name}…`; }}>Open Profile</button>
+    </div>
+    <div class="startup-status" role="status">{profileStatus || 'Opening the subscription profile…'}</div>
+  </section>
+{:else if presentation === 'signed'}
   <section class="profile-example" aria-label="Arbol Browser window">
     <header class="browser-title"><img src={browserIcon} alt="" width="28" height="28" /> Arbol Browser</header>
     <div class="signed-profiles">
@@ -149,6 +165,7 @@
     font-weight: 600;
   }
   .fictional-profile-page { padding: 24px; }
+  .startup-status { padding: 0 12px 14px; color: var(--text); }
   h2 { margin: 0 0 16px; font-size: 18px; }
   label { display: grid; max-width: 360px; gap: 6px; }
   textarea { padding: 8px; color: var(--text); background: var(--canvas); border: 1px solid var(--border); border-radius: var(--radius-md); }
