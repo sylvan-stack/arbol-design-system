@@ -80,15 +80,17 @@ export function mountProfileNavigation(root, { onAction }) {
     profiles.replaceChildren(...next.profiles.map(profile => {
       const name = button('profile-choice', undefined);
       const header = element('span', 'profile-label-line');
-      const label = element('span', 'profile-name', profile.name);
+      const displayName = profile.unavailable ? profile.name + ' (unavailable)' : profile.name;
+      const label = element('span', 'profile-name', displayName);
       const badge = element('span', 'profile-count', String(profile.tabs.length));
       badge.setAttribute('aria-hidden', 'true');
       header.append(label, badge);
       name.append(header);
       const sites = [...new Set(profile.tabs.map(tab => tab.site).filter(Boolean))].join(' · ');
       if (sites) name.append(element('span', 'profile-sites', sites));
-      name.title = sites ? profile.name + ' · ' + sites : profile.name;
-      name.setAttribute('aria-label', profile.name + ', ' + profile.tabs.length + (profile.tabs.length === 1 ? ' open tab' : ' open tabs'));
+      name.title = sites ? displayName + ' · ' + sites : displayName;
+      name.setAttribute('aria-label', displayName + ', ' + profile.tabs.length + (profile.tabs.length === 1 ? ' open tab' : ' open tabs'));
+      name.disabled = profile.unavailable === true;
       name.dataset.control = 'profile:' + profile.id;
       if (profile === active) name.setAttribute('aria-current', 'true');
       name.addEventListener('click', () => send('select-profile', profile.id));

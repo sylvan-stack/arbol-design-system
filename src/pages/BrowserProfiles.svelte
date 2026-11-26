@@ -4,7 +4,7 @@
   import '../components/browser-profile-navigation.css';
 
   type Tab = { id: number; site: string; note: string };
-  type Profile = { id: string; name: string; selected: number | null; tabs: Tab[] };
+  type Profile = { id: string; name: string; selected: number | null; tabs: Tab[]; unavailable?: true };
   type Request = { type: string; value?: string | number; profile: string; tab: number | null };
   let { presentation = 'preview' }: { presentation?: 'preview' | 'signed' } = $props();
 
@@ -20,6 +20,7 @@
       { id: 4, site: 'workspace.example', note: 'A separate personal draft' },
     ] },
     { id: 'empty', name: 'Research', selected: null, tabs: [] },
+    { id: 'archive', name: 'Archive', selected: null, tabs: [], unavailable: true },
   ]);
   let selected = $state('studio');
   let requested = $state('studio');
@@ -28,6 +29,7 @@
   let showProfiles = $state(false);
   let active = $derived(profiles.find(profile => profile.id === selected)!);
   let tab = $derived(active.tabs.find(item => item.id === active.selected));
+  let destination = $derived(profiles.find(profile => profile.id === requested));
   let nextTab = 4;
   let revision = 0;
 
@@ -48,7 +50,7 @@
         return { error: 'The active profile or tab changed. Try again.' };
       switch (request.type) {
         case 'select-profile':
-          if (profiles.some(profile => profile.id === request.value)) selected = String(request.value);
+          if (profiles.some(profile => profile.id === request.value && !profile.unavailable)) selected = String(request.value);
           break;
         case 'select-tab':
           if (active.tabs.some(tab => tab.id === request.value)) active.selected = Number(request.value);
@@ -98,11 +100,11 @@
         <label>Browser profile
           <select bind:value={requested}>
             {#each profiles as profile (profile.id)}
-              <option value={profile.id}>{profile.name}{profile.id === selected ? ' (current)' : ''}</option>
+              <option value={profile.id} disabled={profile.unavailable}>{profile.name}{profile.unavailable ? ' (unavailable)' : profile.id === selected ? ' (current)' : ''}</option>
             {/each}
           </select>
         </label>
-        <button type="button" disabled={requested === selected} onclick={() => { selected = requested; profileStatus = 'Profile window opened.'; }}>Open profile</button>
+        <button type="button" disabled={!destination || destination.unavailable || requested === selected} onclick={() => { if (!destination || destination.unavailable) return; selected = destination.id; profileStatus = 'Profile window opened.'; }}>Open profile</button>
         <form onsubmit={createProfile}>
           <label>New profile name <input bind:value={profileName} maxlength="64" required /></label>
           <button type="submit">Create profile</button>
