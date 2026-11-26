@@ -4,7 +4,7 @@
   import '../components/browser-profile-navigation.css';
 
   type Tab = { id: number; site: string; note: string };
-  type Profile = { id: string; name: string; selected: number | null; tabs: Tab[] };
+  type Profile = { id: string; name: string; selected: number | null; tabs: Tab[]; unavailable?: true };
   type Request = { type: string; value?: string | number; profile: string; tab: number | null };
 
   let frame: HTMLDivElement;
@@ -19,6 +19,7 @@
       { id: 4, site: 'workspace.example', note: 'A separate personal draft' },
     ] },
     { id: 'empty', name: 'Research', selected: null, tabs: [] },
+    { id: 'archive', name: 'Archive', selected: null, tabs: [], unavailable: true },
   ]);
   let selected = $state('studio');
   let active = $derived(profiles.find(profile => profile.id === selected)!);
@@ -42,7 +43,7 @@
         return { error: 'The active profile or tab changed. Try again.' };
       switch (request.type) {
         case 'select-profile':
-          if (profiles.some(profile => profile.id === request.value)) selected = String(request.value);
+          if (profiles.some(profile => profile.id === request.value && !profile.unavailable)) selected = String(request.value);
           break;
         case 'select-tab':
           if (active.tabs.some(tab => tab.id === request.value)) active.selected = Number(request.value);
