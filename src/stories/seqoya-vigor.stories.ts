@@ -32,7 +32,7 @@ const kimi = {
     windows: [
       { label: 'Five hours', windowMinutes: 300, resetsAt: '2026-11-23T15:00:00Z', outputTokensRemaining: 160_000 },
       { label: 'Monthly, Kimi Code', windowMinutes: 43_200, resetsAt, expiresAt: resetsAt, terminal: true,
-        outputTokensUsed: 2_000_000, outputTokensRemaining: 2_000_000 },
+        outputTokensTotal: 4_000_000, outputTokensUsed: 2_000_000, outputTokensRemaining: 2_000_000 },
     ],
     estimatedTokenCost: {
       window: 'Monthly, Kimi Code', perMillion: 20, currency: 'USD',
@@ -75,7 +75,7 @@ const meta = {
   tags: ['autodocs'],
   args: { view: exampleView },
   parameters: { docs: { description: { component:
-    'The ranking follows docs/design-system/seqoya-vigor.md. Compare weekly subscriptions with Kimi Code and MiMo, and expand a row to trace its window and reference cost.',
+    'The ranking follows docs/design-system/seqoya-vigor.md. Expand a weekly, Kimi Code or MiMo row to see its total window tokens, available equivalents and reference cost.',
   } } },
 } satisfies Meta<typeof VigorPanel>;
 export default meta;

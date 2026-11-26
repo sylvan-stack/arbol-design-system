@@ -1,5 +1,5 @@
 import {
-  allowanceWindowType, defaultSubscriptionUserScore, isSubscriptionUserScore, subscriptionKey,
+  allowanceTokenTotal, allowanceWindowType, defaultSubscriptionUserScore, isSubscriptionUserScore, subscriptionKey,
   subscriptionName, subscriptionVendor, type EstimatedTokenCost, type SubscriptionListing,
   type SubscriptionRecord, type SubscriptionWindow,
 } from './seqoya-subscriptions';
@@ -122,6 +122,7 @@ interface PriorityRow {
   name: string;
   windowEnd?: number;
   windowLabel?: string;
+  totalTokens?: number;
   weekly?: boolean;
   expires?: boolean;
   approximate?: boolean;
@@ -291,7 +292,8 @@ function priorityRow(
     const nextDash = deadlines.some(expiry => expiry > windowEnd && expiry <= windowEnd + week * 1.5);
     next = calculate(settings, nextDash, windowHours, windowHours, full, rate, userScore);
   }
-  return { ...base, windowEnd, windowLabel: window.label, approximate: window.approximateReset, weekly, expires,
+  return { ...base, windowEnd, windowLabel: window.label, totalTokens: allowanceTokenTotal(window),
+    approximate: window.approximateReset, weekly, expires,
     dash, reason, matches, resetReady, current, next };
 }
 
