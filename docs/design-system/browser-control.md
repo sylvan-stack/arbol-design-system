@@ -35,6 +35,12 @@ BrowserProfiles provides two fictional identities on the same site, an ordinary 
 
 A profile whose earlier session still holds its owner lock appears as unavailable. Its selection is disabled. Other profiles keep their own navigation and remain selectable. The fictional Archive profile demonstrates this state.
 
+## One visible profile window
+
+The signed Browser shows one profile window. Reopening its active profile reuses the window. Selecting a different profile presents its own window and hides the former one while retaining its selected tab, drafts and sign-ins. An agent attachment leaves the current visible profile alone. An ordinary open leaves a focused or busy Browser window in place until its owner switches profiles.
+
+The Browser Profiles example shows one changing window and uses the same Browser artwork as macOS. The forest-green tile contains a cream globe and a warm navigation arrow. The maintained PNG is an export of the artwork in the signed app icon.
+
 ## Native and production boundary
 
 The browser source binds both shell and website WebContentsViews through checked native creation. Website pages start blocked, use sandbox/context isolation with Node disabled and use the profile website session. Shell uses a separate ephemeral session, restrictive CSP, a classic browser bundle and sandbox-compatible CommonJS preload. Actual sender WebContents, main frame, exact canonical bundled URL and current native window are checked before privileged request parameters. Authenticated handlers and the initial projection exist before shell loading/showing.

@@ -6,6 +6,7 @@
   type Tab = { id: number; site: string; note: string };
   type Profile = { id: string; name: string; selected: number | null; tabs: Tab[]; unavailable?: true };
   type Request = { type: string; value?: string | number; profile: string; tab: number | null };
+  const browserIcon = new URL('../assets/ArbolBrowser.png', import.meta.url).href;
 
   let frame: HTMLDivElement;
   let fixture: HTMLElement;
@@ -70,7 +71,10 @@
   });
 </script>
 
-<div class="profile-example" bind:this={frame}></div>
+<section class="browser-window" aria-label="Arbol Browser window">
+  <header class="browser-title"><img src={browserIcon} alt="" width="28" height="28" /> Arbol Browser</header>
+  <div bind:this={frame}></div>
+</section>
 <section class="fictional-profile-page" bind:this={fixture} hidden={!tab} aria-label="Fictional website">
   {#if tab}
     <h2>{tab.site || 'New tab'}</h2>
@@ -81,7 +85,16 @@
 </section>
 
 <style>
-  .profile-example { border: 1px solid var(--border); border-radius: var(--radius-md); }
+  .browser-window { border: 1px solid var(--border); border-radius: var(--radius-md); }
+  .browser-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
   .fictional-profile-page { padding: 24px; }
   h2 { margin: 0 0 16px; font-size: 18px; }
   label { display: grid; max-width: 360px; gap: 6px; }
