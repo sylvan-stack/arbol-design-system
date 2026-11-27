@@ -7,6 +7,8 @@ This layout supersedes the earlier allowance metrics table in the Seqoya chapter
 
 Each card shows its subscription name. Edit appears on heading hover or keyboard focus and stays visible on touch devices. Use InlineRename with the displayed name, Save/Enter, Cancel/Escape, 1–256 Unicode code points on one line, a saving state and retained text with an error on refusal. Native saving updates the Driver label. Default vendor labels retain familiar provider headings; custom names appear as entered.
 
+If a Driver cannot list its accounts, keep its last account cards visible with a stale label and suspend account actions. If there is no earlier list, show that Driver’s known default provider cards with an unavailable state. Only current accounts count as subscriptions. Render each available account as soon as its catalogue arrives, while dashboard readings load separately.
+
 Normalize allowance types and order them as 5h, week, month, other. Each section begins with a centered, small separator label: 5 hours, 7 days, a month, other. Separate provider scopes remain separate windows even when their durations match.
 
 The first section component is a remaining-capacity bar. Remaining occupies its left in the main color; Used occupies its right in the secondary color. Put the remaining and used percentages at the matching ends. Unknown shares remain neutral and are never zero-filled.

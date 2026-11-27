@@ -45,21 +45,9 @@ export const Empty: Story = { args: { view: { connected: true, listing: { driver
 export const Partial: Story = {
   args: { view: { connected: true, listing: {
     drivers: exampleListing.drivers.map((driver) => {
-      if (driver.driver === 'codex') return { driver: 'codex', error: { message: 'The driver did not answer in time.' } };
-      if (driver.driver === 'pi') return {
-        ...driver,
-        subscriptions: driver.subscriptions?.map((subscription) => subscription.family !== 'deepseek' ? subscription : {
-          ...subscription, metrics: { ...subscription.metrics, windows: [],
-            issues: ['The DeepSeek dashboard could not be reached. The last Browser balance is shown.'] },
-        }),
-      };
-      if (driver.driver !== 'mimo') return driver;
-      return {
-        ...driver,
-        subscriptions: driver.subscriptions?.map((subscription) => ({
-          ...subscription, metrics: { windows: [], issues: ['This subscription has no matching Arbol Browser profile.'] },
-        })),
-      };
+      if (driver.driver === 'pi') return { driver: 'pi', error: { message: 'The driver is unavailable.' } };
+      if (driver.driver === 'mimo') return { ...driver, error: { message: 'The driver did not answer in time.' } };
+      return driver;
     }),
   } } },
 };
