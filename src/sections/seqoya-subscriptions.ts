@@ -1,7 +1,7 @@
 interface ModelLabel {
   model?: string;
   performance: 'Top' | 'High' | 'Medium' | 'Low';
-  cost: 'Expensive' | 'Moderate' | 'Cheap';
+  cost?: 'Expensive' | 'Moderate' | 'Cheap';
 }
 
 export type SubscriptionModelLabels = readonly [
