@@ -4,7 +4,7 @@
   import '../components/browser-profile-navigation.css';
 
   type Tab = { id: number; site: string; note: string; past?: string[]; future?: string[] };
-  type Profile = { id: string; name: string; selected: number | null; tabs: Tab[]; unavailable?: true };
+  type Profile = { id: string; name: string; selected: number | null; tabs: Tab[]; workspaceAccount?: string; unavailable?: true };
   type Request = { type: string; value?: string | number; profile: string; tab: number | null };
   const browserIcon = new URL('../assets/ArbolBrowser.png', import.meta.url).href;
   let { presentation = 'preview' }: { presentation?: 'preview' | 'signed' | 'starting' } = $props();
@@ -13,11 +13,11 @@
   let fixture = $state<HTMLElement>();
   let profiles = $state<Profile[]>([
     { id: 'default', name: 'Default', selected: 1, tabs: [{ id: 1, site: 'library.example', note: '' }] },
-    { id: 'studio', name: 'Studio account', selected: 2, tabs: [
+    { id: 'studio', name: 'Studio account', selected: 2, workspaceAccount: 'Studio', tabs: [
       { id: 2, site: 'workspace.example', note: 'A draft in Studio' },
       { id: 3, site: 'support.example', note: '' },
     ] },
-    { id: 'personal', name: 'Personal account', selected: 4, tabs: [
+    { id: 'personal', name: 'Personal account', selected: 4, workspaceAccount: 'Personal', tabs: [
       { id: 4, site: 'workspace.example', note: 'A separate personal draft' },
     ] },
     { id: 'empty', name: 'Research', selected: null, tabs: [] },
@@ -214,6 +214,9 @@
 <div class="fictional-profile-page">
   {#if tab}
     <h2>{presentation === 'signed' ? tabTitle(tab) : tab.site || 'New tab'}</h2>
+    {#if presentation === 'signed' && tab.site === 'workspace.example' && active.workspaceAccount}
+      <p>Signed in as {active.workspaceAccount}</p>
+    {/if}
     <label>Fictional page draft
       <textarea bind:value={tab.note} rows="3"></textarea>
     </label>

@@ -55,7 +55,7 @@ arbol-design-system:scripts/check-elma-reading.mjs
 
 BrowserControl is a controlled presentation of owner, privacy, sharing, Taking control and independent page availability. ArbolBrowser supplies explicitly fictional local preview interactions; WorkspacePage's browser-control recipe and Pages/Browser/Control reach that same maintained composition. Components/BrowserControl keeps the isolated states and direct composition independently available. Semantic tokens, visible keyboard focus, a labelled address draft and named per-client actions remain shared.
 
-BrowserProfiles composes the portable profile list and active-profile tab strip for the local preview. Its Signed Browser and Compact variants show the installed layout with a 48-pixel toolbar and the active profile's tab titles in the sidebar. The native host owns the real profile list, tabs, window controls and selection. The design fixture uses fictional pages and keeps drafts local.
+BrowserProfiles composes the portable profile list and active-profile tab strip for the local preview. Its Signed Browser and Compact variants show a 48-pixel toolbar and the active profile's tab titles in the sidebar. They model switching inside one window while retaining each profile's selected tab, fictional account and page drafts. The installed Build `3e` still uses per-profile native windows. The native host owns the real profile list, tabs, window controls and selection.
 
 Browser Profile Navigation also shows the App-owned startup controls. It presents saved profile choices while the requested Chromium profile starts. The native App and the verified Browser coordinate one visible window and the existing Browser supplies page and tab controls once ready.
 
