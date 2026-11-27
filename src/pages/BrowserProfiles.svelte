@@ -4,7 +4,7 @@
   import '../components/browser-profile-navigation.css';
 
   type Tab = { id: number; site: string; note: string; past?: string[]; future?: string[] };
-  type Profile = { id: string; name: string; selected: number | null; tabs: Tab[]; workspaceAccount?: string; unavailable?: true };
+  type Profile = { id: string; name: string; selected: number | null; tabs: Tab[]; home?: string; workspaceAccount?: string; unavailable?: true };
   type Request = { type: string; value?: string | number; profile: string; tab: number | null };
   const browserIcon = new URL('../assets/ArbolBrowser.png', import.meta.url).href;
   let { presentation = 'preview' }: { presentation?: 'preview' | 'signed' | 'starting' } = $props();
@@ -21,6 +21,7 @@
       { id: 4, site: 'workspace.example', note: 'A separate personal draft' },
     ] },
     { id: 'empty', name: 'Research', selected: null, tabs: [] },
+    { id: 'usage', name: 'Usage plan', selected: null, tabs: [], home: 'usage.example' },
     { id: 'archive', name: 'Archive', selected: null, tabs: [], unavailable: true },
   ]);
   let selected = $state('studio');
@@ -52,7 +53,7 @@
         return { error: 'The active profile or tab changed. Try again.' };
       switch (request.type) {
         case 'select-profile':
-          if (profiles.some(profile => profile.id === request.value && !profile.unavailable)) selected = String(request.value);
+          selectProfile(profiles.find(profile => profile.id === request.value));
           break;
         case 'select-tab':
           if (active.tabs.some(tab => tab.id === request.value)) active.selected = Number(request.value);
@@ -82,6 +83,7 @@
     'library.example': 'Library',
     'workspace.example': 'Workspace',
     'support.example': 'Support center',
+    'usage.example': 'Subscription usage',
   };
   function tabTitle(item: Tab) {
     return titles[item.site] ?? (item.site || 'New tab');
@@ -90,6 +92,16 @@
     const id = ++nextTab;
     active.tabs.push({ id, site, note: '' });
     active.selected = id;
+  }
+  function selectProfile(profile: Profile | undefined) {
+    if (!profile || profile.unavailable) return;
+    selected = profile.id;
+    profileStatus = '';
+    if (!profile.tabs.length && profile.home) {
+      const id = ++nextTab;
+      profile.tabs.push({ id, site: profile.home, note: '' });
+      profile.selected = id;
+    }
   }
   function closeTab(id: number) {
     active.tabs = active.tabs.filter(item => item.id !== id);
@@ -177,7 +189,7 @@
           {#each profiles as profile (profile.id)}
             <button class="profile-choice" type="button" disabled={profile.unavailable} aria-current={profile.id === selected ? 'true' : undefined}
               aria-expanded={profile.id === selected} aria-controls={profile.id === selected ? 'signed-tabs' : undefined}
-              onclick={() => { selected = profile.id; profileStatus = ''; }}>
+              onclick={() => selectProfile(profile)}>
               <span>{profile.name}{profile.unavailable ? ' (unavailable)' : ''}</span>
             </button>
             {#if profile.id === selected}

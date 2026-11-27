@@ -47,7 +47,10 @@ export const Default: Story = {};
 const codexAccount = exampleListing.drivers.find(({ driver }) => driver === 'codex')!.subscriptions![0];
 const codexKey = subscriptionKey('codex', codexAccount.id);
 
-export const OpeningUsage: Story = { args: { view: { ...loaded, usageOpening: codexKey } } };
+export const OpeningUsage: Story = {
+  args: { view: { ...loaded, usageOpening: codexKey } },
+  parameters: { docs: { description: { story: 'Seqoya shows this state while the signed Browser prepares the bound dashboard. The native Browser comes forward when the dashboard is ready.' } } },
+};
 export const OpenedUsage: Story = { args: { view: { ...loaded, usageOpened: {
   key: codexKey, createdAt: codexAccount.createdAt, family: codexAccount.family,
 } } } };
