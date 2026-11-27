@@ -15,11 +15,11 @@ Unresponsive, crashed and unavailable are distinct from the owner. Recovery expl
 
 ## Navigation, layout and focus
 
-Use named buttons, a labelled address draft and agent selector, ordinary keyboard navigation and visible focus. Page addresses and titles are absent from contract-1 ShellTab/ShellEvent; the address control is explicitly **Open address**, not a fabricated current URL. State refresh preserves that draft. Tab buttons use stable identities and expose the current selection.
+Use named buttons, an accessible address field and visible keyboard focus. The signed toolbar keeps the accessible name **Address** and supports Enter without a separate Submit button. State refresh preserves the address draft. Tab buttons use stable identities and expose the current selection. Titles and history availability are projected only to the authenticated owner shell. They do not reach an agent through the tab API.
 
 Foreground selection is distinct from ordinary pending work. While selecting, fence every tab-target action, including an otherwise eligible Take and Close tab; Close Window/native close remain independent. Consume the real active tab from every accepted versioned snapshot (the host sends it first), keep visual tab order separately and never infer selection from an unversioned reply. First/fallback native activation precedes publication. Ordinary background popups preserve an existing selection. The Selecting example starts with eligible Take and offers separate local selection/pending controls to show that ordinary pending alone does not disable Take.
 
-Controls wrap and scroll within their own 272-pixel native toolbar area so Take and close remain accessible with large text. The real page remains a live sibling native view beneath it. Pointer exclusion must remain transparent to presentation. The design component uses semantic theme, surface, focus and status tokens across all twelve catalog themes. The application shell uses the Redwood baseline and system font fallback without external assets. The platform owns native window controls.
+The signed Browser uses one 48-pixel toolbar for the native window controls, Back, Forward, Reload and the address field. The ordinary title bar is hidden. The live website and its input shield occupy the area below the toolbar and beside the independently scrollable sidebar. Share, Return control, Take control and Recover page are available in Tab actions when relevant. The isolated BrowserControl story continues to exercise all ownership and recovery states. The design uses semantic theme, surface, focus and status tokens. The application shell uses the Redwood baseline and system font fallback without external assets.
 
 ## Maintained examples
 
@@ -33,13 +33,13 @@ The local Browser preview shows the profile list on the left and tabs for the se
 
 BrowserProfiles provides two fictional identities on the same site, an ordinary profile and an empty profile. Switch among them to check that the tab strip and each page draft stay with their profile. The Browser preview and the design examples use the same navigation module and stylesheet. The Browser host owns Chromium sessions and validates the selected profile and tab before accepting a chrome action. The shell receives names, tab identities, and hostnames. The fictional page never signs in or reads actual browser state.
 
-In the signed Browser, use **Profiles** to choose an existing profile and **Open profile** to switch the visible window to that profile. Opening the visible profile again reuses its window. **Create profile** creates a separate empty profile and selects it in the picker. The Signed Browser story demonstrates the workflow with fictional tabs and local page drafts. A profile whose earlier session still holds its owner lock is shown as unavailable and cannot be selected. The fictional Archive profile demonstrates this state, while other profiles remain available.
+Select a profile directly in the signed Browser sidebar. Its open tab titles appear beneath its name, each with a compact Close tab control. The plus button opens a tab in the active profile and New profile opens a small creation form. Creating a profile adds it to the list. An unavailable profile is labelled and cannot be selected. Signed Browser and Compact demonstrate these states with fictional tabs and local page drafts.
 
 ## One visible profile window
 
 Switching from the signed Browser hides the previous window while keeping its selected tab, drafts and sign-ins. An agent attachment leaves the visible profile alone. An ordinary open leaves a focused or busy Browser window in place until its owner switches profiles.
 
-The Signed Browser story shows one changing window with the same artwork as macOS. The forest-green tile contains a cream globe and a warm navigation arrow. The maintained PNG is an export of the artwork in the signed app icon.
+The Signed Browser story shows one changing window. The App-owned startup story uses the signed app icon. Its forest-green tile contains a cream globe and a warm navigation arrow.
 
 ## Native and production boundary
 
