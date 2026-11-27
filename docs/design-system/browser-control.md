@@ -39,7 +39,7 @@ Select a profile directly in the signed Browser sidebar. Its open tab titles app
 
 Selecting a profile changes the tab list and live page inside the same native Browser window. Its position and size stay in place. Returning to a profile restores its selected tab, draft and sign-in. A profile that cannot open leaves the current page available. An agent attachment leaves the visible profile alone.
 
-The Signed Browser story demonstrates the in-place switch with two fictional accounts on the same site. Build `3e` uses a different native window for each profile, so the story illustrates the accepted design for a successor. The App-owned startup story uses the signed app icon. Its forest-green tile contains a cream globe and a warm navigation arrow.
+The Signed Browser story demonstrates the in-place switch with two fictional accounts on the same site. Build `3e` uses a different native window for each profile, so the story illustrates the accepted design for a successor. The App-owned startup story focuses its profile controls while the engine starts. Foreground Subscription Open focuses the already-running Browser with its current selection intact while the subscription is verified. The App-owned startup story uses the signed app icon. Its forest-green tile contains a cream globe and a warm navigation arrow.
 
 ## Native and production boundary
 

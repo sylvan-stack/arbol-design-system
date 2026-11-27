@@ -7,9 +7,12 @@
   type Profile = { id: string; name: string; selected: number | null; tabs: Tab[]; home?: string; workspaceAccount?: string; unavailable?: true };
   type Request = { type: string; value?: string | number; profile: string; tab: number | null };
   const browserIcon = new URL('../assets/ArbolBrowser.png', import.meta.url).href;
-  let { presentation = 'preview' }: { presentation?: 'preview' | 'signed' | 'starting' } = $props();
+  let { presentation = 'preview', foreground = false }: {
+    presentation?: 'preview' | 'signed' | 'starting'; foreground?: boolean;
+  } = $props();
 
   let frame = $state<HTMLDivElement>();
+  let browserWindow = $state<HTMLElement>();
   let fixture = $state<HTMLElement>();
   let profiles = $state<Profile[]>([
     { id: 'default', name: 'Default', selected: 1, tabs: [{ id: 1, site: 'library.example', note: '' }] },
@@ -37,6 +40,7 @@
   let revision = 0;
 
   onMount(() => {
+    if (foreground) browserWindow?.focus({ preventScroll: true });
     if (presentation !== 'preview' || !frame || !fixture) return;
     const navigation = mountProfileNavigation(frame, { onAction });
     navigation.page.append(fixture);
@@ -151,7 +155,7 @@
 </script>
 
 {#if presentation === 'starting'}
-  <section class="profile-example" aria-label="Arbol Browser window">
+  <section class="profile-example" aria-label="Arbol Browser window" tabindex="-1" bind:this={browserWindow}>
     <header class="browser-title"><img src={browserIcon} alt="" width="28" height="28" /> Arbol Browser</header>
     <div class="signed-profiles">
       <label>Profile
@@ -167,7 +171,7 @@
     <div class="startup-status" role="status">{profileStatus || 'Opening the subscription profile…'}</div>
   </section>
 {:else if presentation === 'signed'}
-  <section class="profile-example compact-browser" aria-label="Arbol Browser window">
+  <section class="profile-example compact-browser" aria-label="Arbol Browser window" tabindex="-1" bind:this={browserWindow}>
     <header class="compact-toolbar" aria-label="Browser toolbar">
       <span class="window-controls" aria-hidden="true"><i></i><i></i><i></i></span>
       <div class="history">

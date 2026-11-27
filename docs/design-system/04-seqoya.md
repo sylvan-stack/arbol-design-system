@@ -34,7 +34,7 @@ Each window shows its length, reset and expiration, time remaining, usage percen
 
 The Subscriptions page has one Refresh action. It rereads stored accounts and refreshes the configured Browser dashboards. Keep the last usable reading after a failure or disconnect. Each supported card has an Open in provider button, which shows the usage page in that subscription’s existing Arbol Browser profile. Label the pending action “Verifying and opening…”. Confirm a verified handoff with “Opened in Arbol Browser.” on the same card. Report a failure on its own card.
 
-An explicit subscription open prepares Chromium and the bound dashboard quietly. Once the dashboard is ready, the Browser selects its profile in the existing window and brings that window to the foreground. Reopening the same dashboard reuses its ready tab. An empty subscription profile opens its saved dashboard as its first tab. Returning to a profile with live tabs resumes its selected tab.
+An explicit subscription open brings the existing Browser window forward. If the Browser is closed, the App gives its profile controls native focus while Chromium starts. Account verification continues while the window is available. Once the dashboard is ready, the Browser selects its profile and tab in the same window. Reopening the same dashboard reuses its ready tab. An empty subscription profile opens its saved dashboard as its first tab. Returning to a profile with live tabs resumes its selected tab.
 
 Order the cards by driver and vendor family as Claude Code, Codex, Pi/ChatGPT, Kimi Code, z.ai, MiMo, DeepSeek and MiniMax. Other accounts keep their alphabetical fallback. Editing a display name does not change its provider position.
 

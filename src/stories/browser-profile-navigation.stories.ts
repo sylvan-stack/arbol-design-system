@@ -21,7 +21,17 @@ export const SignedBrowser: Story = {
     },
   },
 };
-export const AppOwnedStartup: Story = { args: { presentation: 'starting' } };
+export const AppOwnedStartup: Story = { args: { presentation: 'starting', foreground: true } };
+export const ForegroundSubscriptionOpen: Story = {
+  args: { presentation: 'signed', foreground: true },
+  parameters: {
+    docs: {
+      description: {
+        story: 'The existing Browser becomes active on the explicit subscription click. The current tab remains usable while the requested usage page is verified.',
+      },
+    },
+  },
+};
 export const Compact: Story = { args: { presentation: 'signed' }, globals: { viewport: { value: 'mobile2', isRotated: false } } };
 export const BrowserProfilesPage: StoryObj<typeof WorkspacePage> = {
   render: () => ({ Component: WorkspacePage, props: { pageId: 'browser-profiles' } }),
