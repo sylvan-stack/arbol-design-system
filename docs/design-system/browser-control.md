@@ -33,7 +33,7 @@ The local Browser preview shows the profile list on the left and tabs for the se
 
 BrowserProfiles provides two fictional identities on the same site, an ordinary profile and an empty profile. Switch among them to check that the tab strip and each page draft stay with their profile. The Browser preview and the design examples use the same navigation module and stylesheet. The Browser host owns Chromium sessions and validates the selected profile and tab before accepting a chrome action. The shell receives names, tab identities, and hostnames. The fictional page never signs in or reads actual browser state.
 
-Select a profile directly in the signed Browser sidebar. Its open tab titles appear beneath its name, each with a compact Close tab control. The plus button opens a tab in the active profile and New profile opens a small creation form. Creating a profile adds it to the list. An unavailable profile is labelled and cannot be selected. Signed Browser and Compact demonstrate these states with fictional tabs and local page drafts.
+Each profile appears as a single color-accented card in the signed Browser sidebar. Its open tab titles remain visible when another profile is active. Individual tab markers distinguish the tabs within a card. Selecting a tab in another card switches to that profile and page in the same window. The plus button opens a tab in the active profile, with a maximum of seven. Close a tab in that profile to free a slot. The signed sidebar offers browsing controls and profile selection. An unavailable profile is labelled and cannot be selected.
 
 ## One visible profile window
 

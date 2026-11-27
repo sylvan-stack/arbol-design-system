@@ -30,12 +30,13 @@
   let selected = $state('studio');
   let opening = $state<string>();
   const openedProfiles = new Set(['studio', 'default']);
+  const profileColors = ['#d7a479', '#dcb464', '#b8c56d', '#92c18d', '#70bdaf', '#7ac0d4',
+    '#8caee5', '#9fa0e8', '#be9cdd', '#d59ac5', '#de92a3', '#de9c83'];
+  const tabColors = ['#d7a479', '#dcb464', '#92c18d', '#7ac0d4', '#9fa0e8', '#d59ac5', '#de9c83'];
   let openTimer: ReturnType<typeof setTimeout> | undefined;
   let requested = $state('studio');
-  let profileName = $state('');
   let profileStatus = $state('');
   let address = $state('');
-  let profileForm = $state<HTMLDetailsElement>();
   let active = $derived(profiles.find(profile => profile.id === selected)!);
   let tab = $derived(active.tabs.find(item => item.id === active.selected));
   let destination = $derived(profiles.find(profile => profile.id === requested));
@@ -97,6 +98,7 @@
     return titles[item.site] ?? (item.site || 'New tab');
   }
   function openTab(site = '') {
+    if (active.tabs.length >= 7) return;
     const id = ++nextTab;
     active.tabs.push({ id, site, note: '' });
     active.selected = id;
@@ -111,9 +113,10 @@
       profile.selected = id;
     }
   }
-  function openProfile(profile: Profile) {
-    if (opening || profile.id === selected || profile.unavailable) return;
-    if (openedProfiles.has(profile.id)) {
+  function openProfile(profile: Profile, target?: number) {
+    if (opening || profile.unavailable) return;
+    if (profile.id === selected || openedProfiles.has(profile.id)) {
+      if (target !== undefined) profile.selected = target;
       selectProfile(profile);
       return;
     }
@@ -121,6 +124,7 @@
     opening = profile.id;
     openTimer = setTimeout(() => {
       openedProfiles.add(profile.id);
+      if (target !== undefined) profile.selected = target;
       selectProfile(profile);
       opening = undefined;
     }, 450);
@@ -157,19 +161,6 @@
     if (tab) tab.note = '';
   }
 
-  function createProfile(event: SubmitEvent) {
-    event.preventDefault();
-    const id = profileName.trim();
-    if (!/^[a-z](?:[a-z0-9-]{0,62}[a-z0-9])?$/.test(id) || /^seqoya-[0-9a-f]{32}$/.test(id)) {
-      profileStatus = 'Use lowercase letters, numbers and hyphens.';
-      return;
-    }
-    if (profiles.some(profile => profile.id === id)) { profileStatus = 'That profile already exists.'; return; }
-    profiles.push({ id, name: id, selected: null, tabs: [] });
-    profileName = '';
-    if (profileForm) profileForm.open = false;
-    profileStatus = 'Profile created.';
-  }
 </script>
 
 {#if presentation === 'starting'}
@@ -205,37 +196,33 @@
       <aside class="compact-rail" aria-label="Browser navigation">
         <div class="rail-heading">
           <strong>Profiles</strong>
-          <button class="icon" type="button" aria-label="New tab" title="New tab" onclick={() => openTab()}>+</button>
+          <button class="icon" type="button" aria-label="New tab" disabled={active.tabs.length >= 7} title={active.tabs.length >= 7 ? "Close a tab before opening an eighth tab" : "New tab"} onclick={() => openTab()}>+</button>
         </div>
-        <nav aria-label="Browser profiles">
-          {#each profiles as profile (profile.id)}
-            <button class="profile-choice" class:opening={profile.id === opening} type="button" disabled={profile.unavailable}
-              aria-current={profile.id === selected ? 'true' : undefined} aria-disabled={opening !== undefined || profile.unavailable}
-              aria-expanded={profile.id === selected || profile.id === opening} aria-controls={profile.id === selected ? 'signed-tabs' : undefined}
-              onclick={() => openProfile(profile)}>
-              <span>{profile.name}{profile.unavailable ? ' (unavailable)' : ''}</span>
-            </button>
-            {#if profile.id === opening}<p class="profile-status opening-status" role="status">Opening profile…</p>{/if}
-            {#if profile.id === selected}
-              <div class="signed-tabs" id="signed-tabs" role="group" aria-label={'Open tabs in ' + profile.name}>
-                {#each profile.tabs as item (item.id)}
-                  <div class="tab-row">
-                    <button class="tab-title" type="button" title={tabTitle(item)} aria-current={active.selected === item.id ? 'page' : undefined}
-                      onclick={() => active.selected = item.id}>{tabTitle(item)}</button>
-                    <button class="icon close" type="button" aria-label={'Close tab: ' + tabTitle(item)} title="Close tab" onclick={() => closeTab(item.id)}>×</button>
-                  </div>
-                {/each}
-              </div>
-            {/if}
+        <nav aria-label="Browser profiles" aria-busy={opening !== undefined}>
+          {#each profiles as profile, index (profile.id)}
+            <section class="profile-card" class:current={profile.id === selected} style:--profile-color={profileColors[index % profileColors.length]}>
+              <button class="profile-choice" class:opening={profile.id === opening} type="button" disabled={profile.unavailable}
+                aria-current={profile.id === selected ? 'true' : undefined} onclick={() => openProfile(profile)}>
+                <span>{profile.name}{profile.unavailable ? ' (unavailable)' : ''}</span>
+              </button>
+              {#if profile.id === opening}<p class="profile-status opening-status" role="status">Opening profile…</p>{/if}
+              {#if profile.tabs.length}
+                <div class="signed-tabs" role="group" aria-label={'Open tabs in ' + profile.name}>
+                  {#each profile.tabs as item, slot (item.id)}
+                    <div class="tab-row" style:--tab-color={tabColors[slot]}>
+                      <button class="tab-title" type="button" title={tabTitle(item)}
+                        aria-current={profile.id === selected && active.selected === item.id ? 'page' : undefined}
+                        onclick={() => openProfile(profile, item.id)}>{tabTitle(item)}</button>
+                      {#if profile.id === selected}
+                        <button class="icon close" type="button" aria-label={'Close tab: ' + tabTitle(item)} title="Close tab" onclick={() => closeTab(item.id)}>×</button>
+                      {/if}
+                    </div>
+                  {/each}
+                </div>
+              {/if}
+            </section>
           {/each}
         </nav>
-        <details bind:this={profileForm}>
-          <summary>New profile</summary>
-          <form class="create-profile" onsubmit={createProfile}>
-            <input aria-label="New profile name" placeholder="profile-name" bind:value={profileName} maxlength="64" required />
-            <button type="submit" disabled={opening !== undefined}>Create</button>
-          </form>
-        </details>
         {#if profileStatus}<p class="profile-status" role="status">{profileStatus}</p>{/if}
       </aside>
       <main class="fixture-page" aria-label="Fictional website">{@render page()}</main>
@@ -279,7 +266,7 @@
   textarea:focus-visible { outline: 2px solid var(--focus); }
   .signed-profiles { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 12px; }
   button, input, select { padding: 6px 8px; color: var(--text); background: var(--canvas); border: 1px solid var(--border); border-radius: var(--radius-md); }
-  :is(button, input, select, summary):focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+  :is(button, input, select):focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
   .compact-browser { container-type: inline-size; overflow: hidden; font-size: 13px; }
   .compact-toolbar {
     display: flex;
@@ -303,26 +290,30 @@
   .rail-heading, .tab-row { display: flex; align-items: center; justify-content: space-between; }
   .rail-heading { padding-left: 7px; margin-bottom: 4px; }
   .compact-browser button { background: transparent; border-color: transparent; border-radius: 6px; }
-  .compact-browser button:enabled, summary { cursor: pointer; }
+  .compact-browser button:enabled { cursor: pointer; }
   .compact-browser button:enabled:hover { background: var(--canvas); }
   .compact-browser button:disabled { opacity: .55; }
   .icon { display: grid; place-items: center; width: 28px; height: 28px; padding: 0; font-size: 17px; }
   .close { width: 24px; height: 24px; }
   .profile-choice { display: flex; align-items: center; gap: 6px; width: 100%; min-height: 30px; text-align: left; }
-  .profile-choice::before { content: '›'; font-size: 16px; }
+  .compact-rail nav { display: grid; gap: 6px; }
+  .profile-card {
+    padding: 3px;
+    border: 1px solid color-mix(in srgb, var(--profile-color) 38%, var(--border));
+    border-inline-start: 3px solid var(--profile-color);
+    border-radius: 7px;
+    background: color-mix(in srgb, var(--profile-color) 8%, var(--surface));
+  }
+  .profile-card.current { background: color-mix(in srgb, var(--profile-color) 17%, var(--surface)); }
+  .profile-choice::before { content: ''; width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--profile-color); }
   .profile-choice:is([aria-current='true'], .opening) { font-weight: 600; }
-  .profile-choice[aria-expanded='true']::before { transform: rotate(90deg); }
   .compact-browser .profile-choice.opening { background: var(--canvas); }
   .profile-choice span, .tab-title { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-  .signed-tabs { margin: 3px 0 6px 8px; padding-left: 6px; border-left: 1px solid var(--border); }
+  .signed-tabs { margin: 2px 0 3px 7px; padding-inline-start: 3px; }
   .tab-row:has([aria-current='page']) { background: var(--canvas); border-radius: 6px; }
   .tab-title { min-width: 0; min-height: 28px; flex: 1; text-align: left; }
-  .tab-title[aria-current='page'] { box-shadow: inset 2px 0 var(--accent); }
-  .compact-rail details { margin: 6px 2px 0; }
-  summary { border-radius: 6px; padding: 6px; }
-  .create-profile { display: grid; gap: 2px; margin-top: 4px; }
-  .create-profile input { min-width: 0; }
-  .create-profile button { text-align: left; }
+  .tab-title::before { content: ''; display: inline-block; width: 4px; height: 12px; margin-inline-end: 6px; border-radius: 2px; background: var(--tab-color); }
+  .tab-title[aria-current='page'] { box-shadow: inset 2px 0 var(--profile-color); }
   .profile-status { margin: 6px 4px; }
   .opening-status { margin-inline-start: 16px; }
   .fixture-page textarea { width: 100%; }

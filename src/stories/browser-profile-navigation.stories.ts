@@ -16,7 +16,7 @@ export const SignedBrowser: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'On the first click, Personal shows progress in its sidebar row. Return to Studio and switch back to see the ready profile reuse its tab and draft. Usage plan opens its subscription dashboard on the first visit.',
+        story: 'Each profile card keeps its tab titles visible. Click a tab in Personal to switch directly to it, then return to Studio to see the same draft. The plus button pauses at seven tabs in the current profile.',
       },
     },
   },
