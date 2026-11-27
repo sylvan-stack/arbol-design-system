@@ -36,7 +36,7 @@ The Subscriptions page has one Refresh action. It rereads stored accounts and re
 
 An explicit subscription open brings the existing Browser window forward. If the Browser is closed, the App gives its profile controls native focus while Chromium starts. Account verification continues while the window is available. Once the dashboard is ready, the Browser selects its profile and tab in the same window. Reopening the same dashboard reuses its ready tab. An empty subscription profile opens its saved dashboard as its first tab. Returning to a profile with live tabs resumes its selected tab.
 
-Order the cards by driver and vendor family as Claude Code, Codex, Pi/ChatGPT, Kimi Code, z.ai, MiMo, DeepSeek and MiniMax. Other accounts keep their alphabetical fallback. Editing a display name does not change its provider position.
+Order the cards by driver and vendor family as Claude Code, Codex, Pi/ChatGPT, MiniMax, Kimi Code, DeepSeek, z.ai and MiMo. Other accounts keep their alphabetical fallback. Editing a display name does not change its provider position.
 
 DeepSeek and MiniMax API cards show used and available output-token estimates and a single progress bar since the latest successful balance top-up. The model rate and starting-balance assumptions are available on the estimate. Show the available-token estimate when payment history is missing. These cards have no timed allowance sections. For timed plans, calculate the token figures from the current share and applicable calibration or published credit conversion. Mark a figure unavailable when the necessary reading is missing.
 

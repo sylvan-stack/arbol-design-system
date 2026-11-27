@@ -19,6 +19,8 @@ Read each subscription’s metrics from its confirmed Arbol Browser profile. The
 
 Show **Total tokens per window** below Time remaining for each timed allowance. Use the calibrated full output-token-equivalent capacity or, for older records, the sum of known used and remaining equivalents for that window. Show the estimated total in millions, including for values below a million, and retain the estimate’s basis. Show Unavailable when the current or projected total is unknown. API balance sections omit this row.
 
+The card footer shows subscription price and period, estimated token cost and model performance. Show the observation time alongside retained token estimates when a new estimate is unavailable.
+
 Kimi's reported quota ratios and normalized limits do not encode token counts in thousands or millions. The earlier calls conversion is invalid. Calibrate a reference output capacity from recorded model output and quota-share movement in the same reset window, preserving both observations, identity, model and substituted arithmetic. Label quantities as estimates and expose their basis with the figures.
 
 Sources: maintained InlineRename and Tooltip; the original provider quota windows; Kimi's [quota schema](https://www.kimi.com/code/docs/en/kimi-code-cli/reference/server-api.html) and [credit rules](https://www.kimi.com/en/help/membership/membership-update-rules).
