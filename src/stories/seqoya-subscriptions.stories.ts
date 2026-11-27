@@ -78,6 +78,15 @@ export const Partial: Story = {
     }),
   } } },
 };
+export const DriverUnavailable: Story = {
+  args: { view: { connected: true, listing: {
+    drivers: exampleListing.drivers.map((driver) => {
+      if (driver.driver === 'pi') return { driver: 'pi', error: { message: 'The driver is unavailable.' } };
+      if (driver.driver === 'mimo') return { ...driver, error: { message: 'The driver did not answer in time.' } };
+      return driver;
+    }),
+  } } },
+};
 const nextWindows: SubscriptionView = { ...loaded, listing: {
   drivers: exampleListing.drivers.filter(({ driver }) => driver === 'mimo').map((driver) => ({
     ...driver,

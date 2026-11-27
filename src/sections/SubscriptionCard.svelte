@@ -6,13 +6,14 @@
   import {
     defaultSubscriptionUserScore, formatSubscriptionCardTime, isSubscriptionUserScore, sortAllowanceWindows,
     subscriptionKey, subscriptionName, subscriptionProviderOrder, subscriptionVendor,
-    type OpenSubscriptionUsage, type RenameSubscription, type SubscriptionRecord, type SubscriptionView,
+    type OpenSubscriptionUsage, type RenameSubscription, type SubscriptionAvailability, type SubscriptionRecord, type SubscriptionView,
   } from './seqoya-subscriptions';
 
-  let { driver, subscription, view, onOpenUsage, onRename }: {
+  let { driver, subscription, view, availability, onOpenUsage, onRename }: {
     driver: string;
     subscription: SubscriptionRecord;
     view: SubscriptionView;
+    availability?: SubscriptionAvailability;
     onOpenUsage?: OpenSubscriptionUsage;
     onRename?: RenameSubscription;
   } = $props();
@@ -53,6 +54,7 @@
 
   function saveUserScore(event: SubmitEvent) {
     event.preventDefault();
+    if (availability) return;
     const text = scoreDraft?.trim() ?? '';
     const score = /^[+-]?(?:\d+(?:[.,]\d*)?|[.,]\d+)(?:e[+-]?\d+)?$/i.test(text) ? Number(text.replace(',', '.')) : NaN;
     if (!isSubscriptionUserScore(score)) {
@@ -75,7 +77,7 @@
     problem = '';
   }
   async function saveName() {
-    if (!editing || !onRename || saving) return;
+    if (!editing || !onRename || availability || saving) return;
     const value = draft.trim();
     if (!value) { problem = 'Enter a subscription name.'; return; }
     if (Array.from(value).length > 256 || /[\u0000-\u001f\u007f]/.test(value)) {
@@ -93,93 +95,98 @@
 </script>
 
 <li class="panel stack account">
-  {#if editing}
+  {#if editing && !availability}
     <InlineRename label="Subscription name" value={draft} max={256} busy={saving} {problem}
       oninput={value => draft = value} onsave={() => void saveName()} oncancel={() => { editing = undefined; problem = ''; }} />
   {:else}
     <div class="subscription-heading">
       <h2>{name}</h2>
-      {#if onRename}
+      {#if onRename && !availability}
         <button class="edit-name" onclick={startEdit} disabled={!view.connected} aria-label={'Edit ' + name}>Edit</button>
       {/if}
     </div>
   {/if}
-  {#if view.nameNotices?.[key]}<p class="small warning" role="status">{view.nameNotices[key]}</p>{/if}
-  {#if subscription.problem}<p class="small warning">{subscription.problem.message}</p>{/if}
+  {#if availability === 'unverified'}
+    <p class="small warning">Account details unavailable.</p>
+  {:else}
+    {#if availability === 'stale'}<p class="small warning">Showing last known account details.</p>{/if}
+    {#if view.nameNotices?.[key]}<p class="small warning" role="status">{view.nameNotices[key]}</p>{/if}
+    {#if subscription.problem}<p class="small warning">{subscription.problem.message}</p>{/if}
 
-  {#if payAsYouGo}
-    {#if metrics?.balance}
-      <SubscriptionAllowance balance={metrics.balance} />
-    {:else}
-      <p class="small muted">No saved API balance.</p>
-    {/if}
-  {/if}
-  {#if !payAsYouGo || metrics?.windows.length}
-    {#each sortAllowanceWindows(metrics?.windows ?? []) as window}
-      <SubscriptionAllowance {window} />
-    {:else}
-      <p class="small muted">No saved allowance windows.</p>
-    {/each}
-  {/if}
-
-  {#each metrics?.issues ?? [] as issue}<p class="small warning">{issue}</p>{/each}
-  {#if provider && onOpenUsage}
-    <div class="row usage-actions">
-      <Button label={view.usageOpening === key ? 'Verifying and opening…' : 'Open in ' + provider} tone="ghost" busy={view.usageOpening === key}
-        disabled={!view.connected || (!!view.usageOpening && view.usageOpening !== key)}
-        onclick={() => onOpenUsage?.(driver, subscription.id)} />
-    </div>
-  {/if}
-  {#if provider && view.usageOpened?.key === key && view.usageOpened.createdAt === subscription.createdAt
-    && view.usageOpened.family === subscription.family && subscription.state === 'signed_in'}
-    <p class="small muted" role="status">Opened in Arbol Browser.</p>
-  {/if}
-  {#if view.usageLinkErrors?.[key]}<p class="small warning" role="status">{view.usageLinkErrors[key]}</p>{/if}
-
-  {#if !payAsYouGo && !metrics?.balance && (view.saveUserScore || subscription.userScore !== undefined)}
-    <dl class="metrics user-score">
-      <dt>User score</dt>
-      <dd>
-        {#if scoreDraft !== undefined}
-          <form class="score-editor" onsubmit={saveUserScore}>
-            <input type="text" inputmode="decimal" aria-label={'User score for ' + name}
-              aria-invalid={scoreInvalid} aria-describedby={scoreError ? scoreErrorId : undefined}
-              bind:this={scoreInput} bind:value={scoreDraft}
-              oninput={() => { scoreError = ''; scoreInvalid = false; }}
-              onkeydown={(event) => {
-                if (event.key === 'Escape' && !event.isComposing) {
-                  event.preventDefault();
-                  event.stopPropagation();
-                  void closeUserScore();
-                }
-              }} />
-            <button type="submit">Save</button>
-            <button type="button" onclick={closeUserScore}>Cancel</button>
-            {#if scoreError}<span class="small warning" id={scoreErrorId} role="alert">{scoreError}</span>{/if}
-          </form>
-        {:else if view.saveUserScore}
-          <button type="button" class="score-value" bind:this={scoreButton} title="Option-click to edit"
-            aria-label={'Edit user score for ' + name + ', current score ' + userScore}
-            onclick={editUserScore}>{userScore}</button>
-        {:else}
-          {userScore}
-        {/if}
-      </dd>
-    </dl>
-  {/if}
-
-  {#if resets?.count !== undefined && resets.count > 0}
-    <div class="reset-section stack">
-      <dl class="metrics"><dt>Available limit resets</dt><dd>{resets.count}</dd></dl>
-      {#if resets.entries.some(reset => !reset.expired)}
-        <ul class="reset-grants">
-          {#each resets.entries.filter(reset => !reset.expired) as reset}
-            <li>{reset.label}{#if reset.expiresAt === 0} · Never expires
-              {:else if reset.expiresAt} · Expires <time datetime={reset.expiresAt}>{formatSubscriptionCardTime(reset.expiresAt)}</time>{/if}</li>
-          {/each}
-        </ul>
+    {#if payAsYouGo}
+      {#if metrics?.balance}
+        <SubscriptionAllowance balance={metrics.balance} />
+      {:else}
+        <p class="small muted">No saved API balance.</p>
       {/if}
-    </div>
+    {/if}
+    {#if !payAsYouGo || metrics?.windows.length}
+      {#each sortAllowanceWindows(metrics?.windows ?? []) as window}
+        <SubscriptionAllowance {window} />
+      {:else}
+        <p class="small muted">No saved allowance windows.</p>
+      {/each}
+    {/if}
+
+    {#each metrics?.issues ?? [] as issue}<p class="small warning">{issue}</p>{/each}
+    {#if provider && onOpenUsage && !availability}
+      <div class="row usage-actions">
+        <Button label={view.usageOpening === key ? 'Verifying and opening…' : 'Open in ' + provider} tone="ghost" busy={view.usageOpening === key}
+          disabled={!view.connected || (!!view.usageOpening && view.usageOpening !== key)}
+          onclick={() => onOpenUsage?.(driver, subscription.id)} />
+      </div>
+    {/if}
+    {#if provider && view.usageOpened?.key === key && view.usageOpened.createdAt === subscription.createdAt
+      && view.usageOpened.family === subscription.family && subscription.state === 'signed_in'}
+      <p class="small muted" role="status">Opened in Arbol Browser.</p>
+    {/if}
+    {#if view.usageLinkErrors?.[key]}<p class="small warning" role="status">{view.usageLinkErrors[key]}</p>{/if}
+
+    {#if !payAsYouGo && !metrics?.balance && (view.saveUserScore || subscription.userScore !== undefined)}
+      <dl class="metrics user-score">
+        <dt>User score</dt>
+        <dd>
+          {#if scoreDraft !== undefined && !availability}
+            <form class="score-editor" onsubmit={saveUserScore}>
+              <input type="text" inputmode="decimal" aria-label={'User score for ' + name}
+                aria-invalid={scoreInvalid} aria-describedby={scoreError ? scoreErrorId : undefined}
+                bind:this={scoreInput} bind:value={scoreDraft}
+                oninput={() => { scoreError = ''; scoreInvalid = false; }}
+                onkeydown={(event) => {
+                  if (event.key === 'Escape' && !event.isComposing) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    void closeUserScore();
+                  }
+                }} />
+              <button type="submit">Save</button>
+              <button type="button" onclick={closeUserScore}>Cancel</button>
+              {#if scoreError}<span class="small warning" id={scoreErrorId} role="alert">{scoreError}</span>{/if}
+            </form>
+          {:else if view.saveUserScore && !availability}
+            <button type="button" class="score-value" bind:this={scoreButton} title="Option-click to edit"
+              aria-label={'Edit user score for ' + name + ', current score ' + userScore}
+              onclick={editUserScore}>{userScore}</button>
+          {:else}
+            {userScore}
+          {/if}
+        </dd>
+      </dl>
+    {/if}
+
+    {#if resets?.count !== undefined && resets.count > 0}
+      <div class="reset-section stack">
+        <dl class="metrics"><dt>Available limit resets</dt><dd>{resets.count}</dd></dl>
+        {#if resets.entries.some(reset => !reset.expired)}
+          <ul class="reset-grants">
+            {#each resets.entries.filter(reset => !reset.expired) as reset}
+              <li>{reset.label}{#if reset.expiresAt === 0} · Never expires
+                {:else if reset.expiresAt} · Expires <time datetime={reset.expiresAt}>{formatSubscriptionCardTime(reset.expiresAt)}</time>{/if}</li>
+            {/each}
+          </ul>
+        {/if}
+      </div>
+    {/if}
   {/if}
 </li>
 
