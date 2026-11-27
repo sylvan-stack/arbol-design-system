@@ -28,6 +28,9 @@
     { id: 'archive', name: 'Archive', selected: null, tabs: [], unavailable: true },
   ]);
   let selected = $state('studio');
+  let opening = $state<string>();
+  const openedProfiles = new Set(['studio', 'default']);
+  let openTimer: ReturnType<typeof setTimeout> | undefined;
   let requested = $state('studio');
   let profileName = $state('');
   let profileStatus = $state('');
@@ -41,6 +44,7 @@
 
   onMount(() => {
     if (foreground) browserWindow?.focus({ preventScroll: true });
+    if (presentation === 'signed') return () => clearTimeout(openTimer);
     if (presentation !== 'preview' || !frame || !fixture) return;
     const navigation = mountProfileNavigation(frame, { onAction });
     navigation.page.append(fixture);
@@ -106,6 +110,20 @@
       profile.tabs.push({ id, site: profile.home, note: '' });
       profile.selected = id;
     }
+  }
+  function openProfile(profile: Profile) {
+    if (opening || profile.id === selected || profile.unavailable) return;
+    if (openedProfiles.has(profile.id)) {
+      selectProfile(profile);
+      return;
+    }
+    profileStatus = '';
+    opening = profile.id;
+    openTimer = setTimeout(() => {
+      openedProfiles.add(profile.id);
+      selectProfile(profile);
+      opening = undefined;
+    }, 450);
   }
   function closeTab(id: number) {
     active.tabs = active.tabs.filter(item => item.id !== id);
@@ -191,11 +209,13 @@
         </div>
         <nav aria-label="Browser profiles">
           {#each profiles as profile (profile.id)}
-            <button class="profile-choice" type="button" disabled={profile.unavailable} aria-current={profile.id === selected ? 'true' : undefined}
-              aria-expanded={profile.id === selected} aria-controls={profile.id === selected ? 'signed-tabs' : undefined}
-              onclick={() => selectProfile(profile)}>
+            <button class="profile-choice" class:opening={profile.id === opening} type="button" disabled={profile.unavailable}
+              aria-current={profile.id === selected ? 'true' : undefined} aria-disabled={opening !== undefined || profile.unavailable}
+              aria-expanded={profile.id === selected || profile.id === opening} aria-controls={profile.id === selected ? 'signed-tabs' : undefined}
+              onclick={() => openProfile(profile)}>
               <span>{profile.name}{profile.unavailable ? ' (unavailable)' : ''}</span>
             </button>
+            {#if profile.id === opening}<p class="profile-status opening-status" role="status">Opening profile…</p>{/if}
             {#if profile.id === selected}
               <div class="signed-tabs" id="signed-tabs" role="group" aria-label={'Open tabs in ' + profile.name}>
                 {#each profile.tabs as item (item.id)}
@@ -213,7 +233,7 @@
           <summary>New profile</summary>
           <form class="create-profile" onsubmit={createProfile}>
             <input aria-label="New profile name" placeholder="profile-name" bind:value={profileName} maxlength="64" required />
-            <button type="submit">Create</button>
+            <button type="submit" disabled={opening !== undefined}>Create</button>
           </form>
         </details>
         {#if profileStatus}<p class="profile-status" role="status">{profileStatus}</p>{/if}
@@ -290,8 +310,9 @@
   .close { width: 24px; height: 24px; }
   .profile-choice { display: flex; align-items: center; gap: 6px; width: 100%; min-height: 30px; text-align: left; }
   .profile-choice::before { content: '›'; font-size: 16px; }
-  .profile-choice[aria-current='true'] { font-weight: 600; }
-  .profile-choice[aria-current='true']::before { transform: rotate(90deg); }
+  .profile-choice:is([aria-current='true'], .opening) { font-weight: 600; }
+  .profile-choice[aria-expanded='true']::before { transform: rotate(90deg); }
+  .compact-browser .profile-choice.opening { background: var(--canvas); }
   .profile-choice span, .tab-title { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
   .signed-tabs { margin: 3px 0 6px 8px; padding-left: 6px; border-left: 1px solid var(--border); }
   .tab-row:has([aria-current='page']) { background: var(--canvas); border-radius: 6px; }
@@ -303,5 +324,6 @@
   .create-profile input { min-width: 0; }
   .create-profile button { text-align: left; }
   .profile-status { margin: 6px 4px; }
+  .opening-status { margin-inline-start: 16px; }
   .fixture-page textarea { width: 100%; }
 </style>

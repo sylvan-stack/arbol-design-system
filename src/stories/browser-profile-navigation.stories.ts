@@ -16,7 +16,7 @@ export const SignedBrowser: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Open Usage plan to see its subscription dashboard as the first tab. Switch to Personal and return to Studio to see its selected tab and draft in the same window.',
+        story: 'On the first click, Personal shows progress in its sidebar row. Return to Studio and switch back to see the ready profile reuse its tab and draft. Usage plan opens its subscription dashboard on the first visit.',
       },
     },
   },
