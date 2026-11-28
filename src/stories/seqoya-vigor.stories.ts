@@ -9,7 +9,9 @@ const account: SubscriptionRecord = {
   id: 'project', family: 'chatgpt', label: 'Project account', auth: 'vendor_login', state: 'signed_in',
   userScore: 0.7,
   metrics: {
-    windows: [{ label: 'Weekly', windowMinutes: 10_080, resetsAt, outputTokensRemaining: 180_000 }],
+    windows: [{ label: 'Weekly', windowMinutes: 10_080, resetsAt, outputTokensRemaining: 180_000,
+      outputTokensTotal: 1_000_000,
+      calibrationDetail: 'GPT-6.2 Sol calibration · 400K output tokens across 40 percentage points · rounding range 0.98M–1.03M.' }],
     price: { label: 'ChatGPT Pro 200', amount: 200, currency: 'USD', months: 1, source: 'list' },
     estimatedTokenCost: {
       window: 'Weekly', perMillion: 200 / (52 / 12), currency: 'USD',
@@ -115,7 +117,12 @@ export const AutomaticRules: Story = {
 export const Loading: Story = { args: { view: { loading: true } } };
 export const Empty: Story = { args: { view: { priority: { now, listing: { drivers: [] } } } } };
 export const Partial: Story = {
-  args: { view: { ...exampleView, accountIssues: ['Another account could not refresh its usage.'] } },
+  args: { view: { accountIssues: ['Another account could not refresh its usage.'], priority: { now, listing: { drivers: [
+    { driver: 'codex', subscriptions: [{ ...account, metrics: { windows: [
+      { label: 'Weekly', windowMinutes: 10_080, resetsAt, usedPercent: 8,
+        calibrationDetail: 'Collecting GPT-6.2 Sol calibration · 8 of 20 percentage points.' },
+    ] } }] },
+  ] } } } },
 };
 export const FailedRefresh: Story = {
   args: { view: { ...exampleView, error: 'Could not refresh account usage.' } },
