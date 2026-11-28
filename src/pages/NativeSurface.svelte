@@ -31,6 +31,7 @@
     trayShortcutAvailable = true,
     traySeqoyaShortcutAvailable = true,
     trayWilloShortcutAvailable = true,
+    temporaryBuild = '',
   }: {
     surface?: string;
     trayCatalogueState?: TrayCatalogueState;
@@ -43,6 +44,8 @@
     trayShortcutAvailable?: boolean;
     traySeqoyaShortcutAvailable?: boolean;
     trayWilloShortcutAvailable?: boolean;
+    /** The number of a Build that is not the installed stable one; empty for the stable Build. */
+    temporaryBuild?: string;
   } = $props();
   let feedback = $state('');
   let url = $state('');
@@ -240,7 +243,8 @@
     {#each previewWindows as window (window.id)}
       <section
         class="window preview-window"
-        aria-label={window.surface}
+        class:temporary-build={Boolean(temporaryBuild)}
+        aria-label={temporaryBuild ? `${window.surface} · temporary Build ${temporaryBuild}` : window.surface}
         tabindex="-1"
         bind:this={previewFrames[window.id]}
       >
@@ -280,9 +284,11 @@
 {:else}
 <div class="native stack">
   <p class="eyebrow">Native adapter specification · Browser equivalent</p>
-  <div class="window">
+  <div class="window" class:temporary-build={Boolean(temporaryBuild)}>
     <div class="titlebar">
-      <span class="lights" aria-hidden="true">● ● ●</span><strong>{surface}</strong><span
+      <span class="lights" aria-hidden="true">● ● ●</span><strong
+        >{surface}{temporaryBuild ? ` · temporary Build ${temporaryBuild}` : ''}</strong
+      ><span
         class="small muted">Arbol</span
       >
     </div>
@@ -406,6 +412,11 @@ repository: sample-repo</pre>
     border-radius: 12px;
     box-shadow: var(--shadow);
     overflow: hidden;
+  }
+  /* A Build that is not the installed stable one frames every window it shows (BLD-0.29). */
+  .window.temporary-build {
+    outline: 3px solid var(--temporary-build);
+    outline-offset: -3px;
   }
   .titlebar {
     min-height: 44px;

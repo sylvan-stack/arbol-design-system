@@ -35,6 +35,7 @@
   --link: #f2c9ac;
   --success: #b9e5c4;
   --warning: #ffe0a0;
+  --temporary-build: #ff9f0a;
   --failure: #ffb6b0;
   --focus: #ffe2b8;
   color-scheme: dark;
@@ -58,6 +59,7 @@
   --link: #482611;
   --success: #17371f;
   --warning: #483003;
+  --temporary-build: #ff9500;
   --failure: #5b1414;
   --focus: #65361c;
   color-scheme: light;

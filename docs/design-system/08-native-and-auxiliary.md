@@ -41,6 +41,12 @@ arbol:app/Arbol/ArbolApp.swift
 arbol:app/Arbol/UISwitcherHotkeys.swift
 -->
 
+## Temporary Build frame
+
+A Build that is not the installed stable one of its component is a temporary Build: a candidate before promotion, or a Build made to try a change. It frames every window it shows with a three-point border in the temporary-Build colour, `--temporary-build`, and adds `· temporary Build <number>` to the window title. The colour is the platform's orange, `#ff9f0a` on dark themes and `#ff9500` on light ones, so the frame reads the same on every theme and is never confused with a phase, a warning or a selection.
+
+The frame is drawn by the native window above the rendered content. It takes no clicks, changes no layout and is not part of the renderer. The stable Build draws nothing extra, so there is no setting to switch the cue off. The story `Native adapters/Temporary Build Frame` shows both states. The Arbol Swift App implements the frame for the Elma Chat, Seqoya Lab and Willo Station windows and the Browser launch window; Arbol Browser and Arbol Builder Manager adopt the same colour, width and title wording.
+
 ## Arbol menu bar
 
 The Swift App shows the Arbol oak as an 18-point monochrome template in the macOS menu bar. The icon is labelled Arbol for assistive technology. It opens a native menu with **Trunks** and **Quit**. The per-user login launch adds the icon with the menu closed and keeps focus in the active application. Quit ends the resident App.
